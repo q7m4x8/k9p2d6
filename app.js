@@ -1,4 +1,5 @@
 const STORAGE_KEY = 'xiaotian_quiz_state_v1'
+const USER_DEFAULTS = { attempts: {}, wrong: [], favorites: [], theme: 0, quizFont: 'small' }
 const themes = [
   { accent: '#ff7a1a', soft: '#fff0df', ink: '#c84f00', glow: '#fff0e2' },
   { accent: '#2878e8', soft: '#e9f2ff', ink: '#1559aa', glow: '#eaf2ff' },
@@ -24,9 +25,9 @@ const toast = document.querySelector('#toast')
 
 function loadUserState() {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { attempts: {}, wrong: [], favorites: [], theme: 0 }
+    return { ...USER_DEFAULTS, ...(JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}) }
   } catch {
-    return { attempts: {}, wrong: [], favorites: [], theme: 0 }
+    return { ...USER_DEFAULTS }
   }
 }
 
@@ -44,6 +45,14 @@ function setTheme(index) {
   state.user.theme = index
   saveUserState()
   renderThemePicker()
+}
+
+function setQuizFont(size, shouldRender = true) {
+  const nextSize = ['small', 'medium', 'large'].includes(size) ? size : 'small'
+  document.documentElement.dataset.quizFont = nextSize
+  state.user.quizFont = nextSize
+  saveUserState()
+  if (shouldRender && state.route === 'quiz') render()
 }
 
 function renderThemePicker() {
@@ -112,6 +121,7 @@ function render() {
     wrong: () => renderQuestionList('wrong'),
     favorites: () => renderQuestionList('favorites')
   }
+  document.querySelector('#app').classList.toggle('quiz-mode', state.route === 'quiz')
   main.innerHTML = (renderers[state.route] || renderHome)()
 }
 
@@ -208,9 +218,15 @@ function renderQuiz() {
   const primaryLabel = reveal
     ? (state.sessionIndex === state.session.length - 1 ? '查看学习进度' : '下一题解析')
     : (state.sessionIndex === state.session.length - 1 ? '交卷并查看解析' : '下一题')
+  const fontControls = `<div class="font-controls" role="group" aria-label="调整题目字号">
+    <span>字号</span>
+    <button data-quiz-font="small" class="${state.user.quizFont === 'small' ? 'active' : ''}" aria-label="小字号">小</button>
+    <button data-quiz-font="medium" class="${state.user.quizFont === 'medium' ? 'active' : ''}" aria-label="中字号">中</button>
+    <button data-quiz-font="large" class="${state.user.quizFont === 'large' ? 'active' : ''}" aria-label="大字号">大</button>
+  </div>`
   return `<section class="quiz-shell">
     ${resultSummary}
-    <div class="quiz-topline"><div class="quiz-progress-copy"><b>${state.sessionIndex + 1}</b> / ${state.session.length}</div><div class="quiz-meta"><span>${escapeHtml(question.paper)}</span><b>${reveal ? `答对 ${correctCount} 题` : `已答 ${answeredCount} 题`}</b></div></div>
+    <div class="quiz-topline"><div class="quiz-progress-copy"><b>${state.sessionIndex + 1}</b> / ${state.session.length}</div><div class="quiz-tools"><div class="quiz-meta"><span>${escapeHtml(question.paper)}</span><b>${reveal ? `答对 ${correctCount} 题` : `已答 ${answeredCount} 题`}</b></div>${fontControls}</div></div>
     <div class="progress-track"><i style="--progress:${progress}%"></i></div>
     <article class="question-card">
       <div class="question-head"><span class="tag question-type">单选题 · ${escapeHtml(question.source)}</span><button class="favorite-button ${isFavorite ? 'active' : ''}" data-action="favorite">★ ${isFavorite ? '已收藏' : '收藏'}</button></div>
@@ -297,6 +313,8 @@ function openGuide() {
 }
 
 document.addEventListener('click', event => {
+  const quizFont = event.target.closest('[data-quiz-font]')
+  if (quizFont) return setQuizFont(quizFont.dataset.quizFont)
   const theme = event.target.closest('[data-theme]')
   if (theme) return setTheme(Number(theme.dataset.theme))
   const nav = event.target.closest('[data-route]')
@@ -345,6 +363,7 @@ document.querySelector('#guideButton').addEventListener('click', openGuide)
 async function init() {
   renderThemePicker()
   setTheme(state.user.theme || 0)
+  setQuizFont(state.user.quizFont || 'small', false)
   try {
     const response = await fetch('./data/questions.json')
     if (!response.ok) throw new Error(`HTTP ${response.status}`)
