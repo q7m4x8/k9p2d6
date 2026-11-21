@@ -1,0 +1,9 @@
+{
+  "name": "小天爱刷题",
+  "short_name": "小天刷题",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fff9f2",
+  "theme_color": "#ff7a1a",
+  "lang": "zh-CN"
+}
