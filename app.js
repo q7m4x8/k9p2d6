@@ -47,12 +47,29 @@ function setTheme(index) {
   renderThemePicker()
 }
 
-function setQuizFont(size, shouldRender = true) {
+function setQuizFont(size) {
   const nextSize = ['small', 'medium', 'large'].includes(size) ? size : 'small'
   document.documentElement.dataset.quizFont = nextSize
   state.user.quizFont = nextSize
   saveUserState()
-  if (shouldRender && state.route === 'quiz') render()
+  document.querySelectorAll('button[data-quiz-font]').forEach(button => {
+    const selected = button.dataset.quizFont === nextSize
+    button.classList.toggle('active', selected)
+    button.setAttribute('aria-pressed', String(selected))
+  })
+}
+
+function renderFontControls() {
+  return `<div class="font-controls" role="group" aria-label="调整全局字号">
+    <span>字号</span>
+    ${[['small', '小'], ['medium', '中'], ['large', '大']].map(([size, label]) =>
+      `<button data-quiz-font="${size}" class="${state.user.quizFont === size ? 'active' : ''}" aria-label="${label}字号" aria-pressed="${state.user.quizFont === size}">${label}</button>`
+    ).join('')}
+  </div>`
+}
+
+function openFontSettings() {
+  document.querySelector('#modalRoot').innerHTML = `<div class="modal-backdrop"><section class="modal font-settings" role="dialog" aria-modal="true" aria-labelledby="fontSettingsTitle"><h2 id="fontSettingsTitle">字体大小</h2><p>首页、题库、做题、进度、错题和收藏都会一起调整。</p>${renderFontControls()}<p>选择后立即生效，下次打开仍会保留。</p><button class="btn primary" data-action="close-modal">完成</button></section></div>`
 }
 
 function renderThemePicker() {
@@ -218,12 +235,7 @@ function renderQuiz() {
   const primaryLabel = reveal
     ? (state.sessionIndex === state.session.length - 1 ? '查看学习进度' : '下一题解析')
     : (state.sessionIndex === state.session.length - 1 ? '交卷并查看解析' : '下一题')
-  const fontControls = `<div class="font-controls" role="group" aria-label="调整题目字号">
-    <span>字号</span>
-    <button data-quiz-font="small" class="${state.user.quizFont === 'small' ? 'active' : ''}" aria-label="小字号">小</button>
-    <button data-quiz-font="medium" class="${state.user.quizFont === 'medium' ? 'active' : ''}" aria-label="中字号">中</button>
-    <button data-quiz-font="large" class="${state.user.quizFont === 'large' ? 'active' : ''}" aria-label="大字号">大</button>
-  </div>`
+  const fontControls = renderFontControls()
   return `<section class="quiz-shell">
     ${resultSummary}
     <div class="quiz-topline"><div class="quiz-progress-copy"><b>${state.sessionIndex + 1}</b> / ${state.session.length}</div><div class="quiz-tools"><div class="quiz-meta"><span>${escapeHtml(question.paper)}</span><b>${reveal ? `答对 ${correctCount} 题` : `已答 ${answeredCount} 题`}</b></div>${fontControls}</div></div>
@@ -361,6 +373,7 @@ document.addEventListener('click', event => {
 
 document.querySelector('#brandButton').addEventListener('click', () => navigate('home'))
 document.querySelector('#guideButton').addEventListener('click', openGuide)
+document.querySelector('#fontButton').addEventListener('click', openFontSettings)
 
 // Keep the mobile page at its fitted width; use the font buttons for text size.
 document.addEventListener('gesturestart', event => event.preventDefault(), { passive: false })
@@ -372,7 +385,7 @@ document.addEventListener('touchmove', event => {
 async function init() {
   renderThemePicker()
   setTheme(state.user.theme || 0)
-  setQuizFont(state.user.quizFont || 'small', false)
+  setQuizFont(state.user.quizFont || 'small')
   try {
     const response = await fetch('./data/questions.json')
     if (!response.ok) throw new Error(`HTTP ${response.status}`)
