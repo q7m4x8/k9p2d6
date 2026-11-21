@@ -73,6 +73,14 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
   cursor: pointer;
 }
 
+.brand-group { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.header-back { display: inline-flex; align-items: center; justify-content: center; gap: 2px; min-width: 62px; min-height: 40px; padding: 6px 9px 6px 5px; color: var(--accent-ink); background: var(--accent-soft); border: 1px solid var(--line); border-radius: 12px; cursor: pointer; white-space: nowrap; }
+.header-back[hidden], .quiz-timer[hidden] { display: none; }
+.header-back:focus-visible, .brand:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.quiz-timer { display: grid; gap: 1px; padding: 4px 10px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 12px; color: var(--muted); font-size: .785714rem; line-height: 1.35; white-space: nowrap; }
+.quiz-timer > span { display: flex; align-items: baseline; justify-content: space-between; gap: 7px; }
+.quiz-timer b { color: var(--accent-ink); font-size: .928571rem; font-weight: 750; font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+
 .brand-mark {
   display: grid;
   place-items: center;
@@ -501,3 +509,41 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 }
 .source-explanation-page figcaption { display: flex; justify-content: space-between; align-items: center; gap: .5rem; }
 .source-explanation-page figcaption a { color: var(--accent-ink); text-decoration: underline; }
+
+.swipe-hint { margin: 0 0 10px; color: var(--muted); font-size: .857143rem; text-align: center; }
+.question-duration { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; margin: 0 0 12px; padding: 6px 10px; border-radius: 10px; background: var(--accent-soft); color: var(--accent-ink); font-size: .928571rem; font-variant-numeric: tabular-nums; }
+.timing-history { margin-top: 28px; }
+.timing-history h2 { margin: 0 0 14px; font-size: 1.285714rem; }
+.timing-record { margin: 0 0 12px; padding: 16px 18px; background: var(--card); border: 1px solid var(--line); border-radius: 16px; }
+.timing-record > summary { cursor: pointer; color: var(--ink); font-weight: 650; overflow-wrap: anywhere; }
+.timing-record > summary > span { display: inline-block; max-width: calc(100% - 6rem); vertical-align: middle; }
+.timing-record > summary strong { display: block; }
+.timing-record > summary small { display: block; margin-top: 4px; color: var(--muted); font-size: .857143rem; font-weight: 400; }
+.timing-record > summary > b { float: right; margin-top: 4px; color: var(--accent-ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.timing-summary { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; margin-top: 8px; color: var(--muted); font-size: .928571rem; }
+.timing-summary b { color: var(--accent-ink); font-variant-numeric: tabular-nums; }
+.timing-question-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+.timing-question-row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; min-width: 0; padding: 9px 11px; border: 1px solid var(--line); border-radius: 10px; color: var(--muted); font-size: .928571rem; }
+.timing-question-row span { min-width: 0; overflow-wrap: anywhere; }
+.timing-question-row b { flex-shrink: 0; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+@media (max-width: 760px) {
+  .brand-group { gap: 8px; }
+  .header-back { min-width: 40px; min-height: 40px; padding: 6px; }
+  .header-back span { display: none; }
+  .quiz-mode .topbar { flex-wrap: nowrap; gap: 6px; padding: 7px 10px; }
+  .quiz-mode .top-actions { flex-wrap: nowrap; gap: 6px; margin-left: auto; }
+  .quiz-mode .quiz-timer { padding: 4px 7px; }
+  .quiz-mode .quiz-timer b { font-size: .928571rem; }
+  .quiz-mode .guide-pill { padding: 0 8px; flex-shrink: 0; }
+  .timing-record { padding: 13px 12px; }
+  .timing-question-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .quiz-mode .brand > span:last-child { display: none; }
+  .quiz-mode .brand { gap: 0; }
+  .quiz-mode .brand-group { gap: 6px; flex-shrink: 0; }
+  .quiz-mode .brand-mark { width: 30px; height: 30px; border-radius: 10px; }
+  .quiz-mode .quiz-timer > span { gap: 5px; }
+}

@@ -7,17 +7,21 @@
   <meta name="description" content="小天爱刷题 - 政治理论刷题、错题复习与进度管理">
   <title>小天爱刷题</title>
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./styles.css?v=20261121-5">
+  <link rel="stylesheet" href="./styles.css?v=20261121-6">
 </head>
 <body>
   <div id="app" class="app-shell">
     <header class="topbar">
-      <button id="brandButton" class="brand" aria-label="返回练习首页">
-        <span class="brand-mark">天</span>
-        <span>小天爱刷题</span>
-      </button>
+      <div class="brand-group">
+        <button id="backButton" class="header-back" aria-label="返回上一页" hidden><svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/></svg><span>返回</span></button>
+        <button id="brandButton" class="brand" aria-label="返回练习首页">
+          <span class="brand-mark">天</span>
+          <span>小天爱刷题</span>
+        </button>
+      </div>
       <div class="top-actions">
         <span class="status-pill"><i></i> 本机已保存</span>
+        <div id="quizTimer" class="quiz-timer" aria-label="答题计时" hidden><span>本题 <b id="questionTimer">00:00</b></span><span>总计 <b id="sessionTimer">00:00</b></span></div>
         <button id="fontButton" class="guide-pill" aria-label="调整全局字号">字号</button>
         <button id="guideButton" class="guide-pill">新手必看</button>
         <div id="themePicker" class="theme-picker" aria-label="主题色"></div>
@@ -38,6 +42,6 @@
     <div id="toast" class="toast" role="status"></div>
     <div id="modalRoot"></div>
   </div>
-  <script src="./app.js?v=20261121-5" defer></script>
+  <script src="./app.js?v=20261121-6" defer></script>
 </body>
 </html>

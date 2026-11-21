@@ -1,5 +1,6 @@
 const STORAGE_KEY = 'xiaotian_quiz_state_v1'
-const USER_DEFAULTS = { attempts: {}, wrong: [], favorites: [], theme: 0, quizFont: 'small' }
+const DRAFT_KEY = 'xiaotian_quiz_draft_v1'
+const USER_DEFAULTS = { attempts: {}, wrong: [], favorites: [], theme: 0, quizFont: 'small', history: [] }
 const themes = [
   { accent: '#ff7a1a', soft: '#fff0df', ink: '#c84f00', glow: '#fff0e2' },
   { accent: '#2878e8', soft: '#e9f2ff', ink: '#1559aa', glow: '#eaf2ff' },
@@ -18,22 +19,120 @@ const state = {
   sessionIndex: 0,
   sessionAnswers: {},
   sessionSubmitted: false,
+  sessionTimes: {},
+  timerStartedAt: null,
+  sessionRecord: null,
+  sessionTitle: '',
+  quizReturn: { route: 'home' },
+  backStack: [],
   user: loadUserState()
 }
 
 const main = document.querySelector('#mainContent')
 const toast = document.querySelector('#toast')
+let storageWarningShown = false
 
 function loadUserState() {
   try {
-    return { ...USER_DEFAULTS, ...(JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}) }
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}
+    let draft = null
+    try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY)) } catch {}
+    return { ...USER_DEFAULTS, ...saved, history: Array.isArray(saved.history) ? saved.history.filter(item => item && Array.isArray(item.questions)).slice(0, 50) : [], draft }
   } catch {
-    return { ...USER_DEFAULTS }
+    return { ...USER_DEFAULTS, draft: null }
+  }
+}
+
+function writeStorage(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); return true } catch {
+    if (!storageWarningShown) {
+      storageWarningShown = true
+      showToast('浏览器暂时无法保存记录，请勿关闭当前页面')
+    }
+    return false
   }
 }
 
 function saveUserState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.user))
+  const { draft, ...saved } = state.user
+  return writeStorage(STORAGE_KEY, saved)
+}
+
+function formatDuration(milliseconds) {
+  const seconds = Math.floor(Math.max(0, Number(milliseconds) || 0) / 1000)
+  const hh = Math.floor(seconds / 3600)
+  const mm = Math.floor(seconds / 60) % 60
+  const ss = seconds % 60
+  return `${hh ? `${String(hh).padStart(2, '0')}:` : ''}${String(mm).padStart(2, '0')}:${String(ss).padStart(2, '0')}`
+}
+
+function getQuestionMilliseconds(id) {
+  const saved = state.sessionTimes[id] || 0
+  return saved + (state.timerStartedAt !== null && currentQuestion()?.id === id ? Math.max(0, performance.now() - state.timerStartedAt) : 0)
+}
+
+function getSessionMilliseconds() {
+  return state.session.reduce((sum, question) => sum + getQuestionMilliseconds(question.id), 0)
+}
+
+function recordedQuestionMilliseconds(id) {
+  const entry = state.sessionSubmitted && state.sessionRecord?.questions.find(item => item.id === id)
+  return entry ? entry.seconds * 1000 : getQuestionMilliseconds(id)
+}
+
+function updateTimerDisplay() {
+  const visible = state.route === 'quiz' && !!currentQuestion()
+  document.querySelector('#quizTimer').hidden = !visible
+  if (!visible) return
+  document.querySelector('#questionTimer').textContent = formatDuration(recordedQuestionMilliseconds(currentQuestion().id))
+  document.querySelector('#sessionTimer').textContent = formatDuration(getSessionMilliseconds())
+}
+
+function persistDraft() {
+  if (!state.session.length || state.sessionSubmitted) return
+  const times = Object.fromEntries(state.session.map(question => [question.id, getQuestionMilliseconds(question.id)]))
+  state.user.draft = { version: 1, ids: state.session.map(question => question.id), index: state.sessionIndex, answers: { ...state.sessionAnswers }, times, returnTo: { ...state.quizReturn }, title: state.sessionTitle, updatedAt: Date.now() }
+  writeStorage(DRAFT_KEY, state.user.draft)
+}
+
+function pauseQuizTiming() {
+  if (state.timerStartedAt !== null) {
+    const question = currentQuestion()
+    if (question) state.sessionTimes[question.id] = getQuestionMilliseconds(question.id)
+    state.timerStartedAt = null
+  }
+  persistDraft()
+  updateTimerDisplay()
+}
+
+function resumeQuizTiming() {
+  if (state.route === 'quiz' && !state.sessionSubmitted && !document.hidden && currentQuestion() && state.timerStartedAt === null) state.timerStartedAt = performance.now()
+  updateTimerDisplay()
+}
+
+function continueDraft() {
+  const draft = state.user.draft
+  if (!draft || !Array.isArray(draft.ids) || !draft.ids.length || !state.data) return false
+  const byId = new Map(state.data.questions.map(question => [question.id, question]))
+  if (new Set(draft.ids).size !== draft.ids.length || draft.ids.some(id => !byId.has(id))) return false
+  pauseQuizTiming()
+  state.session = draft.ids.map(id => byId.get(id))
+  state.sessionIndex = Math.max(0, Math.min(Number.isInteger(draft.index) ? draft.index : 0, state.session.length - 1))
+  state.sessionAnswers = {}
+  state.sessionTimes = {}
+  for (const question of state.session) {
+    const answer = draft.answers?.[question.id]
+    if (Number.isInteger(answer) && answer >= 0 && answer < question.options.length) state.sessionAnswers[question.id] = answer
+    const time = draft.times?.[question.id]
+    state.sessionTimes[question.id] = Number.isFinite(time) && time >= 0 ? time : 0
+  }
+  state.sessionSubmitted = false
+  state.sessionRecord = null
+  state.sessionTitle = draft.title || '继续练习'
+  state.quizReturn = draft.returnTo && ['home', 'album', 'wrong', 'favorites', 'progress'].includes(draft.returnTo.route) ? draft.returnTo : { route: 'home' }
+  navigate('quiz')
+  persistDraft()
+  return true
 }
 
 function setTheme(index) {
@@ -135,6 +234,11 @@ function questionsFor(albumId, paperName) {
   )
 }
 
+function draftMatchesQuestions(questions) {
+  const ids = state.user.draft?.ids
+  return Array.isArray(ids) && ids.length === questions.length && ids.every((id, index) => id === questions[index].id)
+}
+
 function albumProgress(album) {
   const ids = answeredIds()
   const questions = questionsFor(album.id)
@@ -150,11 +254,19 @@ function paperProgress(album, paper) {
 }
 
 function navigate(route, options = {}) {
+  if (state.route === 'quiz' && route !== 'quiz') pauseQuizTiming()
+  if (!options.replace && state.route !== route && state.route !== 'quiz' && route !== 'quiz') state.backStack.push({ route: state.route, albumId: state.selectedAlbum?.id })
   state.route = route
   if (options.albumId) state.selectedAlbum = state.data.albums.find(item => item.id === options.albumId)
   document.querySelectorAll('.nav-item').forEach(item => item.classList.toggle('active', item.dataset.route === route))
-  window.scrollTo({ top: 0, behavior: 'smooth' })
+  window.scrollTo({ top: 0, behavior: 'instant' })
   render()
+  if (route === 'quiz') resumeQuizTiming()
+}
+
+function goBack() {
+  const destination = state.route === 'quiz' ? state.quizReturn : state.backStack.pop() || { route: 'home' }
+  navigate(destination.route, { albumId: destination.albumId, replace: true })
 }
 
 function render() {
@@ -168,7 +280,9 @@ function render() {
     favorites: () => renderQuestionList('favorites')
   }
   document.querySelector('#app').classList.toggle('quiz-mode', state.route === 'quiz')
+  document.querySelector('#backButton').hidden = state.route === 'home'
   main.innerHTML = (renderers[state.route] || renderHome)()
+  updateTimerDisplay()
 }
 
 function renderHome() {
@@ -191,7 +305,7 @@ function renderHome() {
     </section>
     <div class="action-row">
       <button class="soft-action" data-action="random">🎲 随机十题</button>
-      <button class="soft-action" data-action="continue">▶ 继续练习</button>
+      <button class="soft-action" data-action="continue">▶ ${state.user.draft?.ids?.length ? '继续上次练习' : '继续练习'}</button>
     </div>
     <div class="section-head"><h2>专辑</h2><p>选择一个专辑或子卷开始练习</p></div>
     <section class="album-grid">${cards}</section>`
@@ -199,6 +313,7 @@ function renderHome() {
 
 function renderAlbum() {
   const album = state.selectedAlbum || state.data.albums[0]
+  const resumeAlbum = draftMatchesQuestions(questionsFor(album.id))
   const rows = album.papers.map((paper, index) => {
     const progress = paperProgress(album, paper)
     return `<div class="paper-row" data-paper="${escapeHtml(paper.name)}">
@@ -209,18 +324,27 @@ function renderAlbum() {
   }).join('')
   return `<button class="back-button" data-action="back-home">返回练习首页</button>
     <section class="detail-head"><span class="eyebrow">${album.source} · 专辑</span><h1>${escapeHtml(album.title)}</h1><p>${escapeHtml(album.subtitle)} · 共 ${album.count} 题</p></section>
-    <button class="start-banner" data-action="start-album"><div><strong>从头开始练</strong><small>按顺序完成全部 ${album.count} 题</small></div><span>开始</span></button>
+    <button class="start-banner" data-action="start-album"><div><strong>${resumeAlbum ? '继续上次练习' : '从头开始练'}</strong><small>${resumeAlbum ? `从第 ${state.user.draft.index + 1} 题继续，已保存答案与用时` : `按顺序完成全部 ${album.count} 题`}</small></div><span>${resumeAlbum ? '继续' : '开始'}</span></button>
     <div class="section-head"><h2>子卷</h2><p>共 ${album.papers.length} 个</p></div>
     <div class="paper-list">${rows}</div>`
 }
 
-function startQuiz(questions, startIndex = 0) {
+function startQuiz(questions, startIndex = 0, options = {}) {
   if (!questions.length) return showToast('当前没有可练习的题目')
+  pauseQuizTiming()
+  if (draftMatchesQuestions(questions) && continueDraft()) return
+  state.quizReturn = { route: state.route === 'quiz' ? state.quizReturn.route : state.route, albumId: state.selectedAlbum?.id }
   state.session = [...questions]
-  state.sessionIndex = Math.min(startIndex, questions.length - 1)
+  state.sessionIndex = Math.max(0, Math.min(startIndex, questions.length - 1))
   state.sessionAnswers = {}
   state.sessionSubmitted = false
+  state.sessionTimes = {}
+  state.timerStartedAt = null
+  state.sessionRecord = null
+  const first = questions[0]
+  state.sessionTitle = options.title || (questions.every(q => q.album === first.album && q.paper === first.paper) ? `${first.album} · ${first.paper}` : questions.every(q => q.album === first.album) ? first.album : '综合练习')
   navigate('quiz')
+  persistDraft()
 }
 
 function currentQuestion() { return state.session[state.sessionIndex] }
@@ -248,7 +372,7 @@ function renderQuiz() {
     : ''
   const explanation = reveal ? `<div class="explanation"><strong>解析</strong>${escapeHtml(question.explanation || `正确答案：${question.answerLetter}`)}</div>${renderSourceExplanation(question)}` : ''
   const resultSummary = reveal
-    ? `<section class="result-summary"><div><span>本套成绩</span><strong>${correctCount} / ${state.session.length}</strong></div><p>正确率 ${Math.round(correctCount / state.session.length * 100)}%，现在可以逐题查看答案与解析。</p></section>`
+    ? `<section class="result-summary"><div><span>本套成绩</span><strong>${correctCount} / ${state.session.length}</strong></div><p>正确率 ${Math.round(correctCount / state.session.length * 100)}% · 本套用时 ${formatDuration(getSessionMilliseconds())}<br>现在可以逐题查看答案与解析。</p></section>`
     : ''
   const answerSheet = state.session.map((item, index) => {
     const hasAnswer = Number.isInteger(state.sessionAnswers[item.id])
@@ -256,7 +380,7 @@ function renderQuiz() {
     if (index === state.sessionIndex) className += ' current'
     if (hasAnswer) className += ' answered'
     if (reveal) className += state.sessionAnswers[item.id] === item.answer ? ' correct' : ' incorrect'
-    return `<button class="${className}" data-jump="${index}">${index + 1}</button>`
+    return `<button class="${className}" data-jump="${index}" ${reveal ? `title="本题用时 ${formatDuration(recordedQuestionMilliseconds(item.id))}"` : ''}>${index + 1}</button>`
   }).join('')
   const primaryAction = reveal
     ? (state.sessionIndex === state.session.length - 1 ? 'finish-review' : 'next')
@@ -271,12 +395,24 @@ function renderQuiz() {
     <div class="progress-track"><i style="--progress:${progress}%"></i></div>
     <article class="question-card">
       <div class="question-head"><span class="tag question-type">单选题 · ${escapeHtml(question.source)}</span><button class="favorite-button ${isFavorite ? 'active' : ''}" data-action="favorite">★ ${isFavorite ? '已收藏' : '收藏'}</button></div>
+      ${reveal ? `<p class="question-duration">本题用时 ${formatDuration(recordedQuestionMilliseconds(question.id))}</p>` : ''}
       <p class="question-stem">${escapeHtml(question.stem)}</p>
       <div class="options">${options}</div>${feedback}${explanation}
     </article>
     <div class="quiz-actions"><button class="btn secondary" data-action="previous" ${state.sessionIndex === 0 ? 'disabled' : ''}>上一题</button><button class="btn primary" data-action="${primaryAction}">${primaryLabel}</button></div>
+    <p class="swipe-hint">左滑下一题，右滑上一题${reveal ? '' : ' · 返回会保存本次作答'}</p>
     <details class="answer-sheet" ${reveal ? 'open' : ''}><summary>答题卡 · ${reveal ? `答对 ${correctCount} 题` : `已答 ${answeredCount}/${state.session.length} 题`}</summary><div>${answerSheet}</div></details>
   </section>`
+}
+
+function renderTimingHistory() {
+  const history = state.user.history || []
+  const records = history.map(record => {
+    const date = new Date(record.submittedAt).toLocaleString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+    const rows = record.questions.map((entry, index) => `<div class="timing-question-row"><span>第 ${index + 1} 题 · ${entry.correct ? '正确' : '错误'}</span><b>${formatDuration(entry.seconds * 1000)}</b></div>`).join('')
+    return `<details class="timing-record"><summary><span><strong>${escapeHtml(record.title || '练习记录')}</strong><small>${escapeHtml(date)} · ${record.questions.length} 题</small></span><b>${formatDuration(record.totalSeconds * 1000)}</b></summary><div class="timing-summary">答对 ${record.correctCount} / ${record.questions.length} 题 · 总用时 ${record.totalSeconds} 秒</div><div class="timing-question-grid">${rows}</div></details>`
+  }).join('')
+  return `<section class="timing-history"><div class="section-head"><h2>练习用时记录</h2><p>交卷后保存，精确到秒</p></div>${records || '<div class="empty-state"><b>还没有计时记录</b>完成一套练习后，可在这里展开查看每题用时。</div>'}<p class="swipe-hint">记录保存在当前浏览器，保留最近的练习记录。</p></section>`
 }
 
 function renderProgress() {
@@ -287,7 +423,7 @@ function renderProgress() {
     const progress = albumProgress(album)
     return `<article class="progress-card"><div class="progress-card-head"><h3>${escapeHtml(album.title)}</h3><b>${progress.percent}%</b></div><p>${progress.done} / ${progress.total} 题已完成</p><div class="paper-progress"><i style="--progress:${progress.percent}%"></i></div></article>`
   }).join('')
-  return `<section class="progress-hero"><div><span class="eyebrow">学习进度</span><h1>每一次作答，都算数</h1><p>累计作答 ${totalAnswered} 题，当前正确率 ${accuracy()}%。</p></div><div class="big-progress" style="--angle:${percent * 3.6}deg" data-value="${percent}%"></div></section><section class="progress-grid">${cards}</section>`
+  return `<section class="progress-hero"><div><span class="eyebrow">学习进度</span><h1>每一次作答，都算数</h1><p>累计作答 ${totalAnswered} 题，当前正确率 ${accuracy()}%。</p></div><div class="big-progress" style="--angle:${percent * 3.6}deg" data-value="${percent}%"></div></section><section class="progress-grid">${cards}</section>${renderTimingHistory()}`
 }
 
 function renderQuestionList(type) {
@@ -296,48 +432,68 @@ function renderQuestionList(type) {
   const desc = type === 'wrong' ? '针对薄弱点再练一次，答对后自动移出错题本。' : '手动标记的题目，方便随时回来复习。'
   const questions = ids.map(id => state.data.questions.find(item => item.id === id)).filter(Boolean)
   if (!questions.length) return `<section class="list-hero"><span class="eyebrow">${title}夹</span><h1>${title}</h1><p>${desc}</p></section><div class="empty-state"><b>这里还是空的</b>${type === 'wrong' ? '开始答题后，答错的题会自动出现在这里。' : '在答题页点击收藏，就能把题目保存到这里。'}</div>`
-  const cards = questions.map(question => `<article class="list-card"><small>${escapeHtml(question.album)} · ${escapeHtml(question.paper)}</small><p>${escapeHtml(question.stem)}</p><div class="list-actions"><button class="mini-btn" data-single="${question.id}">再做一次</button><button class="mini-btn ghost" data-remove="${question.id}" data-list="${type}">${type === 'wrong' ? '移出错题' : '取消收藏'}</button></div></article>`).join('')
+  const cards = questions.map(question => `<article class="list-card"><small>${escapeHtml(question.album)} · ${escapeHtml(question.paper)}</small><p>${escapeHtml(question.stem)}</p><p class="question-duration">上次用时 ${Number.isFinite(state.user.attempts[question.id]?.durationSeconds) ? formatDuration(state.user.attempts[question.id].durationSeconds * 1000) : '未计时'}</p><div class="list-actions"><button class="mini-btn" data-single="${question.id}">再做一次</button><button class="mini-btn ghost" data-remove="${question.id}" data-list="${type}">${type === 'wrong' ? '移出错题' : '取消收藏'}</button></div></article>`).join('')
   return `<section class="list-hero"><span class="eyebrow">${title}夹</span><h1>${title}</h1><p>${desc} · 共 ${questions.length} 题</p><div class="filter-row"><button class="filter-chip active" data-list-practice="${type}">练习全部 ${questions.length} 题</button></div></section><div class="question-list">${cards}</div>`
 }
 
 function submitSession() {
+  if (state.sessionSubmitted || !state.session.length) return
   const firstUnanswered = state.session.findIndex(item => !Number.isInteger(state.sessionAnswers[item.id]))
   if (firstUnanswered >= 0) {
     const remaining = state.session.length - state.session.filter(item => Number.isInteger(state.sessionAnswers[item.id])).length
-    state.sessionIndex = firstUnanswered
-    render()
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    changeQuestion(firstUnanswered)
     return showToast(`还有 ${remaining} 道题未作答`)
   }
-  state.session.forEach(question => {
+  pauseQuizTiming()
+  const times = state.session.map(question => getQuestionMilliseconds(question.id))
+  const totalSeconds = Math.floor(times.reduce((sum, time) => sum + time, 0) / 1000)
+  const seconds = times.map(time => Math.floor(time / 1000))
+  // Allocate the fractional seconds once, so the displayed question seconds add
+  // up to the measured total without accumulating rounding drift.
+  const ranked = times.map((time, index) => ({ index, fraction: time % 1000 })).sort((a, b) => b.fraction - a.fraction)
+  const remainder = totalSeconds - seconds.reduce((sum, time) => sum + time, 0)
+  for (let index = 0; index < remainder; index++) seconds[ranked[index].index]++
+  const submittedAt = Date.now()
+  const entries = state.session.map((question, index) => {
     const selected = state.sessionAnswers[question.id]
     const correct = selected === question.answer
-    state.user.attempts[question.id] = { selected, correct, at: Date.now() }
+    state.user.attempts[question.id] = { selected, correct, at: submittedAt, durationSeconds: seconds[index] }
     if (correct) state.user.wrong = state.user.wrong.filter(id => id !== question.id)
     else if (!state.user.wrong.includes(question.id)) state.user.wrong.push(question.id)
+    return { id: question.id, seconds: seconds[index], durationMs: times[index], selected, correct }
+  })
+  state.sessionRecord = { id: `quiz-${submittedAt}-${Math.random().toString(36).slice(2, 8)}`, submittedAt, title: state.sessionTitle, totalSeconds, correctCount: entries.filter(entry => entry.correct).length, questions: entries }
+  state.user.history.unshift(state.sessionRecord)
+  let retainedRows = 0
+  state.user.history = state.user.history.filter((record, index) => {
+    retainedRows += record.questions.length
+    return index < 50 && retainedRows <= 10000
   })
   state.sessionSubmitted = true
   state.sessionIndex = 0
-  saveUserState()
+  if (saveUserState()) { state.user.draft = null; writeStorage(DRAFT_KEY, null) }
   render()
-  window.scrollTo({ top: 0, behavior: 'smooth' })
+  window.scrollTo({ top: 0, behavior: 'instant' })
   showToast('交卷成功，可以统一查看答案解析')
 }
 
-function nextQuestion() {
-  if (state.sessionIndex >= state.session.length - 1) {
-    showToast('本次练习已完成')
-    return navigate('progress')
-  }
-  state.sessionIndex += 1
+function changeQuestion(index) {
+  if (!Number.isInteger(index) || index < 0 || index >= state.session.length || index === state.sessionIndex) return false
+  pauseQuizTiming()
+  state.sessionIndex = index
   render()
-  window.scrollTo({ top: 0, behavior: 'smooth' })
+  resumeQuizTiming()
+  persistDraft()
+  window.scrollTo({ top: 0, behavior: 'instant' })
+  return true
+}
+
+function nextQuestion() {
+  if (!changeQuestion(state.sessionIndex + 1)) showToast('已经是最后一题')
 }
 
 function previousQuestion() {
-  if (state.sessionIndex === 0) return
-  state.sessionIndex -= 1
-  render()
+  if (!changeQuestion(state.sessionIndex - 1)) showToast('已经是第一题')
 }
 
 function toggleFavorite() {
@@ -350,8 +506,53 @@ function toggleFavorite() {
 }
 
 function openGuide() {
-  document.querySelector('#modalRoot').innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>三步开始刷题</h2><ol><li>在首页选择专辑或子卷。</li><li>完成整套题目后统一交卷，再集中查看答案与解析。</li><li>错题自动进入错题本；重点题可手动收藏。</li></ol><p>所有进度只保存在当前浏览器，不会上传个人信息。</p><button class="btn primary" data-action="close-modal">知道了</button></section></div>`
+  document.querySelector('#modalRoot').innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>三步开始刷题</h2><ol><li>在首页选择专辑或子卷。</li><li>左右滑动切题，完成整套后统一交卷，再查看答案与解析。</li><li>在进度页查看每次练习及逐题用时；错题和收藏可随时复习。</li></ol><p>进入答题即开始计时，返回或切到后台暂停，交卷后停止。返回后可点“继续上次练习”恢复。</p><p>所有进度只保存在当前浏览器，不会覆盖其他人的记录。</p><button class="btn primary" data-action="close-modal">知道了</button></section></div>`
 }
+
+let swipeGesture = null
+let suppressSwipeClickUntil = 0
+
+function onTouchStart(event) {
+  swipeGesture = null
+  const target = event.target instanceof Element ? event.target : event.target?.parentElement
+  if (state.route !== 'quiz' || event.touches.length !== 1 || !target?.closest('.quiz-shell') || target.closest('.source-explanation, .answer-sheet, .font-controls, a, input, textarea, select, [contenteditable="true"]') || document.querySelector('#modalRoot').children.length || window.getSelection?.()?.isCollapsed === false) return
+  const touch = event.touches[0]
+  swipeGesture = { id: touch.identifier, x: touch.clientX, y: touch.clientY, startedAt: performance.now() }
+}
+
+function onTouchMove(event) {
+  if (!swipeGesture) return
+  if (event.touches.length !== 1) { swipeGesture = null; return }
+  const touch = event.touches[0]
+  if (touch.identifier !== swipeGesture.id) { swipeGesture = null; return }
+  const dx = touch.clientX - swipeGesture.x
+  const dy = touch.clientY - swipeGesture.y
+  if (Math.abs(dy) > 12 && Math.abs(dy) > Math.abs(dx)) { swipeGesture = null; return }
+  if (Math.abs(dx) >= 64 && Math.abs(dx) > Math.abs(dy) * 1.5 && event.cancelable) event.preventDefault()
+}
+
+function onTouchEnd(event) {
+  const gesture = swipeGesture
+  swipeGesture = null
+  if (!gesture || state.route !== 'quiz' || event.touches.length || performance.now() - gesture.startedAt > 1500 || document.querySelector('#modalRoot').children.length || window.getSelection?.()?.isCollapsed === false) return
+  const touch = [...event.changedTouches].find(item => item.identifier === gesture.id)
+  if (!touch) return
+  const dx = touch.clientX - gesture.x
+  const dy = touch.clientY - gesture.y
+  if (Math.abs(dx) < 64 || Math.abs(dx) <= Math.abs(dy) * 1.5) return
+  if (event.cancelable) event.preventDefault()
+  suppressSwipeClickUntil = performance.now() + 450
+  if (dx < 0) nextQuestion()
+  else previousQuestion()
+}
+
+document.addEventListener('touchstart', onTouchStart, { passive: true })
+document.addEventListener('touchmove', onTouchMove, { passive: false })
+document.addEventListener('touchend', onTouchEnd, { passive: false })
+document.addEventListener('touchcancel', () => { swipeGesture = null }, { passive: true })
+document.addEventListener('click', event => {
+  if (performance.now() < suppressSwipeClickUntil && event.detail !== 0) { event.preventDefault(); event.stopImmediatePropagation() }
+}, true)
 
 document.addEventListener('click', event => {
   const target = event.target instanceof Element ? event.target : event.target.parentElement
@@ -367,9 +568,9 @@ document.addEventListener('click', event => {
   const paper = event.target.closest('[data-paper]')
   if (paper) return startQuiz(questionsFor(state.selectedAlbum.id, paper.dataset.paper))
   const option = event.target.closest('[data-option]')
-  if (option && !state.sessionSubmitted) { state.sessionAnswers[currentQuestion().id] = Number(option.dataset.option); return render() }
+  if (option && !state.sessionSubmitted) { state.sessionAnswers[currentQuestion().id] = Number(option.dataset.option); persistDraft(); return render() }
   const jump = event.target.closest('[data-jump]')
-  if (jump) { state.sessionIndex = Number(jump.dataset.jump); render(); return window.scrollTo({ top: 0, behavior: 'smooth' }) }
+  if (jump) return changeQuestion(Number(jump.dataset.jump))
   const single = event.target.closest('[data-single]')
   if (single) return startQuiz(state.data.questions.filter(item => item.id === single.dataset.single))
   const remove = event.target.closest('[data-remove]')
@@ -381,12 +582,13 @@ document.addEventListener('click', event => {
   const listPractice = event.target.closest('[data-list-practice]')
   if (listPractice) {
     const ids = state.user[listPractice.dataset.listPractice]
-    return startQuiz(ids.map(id => state.data.questions.find(item => item.id === id)).filter(Boolean))
+    return startQuiz(ids.map(id => state.data.questions.find(item => item.id === id)).filter(Boolean), 0, { title: listPractice.dataset.listPractice === 'wrong' ? '错题练习' : '收藏练习' })
   }
   const action = event.target.closest('[data-action]')?.dataset.action
   if (!action) return
-  if (action === 'random') return startQuiz([...state.data.questions].sort(() => Math.random() - .5).slice(0, 10))
+  if (action === 'random') return startQuiz([...state.data.questions].sort(() => Math.random() - .5).slice(0, 10), 0, { title: '随机十题' })
   if (action === 'continue') {
+    if (continueDraft()) return
     const firstUnanswered = state.data.questions.findIndex(item => !state.user.attempts[item.id])
     return startQuiz(state.data.questions, Math.max(0, firstUnanswered))
   }
@@ -401,6 +603,7 @@ document.addEventListener('click', event => {
 })
 
 document.querySelector('#brandButton').addEventListener('click', () => navigate('home'))
+document.querySelector('#backButton').addEventListener('click', goBack)
 document.querySelector('#guideButton').addEventListener('click', openGuide)
 document.querySelector('#fontButton').addEventListener('click', openFontSettings)
 
@@ -429,6 +632,19 @@ document.addEventListener('gesturechange', event => event.preventDefault(), { pa
 document.addEventListener('touchmove', event => {
   if (event.touches.length > 1) event.preventDefault()
 }, { passive: false })
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) pauseQuizTiming()
+  else resumeQuizTiming()
+})
+window.addEventListener('pagehide', pauseQuizTiming)
+window.addEventListener('pageshow', resumeQuizTiming)
+window.addEventListener('beforeunload', pauseQuizTiming)
+setInterval(() => {
+  if (state.route !== 'quiz') return
+  updateTimerDisplay()
+  if (!document.hidden && !state.sessionSubmitted) persistDraft()
+}, 1000)
 
 async function init() {
   renderThemePicker()
