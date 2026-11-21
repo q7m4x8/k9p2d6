@@ -313,7 +313,9 @@ function openGuide() {
 }
 
 document.addEventListener('click', event => {
-  const quizFont = event.target.closest('[data-quiz-font]')
+  const target = event.target instanceof Element ? event.target : event.target.parentElement
+  if (!target) return
+  const quizFont = target.closest('button[data-quiz-font]')
   if (quizFont) return setQuizFont(quizFont.dataset.quizFont)
   const theme = event.target.closest('[data-theme]')
   if (theme) return setTheme(Number(theme.dataset.theme))
@@ -359,6 +361,13 @@ document.addEventListener('click', event => {
 
 document.querySelector('#brandButton').addEventListener('click', () => navigate('home'))
 document.querySelector('#guideButton').addEventListener('click', openGuide)
+
+// Keep the mobile page at its fitted width; use the font buttons for text size.
+document.addEventListener('gesturestart', event => event.preventDefault(), { passive: false })
+document.addEventListener('gesturechange', event => event.preventDefault(), { passive: false })
+document.addEventListener('touchmove', event => {
+  if (event.touches.length > 1) event.preventDefault()
+}, { passive: false })
 
 async function init() {
   renderThemePicker()

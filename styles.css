@@ -24,7 +24,7 @@ html[data-quiz-font="large"] { --quiz-stem-size: 19px; --quiz-option-size: 18px;
 
 * { box-sizing: border-box; }
 
-html { background: var(--page); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+html { background: var(--page); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; touch-action: pan-y; }
 
 body {
   margin: 0;
