@@ -1,0 +1,28 @@
+{
+  "revision": "20261121-5",
+  "questionCount": 1100,
+  "paperCount": 55,
+  "albumCount": 5,
+  "changedQuestions": 772,
+  "questionTextCorrections": 406,
+  "explanationTextCorrections": 686,
+  "stableIdsAndAnswerKeysPreserved": true,
+  "sourceQuestionComparison": {
+    "chaoge": 200,
+    "xiaoheiSearchable": 400,
+    "xiaoheiScanned": 500
+  },
+  "sourceAnswerHeaderConflicts": 0,
+  "sourceExplanationImages": {
+    "questions": 897,
+    "images": 991
+  },
+  "incompleteOriginalExplanations": [
+    "xh-newlaw-074",
+    "xh-newlaw-075",
+    "xh-newlaw-076",
+    "xh-newlaw-077"
+  ],
+  "limitation": "Source comparison verifies the supplied materials. Explanation OCR source headers, boundaries and identified symbols were checked; it is not a guarantee that every OCR character has zero errors. The original new-law answer PDF page 29 is damaged.",
+  "sha256": "3d6c5a303810092b5f284d0c57dec487ac553de528777bec53d0fd4dc0240869"
+}

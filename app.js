@@ -11,6 +11,7 @@ const themes = [
 
 const state = {
   data: null,
+  sourceExplanations: null,
   route: 'home',
   selectedAlbum: null,
   session: [],
@@ -80,6 +81,34 @@ function renderThemePicker() {
 
 function escapeHtml(value = '') {
   return String(value).replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char])
+}
+
+function renderSourceExplanation(question) {
+  const record = state.sourceExplanations?.questions?.[question.id]
+  if (!record) return ''
+  const sourceName = state.sourceExplanations.sources[record.source] || '原答案 PDF'
+  const pages = [...new Set([...record.pages, ...(record.unavailablePages || [])])].sort((a, b) => a - b)
+  const pageLabel = pages.length ? ` · PDF 第 ${pages.join('、')} 页` : ''
+  const incomplete = record.sourceIncomplete
+    ? `<p class="source-explanation-notice">${record.unavailablePages?.length ? `原答案 PDF 第 ${record.unavailablePages.join('、')} 页损坏，` : ''}本题原文解析不完整${record.images.length ? '，下方仅显示可读取的部分' : '，暂无可显示的原文图片'}。</p>`
+    : ''
+  const images = record.images.map((item, index) => `<figure class="source-explanation-page">
+    <figcaption><span>PDF 第 ${item.page} 页${record.images.length > 1 ? ` · ${index + 1}/${record.images.length}` : ''}</span><a href="./data/source-explanations/${escapeHtml(item.file)}" target="_blank" rel="noopener">查看大图</a></figcaption>
+    <img class="source-explanation-image" data-source-src="./data/source-explanations/${escapeHtml(item.file)}" width="${item.width}" height="${item.height}" loading="lazy" decoding="async" alt="${escapeHtml(question.paper)}本题原文解析，PDF第${item.page}页">
+    <p class="source-explanation-error" hidden>原文图片加载失败，请收起后重试。</p>
+  </figure>`).join('')
+  return `<details class="source-explanation"><summary>查看原文解析</summary><div class="source-explanation-body"><p class="source-explanation-meta">来源：${escapeHtml(sourceName)}${pageLabel}</p>${incomplete}${images}</div></details>`
+}
+
+async function loadSourceExplanations() {
+  try {
+    const response = await fetch('./data/source-explanations/manifest.json?v=20261121-5')
+    if (!response.ok) return
+    state.sourceExplanations = await response.json()
+    if (state.route === 'quiz' && state.sessionSubmitted) render()
+  } catch {
+    // Optional source images never block the question bank or saved progress.
+  }
 }
 
 function showToast(message) {
@@ -217,7 +246,7 @@ function renderQuiz() {
   const feedback = reveal
     ? `<div class="feedback ${selectedOption === question.answer ? 'correct' : 'incorrect'}">${selectedOption === question.answer ? '回答正确' : `回答错误，你选了 ${Number.isInteger(selectedOption) ? 'ABCD'[selectedOption] : '未作答'}，正确答案是 ${question.answerLetter}`}</div>`
     : ''
-  const explanation = reveal ? `<div class="explanation"><strong>解析</strong>${escapeHtml(question.explanation || `正确答案：${question.answerLetter}`)}</div>` : ''
+  const explanation = reveal ? `<div class="explanation"><strong>解析</strong>${escapeHtml(question.explanation || `正确答案：${question.answerLetter}`)}</div>${renderSourceExplanation(question)}` : ''
   const resultSummary = reveal
     ? `<section class="result-summary"><div><span>本套成绩</span><strong>${correctCount} / ${state.session.length}</strong></div><p>正确率 ${Math.round(correctCount / state.session.length * 100)}%，现在可以逐题查看答案与解析。</p></section>`
     : ''
@@ -375,6 +404,25 @@ document.querySelector('#brandButton').addEventListener('click', () => navigate(
 document.querySelector('#guideButton').addEventListener('click', openGuide)
 document.querySelector('#fontButton').addEventListener('click', openFontSettings)
 
+document.addEventListener('toggle', event => {
+  const details = event.target
+  if (!(details instanceof Element) || !details.matches('details.source-explanation') || !details.open) return
+  details.querySelectorAll('img[data-source-src]').forEach(image => {
+    if (image.getAttribute('src')) return
+    image.hidden = false
+    image.nextElementSibling.hidden = true
+    image.src = image.dataset.sourceSrc
+  })
+}, true)
+
+document.addEventListener('error', event => {
+  const image = event.target
+  if (!(image instanceof Element) || !image.matches('img.source-explanation-image')) return
+  image.hidden = true
+  image.removeAttribute('src')
+  image.nextElementSibling.hidden = false
+}, true)
+
 // Keep the mobile page at its fitted width; use the font buttons for text size.
 document.addEventListener('gesturestart', event => event.preventDefault(), { passive: false })
 document.addEventListener('gesturechange', event => event.preventDefault(), { passive: false })
@@ -387,10 +435,11 @@ async function init() {
   setTheme(state.user.theme || 0)
   setQuizFont(state.user.quizFont || 'small')
   try {
-    const response = await fetch('./data/questions.json')
+    const response = await fetch('./data/questions.json?v=20261121-5', { cache: 'no-cache' })
     if (!response.ok) throw new Error(`HTTP ${response.status}`)
     state.data = await response.json()
     render()
+    loadSourceExplanations()
   } catch (error) {
     main.innerHTML = `<div class="empty-state"><b>题库载入失败</b>请刷新页面后重试。<br><small>${escapeHtml(error.message)}</small></div>`
   }

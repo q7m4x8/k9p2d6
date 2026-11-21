@@ -358,6 +358,18 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .feedback.incorrect { color: #b64141; background: var(--danger-soft); }
 .explanation { margin-top: 13px; padding: 18px; color: #5e574f; background: #fff7e7; border-left: 4px solid var(--accent); border-radius: 12px; line-height: 1.75; }
 .explanation strong { display: block; margin-bottom: 6px; color: var(--accent-ink); }
+.source-explanation { margin-top: 12px; overflow: hidden; background: #fff; border: 1px solid var(--line); border-radius: 12px; }
+.source-explanation > summary { min-height: 44px; padding: 11px 14px; color: var(--accent-ink); font-weight: 700; cursor: pointer; }
+.source-explanation[open] > summary { border-bottom: 1px solid var(--line); }
+.source-explanation-body { min-width: 0; padding: 12px; }
+.source-explanation-meta { margin: 0 0 12px; color: var(--muted); font-size: .928571rem; overflow-wrap: anywhere; }
+.source-explanation-notice { margin: 0 0 12px; padding: 10px 12px; color: #945b08; background: #fff4d9; border-radius: 8px; }
+.source-explanation-page { min-width: 0; margin: 0 0 14px; }
+.source-explanation-page:last-child { margin-bottom: 0; }
+.source-explanation-page figcaption { margin-bottom: 6px; color: var(--muted); font-size: .928571rem; }
+.source-explanation-image { display: block; width: 100%; max-width: 1110px; height: auto; margin: 0 auto; background: #fff; border: 1px solid var(--line); }
+.source-explanation-image[hidden] { display: none; }
+.source-explanation-error { margin: 8px 0; color: var(--danger); }
 
 .quiz-actions { display: grid; grid-template-columns: 1fr 2fr; gap: 13px; margin-top: 20px; }
 .answer-sheet { margin-top: 16px; padding: 16px 18px; background: rgba(255,255,255,.78); border: 1px solid var(--line); border-radius: 18px; }
@@ -459,6 +471,8 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
   .quiz-mode .main-content { padding-top: 10px; padding-bottom: 24px; }
   .quiz-mode .bottom-nav { display: none; }
   .question-card { padding: 14px 12px; border-radius: 18px; }
+  .source-explanation-body { padding: 8px; }
+  .source-explanation > summary { padding: 10px 12px; }
   .result-summary { display: block; padding: 18px; }
   .result-summary p { margin-top: 8px; text-align: left; }
   .answer-sheet > div { grid-template-columns: repeat(6, minmax(0, 1fr)); }
@@ -485,3 +499,5 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
   .big-progress::after { width: 69px; height: 69px; font-size: 1.142857rem; }
   .paper-row { grid-template-columns: 44px minmax(0,1fr) auto; padding: 10px 13px; }
 }
+.source-explanation-page figcaption { display: flex; justify-content: space-between; align-items: center; gap: .5rem; }
+.source-explanation-page figcaption a { color: var(--accent-ink); text-decoration: underline; }
