@@ -26,6 +26,7 @@ function harness(saved, savedDraft, storageFails = false) {
   const listeners = new Map()
   const windowListeners = new Map()
   const intervals = new Map()
+  const timeouts = new Map()
   let nextTimer = 0
   let selection = ''
   class Element {
@@ -95,8 +96,8 @@ function harness(saved, savedDraft, storageFails = false) {
     performance: { now: () => now },
     Date: class extends Date { static now() { return epoch + now } },
     console,
-    setTimeout: () => ++nextTimer,
-    clearTimeout() {},
+    setTimeout: (fn, delay = 0) => { const id = ++nextTimer; timeouts.set(id, {fn, at:now + delay}); return id },
+    clearTimeout: id => timeouts.delete(id),
     setInterval: fn => { const id = ++nextTimer; intervals.set(id, fn); return id },
     clearInterval: id => intervals.delete(id),
     requestAnimationFrame: fn => fn(now),
@@ -112,7 +113,9 @@ function harness(saved, savedDraft, storageFails = false) {
     matchMedia: () => ({ matches: false, addEventListener() {} })
   }
   vm.createContext(context)
-  for (const file of ['text-format.js', 'reference-reviews.js', 'explanation-format.js']) vm.runInContext(fs.readFileSync(path.join(repo, file), 'utf8'), context)
+  for (const file of ['text-format.js', 'reference-reviews.js', 'option-reviews.js', 'explanation-format.js']) {
+    vm.runInContext(fs.readFileSync(path.join(repo, file), 'utf8'), context)
+  }
   vm.runInContext(source + `\nglobalThis.testApi = {state, startQuiz, navigate, goBack, changeQuestion, pauseQuizTiming, resumeQuizTiming, getQuestionMilliseconds, getSessionMilliseconds, formatDuration, submitSession, render, renderQuiz, renderProgress, renderReferenceAnswer, conciseReferenceReason, saveUserState, setQuizFont, continueDraft};`, context)
   const api = context.testApi
   api.state.data = JSON.parse(JSON.stringify(bank))
@@ -124,7 +127,16 @@ function harness(saved, savedDraft, storageFails = false) {
   }
   return {
     ...api, document, elements, Element, fire,
-    advance(ms, tick = true) { now += ms; if (tick) for (const fn of [...intervals.values()]) fn() },
+    advance(ms, tick = true) {
+      const target = now + ms
+      for (;;) {
+        const next = [...timeouts].filter(([,item])=>item.at<=target).sort((a,b)=>a[1].at-b[1].at)[0]
+        if (!next) break
+        now = next[1].at; timeouts.delete(next[0]); next[1].fn()
+      }
+      now = target
+      if (tick) for (const fn of [...intervals.values()]) fn()
+    },
     saved() { return JSON.parse(storage.get(storageKey) || '{}') },
     draftSaved() { return JSON.parse(storage.get(draftKey) || 'null') },
     setHidden(hidden) { document.hidden = hidden; document.visibilityState = hidden ? 'hidden' : 'visible'; fire('visibilitychange') },
@@ -318,6 +330,8 @@ test('a completed swipe suppresses its ghost tap without blocking keyboard answe
   assert.equal(h.state.sessionAnswers['test-2'], undefined)
   h.fire('click', { target: option, detail: 0 })
   assert.equal(h.state.sessionAnswers['test-2'], 2)
+  assert.equal(h.state.sessionIndex, 1)
+  h.advance(1000)
   assert.equal(h.state.sessionIndex, 2)
   h.advance(500)
   option.dataset.option = '0'
@@ -390,7 +404,8 @@ test('numbered references appear only after submission, retain correct rows and 
   assert(html.includes('<strong>多样性中寻求一致性</strong>'))
   assert(html.includes('错误词句：以人民为中心'))
   assert(html.includes('<strong>党的领导</strong>'))
-  assert(html.includes('查看完整解析'))
+  assert(!html.includes('查看完整解析'))
+  assert(!html.includes('查看原文解析'))
   assert.equal(JSON.stringify(question), snapshot, 'Rendering cannot rewrite canonical question content')
 })
 
@@ -434,7 +449,7 @@ test('the reported screenshot highlights all three exact wrong phrases without r
   assert(!mainReference.includes('原解析：'))
   assert(!mainReference.includes('而非'))
   assert(!mainReference.includes('而不是'))
-  assert(html.includes('而非矛盾的普遍性和客观性'), 'The expandable original remains complete')
+  assert(!html.includes('而非矛盾的普遍性和客观性'), 'The redundant original panel is removed')
   assert.equal(h.conciseReferenceReason('正确表述，而非矛盾的普遍性和客观性。', '体现了矛盾的普遍性和客观性'), '正确表述。')
   assert.equal(h.conciseReferenceReason('正确表述，而不是辩证唯物主义普遍联系的原理。', '体现了辩证唯物主义普遍联系的原理'), '正确表述。')
   assert.equal(h.conciseReferenceReason('需要保留的内容，而非另一个知识点。', '题干没有这句话'), '需要保留的内容，而非另一个知识点。', 'Unrelated source commentary is not stripped by a blanket deletion')
@@ -445,7 +460,7 @@ test('the reported screenshot highlights all three exact wrong phrases without r
   assert.equal(ordinary.explanation, '体现的是客观规律性和主观能动性的有机结合，而非矛盾的普遍性和客观性。', 'Only the displayed explanation is shortened; canonical content stays unchanged')
 })
 
-test('selecting an answer advances once, guards double taps and keeps final submission manual', () => {
+test('selected frame stays visible for exactly one second before advancing; final submission remains manual', () => {
   const h = harness()
   h.startQuiz(h.state.data.questions)
   const option = h.element('.option')
@@ -454,26 +469,37 @@ test('selecting an answer advances once, guards double taps and keeps final subm
   h.advance(1250)
   h.fire('click', { target: option })
   assert.equal(h.state.sessionAnswers['test-1'], 1)
-  assert.equal(h.state.sessionIndex, 1)
-  assert.equal(h.getQuestionMilliseconds('test-1'), 1250)
-  assert.equal(h.draftSaved().index, 1)
+  assert.equal(h.state.sessionIndex, 0)
+  assert(h.renderQuiz().includes('class="option selected" data-option="1" aria-pressed="true"'))
+  assert.equal(h.draftSaved().index, 0)
   assert.equal(h.draftSaved().answers['test-1'], 1)
   assert(!h.renderQuiz().includes('reference-answer'))
   assert(!h.renderQuiz().includes('feedback incorrect'))
   const duplicate = h.fire('click', { target: option })
   assert(duplicate.defaultPrevented)
   assert.equal(h.state.sessionAnswers['test-2'], undefined)
+  assert.equal(h.state.sessionIndex, 0)
+  h.advance(999)
+  assert.equal(h.state.sessionIndex, 0)
+  h.advance(1)
   assert.equal(h.state.sessionIndex, 1)
+  assert.equal(h.getQuestionMilliseconds('test-1'), 2250)
+  assert.equal(h.draftSaved().index, 1)
   h.advance(1000)
   option.dataset.option = '2'
   h.fire('click', { target: option })
+  assert.equal(h.state.sessionIndex, 1)
+  h.advance(1000)
   assert.equal(h.state.sessionIndex, 2)
-  assert.equal(h.getQuestionMilliseconds('test-2'), 1000)
+  assert.equal(h.getQuestionMilliseconds('test-2'), 2000)
   h.advance(750)
   option.dataset.option = '0'
   h.fire('click', { target: option })
   assert.equal(h.state.sessionIndex, 2)
   assert.equal(h.state.sessionAnswers['test-3'], 0)
+  assert(h.renderQuiz().includes('class="option selected" data-option="0" aria-pressed="true"'))
+  h.advance(3000)
+  assert.equal(h.state.sessionIndex, 2)
   assert.equal(h.state.sessionSubmitted, false)
   assert.equal(h.state.user.history.length, 0)
   assert(h.renderQuiz().includes('交卷并查看解析'))
@@ -482,13 +508,30 @@ test('selecting an answer advances once, guards double taps and keeps final subm
   option.dataset.option = '3'
   h.fire('click', { target: option })
   assert.equal(h.state.sessionAnswers['test-1'], 3, 'A previous answer can still be changed')
-  assert.equal(h.state.sessionIndex, 1)
+  assert.equal(h.state.sessionIndex, 0)
   h.submitSession()
   assert.equal(h.state.sessionSubmitted, true)
   const submittedAnswers = JSON.stringify(h.state.sessionAnswers)
   h.advance(1000)
   h.fire('click', { target: option })
   assert.equal(JSON.stringify(h.state.sessionAnswers), submittedAnswers, 'Review cannot change a submitted answer')
+})
+
+test('changing a selection restarts the full second and manual navigation cancels pending movement', () => {
+  const h=harness(); h.startQuiz(h.state.data.questions)
+  const option=h.element('.option'); option.parentElement=h.element('.question-card'); option.dataset.option='0'
+  h.fire('click',{target:option}); h.advance(600)
+  option.dataset.option='2'; h.fire('click',{target:option})
+  h.advance(999); assert.equal(h.state.sessionIndex,0)
+  assert.equal(h.state.sessionAnswers['test-1'],2)
+  h.advance(1); assert.equal(h.state.sessionIndex,1)
+  h.advance(300); h.fire('click',{target:option})
+  h.changeQuestion(2); h.advance(2000); assert.equal(h.state.sessionIndex,2)
+  h.changeQuestion(0); h.fire('click',{target:option}); h.goBack(); h.advance(2000)
+  assert.notEqual(h.state.route,'quiz'); assert.equal(h.state.sessionIndex,0)
+  h.continueDraft(); h.fire('click',{target:option}); h.setHidden(true); h.advance(2000)
+  assert.equal(h.state.sessionIndex,0,'A background tab cannot advance unseen')
+  h.setHidden(false); h.advance(2000); assert.equal(h.state.sessionIndex,0)
 })
 
 test('all 1100 questions render reviewed references and repaired sources without changing grading data', () => {
@@ -503,6 +546,7 @@ test('all 1100 questions render reviewed references and repaired sources without
     assert(!html.includes('reference-review-note'), `${question.id}: all source uncertainties resolved`)
     assert(!html.includes('C:\\Users\\'), `${question.id}: no private source paths in the page`)
     assert(!html.includes('undefined'), `${question.id}: no missing template values`)
+    assert(!html.includes('查看完整解析') && !html.includes('查看原文解析') && !html.includes('查看完整原解析'), `${question.id}: removed redundant explanation entries`)
     rendered++
   }
   assert.equal(rendered, 1100)
@@ -510,9 +554,11 @@ test('all 1100 questions render reviewed references and repaired sources without
   assert(repaired('xh-newlaw-076').includes('统筹地区人民政府'))
   assert(repaired('xh-newlaw-077').includes('职工个人不缴费'))
   assert(repaired('xh-newlaw-077').includes('ybj.sh.gov.cn'))
-  assert(repaired('xh-500-196').includes('4150元/人'))
-  assert(!repaired('xh-500-196').includes('4巧0'))
-  assert(repaired('xh-500-467').includes('15岁'))
+  h.startQuiz([fullBank.questions.find(q=>q.id==='xh-500-196')])
+  assert(h.renderQuiz().includes('4150元/人'))
+  assert(!h.renderQuiz().includes('4巧0'))
+  assert(repaired('xh-500-467').includes('<strong>15岁</strong>'))
+  assert(!repaired('xh-500-467').includes('巧岁'))
   const contextual = repaired('cg-186')
   assert(contextual.includes('reference-focus'))
   assert(!contextual.includes('reference-wrong'), 'Correct policies in another category must not be crossed out as false facts')
@@ -520,6 +566,19 @@ test('all 1100 questions render reviewed references and repaired sources without
   assert(legalRule.includes('<del class="reference-wrong">应当全部返还</del>'))
   assert(legalRule.includes('明显违反公平原则'))
   assert.equal(JSON.stringify(fullBank), before)
+})
+
+test('ordinary ABCD references annotate all three wrong options in the reported example and omit the correct one', () => {
+  const h=harness()
+  const fullBank=JSON.parse(fs.readFileSync(path.join(repo,'data/questions.json'),'utf8'))
+  const question=fullBank.questions.find(item=>item.id==='xh-special-010')
+  const html=h.renderReferenceAnswer(question)
+  assert.equal((html.match(/class="reference-item /g)||[]).length,3)
+  for (const letter of ['A','B','D']) assert(html.includes(`<b>${letter}</b><span class="reference-verdict incorrect">`))
+  assert(!html.includes('<b>C</b><span class="reference-verdict'))
+  assert(!html.includes('reference-choice'))
+  assert(html.includes('reference-wrong') && html.includes('合理调节高收入'))
+  assert(!html.includes('查看完整解析') && !html.includes('查看原文解析'))
 })
 
 console.log(`PASS: ${passed} quiz navigation, gesture, timing, persistence and reference scenarios`)

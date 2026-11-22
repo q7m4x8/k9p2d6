@@ -31,6 +31,28 @@ const state = {
 const main = document.querySelector('#mainContent')
 const toast = document.querySelector('#toast')
 let storageWarningShown = false
+let pendingAutoAdvance = null
+
+function cancelAutoAdvance() {
+  if (pendingAutoAdvance !== null) clearTimeout(pendingAutoAdvance)
+  pendingAutoAdvance = null
+}
+
+function scheduleAutoAdvance() {
+  cancelAutoAdvance()
+  if (state.sessionIndex >= state.session.length - 1) return
+  const session = state.session
+  const index = state.sessionIndex
+  const id = currentQuestion().id
+  const answer = state.sessionAnswers[id]
+  pendingAutoAdvance = setTimeout(() => {
+    pendingAutoAdvance = null
+    if (state.route !== 'quiz' || document.hidden || state.sessionSubmitted || state.session !== session ||
+      state.sessionIndex !== index || currentQuestion()?.id !== id || state.sessionAnswers[id] !== answer) return
+    suppressAutoAnswerUntil = performance.now() + 250
+    changeQuestion(index + 1)
+  }, 1000)
+}
 
 function loadUserState() {
   try {
@@ -96,6 +118,7 @@ function persistDraft() {
 }
 
 function pauseQuizTiming() {
+  cancelAutoAdvance()
   if (state.timerStartedAt !== null) {
     const question = currentQuestion()
     if (question) state.sessionTimes[question.id] = getQuestionMilliseconds(question.id)
@@ -226,13 +249,10 @@ function renderReferenceAnswer(question) {
   const supplement = referenceSupplement(question)
   const original = supplement?.explanation || question.explanation || `正确答案：${question.answerLetter}`
   const sources = renderReferenceSources(question, supplement)
-  const formatted = window.QuizExplanationFormatter?.format(question)
+  const formatted = window.QuizExplanationFormatter?.format(question) || window.QuizExplanationFormatter?.formatOptions(question)
   if (!formatted) {
     const concise = conciseReferenceReason(original, [question.stem, ...(question.options || [])].join('\n'))
-    const fullSource = concise !== original ? `<details class="reference-original"><summary>查看完整原解析</summary><p class="explanation-text">${escapeQuizText(original)}</p></details>` : ''
-    const answerText = question.options?.[question.answer]
-    const answer = answerText ? `<div class="reference-choice"><b>${escapeHtml(question.answerLetter)}</b><p>${escapeQuizText(answerText)}</p></div>` : ''
-    return `<section class="reference-answer"><header class="reference-heading"><h3>参考答案</h3><span>正确答案 <b>${escapeHtml(question.answerLetter)}</b></span></header>${answer}<div class="reference-prose"><h4>答案解释</h4><p class="explanation-text">${escapeQuizText(concise)}</p></div>${fullSource}${sources}</section>`
+    return `<section class="reference-answer"><header class="reference-heading"><h3>参考答案</h3><span>正确答案 <b>${escapeHtml(question.answerLetter)}</b></span></header><div class="reference-prose"><h4>答案解释</h4><p class="explanation-text">${escapeQuizText(concise)}</p></div>${sources}</section>`
   }
   const rows = formatted.items.map(item => {
     const hasCorrection = !!item.correctedRule || item.segments.some(segment => segment.type === 'correction')
@@ -246,14 +266,15 @@ function renderReferenceAnswer(question) {
     const reason = (!hasCorrection || item.needsExplanation) && verdict !== 'correct' && reasonText
       ? (hasCorrection
         ? `<details class="reference-extra"><summary>补充说明</summary><p class="reference-reason">${reasonText}</p></details>`
-        : `<p class="reference-reason"><span>原解析：</span>${reasonText}</p>`) : ''
+        : `<p class="reference-reason"><span>说明：</span>${reasonText}</p>`) : ''
     const reviewNote = item.reviewStatus === 'source_unclear' && item.reviewNote ? `<p class="reference-review-note">${escapeQuizText(item.reviewNote)}</p>` : ''
-    const rule = item.correctedRule ? `<div class="reference-rule"><b>正确表述</b><p>${escapeQuizText(item.correctedRule)}</p></div>` : ''
+    const rule = item.correctedRule ? `<div class="reference-rule"><b>${verdict === 'unknown' ? '知识点说明' : '正确表述'}</b><p>${escapeQuizText(item.correctedRule)}</p></div>` : ''
     return `<li class="reference-item ${verdict}"><div class="reference-item-head"><b>${escapeHtml(item.label)}</b><span class="reference-verdict ${verdict}">${status}</span></div><p class="reference-statement">${text}</p>${rule}${reviewNote}${reason}</li>`
   }).join('')
   const countText = /^\d+\s*项$/.test(question.options?.[question.answer] || '')
     ? `（${question.options[question.answer].replace(/\s/g, '')}）` : ''
-  return `<section class="reference-answer" aria-label="参考答案"><header class="reference-heading"><h3>参考答案</h3><span>正确答案 <b>${escapeHtml(question.answerLetter)}</b>${escapeHtml(countText)}</span></header><ol class="reference-items">${rows}</ol><details class="reference-original"><summary>查看完整解析</summary><p class="explanation-text">${escapeQuizText(original)}</p></details>${sources}</section>`
+  const emptyNote = formatted.mode === 'options' && !formatted.items.length ? `<p class="reference-reason">各选项的判断需结合题意，正确答案为 ${escapeHtml(question.answerLetter)}。</p>` : ''
+  return `<section class="reference-answer" aria-label="参考答案"><header class="reference-heading"><h3>参考答案</h3><span>正确答案 <b>${escapeHtml(question.answerLetter)}</b>${escapeHtml(countText)}</span></header><ol class="reference-items">${rows}</ol>${emptyNote}${sources}</section>`
 }
 
 function renderSourceExplanation(question) {
@@ -328,6 +349,7 @@ function paperProgress(album, paper) {
 }
 
 function navigate(route, options = {}) {
+  cancelAutoAdvance()
   if (state.route === 'quiz' && route !== 'quiz') pauseQuizTiming()
   if (!options.replace && state.route !== route && state.route !== 'quiz' && route !== 'quiz') state.backStack.push({ route: state.route, albumId: state.selectedAlbum?.id })
   state.route = route
@@ -439,12 +461,12 @@ function renderQuiz() {
     if (selectedOption === index) className += ' selected'
     if (reveal && index === question.answer) className += ' correct'
     if (reveal && selectedOption === index && index !== question.answer) className += ' incorrect'
-    return `<button class="${className}" data-option="${index}" ${reveal ? 'disabled' : ''}><span class="option-letter">${'ABCD'[index]}</span><span class="option-text">${escapeQuizText(option)}</span></button>`
+    return `<button class="${className}" data-option="${index}" aria-pressed="${selectedOption === index}" ${reveal ? 'disabled' : ''}><span class="option-letter">${'ABCD'[index]}</span><span class="option-text">${escapeQuizText(option)}</span></button>`
   }).join('')
   const feedback = reveal
     ? `<div class="feedback ${selectedOption === question.answer ? 'correct' : 'incorrect'}">${selectedOption === question.answer ? '回答正确' : `回答错误，你选了 ${Number.isInteger(selectedOption) ? 'ABCD'[selectedOption] : '未作答'}，正确答案是 ${question.answerLetter}`}</div>`
     : ''
-  const explanation = reveal ? `${renderReferenceAnswer(question)}${renderSourceExplanation(question)}` : ''
+  const explanation = reveal ? renderReferenceAnswer(question) : ''
   const resultSummary = reveal
     ? `<section class="result-summary"><div><span>本套成绩</span><strong>${correctCount} / ${state.session.length}</strong></div><p>正确率 ${Math.round(correctCount / state.session.length * 100)}% · 本套用时 ${formatDuration(getSessionMilliseconds())}<br>现在可以逐题查看答案与解析。</p></section>`
     : ''
@@ -474,7 +496,7 @@ function renderQuiz() {
       <div class="options">${options}</div>${feedback}${explanation}
     </article>
     <div class="quiz-actions"><button class="btn secondary" data-action="previous" ${state.sessionIndex === 0 ? 'disabled' : ''}>上一题</button><button class="btn primary" data-action="${primaryAction}">${primaryLabel}</button></div>
-    <p class="swipe-hint">${reveal ? '左滑下一题，右滑上一题' : '点选后自动下一题 · 也可左右滑动切题 · 返回自动保存'}</p>
+    <p class="swipe-hint">${reveal ? '左滑下一题，右滑上一题' : '选中后停留 1 秒自动下一题 · 可改选或左右滑动 · 返回自动保存'}</p>
     <details class="answer-sheet" ${reveal ? 'open' : ''}><summary>答题卡 · ${reveal ? `答对 ${correctCount} 题` : `已答 ${answeredCount}/${state.session.length} 题`}</summary><div>${answerSheet}</div></details>
   </section>`
 }
@@ -511,6 +533,7 @@ function renderQuestionList(type) {
 }
 
 function submitSession() {
+  cancelAutoAdvance()
   if (state.sessionSubmitted || !state.session.length) return
   const firstUnanswered = state.session.findIndex(item => !Number.isInteger(state.sessionAnswers[item.id]))
   if (firstUnanswered >= 0) {
@@ -552,6 +575,7 @@ function submitSession() {
 }
 
 function changeQuestion(index) {
+  cancelAutoAdvance()
   if (!Number.isInteger(index) || index < 0 || index >= state.session.length || index === state.sessionIndex) return false
   pauseQuizTiming()
   state.sessionIndex = index
@@ -580,7 +604,7 @@ function toggleFavorite() {
 }
 
 function openGuide() {
-  document.querySelector('#modalRoot').innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>三步开始刷题</h2><ol><li>在首页选择专辑或子卷。</li><li>点选答案后自动下一题，也可左右滑动切题；最后一题选完后手动交卷，统一查看答案与解析。</li><li>在进度页查看每次练习及逐题用时；错题和收藏可随时复习。</li></ol><p>进入答题即开始计时，返回或切到后台暂停，交卷后停止。返回后可点“继续上次练习”恢复。</p><p>所有进度只保存在当前浏览器，不会覆盖其他人的记录。</p><button class="btn primary" data-action="close-modal">知道了</button></section></div>`
+  document.querySelector('#modalRoot').innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>三步开始刷题</h2><ol><li>在首页选择专辑或子卷。</li><li>点选答案后先显示选中框，停留 1 秒自动下一题，改选后重新等待 1 秒；也可左右滑动切题。最后一题选完后手动交卷，统一查看答案与解析。</li><li>在进度页查看每次练习及逐题用时；错题和收藏可随时复习。</li></ol><p>进入答题即开始计时，返回或切到后台暂停，交卷后停止。返回后可点“继续上次练习”恢复。</p><p>所有进度只保存在当前浏览器，不会覆盖其他人的记录。</p><button class="btn primary" data-action="close-modal">知道了</button></section></div>`
 }
 
 let swipeGesture = null
@@ -651,7 +675,9 @@ document.addEventListener('click', event => {
     if (!Number.isInteger(answer) || answer < 0 || answer >= question.options.length) return
     state.sessionAnswers[question.id] = answer
     suppressAutoAnswerUntil = performance.now() + 250
-    if (!changeQuestion(state.sessionIndex + 1)) { persistDraft(); render() }
+    scheduleAutoAdvance()
+    persistDraft()
+    render()
     return
   }
   const jump = event.target.closest('[data-jump]')
@@ -740,7 +766,6 @@ async function init() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`)
     state.data = await response.json()
     render()
-    loadSourceExplanations()
   } catch (error) {
     main.innerHTML = `<div class="empty-state"><b>题库载入失败</b>请刷新页面后重试。<br><small>${escapeHtml(error.message)}</small></div>`
   }

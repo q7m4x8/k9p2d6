@@ -19,7 +19,7 @@
   function compact(value) { return cleanText(value).replace(/\s+/g, '') }
 
   function evidenceText(value) {
-    return compact(String(value ?? '').normalize('NFKC')).replace(/[“”"‘’「」『』]/g, '')
+    return compact(String(value ?? '').normalize('NFKC')).replace(/[“”"'‘’「」『』]/g, '')
   }
 
   function manualReview(question, item) {
@@ -537,5 +537,34 @@
     }
   }
 
-  return Object.freeze({ format, extractStatements, parseVerdicts, findCorrection, findDirectCorrection })
+  function formatOptions(question) {
+    if (!question || extractStatements(question.stem).length) return null
+    const review = root?.QuizOptionReviews?.entries?.[question.id]
+    if (!review || review.expectedStem !== question.stem || review.expectedExplanation !== question.explanation ||
+      review.expectedAnswerLetter !== question.answerLetter || JSON.stringify(review.expectedOptions) !== JSON.stringify(question.options)) return null
+    const supplemental = root?.QuizReferenceReviews?.supplements?.[question.id]
+    const explanation = supplemental?.approved && supplemental.expectedExplanation === question.explanation ? supplemental.explanation : question.explanation
+    if (review.expectedEffectiveExplanation !== explanation) return null
+    const source = evidenceText(explanation)
+    const items = []
+    for (const option of review.options) {
+      if (option.verdict === 'correct') continue
+      const index = 'ABCD'.indexOf(option.label)
+      if (!/^[ABCD]$/.test(option.label) || index < 0 || index >= question.options.length || !['incorrect', 'contextual'].includes(option.verdict)) return null
+      const pairs = option.pairs || []
+      if (pairs.some(pair => !pair.evidence || !source.includes(evidenceText(pair.evidence)) || !evidenceText(pair.evidence).includes(evidenceText(pair.correct)))) return null
+      if ((option.focus || []).some(focus => !source.includes(evidenceText(focus.evidence)))) return null
+      if (option.rule && (!source.includes(evidenceText(option.rule.evidence)) || !evidenceText(option.rule.evidence).includes(evidenceText(option.rule.correct)))) return null
+      const text = cleanText(question.options[index])
+      if (option.verdict === 'contextual' && (pairs.length || (option.focus || []).some(focus => focus.wrong))) return null
+      const changes = pairs.concat((option.focus || []).map(focus => ({wrong:focus.text,focusOnly:true,wrongHighlight:!!focus.wrong,occurrence:focus.occurrence})))
+      const segments = changes.length ? segmentsFromPairs(text, changes) : [{type:'text',text}]
+      if (!segments || segments.filter(segment => segment.type === 'correction').length !== pairs.length) return null
+      items.push({label:option.label,text,verdict:option.verdict === 'contextual' ? 'unknown' : 'incorrect',segments,
+        reason:option.reason || '',correctedRule:option.rule?.correct,manuallyReviewed:true,needsExplanation:!!option.reason})
+    }
+    return {mode:'options',items,sourceExplanation:explanation}
+  }
+
+  return Object.freeze({ format, formatOptions, extractStatements, parseVerdicts, findCorrection, findDirectCorrection })
 })

@@ -1,0 +1,3650 @@
+[
+  {
+    "id": "xh-500-039",
+    "options": [
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "基础和前提",
+            "correct": "重要经验",
+            "evidence": "是推进基层治理体系和治理能力现代化的重要经验"
+          }
+        ],
+        "reason": "定位不准确，原解析将枫桥经验定位为重要经验、重要方法。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-042",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "财产安全",
+            "correct": "生命安全",
+            "evidence": "始终把人民群众生命安全放在第一位"
+          }
+        ],
+        "reason": "置于首位的是生命安全。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-043",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "适应",
+            "correct": "坚决反对",
+            "evidence": "中国坚决反对“经济问题政治化\"和贸易保护主义。"
+          }
+        ],
+        "reason": "经济问题政治化和以绿色要求实施贸易保护均受到反对。",
+        "rule": {
+          "correct": "绿色低碳转型应坚持“共同但有区别的责任\"",
+          "evidence": "绿色低碳转型应坚持“共同但有区别的责任\"，而非通过绿色要求推行贸易保护。"
+        },
+        "focus": [
+          {
+            "text": "通过强化绿色低碳要求推行贸易保护政策",
+            "evidence": "而非通过绿色要求推行贸易保护",
+            "wrong": true
+          }
+        ]
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "安全",
+            "correct": "发展",
+            "evidence": "要把发展置于国际经贸议程中心地位"
+          }
+        ],
+        "reason": "中心地位应为发展。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "规则应随时代改革完善，不能坚持规则永远不变。",
+        "rule": {
+          "correct": "世界贸易组织规则应“与时俱进改革完善\"",
+          "evidence": "世界贸易组织规则应“与时俱进改革完善\"，而非“一以贯之保持不变”。"
+        },
+        "focus": [
+          {
+            "text": "一以贯之保持",
+            "evidence": "而非“一以贯之保持不变”",
+            "wrong": true
+          },
+          {
+            "text": "不变",
+            "evidence": "而非“一以贯之保持不变”",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-044",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "把实践与发挥主观能动性的关系颠倒了。",
+        "rule": {
+          "correct": "实践是发挥主观能动性的根本途径。",
+          "evidence": "A项错误：实践是发挥主观能动性的根本途径。"
+        },
+        "focus": [
+          {
+            "text": "正确发挥主观能动性是实践的根本途径",
+            "evidence": "实践是发挥主观能动性的根本途径",
+            "wrong": true
+          }
+        ]
+      },
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "把实践完整过程等同于结果的检验评价，范围过窄。",
+        "rule": {
+          "correct": "实践的完整过程是一个从实践到认识、再从认识到实践的辩证循环过程",
+          "evidence": "实践的完整过程是一个从实践到认识、再从认识到实践的辩证循环过程"
+        },
+        "focus": [
+          {
+            "text": "就是对于结果的检验和评价",
+            "evidence": "而非“实践过程就是检验和评价结果\"",
+            "wrong": true
+          }
+        ]
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "无目的的适应环境的本能活动",
+            "correct": "有目的、有意识地改造客观世界的社会性活动",
+            "evidence": "实践是人类有目的、有意识地改造客观世界的社会性活动。"
+          }
+        ],
+        "reason": "实践具有目的性、意识性和社会性。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-045",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "个别劳动时间",
+            "correct": "社会必要劳动时间",
+            "evidence": "不是生产商品的个别劳动时间，而是社会必要劳动时间"
+          }
+        ],
+        "reason": "价值量由社会必要劳动时间决定。"
+      },
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "价值尺度无需实际货币交换，观念上的货币即可。",
+        "rule": {
+          "correct": "充当价值尺度的货币可以是观念上的货币。",
+          "evidence": "充当价值尺度的货币可以是观念上的货币。"
+        },
+        "focus": [
+          {
+            "text": "通过实际的物质交换来实现",
+            "evidence": "充当价值尺度的货币可以是观念上的货币",
+            "wrong": true
+          }
+        ]
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "不同商品生产过程中的不同劳动",
+            "correct": "商品生产者的同一劳动过程中不可分割的两个方面",
+            "evidence": "是商品生产者的同一劳动过程中不可分割的两个方面"
+          }
+        ],
+        "reason": "二者是同一劳动的两个方面。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-046",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "法律监督",
+            "correct": "人民监督",
+            "evidence": "以自我监督和人民监督相结合为强大动力"
+          }
+        ],
+        "reason": "九个以明确的是自我监督与人民监督相结合。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-047",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "属于有关工作内容，题目问的是首要政治任务。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "并非题目所问的首要政治任务。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "并非题目所问的首要政治任务。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-048",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "属于违反政治纪律，非廉洁纪律。"
+      },
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "属于违反组织纪律，非廉洁纪律。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "属于违反群众纪律，非廉洁纪律。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-049",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "是办公场景和工作模式变化，没有体现生产关系核心内容调整。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "体现技术赋能生产力，非生产关系的调整。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "属于国家治理优化，非生产过程中所有制、分配等关系。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-050",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "内容本身不判错；此项着重国内发展成效，而非题目所问的世界意义。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-051",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "侧重民族生存，未对应题干强调的世界历史贡献。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "侧重民族独立与解放，未对应世界历史意义。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "并非题干历史评价所要突出说明的马克思主义原理；来源未逐项论证事实真伪，不强作改写。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-057",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "柔性",
+            "correct": "刚性",
+            "evidence": "加强公平竞争审查刚性约束"
+          }
+        ],
+        "reason": "公平竞争审查应加强刚性约束。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-061",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "推进长江流域",
+            "correct": "推进黄河流域",
+            "evidence": "推进黄河流域农业深度节水控水"
+          }
+        ],
+        "reason": "深度节水控水对应黄河流域；长江流域信息共享系统本身不在此处判错。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "粮食产销奖补制度",
+            "correct": "产粮大县奖补制度",
+            "evidence": "完善产粮大县奖补制度"
+          },
+          {
+            "wrong": "粮食主销区",
+            "correct": "粮食主产区",
+            "evidence": "中央预算内投资向粮食主产区倾斜"
+          }
+        ],
+        "reason": "奖补对象和投资倾斜地区均错。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "从经营性向公益性转变",
+            "correct": "公益性和经营性相结合",
+            "evidence": "健全公益性和经营性相结合的农业科技推广体系"
+          }
+        ],
+        "reason": "两类推广体系应结合，而非单向转变。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-062",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "稳定总量、畅通流动向调节数量、优化结构",
+            "correct": "调节数量为主向提升素质、稳定总量、优化结构、畅通流动",
+            "evidence": "由调节数量为主向提升素质、稳定总量、优化结构、畅通流动转变"
+          }
+        ],
+        "reason": "人口工作转变方向表述颠倒且遗漏提升素质。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "社会治理向政府治理",
+            "correct": "主要依靠政府力量向政府和社会协同治理",
+            "evidence": "由主要依靠政府力量向政府和社会协同治理转变"
+          }
+        ],
+        "reason": "转变方向应为政府与社会协同。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "高速增长",
+            "correct": "高质量发展",
+            "evidence": "把人口高质量发展同人民高品质生活紧密结合起来"
+          }
+        ],
+        "reason": "要求人口高质量发展。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-063",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "经济发展需求",
+            "correct": "国家战略需求",
+            "evidence": "突出国家战略需求"
+          }
+        ],
+        "reason": "应突出国家战略需求。"
+      },
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "人才",
+            "correct": "市场",
+            "evidence": "充分发挥市场在科技资源配置中的决定性作用"
+          }
+        ],
+        "reason": "在资源配置中起决定性作用的是市场。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "降低",
+            "correct": "提高",
+            "evidence": "要提高基础研究组织化程度"
+          }
+        ],
+        "reason": "应提高基础研究组织化程度，自由探索本身应鼓励。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-064",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "江苏",
+            "correct": "山西",
+            "evidence": "山西作为传统煤炭资源大省"
+          }
+        ],
+        "reason": "能源转型的地区对应错误。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "云南",
+            "correct": "江苏",
+            "evidence": "江苏、广东等经济大省是“挑大梁\"的关键省份"
+          }
+        ],
+        "reason": "挑大梁及科技产业融合对应江苏等经济大省。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "贵州",
+            "correct": "海南",
+            "evidence": "是海南自由贸易港的核心政策目标"
+          }
+        ],
+        "reason": "该自由便利政策目标对应海南自由贸易港。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-065",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "原理本身成立，题干未突出认识与改造的关系。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "原理本身成立，题干未体现量变质变。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "原理本身成立，题干未体现矛盾普遍性与特殊性。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-066",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "以竞争性支持取代稳定支持",
+            "correct": "竞争性支持和稳定支持相结合",
+            "evidence": "完善竞争性支持和稳定支持相结合的基础研究投入机制"
+          }
+        ],
+        "reason": "两种支持应结合，不能取代。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "限制",
+            "correct": "鼓励",
+            "evidence": "鼓励开展高风险、高价值基础研究"
+          },
+          {
+            "wrong": "高投入",
+            "correct": "高价值",
+            "evidence": "鼓励开展高风险、高价值基础研究"
+          }
+        ],
+        "reason": "政策鼓励高风险、高价值研究。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "应扩大科技人员自主权；完整要求见规则。",
+        "rule": {
+          "correct": "允许科技人员在科技成果转化收益分配上有更大自主权",
+          "evidence": "允许科技人员在科技成果转化收益分配上有更大自主权"
+        },
+        "focus": [
+          {
+            "text": "降低",
+            "evidence": "允许科技人员在科技成果转化收益分配上有更大自主权",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-067",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "属于加强人民当家作主制度建设，非完善大统战格局。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-068",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "竞争优先、力争上游",
+            "correct": "造福人民",
+            "evidence": "领导干部要树牢造福人民的政绩观"
+          }
+        ],
+        "reason": "政绩观应以造福人民为导向。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "不能把打基础利长远理解为优化指标和数据，应重实效。",
+        "rule": {
+          "correct": "坚持出实招求实效，反对华而不实、数据造假；坚持打基础利长远，反对竭泽而渔、劳民伤财。",
+          "evidence": "坚持出实招求实效，反对华而不实、数据造假；坚持打基础利长远，反对竭泽而渔、劳民伤财。"
+        },
+        "focus": [
+          {
+            "text": "做强发展指标、做优发展数据",
+            "evidence": "反对华而不实、数据造假",
+            "wrong": true
+          }
+        ]
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "不应以工程气派替代实际成效。",
+        "rule": {
+          "correct": "坚持高质量发展，反对贪大求洋、盲目蛮干；坚持出实招求实效，反对华而不实、数据造假",
+          "evidence": "坚持高质量发展，反对贪大求洋、盲目蛮干；坚持出实招求实效，反对华而不实、数据造假"
+        },
+        "focus": [
+          {
+            "text": "大力发展高标准、大气派的工程",
+            "evidence": "反对贪大求洋、盲目蛮干",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-070",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "发展与增进民生福祉的目的关系颠倒。",
+        "rule": {
+          "correct": "增进民生福祉是发展的根本目的",
+          "evidence": "增进民生福祉是发展的根本目的"
+        },
+        "focus": [
+          {
+            "text": "促进经济社会发展是增进民生福祉的根本目的",
+            "evidence": "而不是“促进经济社会发展是增进民生福祉的根本目的”",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-072",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "协商民主和基层民主分别是重要形式与重要体现，不能以两者统一概括全过程人民民主。",
+        "rule": {
+          "correct": "协商民主是实践全过程人民民主的重要形式，基层民主是全过程人民民主的重要体现",
+          "evidence": "协商民主是实践全过程人民民主的重要形式，基层民主是全过程人民民主的重要体现"
+        },
+        "focus": [
+          {
+            "text": "是协商民主和基层民主的统一",
+            "evidence": "二者是全过程人民民主的组成部分和实现载体",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-076",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "经济安全",
+            "correct": "政治安全",
+            "evidence": "把捍卫政治安全摆在首位"
+          }
+        ],
+        "reason": "首位应为政治安全。"
+      },
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "新兴产业和未来产业",
+            "correct": "先进制造业",
+            "evidence": "构建以先进制造业为骨干的现代化产业体系"
+          }
+        ],
+        "reason": "现代化产业体系的骨干是先进制造业。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "做强国内国际大循环",
+            "correct": "做强国内大循环、畅通国内国际双循环",
+            "evidence": "做强国内大循环、畅通国内国际双循环"
+          }
+        ],
+        "reason": "国内大循环与国内国际双循环的动词和范围不同。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-077",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "市场化扩大养育教育产业可能抬升家庭负担，不符合降低成本的政策目标。",
+        "rule": {
+          "correct": "有效降低生育、养育、教育成本，营造全社会尊重生育、支持生育的良好氛围",
+          "evidence": "有效降低生育、养育、教育成本，营造全社会尊重生育、支持生育的良好氛围"
+        },
+        "focus": [
+          {
+            "text": "推动养育、教育产业市场化发展",
+            "evidence": "可能导致托育、教育成本上升，加重家庭负担",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-078",
+    "options": [
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "优化供给结构",
+            "correct": "经济发展",
+            "evidence": "增强消费对经济发展的基础性作用"
+          }
+        ],
+        "reason": "消费的基础性作用对应经济发展；优化供给结构对应投资的关键作用。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-080",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "全面推进",
+            "correct": "梯次推进",
+            "evidence": "梯次推进盐碱地等耕地后备资源开发"
+          }
+        ],
+        "reason": "盐碱地后备资源开发应梯次推进。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "国家、省、市三级",
+            "correct": "国家、省、市、县四级",
+            "evidence": "建立健全国家、省、市、县四级耕地质量监测网络体系"
+          }
+        ],
+        "reason": "监测体系还包括县级。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "云贵地区的梯田和山间谷地",
+            "correct": "东北黑土地区、平原地区、具备水利灌溉条件地区的耕地",
+            "evidence": "优先把东北黑土地区、平原地区、具备水利灌溉条件地区的耕地建成高标准农田"
+          }
+        ],
+        "reason": "优先建设地区对应错误。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-081",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "依法治国的主体是人民；法治社会建设的先导和示范是法治政府。",
+        "rule": {
+          "correct": "依法治国的主体是人民，法治国家是依法治国的目标和结果。法治政府是法治社会建设的先导和示范。",
+          "evidence": "依法治国的主体是人民，法治国家是依法治国的目标和结果。法治政府是法治社会建设的先导和示范。"
+        },
+        "focus": [
+          {
+            "text": "依法治国的主体",
+            "evidence": "法治国家是依法治国的目标和结果",
+            "wrong": true
+          },
+          {
+            "text": "法治社会建设的先导和示范",
+            "evidence": "法治政府是法治社会建设的先导和示范",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-082",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "国土安全",
+            "correct": "政治安全",
+            "evidence": "把捍卫政治安全摆在首位"
+          }
+        ],
+        "reason": "首位是政治安全。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "以风险防控为先导、法治保障为落脚点",
+            "correct": "以战略为先导、政策为抓手、法治为保障、风险防控为落脚点",
+            "evidence": "坚持以战略为先导、政策为抓手、法治为保障、风险防控为落脚点"
+          }
+        ],
+        "reason": "先导、保障和落脚点定位不同，完整关系不能调换。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "由事后处理向事中控制",
+            "correct": "向事前预防",
+            "evidence": "推动公共安全治理模式向事前预防转型"
+          }
+        ],
+        "reason": "公共安全治理应转向事前预防。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-083",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "马克思主义思想",
+            "correct": "新时代中国特色社会主义思想",
+            "evidence": "自觉用新时代中国特色社会主义思想改造主观世界"
+          },
+          {
+            "wrong": "客观世界",
+            "correct": "主观世界",
+            "evidence": "自觉用新时代中国特色社会主义思想改造主观世界"
+          }
+        ],
+        "reason": "强党性对应以新时代思想改造主观世界。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "党风是保障，党纪是表现",
+            "correct": "党风是表现，党纪是保障",
+            "evidence": "党性是根本，党风是表现，党纪是保障"
+          }
+        ],
+        "reason": "党风和党纪的定位对调。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "作风建设",
+            "correct": "政治修养",
+            "evidence": "要把政治修养摆在党性修养的首位"
+          }
+        ],
+        "reason": "居于党性修养首位的是政治修养。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-084",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "第一次确立",
+            "correct": "重新确立",
+            "evidence": "重新确立了中国在世界上的大国地位"
+          }
+        ],
+        "reason": "大国地位是重新确立。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-085",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "传统制造",
+            "correct": "先进制造",
+            "evidence": "科技创新、先进制造、绿色发展和中小微企业"
+          },
+          {
+            "wrong": "国有企业",
+            "correct": "中小微企业",
+            "evidence": "科技创新、先进制造、绿色发展和中小微企业"
+          }
+        ],
+        "reason": "金融支持领域和企业对象被替换。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-086",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "第三次分配",
+            "correct": "再分配",
+            "evidence": "完善税收、社会保障、转移支付等再分配调节机制"
+          }
+        ],
+        "reason": "税收、社保与转移支付属于再分配。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-087",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "碳排放双控向能耗双控",
+            "correct": "能耗双控向碳排放双控",
+            "evidence": "建立能耗双控向碳排放双控全面转型新机制"
+          }
+        ],
+        "reason": "转型方向颠倒。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-088",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "全面发展新兴产业",
+            "correct": "发展特色优势产业",
+            "evidence": "把发展特色优势产业作为主攻方向"
+          }
+        ],
+        "reason": "主攻方向是特色优势产业，新兴产业需因地制宜发展。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-089",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "二十大提出前半部分内容；三孩政策在2021年决定中明确，生育补贴制度由二十届三中全会等部署，不能归为二十大同时作出。",
+        "rule": {
+          "correct": "实施三孩生育政策的决策，是在2021年，中共中央、国务院发布的《关于优化生育政策促进人口长期均衡发展的决定》中明确的。党的二十届三中全会提出，要建立生育补贴制度。",
+          "evidence": "实施三孩生育政策的决策，是在2021年，中共中央、国务院发布的《关于优化生育政策促进人口长期均衡发展的决定》中明确的。党的二十届三中全会提出，要建立生育补贴制度。"
+        },
+        "focus": [
+          {
+            "text": "并决定实施三孩生育政策以及育儿补贴制度等配套支持措施",
+            "evidence": "党的二十大报告仅提出“优化人口发展战略，建立生育支持政策体系，降低生育、养育、教育成本\"",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-090",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "否定之否定规律",
+            "correct": "量变质变规律",
+            "evidence": "坚持稳中求进工作总基调对应的是量变质变规律"
+          }
+        ],
+        "reason": "稳与进对应量变和质变。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-091",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "强调公平正直，非法律随实际变化。"
+      },
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "强调法律实施，非法律与时俱进。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "强调干部任用与民心，非法律随时代调整。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-093",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "观点本身正确，未直接体现题干所强调的思想指导实践。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "观点本身正确，未直接体现题干强调的意识能动性。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "观点本身正确，题干未涉及生产关系与生产力。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-098",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "统一化、标准化",
+            "correct": "分众化、精准化",
+            "evidence": "形成网上思想道德教育分众化、精准化实施机制"
+          }
+        ],
+        "reason": "网上思想道德教育应分众化、精准化。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-101",
+    "options": [
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "历史使命",
+            "correct": "初心",
+            "evidence": "为人民谋幸福是党始终坚守的初心"
+          }
+        ],
+        "reason": "人民幸福对应初心，民族复兴对应历史使命。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-111",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "政治体制改革",
+            "correct": "经济体制改革",
+            "evidence": "以经济体制改革为重点"
+          }
+        ],
+        "reason": "改革重点是经济体制改革。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-112",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "重点",
+            "correct": "根本",
+            "evidence": "生活富裕是根本"
+          }
+        ],
+        "reason": "生活富裕是根本，产业兴旺才是重点。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-114",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "以国家安全",
+            "correct": "以人民安全",
+            "evidence": "总体国家安全观以人民安全为宗旨"
+          }
+        ],
+        "reason": "宗旨为人民安全。"
+      },
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "保障",
+            "correct": "基础",
+            "evidence": "经济安全为基础"
+          }
+        ],
+        "reason": "经济安全是基础。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "基础",
+            "correct": "保障",
+            "evidence": "军事、文化、社会安全为保障"
+          }
+        ],
+        "reason": "军事文化社会安全是保障。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-119",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "社会主义革命和建设时期",
+            "correct": "新民主主义革命时期",
+            "evidence": "新民主主义革命时期，为实现现代化创造了根本社会条件"
+          }
+        ],
+        "reason": "时期对应错误。"
+      },
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "十九大",
+            "correct": "二十大",
+            "evidence": "是党的二十大的一个重大理论创新"
+          }
+        ],
+        "reason": "中国式现代化理论的概括阐述对应二十大。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "以人民为中心的发展思想",
+            "correct": "党的领导",
+            "evidence": "党的领导直接关系中国式现代化的根本方向、前途命运、最终成败"
+          }
+        ],
+        "reason": "这一根本方向和成败关系对应党的领导。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-126",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "更直接体现创新理念。"
+      },
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "更直接体现协调理念。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "更直接体现开放理念。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-131",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "人民政协是统一战线组织和专门协商机构，不属于政府机关。",
+        "rule": {
+          "correct": "是社会主义协商民主的重要渠道和专门协商机构",
+          "evidence": "是社会主义协商民主的重要渠道和专门协商机构"
+        },
+        "focus": [
+          {
+            "text": "政府机关",
+            "evidence": "人民政协不属于政府机关",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-134",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "社会主义核心价值观",
+            "correct": "习近平新时代中国特色社会主义思想",
+            "evidence": "党的自我革命以习近平新时代中国特色社会主义思想为根本遵循"
+          }
+        ],
+        "reason": "根本遵循为习近平新时代中国特色社会主义思想。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-136",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "国家耕地红线",
+            "correct": "国家粮食安全",
+            "evidence": "以确保国家粮食安全、确保农村人口不发生规模性返贫致贫为底线"
+          }
+        ],
+        "reason": "此处规划表述为确保国家粮食安全。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-137",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "以创新为主语不成立；第一要务对应发展。",
+        "rule": {
+          "correct": "发展是党执政兴国的第一要务",
+          "evidence": "发展是党执政兴国的第一要务"
+        },
+        "focus": [
+          {
+            "text": "执政兴国的第一要务",
+            "evidence": "发展是党执政兴国的第一要务",
+            "wrong": true
+          }
+        ]
+      },
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "该定位对应开放。",
+        "rule": {
+          "correct": "开放是国家繁荣发展的必由之路。",
+          "evidence": "开放是国家繁荣发展的必由之路。"
+        },
+        "focus": [
+          {
+            "text": "国家繁荣发展的必由之路",
+            "evidence": "开放是国家繁荣发展的必由之路",
+            "wrong": true
+          }
+        ]
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "该定位对应党的领导。",
+        "rule": {
+          "correct": "党的领导是人民当家作主的根本保证。",
+          "evidence": "党的领导是人民当家作主的根本保证。"
+        },
+        "focus": [
+          {
+            "text": "人民当家作主的根本保证",
+            "evidence": "党的领导是人民当家作主的根本保证",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-139",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "公有制经济",
+            "correct": "非公有制经济",
+            "evidence": "毫不动摇鼓励、支持、引导非公有制经济发展"
+          }
+        ],
+        "reason": "鼓励支持引导对应非公有制；公有制应巩固和发展。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-142",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "不能省略维护国家主权、安全、发展利益这一前提。",
+        "rule": {
+          "correct": "维护国家主权、安全、发展利益是“一国两制\"方针的最高原则，在这个前提下，香港、澳门保持原有的资本主义制度长期不变，享有高度自治权。",
+          "evidence": "维护国家主权、安全、发展利益是“一国两制\"方针的最高原则，在这个前提下，香港、澳门保持原有的资本主义制度长期不变，享有高度自治权。"
+        },
+        "focus": [
+          {
+            "text": "在任何情况下",
+            "evidence": "在这个前提下，香港、澳门保持原有的资本主义制度长期不变",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-144",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "坚持和发展中国特色社会主义",
+            "correct": "实现社会主义现代化和中华民族伟大复兴",
+            "evidence": "坚持和发展中国特色社会主义的总任务是实现社会主义现代化和中华民族伟大复兴"
+          }
+        ],
+        "reason": "总任务与核心要义不可混同。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "坚持人民当家作主",
+            "correct": "中国共产党领导",
+            "evidence": "中国特色社会主义制度的最大优势是中国共产党领导"
+          }
+        ],
+        "reason": "制度最大优势是党的领导。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "实现社会主义现代化和中华民族伟大复兴",
+            "correct": "坚持和发展中国特色社会主义",
+            "evidence": "坚持和发展中国特色社会主义是习近平新时代中国特色社会主义思想的核心要义"
+          }
+        ],
+        "reason": "核心要义与总任务不可混同。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-148",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "改革",
+            "correct": "科技",
+            "evidence": "科技是核心战斗力"
+          }
+        ],
+        "reason": "核心战斗力对应科技。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-149",
+    "options": [
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "营造良好政治生态",
+            "correct": "加强思想教育和理论武装",
+            "evidence": "加强思想教育和理论武装，是党内政治生活的首要任务"
+          }
+        ],
+        "reason": "首要任务对应思想教育和理论武装。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-150",
+    "options": [
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "关键",
+            "correct": "引领",
+            "evidence": "以经济社会发展全面绿色转型为引领"
+          }
+        ],
+        "reason": "全面绿色转型为引领，能源绿色低碳发展为关键。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-152",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "促进作用只适用于先进或正确的社会意识，落后错误的意识会阻碍发展。",
+        "rule": {
+          "correct": "先进的或正确的社会意识对社会存在的发展起积极的推动作用，落后的或错误的社会意识对社会存在的发展起消极的阻碍作用。",
+          "evidence": "先进的或正确的社会意识对社会存在的发展起积极的推动作用，落后的或错误的社会意识对社会存在的发展起消极的阻碍作用。"
+        },
+        "focus": [
+          {
+            "text": "具有促进作用",
+            "evidence": "落后的或错误的社会意识对社会存在的发展起消极的阻碍作用",
+            "wrong": true
+          }
+        ]
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "题干未涉及积极情绪的作用，且该说法不属于题目所问哲理。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "客观实在性是物质的特性，价值判断和选择属于认识。",
+        "rule": {
+          "correct": "客观实在性是物质的唯一特性，价值判断和价值选择属于认识层面。",
+          "evidence": "客观实在性是物质的唯一特性，价值判断和价值选择属于认识层面。"
+        },
+        "focus": [
+          {
+            "text": "客观实在性",
+            "evidence": "客观实在性是物质的唯一特性",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-153",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "命题本身正确，题干未体现同一性与斗争性关系。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "特殊性寓于普遍性",
+            "correct": "普遍性寓于特殊性",
+            "evidence": "矛盾的普遍性寓于特殊性之中"
+          }
+        ],
+        "reason": "普遍性与特殊性的寓于关系颠倒。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "来源判定其说法正确但与题意无关，不改写事实。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-155",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "题干未体现量变质变。"
+      },
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "题干未强调认识并遵循客观规律。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "题干未突出前进性与曲折性。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-157",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "主观判断仍须遵循社会发展的客观规律，不能说没有客观标准。",
+        "rule": {
+          "correct": "价值判断要遵循社会发展的客观规律",
+          "evidence": "价值判断要遵循社会发展的客观规律"
+        },
+        "focus": [
+          {
+            "text": "没有客观标准",
+            "evidence": "价值判断要遵循社会发展的客观规律",
+            "wrong": true
+          }
+        ]
+      },
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "说法正确，题干没有体现精神力量转为物质力量。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "说法正确，题干重在认识的主体差异。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-159",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "抽象思维",
+            "correct": "社会实践",
+            "evidence": "无论是感性认识还是理性认识，来源都是社会实践"
+          }
+        ],
+        "reason": "抽象思维是加工认识的手段，非来源。"
+      },
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "不能用两种不同实践形式割裂感性认识和理性认识的来源。",
+        "rule": {
+          "correct": "感性认识与理性认识都来源于实践",
+          "evidence": "感性认识与理性认识都来源于实践，不能割裂为分别来源于日常活动和科学实践"
+        },
+        "focus": [
+          {
+            "text": "感性认识来源于日常活动，理性认识则来源于科学实践",
+            "evidence": "不能割裂为分别来源于日常活动和科学实践",
+            "wrong": true
+          }
+        ]
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "理性认识则完全正确",
+            "correct": "理性认识也不一定完全正确",
+            "evidence": "理性认识也不一定完全正确"
+          }
+        ],
+        "reason": "感性与理性认识均可能有正误。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-160",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "必然会",
+            "correct": "达到一定程度才会",
+            "evidence": "量变达到一定程度才会引起质变"
+          }
+        ],
+        "reason": "量变必须积累到一定程度。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "创新",
+            "correct": "矛盾",
+            "evidence": "矛盾是事物发展的源泉和根本动力"
+          }
+        ],
+        "reason": "源泉和根本动力对应矛盾。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "取决于人的主观能动性",
+            "correct": "要尊重客观规律",
+            "evidence": "新事物战胜旧事物要尊重客观规律"
+          }
+        ],
+        "reason": "不能以主观能动性决定事物发展。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-161",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "不属于所问哲理范畴。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "说法正确，题干强调来源而非认识能力提升。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "不属于来源解析认定的哲理范畴。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-162",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "属性是客观的，不能凭需要任意改变。",
+        "rule": {
+          "correct": "人们能够利用艾叶的客观属性来满足自身的不同需要",
+          "evidence": "人们能够利用艾叶的客观属性来满足自身的不同需要"
+        },
+        "focus": [
+          {
+            "text": "根据需要改变艾叶的特性",
+            "evidence": "人不能凭借主观意愿或者自身需要任意去改变其特性",
+            "wrong": true
+          }
+        ]
+      },
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "合理利用以客观属性为基础，不能归结为主观意愿改变状态。",
+        "rule": {
+          "correct": "人们能够利用艾叶的客观属性来满足自身的不同需要",
+          "evidence": "人们能够利用艾叶的客观属性来满足自身的不同需要"
+        },
+        "focus": [
+          {
+            "text": "通过主观意愿改变艾叶的状态",
+            "evidence": "人不能凭借主观意愿或者自身需要任意去改变其特性",
+            "wrong": true
+          }
+        ]
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "题干未涉及不同生长阶段。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-163",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "题干强调国家机构调整，非社会存在和社会意识的关系。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "科技部和知识产权局属于上层建筑，不属于生产关系。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "没有对应题干所示机构改革与经济基础的关系。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-165",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "命题正确，题干重在浇水过量违反适度原则。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "命题正确，题干重在适度原则。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "命题正确，题干重在适度原则。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-166",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "正确方法，但不是千村一面案例的主要问题。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "正确方法，题干未突出主要矛盾。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "前提关系颠倒，应先尊重客观规律。",
+        "rule": {
+          "correct": "尊重客观规律是发挥主观能动性的前提条件。",
+          "evidence": "尊重客观规律是发挥主观能动性的前提条件。"
+        },
+        "focus": [
+          {
+            "text": "把发挥主观能动性作为尊重客观规律的前提条件",
+            "evidence": "尊重客观规律是发挥主观能动性的前提条件",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-167",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "命题正确，题干未强调量变积累。"
+      },
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "命题正确，未对应矛盾双方转化。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "命题正确，未对应矛盾双方转化。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-170",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "命题正确，题干未突出矛盾普遍性。"
+      },
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "命题正确，题干未突出矛盾特殊性。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "命题正确，题干重在正确意识指导实践。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-171",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "能够取代",
+            "correct": "不能取代",
+            "evidence": "不能取代人类思维"
+          },
+          {
+            "wrong": "完全替代",
+            "correct": "不能完全代替",
+            "evidence": "不能完全代替人类的体力和脑力劳动"
+          }
+        ],
+        "reason": "不能取代人类思维和全部劳动。"
+      },
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "具有主动创造性",
+            "correct": "不具有主动创造性",
+            "evidence": "所以不具有主动创造性"
+          }
+        ],
+        "reason": "原解析认为人工智能无独立思考能力，不能据此赋予其自主检验认识的主体地位。",
+        "rule": {
+          "correct": "人工智能没有独立思考的思维能力",
+          "evidence": "人工智能没有独立思考的思维能力"
+        },
+        "focus": [
+          {
+            "text": "能够检验自身认识是否符合实践需要",
+            "evidence": "人工智能没有独立思考的思维能力",
+            "wrong": true
+          }
+        ]
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "能够揭示",
+            "correct": "不能揭示",
+            "evidence": "人工智能不能揭示深藏于事物内部的本质和规律"
+          }
+        ],
+        "reason": "本题原解析强调人需在实践基础上通过抽象思维把握本质规律。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-172",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "说法正确，但题干未涉及物质的唯一特性。"
+      },
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "意识",
+            "correct": "实践",
+            "evidence": "直接现实性是实践具有的特点"
+          }
+        ],
+        "reason": "直接现实性属于实践。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "正确发挥主观能动性",
+            "correct": "一切从实际出发，尊重客观规律",
+            "evidence": "一切从实际出发，尊重客观规律才是解决问题的前提和基础"
+          }
+        ],
+        "reason": "解决问题以前提是实际和客观规律。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-175",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "本质属性",
+            "correct": "根本属性",
+            "evidence": "运动是物质的固有属性、根本属性和存在方式"
+          }
+        ],
+        "reason": "客观实在性才是物质的唯一特性和本质属性。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-176",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "原理正确，题干强调不同诗人情感的差异，没有体现共性。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "原理正确，与题干无关。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "原理正确，与题干无关。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-178",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "题干能够体现；此题问没有体现的原理，故不选。"
+      },
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "题干能够体现；此题问没有体现的原理，故不选。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "题干能够体现；此题问没有体现的原理，故不选。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "观点正确但题干未涉及，符合本题选非要求，不作事实纠正。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-179",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "矛盾双方在一定条件下可以相互转化",
+            "correct": "量变积累到一定程度必然引起质变",
+            "evidence": "“积羽沉舟\"体现的是量变积累到一定程度必然引起质变"
+          }
+        ],
+        "reason": "成语与哲理对应错误。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "量变积累到一定程度必然引起质变",
+            "correct": "事物发展是前进性与曲折性的统一",
+            "evidence": "“好事多磨\"体现的是事物发展是前进性与曲折性的统一"
+          }
+        ],
+        "reason": "成语与哲理对应错误。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "可以有多个真理性认识",
+            "correct": "真理只有一个",
+            "evidence": "对同一确定的对象，真理只有一个"
+          }
+        ],
+        "reason": "不同认识不等于多个真理。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-180",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "题干能够体现，题目要求选不包括的原理。"
+      },
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "题干能够体现，题目要求选不包括的原理。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "观点正确但题干未涉及曲折性，符合选非题要求，不作事实纠正。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "题干能够体现，题目要求选不包括的原理。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-182",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "利用和创造",
+            "correct": "认识、掌握和利用",
+            "evidence": "人们只能认识、掌握和利用规律"
+          }
+        ],
+        "reason": "规律可认识利用，不能凭主观意志创造。"
+      },
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "只有正确认识促进实践，错误认识阻碍实践。",
+        "rule": {
+          "correct": "正确的认识促进实践发展，错误的认识阻碍实践发展。",
+          "evidence": "正确的认识促进实践发展，错误的认识阻碍实践发展。"
+        },
+        "focus": [
+          {
+            "text": "认识指导实践活动走向成功",
+            "evidence": "不能笼统地说“认识指导实践活动走向成功\"",
+            "wrong": true
+          }
+        ]
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "说法正确，题干未强调理论的无限发展。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-184",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "传说经过群体加工创作，并非直观反映历史规律。",
+        "rule": {
+          "correct": "民间传说是以历史事件与历史人物为依据，经过群体口耳相传和加工创作的，具有一定的能动性",
+          "evidence": "民间传说是以历史事件与历史人物为依据，经过群体口耳相传和加工创作的，具有一定的能动性"
+        },
+        "focus": [
+          {
+            "text": "直观反映",
+            "evidence": "具有一定的能动性，并非直观反映",
+            "wrong": true
+          }
+        ]
+      },
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "说法正确，题干未体现群众推动历史进程。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "是同步发展的",
+            "correct": "变化发展具有不完全同步性和不平衡性",
+            "evidence": "社会意识与社会存在变化发展具有不完全同步性和不平衡性"
+          }
+        ],
+        "reason": "社会意识具有相对独立性。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-186",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "主要矛盾决定",
+            "correct": "主要矛盾的主要方面决定",
+            "evidence": "事物的性质是由主要矛盾的主要方面决定的"
+          }
+        ],
+        "reason": "决定性质的是主要矛盾的主要方面。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "必然促成",
+            "correct": "达到一定程度才会引起",
+            "evidence": "量变达到一定程度才会引起质变"
+          }
+        ],
+        "reason": "量变须达到一定程度。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "说法正确，题干未体现普遍性特殊性。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-189",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "的认识可以有多个真理",
+            "correct": "，真理性认识只有一个",
+            "evidence": "对于同一个确定对象，真理性认识只有一个"
+          }
+        ],
+        "reason": "真理具有一元性。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "相互包含，二者没有明显界限",
+            "correct": "有着严格的界限",
+            "evidence": "真理和谬误有着严格的界限"
+          }
+        ],
+        "reason": "不能抹去真理与谬误的界限。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "说法正确，未对应条件和范围的题意。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-191",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "救灾物资未用于交换，有使用价值但不具备商品的价值。",
+        "rule": {
+          "correct": "救灾物资具有使用价值，但因为不是商品，所以没有价值。",
+          "evidence": "救灾物资具有使用价值，但因为不是商品，所以没有价值。"
+        },
+        "focus": [
+          {
+            "text": "商品",
+            "evidence": "中国向尼泊尔提供的这些救灾物资不用于交换，因而不属于商品",
+            "wrong": true
+          },
+          {
+            "text": "又有价值",
+            "evidence": "因为不是商品，所以没有价值",
+            "wrong": true
+          }
+        ]
+      },
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "仅供人消费不足以成为商品，还须是用于交换的劳动产品。",
+        "rule": {
+          "correct": "商品是用来交换的劳动产品，必须满足是劳动产品和用于交换两个条件。",
+          "evidence": "商品是用来交换的劳动产品，必须满足是劳动产品和用于交换两个条件。"
+        },
+        "focus": [
+          {
+            "text": "商品",
+            "evidence": "中国向尼泊尔提供的这些救灾物资不用于交换，因而不属于商品",
+            "wrong": true
+          }
+        ]
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "非商品的结论正确，但仍有使用价值。",
+        "rule": {
+          "correct": "救灾物资具有使用价值，但因为不是商品，所以没有价值。",
+          "evidence": "救灾物资具有使用价值，但因为不是商品，所以没有价值。"
+        },
+        "focus": [
+          {
+            "text": "没有使用价值",
+            "evidence": "救灾物资具有使用价值",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-192",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "电子支付不改变货币一般等价物的本质。",
+        "rule": {
+          "correct": "货币的本质是一般等价物，用电子支付并没有改变货币的本质。",
+          "evidence": "货币的本质是一般等价物，用电子支付并没有改变货币的本质。"
+        },
+        "focus": [
+          {
+            "text": "本质发生了根本性变化",
+            "evidence": "用电子支付并没有改变货币的本质",
+            "wrong": true
+          }
+        ]
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "降低了商品的价值",
+            "correct": "对商品价值没有影响",
+            "evidence": "结算方式的变化对商品价值没有影响"
+          }
+        ],
+        "reason": "结算方式不改变凝结的劳动量；来源未独立证明银行盈利变化，不额外标错。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "物流行业",
+            "correct": "货币",
+            "evidence": "商品交换的媒介依然是货币"
+          }
+        ],
+        "reason": "交换媒介仍是货币，物流负责寄送。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-193",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "使用价值和价值的前提关系颠倒。",
+        "rule": {
+          "correct": "使用价值是价值的前提和基础。",
+          "evidence": "使用价值是价值的前提和基础。"
+        },
+        "focus": [
+          {
+            "text": "价值是使用价值的前提和基础",
+            "evidence": "使用价值是价值的前提和基础",
+            "wrong": true
+          }
+        ]
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "题干未涉及个别劳动时间与社会必要劳动时间比较。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "题干未涉及个别劳动时间与社会必要劳动时间比较。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-194",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "不是题目所问的价格变化根本原因，来源未否定生活改善本身。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "不是根本原因；原解析指向社会劳动生产率提高。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "消费观念变化不是价值量下降的根本原因。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-195",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "商品价值",
+            "correct": "商品价格",
+            "evidence": "商品价格受供求关系影响，围绕价值上下波动"
+          },
+          {
+            "wrong": "围绕价格",
+            "correct": "围绕价值",
+            "evidence": "商品价格受供求关系影响，围绕价值上下波动"
+          }
+        ],
+        "reason": "波动的是价格，围绕的是价值。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "价格",
+            "correct": "价值量",
+            "evidence": "商品交换要以价值量为基础，实行等价交换"
+          }
+        ],
+        "reason": "等价交换以价值量为基础。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "供求影响下，价格与价值可能不一致。",
+        "rule": {
+          "correct": "商品的价格由于受到市场供求关系的影响，与价值会出现不一致的情况。",
+          "evidence": "商品的价格由于受到市场供求关系的影响，与价值会出现不一致的情况。"
+        },
+        "focus": [
+          {
+            "text": "总是与价值保持一致",
+            "evidence": "与价值会出现不一致的情况",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-196",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "支付手段",
+            "correct": "流通手段",
+            "evidence": "体现了货币流通手段的职能"
+          }
+        ],
+        "reason": "花钱购买商品对应流通手段。"
+      },
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "流通手段",
+            "correct": "价值尺度",
+            "evidence": "标价为4150元/人”是衡量海南五日游价值的大小，体现了货币价值尺度的职能"
+          },
+          {
+            "wrong": "价值尺度",
+            "correct": "流通手段",
+            "evidence": "发生了商品交换，体现了货币流通手段的职能"
+          }
+        ],
+        "reason": "两个场景职能顺序颠倒。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "支付手段",
+            "correct": "价值尺度",
+            "evidence": "体现了货币价值尺度的职能"
+          }
+        ],
+        "reason": "标价对应价值尺度。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-197",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "不是按剩余价值生产中所起作用划分的两类资本。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "不是题目指定划分依据下的分类。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "不是题目指定划分依据下的分类。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-198",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "自然属性",
+            "correct": "社会属性",
+            "evidence": "价值是商品的根本属性，是商品的社会属性"
+          },
+          {
+            "wrong": "社会属性",
+            "correct": "自然属性",
+            "evidence": "使用价值是价值的物质承担者，是商品的自然属性"
+          }
+        ],
+        "reason": "价值与使用价值的社会、自然属性对调。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-199",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "属于作用之一，题目要求概括其集中作用。"
+      },
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "属于作用之一，非集中概括。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "属于竞争作用的具体表现，非题目所问集中概括。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-200",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "不是生产资料数量与劳动力数量这一技术构成关系。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "不是资本技术构成的定义。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "不是资本技术构成的定义；不把该比例本身判作错误事实。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-209",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "新兴产业",
+            "correct": "传统产业",
+            "evidence": "作为经济增长和就业收入基本依托的传统产业改造升级"
+          }
+        ],
+        "reason": "应改造升级的是传统产业。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-222",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "实现全体人民共同富裕",
+            "correct": "推动高质量发展",
+            "evidence": "推动高质量发展是“十五五”时期经济社会发展的主题"
+          }
+        ],
+        "reason": "十五五经济社会发展主题为高质量发展。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-225",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "脱离群众",
+            "correct": "腐败",
+            "evidence": "腐败是我们党面临的最大威胁"
+          }
+        ],
+        "reason": "最大威胁对应腐败。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-243",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "减免关税",
+            "correct": "零关税",
+            "evidence": "落实对非洲建交国实施零关税等开放措施"
+          }
+        ],
+        "reason": "政策准确表述为零关税。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-246",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "故意违纪违法不属应予容错的无意失误。",
+        "focus": [
+          {
+            "text": "故意违纪违法",
+            "evidence": "同明知故犯的违纪违法行为区分开来"
+          }
+        ]
+      },
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "谋私违规不属保护改革探索的情形。",
+        "focus": [
+          {
+            "text": "为谋取个人私利",
+            "evidence": "同为谋取私利的违纪违法行为区分开来"
+          }
+        ]
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "明令禁止后仍违规不适用改革容错。",
+        "focus": [
+          {
+            "text": "明知上级明令禁止",
+            "evidence": "同上级明令禁止后依然我行我素的违纪违法行为区分开来"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-254",
+    "options": [
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "应兼顾显功和潜功，不能只做其中一类。",
+        "rule": {
+          "correct": "既要做显功，也要做潜功",
+          "evidence": "既要做显功，也要做潜功"
+        },
+        "focus": [
+          {
+            "text": "只做",
+            "evidence": "既要做显功，也要做潜功",
+            "wrong": true
+          },
+          {
+            "text": "不做出显绩",
+            "evidence": "既要做显功，也要做潜功",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-257",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "暂缓处理，延后制定",
+            "correct": "制定",
+            "evidence": "对历史形成、一时难以完全解决的问题制定切实可行的计划和方案"
+          }
+        ],
+        "reason": "应及时制定可行方案并持续整改，不能暂缓拖延。",
+        "rule": {
+          "correct": "制定切实可行的计划和方案，盯住不放，锲而不舍整改到位",
+          "evidence": "制定切实可行的计划和方案，盯住不放，锲而不舍整改到位"
+        }
+      }
+    ]
+  },
+  {
+    "id": "xh-500-265",
+    "options": [
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "借鉴西方经典理论",
+            "correct": "钻研党的创新理论",
+            "evidence": "首要的是钻研党的创新理论"
+          }
+        ],
+        "reason": "首要学习内容被替换。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-267",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "说法正确，题干没有体现曲折性。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "社会意识",
+            "correct": "正确的社会意识",
+            "evidence": "正确的社会意识才能对社会存在起到能动的促进作用"
+          }
+        ],
+        "reason": "只有正确的社会意识才能起促进作用，不能笼统判断。"
+      },
+      {
+        "label": "D",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "说法正确，题干未体现普遍性特殊性转化。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-268",
+    "options": [
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "唯一支柱",
+            "correct": "重要支柱",
+            "evidence": "是国家强盛的重要支柱"
+          }
+        ],
+        "reason": "重要不能夸大为唯一。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-274",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "首要任务",
+            "correct": "基础性、战略性支撑",
+            "evidence": "教育、科技、人才是全面建设社会主义现代化国家的基础性、战略性支撑"
+          }
+        ],
+        "reason": "首要任务是高质量发展。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-276",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "前两项定位正确，第一资源对应人才。",
+        "rule": {
+          "correct": "人才是第一资源。",
+          "evidence": "人才是第一资源。"
+        },
+        "focus": [
+          {
+            "text": "第一资源",
+            "evidence": "人才是第一资源",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-279",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "理论学习",
+            "correct": "调查研究",
+            "evidence": "要把调查研究作为基本功"
+          }
+        ],
+        "reason": "深入基层问计于民对应调查研究。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-284",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "本世纪中叶",
+            "correct": "2035年",
+            "evidence": "到2035年建成健康中国"
+          }
+        ],
+        "reason": "目标时间为2035年。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-288",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "分级采购",
+            "correct": "集中采购",
+            "evidence": "优化药品和医用耗材集中采购政策"
+          }
+        ],
+        "reason": "采购政策类型错。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-291",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "末端管控",
+            "correct": "源头管控",
+            "evidence": "坚持源头管控"
+          }
+        ],
+        "reason": "规划和建设阶段应注重源头管控。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-299",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "国家实验室主导",
+            "correct": "企业主导",
+            "evidence": "推动企业主导的产学研深度融合"
+          }
+        ],
+        "reason": "产学研融合的主导主体为企业。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-310",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "属于部署内容，但非题目所问首位任务。"
+      },
+      {
+        "label": "B",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "属于部署内容，但非首位任务。"
+      },
+      {
+        "label": "C",
+        "verdict": "contextual",
+        "pairs": [],
+        "reason": "属于部署内容，但非首位任务。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-315",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "生活性服务业",
+            "correct": "生产性服务业",
+            "evidence": "推进生产性服务业向专业化和价值链高端延伸"
+          }
+        ],
+        "reason": "专业化、高端延伸对应生产性服务业。"
+      },
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "生产性服务业",
+            "correct": "生活性服务业",
+            "evidence": "促进生活性服务业高品质多样化便利化发展"
+          }
+        ],
+        "reason": "高品质、多样化、便利化对应生活性服务业。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "生产性服务业",
+            "correct": "生活性服务业",
+            "evidence": "培育一批生活性服务业新增长点"
+          }
+        ],
+        "reason": "健康养老文旅到家服务属于生活性服务。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-316",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "集中式能源",
+            "correct": "分布式能源",
+            "evidence": "加强分布式能源就近开发利用"
+          }
+        ],
+        "reason": "就近开发利用对应分布式能源。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-381",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "政府培训",
+            "correct": "市场化培训",
+            "evidence": "以市场化培训为主导"
+          }
+        ],
+        "reason": "培训主导方式为市场化培训。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-382",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "再分配机制",
+            "correct": "初次分配机制",
+            "evidence": "按贡献决定报酬的初次分配机制"
+          }
+        ],
+        "reason": "要素按贡献取酬属于初次分配。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-386",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "省级统筹",
+            "correct": "全国统筹",
+            "evidence": "基本养老保险全国统筹制度"
+          },
+          {
+            "wrong": "全国统筹",
+            "correct": "省级统筹",
+            "evidence": "基本实现基本医疗保险省级统筹"
+          }
+        ],
+        "reason": "养老保险与医疗保险统筹层级对调。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-387",
+    "options": [
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "户籍所在地",
+            "correct": "急难发生地",
+            "evidence": "全面推进由急难发生地直接实施救助"
+          }
+        ],
+        "reason": "临时救助应由急难发生地直接实施。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-391",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [],
+        "reason": "此处规划目标列煤炭和石油，不能另加天然气。",
+        "rule": {
+          "correct": "推动煤炭和石油消费达峰",
+          "evidence": "推动煤炭和石油消费达峰"
+        },
+        "focus": [
+          {
+            "text": "和天然气",
+            "evidence": "推动煤炭和石油消费达峰",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-399",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "政府主体",
+            "correct": "企业主体",
+            "evidence": "落实行业监管、属地管理、企业主体的食品药品安全责任"
+          }
+        ],
+        "reason": "主体责任对应企业，政府承担监管属地管理职责。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-408",
+    "options": [
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "、县城四级",
+            "correct": "三级",
+            "evidence": "健全国家、省、城市三级城市运行管理服务平台体系"
+          }
+        ],
+        "reason": "平台体系为国家省城市三级。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-409",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "允许新增",
+            "correct": "不得新增",
+            "evidence": "不得新增地方政府隐性债务"
+          }
+        ],
+        "reason": "禁止新增地方政府隐性债务。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-410",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "3年",
+            "correct": "5年",
+            "evidence": "过渡期原则上不超过5年"
+          }
+        ],
+        "reason": "过渡期原则上最长5年。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "提高",
+            "correct": "降低",
+            "evidence": "合理降低土地整合、置换、联合开发中的税费负担"
+          }
+        ],
+        "reason": "税费负担应降低。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "单一用途",
+            "correct": "混合利用、功能兼容",
+            "evidence": "健全与混合利用、功能兼容、立体开发相适应的不动产登记规则"
+          }
+        ],
+        "reason": "登记规则应适应混合利用和功能兼容。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-419",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "长江流域",
+            "correct": "黄河流域",
+            "evidence": "推进黄河流域农业深度节水控水"
+          }
+        ],
+        "reason": "深度节水控水对应黄河。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-423",
+    "options": [
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "集中化",
+            "correct": "片区化",
+            "evidence": "分类有序、片区化推进乡村振兴"
+          }
+        ],
+        "reason": "推进方式为片区化。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-428",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "适当新增",
+            "correct": "严格限制",
+            "evidence": "严格限制超高层建筑"
+          }
+        ],
+        "reason": "应严格限制超高层建筑。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-432",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "南方地区",
+            "correct": "北方地区",
+            "evidence": "加紧补齐北方地区防洪排涝抗灾基础设施短板"
+          }
+        ],
+        "reason": "相关区域对应北方地区。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-434",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "至少两人",
+            "correct": "至少一人",
+            "evidence": "确保零就业家庭至少一人实现就业"
+          }
+        ],
+        "reason": "零就业家庭保障目标是至少一人就业。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-435",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "以替代人工为主要方向",
+            "correct": "探索人机协同的新型工作形态",
+            "evidence": "探索人机协同的新型工作形态"
+          }
+        ],
+        "reason": "应强调人机协同和人工智能创造就业的效应。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-442",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "收紧",
+            "correct": "放宽",
+            "evidence": "因地制宜放宽在流入地参加中考报名条件"
+          }
+        ],
+        "reason": "报名条件应放宽。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-443",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "教学成绩",
+            "correct": "师德师风",
+            "evidence": "坚持师德师风第一标准"
+          }
+        ],
+        "reason": "教师评价第一标准为师德师风。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-446",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "东部地区",
+            "correct": "中西部地区",
+            "evidence": "向人口大省、中西部地区和民族地区倾斜"
+          }
+        ],
+        "reason": "新增教育资源倾斜方向不同。"
+      },
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "人文社科类专业",
+            "correct": "理工农医类专业",
+            "evidence": "以理工农医类专业为主"
+          }
+        ],
+        "reason": "扩大培养规模的主要专业类型不同。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "大班化",
+            "correct": "小班化",
+            "evidence": "结合实际有序推进小班化教学"
+          }
+        ],
+        "reason": "应有序推进小班化教学。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-449",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "等量置换",
+            "correct": "减量置换",
+            "evidence": "坚持“减量置换\"原则"
+          }
+        ],
+        "reason": "炼油产能原则为减量置换。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-451",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "党对生态文明建设的全面领导",
+            "correct": "碳达峰碳中和",
+            "evidence": "以碳达峰碳中和为牵引"
+          }
+        ],
+        "reason": "牵引表述应对应碳达峰碳中和，不是否定党的领导。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-459",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "天然气",
+            "correct": "石油",
+            "evidence": "稳步实现煤炭和石油消费达峰"
+          }
+        ],
+        "reason": "此处消费达峰目标对应煤炭与石油。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-467",
+    "options": [
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "20岁",
+            "correct": "15岁",
+            "evidence": "15岁以上人群吸烟率降低到20％"
+          },
+          {
+            "wrong": "15%",
+            "correct": "20％",
+            "evidence": "15岁以上人群吸烟率降低到20％"
+          }
+        ],
+        "reason": "年龄界限与吸烟率数值颠倒。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-470",
+    "options": [
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "常见病、多发病的门诊服务",
+            "correct": "急危重症、疑难复杂疾病的转诊会诊和住院服务",
+            "evidence": "加强急危重症、疑难复杂疾病的转诊会诊和住院服务"
+          },
+          {
+            "wrong": "基层首诊能力",
+            "correct": "治疗和研究能力",
+            "evidence": "提升治疗和研究能力"
+          }
+        ],
+        "reason": "高层级及国家中心任务医院应侧重疑难急重症和治疗研究，非基层首诊定位。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-471",
+    "options": [
+      {
+        "label": "A",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "90%",
+            "correct": "95％",
+            "evidence": "比例保持在95％以上"
+          }
+        ],
+        "reason": "达标比例为95%以上。"
+      },
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "市管县用、县聘乡用",
+            "correct": "县管乡用、乡聘村用",
+            "evidence": "实行县管乡用、乡聘村用"
+          }
+        ],
+        "reason": "用人层级应下沉到乡村。"
+      },
+      {
+        "label": "D",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "降低",
+            "correct": "适当提高",
+            "evidence": "适当提高基层医疗卫生机构的中高级专业技术岗位比例"
+          }
+        ],
+        "reason": "应提高基层中高级岗位比例，并引导人才下沉而非向三级医院集中。",
+        "rule": {
+          "correct": "人才下沉、提升基层",
+          "evidence": "强基工程“人才下沉、提升基层\"的导向"
+        },
+        "focus": [
+          {
+            "text": "向三级医院流动",
+            "evidence": "“引导人才向三级医院流动\"也与强基工程“人才下沉、提升基层\"的导向相反",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-473",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "国家实验室",
+            "correct": "有能力的企业",
+            "evidence": "支持有能力的企业牵头承担攻关任务"
+          }
+        ],
+        "reason": "应支持有能力的企业牵头，而非限制企业参与。",
+        "rule": {
+          "correct": "支持有能力的企业牵头承担攻关任务，促进科技成果转化。",
+          "evidence": "支持有能力的企业牵头承担攻关任务，促进科技成果转化。"
+        },
+        "focus": [
+          {
+            "text": "限制企业参与科技攻关",
+            "evidence": "支持有能力的企业牵头承担攻关任务",
+            "wrong": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "xh-500-478",
+    "options": [
+      {
+        "label": "B",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "数量",
+            "correct": "质量",
+            "evidence": "强化质量和价值导向"
+          }
+        ],
+        "reason": "导向应为质量和价值。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-480",
+    "options": [
+      {
+        "label": "C",
+        "verdict": "incorrect",
+        "pairs": [
+          {
+            "wrong": "合理减少",
+            "correct": "合理增长",
+            "evidence": "推动知识产权质押融资累放金额合理增长"
+          }
+        ],
+        "reason": "融资累放金额应合理增长。"
+      }
+    ]
+  }
+]
