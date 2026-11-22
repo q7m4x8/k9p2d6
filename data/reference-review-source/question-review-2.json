@@ -1,0 +1,1570 @@
+[
+  {
+    "id": "xh-500-066",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-067",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-068",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-069",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "unknown",
+      "②": "unknown",
+      "③": "correct",
+      "④": "correct"
+    },
+    "note": "题目限定十五五目标；源给③④，①②不符合这一时段题意，不能把2035目标等直接判成假事实。"
+  },
+  {
+    "id": "xh-500-070",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-072",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-073",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "unknown",
+      "③": "unknown",
+      "④": "correct"
+    },
+    "note": "源明确①④体现题干，②③说法正确但题意无关，保留原句并标题意不符。"
+  },
+  {
+    "id": "xh-500-076",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-077",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-078",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-079",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "incorrect",
+      "③": "correct",
+      "④": "incorrect"
+    },
+    "extraReviews": [
+      {
+        "key": "xh-500-079:②",
+        "original": "坚持在文化建设中把经济效益放在首位、经济效益与社会效益相统一",
+        "reason": "2024年10月28日，中共中央政治局就建设文化强国进行第十七次集体学习，习近平总书记在主持学习时发表重要讲话。①当选：讲话指出，要深入挖掘和阐发中华优秀传统文化的精神内涵，用马克思主义激活中华传统文化中的优秀因子并赋予其新的时代内涵，发展新时代中国特色社会主义文化。②不选，③当选：讲话指出，要坚持以人民为中心的创作导向，坚持把社会效益放在首位、社会效益与经济效益相统一，把激发创新创造活力作为深化文化体制机制改革的中心环节，加快完善文化管理体制和生产经营机制。④不选：讲话指出，要秉持敬畏历史、热爱文化之心，坚持保护第一、合理利用和最小干预原则，推动文化遗产系统性保护和统一监管。该句表述有误。故本题答案为A。",
+        "pairs": [
+          {
+            "wrong": "经济效益放在首位",
+            "correct": "社会效益放在首位",
+            "evidence": "坚持把社会效益放在首位、社会效益与经济效益相统一"
+          }
+        ],
+        "status": "mapped",
+        "note": "只纠正优先次序；经济效益与社会效益相统一本身不假，不把这一正确内容划掉。"
+      },
+      {
+        "key": "xh-500-079:④",
+        "original": "坚持利用第一、合理发掘和积极干预原则，推动文化遗产系统性保护和利用",
+        "reason": "2024年10月28日，中共中央政治局就建设文化强国进行第十七次集体学习，习近平总书记在主持学习时发表重要讲话。①当选：讲话指出，要深入挖掘和阐发中华优秀传统文化的精神内涵，用马克思主义激活中华传统文化中的优秀因子并赋予其新的时代内涵，发展新时代中国特色社会主义文化。②不选，③当选：讲话指出，要坚持以人民为中心的创作导向，坚持把社会效益放在首位、社会效益与经济效益相统一，把激发创新创造活力作为深化文化体制机制改革的中心环节，加快完善文化管理体制和生产经营机制。④不选：讲话指出，要秉持敬畏历史、热爱文化之心，坚持保护第一、合理利用和最小干预原则，推动文化遗产系统性保护和统一监管。该句表述有误。故本题答案为A。",
+        "pairs": [
+          {
+            "wrong": "利用第一",
+            "correct": "保护第一",
+            "evidence": "坚持保护第一、合理利用和最小干预原则"
+          },
+          {
+            "wrong": "合理发掘",
+            "correct": "合理利用",
+            "evidence": "坚持保护第一、合理利用和最小干预原则"
+          },
+          {
+            "wrong": "积极干预",
+            "correct": "最小干预",
+            "evidence": "坚持保护第一、合理利用和最小干预原则"
+          }
+        ],
+        "status": "mapped",
+        "note": "源落脚点另含系统性保护和统一监管；文化遗产利用本身不是假事实，不把正确的利用概念也划错。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-080",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-081",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-082",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-083",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-084",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-085",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-086",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-087",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-088",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-089",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-090",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-091",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-093",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-096",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "unknown",
+      "②": "correct",
+      "③": "unknown",
+      "④": "correct"
+    },
+    "note": "①③原理本身正确但源说与题意无关；②④是题干对应原理。"
+  },
+  {
+    "id": "xh-500-097",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "incorrect",
+      "④": "correct"
+    },
+    "extraReviews": [
+      {
+        "key": "xh-500-097:③",
+        "original": "发挥社区养老的决定作用，为居家养老提供有力支持",
+        "reason": "2024年12月30日，《中共中央国务院关于深化养老服务改革发展的意见》印发。①举措恰当：意见指出，要发挥养老服务产业发展市场配置资源作用。推动国有资本参与发展养老服务，完善分类考核评价。②举措恰当：意见指出，要加快补齐农村养老服务短板。因地制宜扩大农村养老服务供给。③举措不恰当：意见指出，要扩大社区养老服务有效供给，依托社区为居家养老提供有力支持。社区养老在我国养老服务中发挥着重要作用，但不是“决定作用\"。④举措恰当：意见指出，要优化居家为基础、社区为依托、机构为专业支撑、医养相结合的养老服务供给格局，强化以失能老年人照护为重点的基本养老服务。故本题答案为 B。",
+        "pairs": [
+          {
+            "wrong": "决定作用",
+            "correct": "重要作用",
+            "evidence": "社区养老在我国养老服务中发挥着重要作用，但不是“决定作用"
+          }
+        ],
+        "status": "mapped"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-098",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-099",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "incorrect"
+    },
+    "extraReviews": [
+      {
+        "key": "xh-500-099:④",
+        "original": "守的是中华文化发展的思路、话语、机制和形式",
+        "reason": "对于文化工作，2023年6月2日，习近平总书记在文化传承发展座谈会上的重要讲话中指出，“守正，守的是马克思主义在意识形态领域指导地位的根本制度，守的是'两个结合，的根本要求，守的是中国共产党的文化领导权和中华民族的文化主体性。创新，创的是新思路、新话语、新机制、新形式，要在马克思主义指导下真正做到古为今用、洋为中用、辩证取舍、推陈出新，实现传统与现代的有机衔接\"。由此可知，①②③正确。故本题答案为 A。",
+        "pairs": [
+          {
+            "wrong": "守的是",
+            "correct": "创的是",
+            "evidence": "创新，创的是新思路、新话语、新机制、新形式"
+          }
+        ],
+        "status": "mapped",
+        "note": "思路、话语、机制、形式本身不假；错在把创新的内容归到守正，故只标守/创归属。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-101",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-104",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "unknown",
+      "②": "unknown",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    },
+    "note": "①②是正确政治原则，源仅未列入本题法治道路三项核心要义，按题意不符处理。"
+  },
+  {
+    "id": "xh-500-111",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-112",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-114",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-119",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-121",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "unknown",
+      "⑥": "correct"
+    },
+    "note": "源列五项重大原则，⑤系统观念不属于这组枚举，短语本身不判假。"
+  },
+  {
+    "id": "xh-500-125",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-126",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-131",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-134",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-136",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-137",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-139",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-141",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-142",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-144",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-148",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-149",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-150",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-152",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-153",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-155",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-157",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-159",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-160",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-161",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-162",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-163",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-164",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "unknown",
+      "④": "unknown"
+    },
+    "note": "①②对应质量互变；③④诗句本身正确，只与题干所问原理不符。"
+  },
+  {
+    "id": "xh-500-165",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-166",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-167",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-170",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-171",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-172",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-174",
+    "sourceStatus": "source_unclear",
+    "note": "答案A与源①②符合题意一致；④是夸大静止否认运动的错误观点。已看xh-500-174-p46.webp，源图第四句明确“旋岚偃岳而常静”，题干“旋岚低岳”存在OCR错字，应将低核改为偃，不把这一改字当作哲学改错。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "unknown",
+      "④": "incorrect"
+    },
+    "extraReviews": [
+      {
+        "key": "xh-500-174:④",
+        "original": "旋岚低岳而常静，江河竞注而不流",
+        "reason": "题干“少小离家老大回，乡音无改鬓毛衰\"蕴含的哲理是绝对运动与相对静止的统一。“鬓毛衰\"体现了人在不断衰老变化（绝对运动），“乡音无改\"则体现了某些方面保持了相对稳定性（相对静止）。①符合题意：“坐地日行八万里，巡天遥看一千河\"意思是人坐在地面上看似不动（相对静止），实则随地球自转日行八万里（绝对运动）。体现了绝对运动与相对静止的统一。②符合题意：“卧看满天云不动，不知云与我俱东\"意思是躺着看云好像不动（相对静止），实际上云和人都在向东运动（绝对运动）。体现了绝对运动与相对静止的统一。③不符合题意：“人间四月芳菲尽，山寺桃花始盛开\"意思是山下四月花已凋谢，山寺桃花才刚刚盛开，强调的是因海拔、气候条件不同，物候呈现出差异，体现的是矛盾具有特殊性。④不符合题意：“旋岚偃岳而常静，江河竞注而不流”意为狂风吹倒山岳却是“常静”的，江河奔流却是“不流”的。这是夸大相对静止、否认绝对运动的错误观点。故本题答案为 A。",
+        "pairs": [],
+        "status": "explanation_only",
+        "verdict": "incorrect",
+        "note": "源明确此为夸大相对静止、否认绝对运动的错误观点；不捏造新的诗句作为正确替换。"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-175",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-176",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-178",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-179",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-180",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-181",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "unknown",
+      "④": "unknown"
+    },
+    "note": "③④原理正确但题意无关，勿按事实错误标红。"
+  },
+  {
+    "id": "xh-500-182",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-184",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-186",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-188",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "unknown",
+      "③": "unknown",
+      "④": "correct"
+    },
+    "note": "源①④体现整体与部分；②③正确但与题意无关。"
+  },
+  {
+    "id": "xh-500-189",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-191",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-192",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-193",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-194",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-195",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-196",
+    "sourceStatus": "consistent",
+    "note": "已查看xh-500-196-p51.webp，源图明确“标价为4150元/人”“花100元买了”，文字识别成“4巧0元从”“花1開元”。答案C及价值尺度/流通手段与源一致，建议修原解析显示文字。"
+  },
+  {
+    "id": "xh-500-197",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-198",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-199",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-200",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-202",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct",
+      "⑥": "correct"
+    }
+  },
+  {
+    "id": "xh-500-204",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-209",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-211",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-220",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "unknown",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    },
+    "note": "出口属外需而非内需，①措施本身不假，按分类不符保留原句。"
+  },
+  {
+    "id": "xh-500-221",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "unknown",
+      "③": "unknown",
+      "④": "correct"
+    },
+    "note": "②③为投资于物，不是投资于人；事实描述不作真假更正。"
+  },
+  {
+    "id": "xh-500-222",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-223",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct",
+      "⑥": "correct"
+    }
+  },
+  {
+    "id": "xh-500-225",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-226",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-231",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-237",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct",
+      "⑥": "correct"
+    },
+    "note": "源结论①至⑥皆属于，开头“0母”为明显识别杂字，不影响键D。"
+  },
+  {
+    "id": "xh-500-243",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-246",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-247",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-248",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-254",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-255",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "unknown",
+      "②": "correct",
+      "③": "unknown",
+      "④": "unknown"
+    },
+    "note": "①③④描述的是错误政绩观的行为，源明确其不属于题目所问正确政绩观；不改写为相反行为，也不把发生这些行为的描述当假事实。"
+  },
+  {
+    "id": "xh-500-257",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-258",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-265",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-266",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-267",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-268",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-274",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-276",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-278",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-279",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-280",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-281",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-283",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-284",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-287",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-288",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-289",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "unknown",
+      "③": "correct",
+      "④": "correct"
+    },
+    "note": "②原理正确但与题干无关，源明确①③④符合。"
+  },
+  {
+    "id": "xh-500-291",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-292",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-293",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "unknown",
+      "④": "correct"
+    },
+    "note": "③为科技支撑和法治保障举措，不归本题基层基础分类，表述本身不假。"
+  },
+  {
+    "id": "xh-500-294",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-296",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    },
+    "note": "开头“0过”为识别杂字，源①至⑤均正确、答案D一致。"
+  },
+  {
+    "id": "xh-500-297",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "incorrect",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    },
+    "extraReviews": [
+      {
+        "key": "xh-500-297:①",
+        "original": "全面从严治党，核心是加强党的领导，基础在治，关键在严，要害在全面",
+        "reason": "(i①错误：全面从严治党，核心是加强党的领导，基础在全面，关键在严，要害在治。故本题答案为 D。",
+        "pairs": [
+          {
+            "wrong": "基础在治",
+            "correct": "基础在全面",
+            "evidence": "基础在全面，关键在严，要害在治"
+          },
+          {
+            "wrong": "要害在全面",
+            "correct": "要害在治",
+            "evidence": "基础在全面，关键在严，要害在治"
+          }
+        ],
+        "status": "mapped"
+      }
+    ]
+  },
+  {
+    "id": "xh-500-299",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-300",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-302",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-306",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-310",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-311",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-313",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-315",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-316",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-321",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-323",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-326",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-327",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-328",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-329",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "unknown",
+      "④": "correct"
+    },
+    "note": "③为高水平市场经济体制章节的部署，不属于本题国内市场章节，按类别不符。"
+  },
+  {
+    "id": "xh-500-330",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-335",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-338",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-345",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-346",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-350",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "unknown"
+    },
+    "note": "④属于优化区域经济布局任务，表述本身不假；①②③按源正选组合。"
+  },
+  {
+    "id": "xh-500-354",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-356",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-358",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-359",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-367",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-368",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-369",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-371",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-372",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-374",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-379",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-381",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-382",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-386",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-387",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-388",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-391",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-392",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-397",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-398",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-399",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-402",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "unknown"
+    },
+    "note": "④为2035年目标，不属于十五五2030时段；不将正确的远期目标判成假事实。"
+  },
+  {
+    "id": "xh-500-403",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-404",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "unknown"
+    },
+    "note": "⑤属于培育城市新动能，非本题高品质生活空间子类。"
+  },
+  {
+    "id": "xh-500-408",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-409",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-410",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-412",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "unknown"
+    },
+    "note": "④为2035年农业农村现代化目标，源明确时段不符，内容本身不判假。"
+  },
+  {
+    "id": "xh-500-415",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-417",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-419",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-420",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-423",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-424",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-428",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-429",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-431",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-432",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-434",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-435",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-437",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-441",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-442",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-443",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-446",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-449",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-451",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-452",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "unknown",
+      "④": "correct",
+      "⑤": "unknown"
+    },
+    "note": "③⑤为2035目标，不属2030目标，数据内容不作为假事实改写。"
+  },
+  {
+    "id": "xh-500-454",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-455",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-457",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-458",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-459",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-460",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-463",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-464",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-467",
+    "sourceStatus": "consistent",
+    "note": "已查看xh-500-467-p76.webp：源为“15岁以上人群吸烟率降低到20%”，文字“巧岁”为OCR错误；选项C把年龄20和比例15弄反，答案C与源一致。"
+  },
+  {
+    "id": "xh-500-469",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-470",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-471",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-473",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-476",
+    "sourceStatus": "consistent",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "unknown",
+      "④": "unknown",
+      "⑤": "unknown"
+    },
+    "note": "③④⑤属于2035知识产权强国目标，①②按2030正选组合与源一致，时段错配不涂成假事实。"
+  },
+  {
+    "id": "xh-500-478",
+    "sourceStatus": "consistent"
+  },
+  {
+    "id": "xh-500-480",
+    "sourceStatus": "consistent"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "key": "xh-500-113:③",
+    "correct": "团结——批评——团结",
+    "file": "../source-explanations/xh-500-113-p36.webp",
+    "sha256": "fd40e5224e335ca19b128429df3943cd794fbe7c5a00734466f7e7ac63fa0303"
+  },
+  {
+    "key": "xh-mock-056:⑤",
+    "correct": "结伴不结盟",
+    "file": "../source-explanations/xh-mock-056-p16.webp",
+    "sha256": "189d4663c8e15eca79fd5b3e7ae6d5c93ce68068015d41d543ea3a521e97d831"
+  }
+]

@@ -18,6 +18,33 @@
 
   function compact(value) { return cleanText(value).replace(/\s+/g, '') }
 
+  function evidenceText(value) {
+    return compact(String(value ?? '').normalize('NFKC')).replace(/[“”"‘’「」『』]/g, '')
+  }
+
+  function manualReview(question, item) {
+    const review = root?.QuizReferenceReviews?.entries?.[question.id + ':' + item.label]
+    if (!review || !Array.isArray(review.pairs)) return null
+    let expectedOriginal = review.original
+    const displayFix = root?.QuizReferenceReviews?.displayFixes?.[question.id]
+    if (displayFix?.expectedStem === question.stem) for (const [before, after] of displayFix.replacements || []) expectedOriginal = expectedOriginal.replace(before, after)
+    if (compact(expectedOriginal) !== compact(item.text)) return null
+    const source = evidenceText(question.explanation)
+    if (review.pairs.some(pair => {
+      const external = pair.approvedExternalEvidence && root?.QuizReferenceReviews?.sources?.[pair.externalEvidence]
+      if (external && evidenceText(external.evidence).includes(evidenceText(pair.evidence)) &&
+        evidenceText(pair.evidence).includes(evidenceText(pair.correct))) return false
+      return !pair.evidence || !source.includes(evidenceText(pair.evidence)) ||
+        (!evidenceText(pair.evidence).includes(evidenceText(pair.correct)) && !pair.approvedImageEvidence)
+    })) return null
+    if ((review.focus || []).some(focus => !source.includes(evidenceText(focus.evidence)))) return null
+    if (review.rule && (!source.includes(evidenceText(review.rule.evidence)) || !evidenceText(review.rule.evidence).includes(evidenceText(review.rule.correct)))) return null
+    const changes = review.pairs.concat((review.focus || []).map(focus => ({ wrong: focus.text, focusOnly: true, wrongHighlight: !!focus.wrong, occurrence: focus.occurrence })))
+    const segments = changes.length ? segmentsFromPairs(item.text, changes) : null
+    if (review.pairs.length && (!segments || segments.filter(segment => segment.type === 'correction').length !== review.pairs.length)) return null
+    return { review, segments }
+  }
+
   function extractStatements(stem) {
     const source = String(stem ?? '')
     const markers = [...source.matchAll(/[①-⑳]/g)]
@@ -53,7 +80,7 @@
     const text = cleanText(explanation)
     // The leading boundary deliberately excludes quotation marks and ordinary text.
     // A quoted “①错误” or a reference to another statement is not a new verdict.
-    const pattern = /(^|[。；;\n\r，,：:\s])(?:故|因此|所以)?([①-⑳](?:[、，,和及与]?[①-⑳])*)\s*(?:项)?\s*(?:(?:的)?(?:说法|表述|判断))?\s*(?:均|都)?\s*(不符合题意|不合题意|未体现|不体现|不属于|不当选|不正确|错误|正确)/g
+    const pattern = /(^|[。；;\n\r，,：:\s])(?:故|因此|所以)?([①-⑳](?:[、，,和及与]?[①-⑳])*)\s*(?:项)?\s*(?:(?:的)?(?:说法|表述|判断))?\s*(?:均|都)?\s*(不符合题意|符合题意|不合题意|未体现|不体现|不属于|不当选|不选|应排除|排除|应选|当选|不正确|错误|正确)/g
     const matches = [...text.matchAll(pattern)].filter(match => !insideQuotation(text, match.index + match[1].length))
     const verdicts = Object.create(null)
     const chunks = Object.create(null)
@@ -152,10 +179,13 @@
     const ranges = []
     for (const pair of pairs) {
       const wrong = compact(pair.wrong)
-      const correct = cleanText(pair.correct)
-      const start = source.value.indexOf(wrong)
-      if (!wrong || !correct || wrong === compact(correct) || start < 0 || source.value.indexOf(wrong, start + 1) !== -1) continue
-      ranges.push({ start, end: start + wrong.length, correct })
+      const correct = pair.focusOnly ? null : cleanText(pair.correct)
+      let start = source.value.indexOf(wrong)
+      if (Number.isInteger(pair.occurrence) && pair.occurrence >= 0) {
+        for (let occurrence = 0; occurrence < pair.occurrence && start >= 0; occurrence++) start = source.value.indexOf(wrong, start + wrong.length)
+      } else if (start >= 0 && source.value.indexOf(wrong, start + 1) !== -1) continue
+      if (!wrong || (!pair.focusOnly && (!correct || wrong === compact(correct))) || start < 0) continue
+      ranges.push({ start, end: start + wrong.length, correct, type: pair.focusOnly ? pair.wrongHighlight ? 'wrong-focus' : 'focus' : 'correction' })
     }
     ranges.sort((a, b) => a.start - b.start || a.end - b.end)
     const selected = []
@@ -174,7 +204,7 @@
       const start = source.offsets[range.start]
       const end = range.end === source.value.length ? text.length : source.offsets[range.end]
       if (start > cursor) segments.push({ type: 'text', text: text.slice(cursor, start) })
-      segments.push({ type: 'correction', wrong: text.slice(start, end), correct: range.correct })
+      segments.push(range.type === 'correction' ? { type: 'correction', wrong: text.slice(start, end), correct: range.correct } : { type: range.type, text: text.slice(start, end) })
       cursor = end
     }
     if (cursor < text.length) segments.push({ type: 'text', text: text.slice(cursor) })
@@ -451,14 +481,29 @@
 
   function format(question) {
     if (!question || typeof question !== 'object') return null
+    const originalQuestion = question
+    const supplemental = root?.QuizReferenceReviews?.supplements?.[question.id]
+    const activeSupplement = supplemental?.approved && supplemental.expectedExplanation === question.explanation
+    if (activeSupplement) question = { ...question, explanation: supplemental.explanation }
+    const displayFix = root?.QuizReferenceReviews?.displayFixes?.[question.id]
+    if (displayFix?.expectedStem === originalQuestion.stem) {
+      let stem = originalQuestion.stem
+      for (const [before, after] of displayFix.replacements || []) stem = stem.replace(before, after)
+      question = { ...question, stem }
+    }
+    let questionReview = root?.QuizReferenceReviews?.questionReviews?.[question.id]
+    if (questionReview && (questionReview.expectedStem !== originalQuestion.stem || questionReview.expectedExplanation !== originalQuestion.explanation || questionReview.expectedAnswerLetter !== originalQuestion.answerLetter)) questionReview = null
     const statements = extractStatements(question.stem)
     if (!statements.length) return null
     const parsed = parseVerdicts(question.explanation, statements.length)
     const inferredVerdicts = inferPositiveCount(question, statements, parsed)
     const items = statements.map(item => {
-      const verdict = parsed.conflict ? 'unknown' : parsed.verdicts[item.label] || 'unknown'
+      const manual = manualReview(originalQuestion, item)
+      const supplementalVerdict = activeSupplement ? supplemental.verdicts?.[item.label] || parsed.verdicts[item.label] : null
+      const verdict = manual?.review.verdict || supplementalVerdict || questionReview?.verdicts?.[item.label] || (parsed.conflict ? 'unknown' : parsed.verdicts[item.label] || 'unknown')
       let segments = null
-      if (verdict === 'incorrect') {
+      if (manual) segments = manual.segments
+      else if (verdict === 'incorrect') {
         segments = reviewedCorrection(question, item, parsed.chunks[item.label])
         if (!segments) {
           for (const chunk of parsed.chunks[item.label] || []) {
@@ -470,13 +515,24 @@
       const result = { ...item, verdict, segments: segments || [{ type: 'text', text: item.text }] }
       if (parsed.reasons[item.label]?.length) result.reason = [...new Set(parsed.reasons[item.label])].join('\n')
       if (verdict === 'incorrect' && result.reason) result.needsExplanation = true
+      if (manual) {
+        result.reviewStatus = manual.review.status
+        result.reviewNote = manual.review.note || ''
+        result.manuallyReviewed = true
+        if (manual.review.rule) result.correctedRule = manual.review.rule.correct
+        if (manual.review.displayExplanation) result.reason = manual.review.displayExplanation
+        else if (!result.reason && manual.review.reason) result.reason = manual.review.reason
+      }
+      if (verdict === 'incorrect' && result.reason) result.needsExplanation = true
+      if (questionReview) result.questionReviewed = true
       return result
     })
-    const corrected = items.filter(item => item.segments.some(segment => segment.type === 'correction')).length
+    const corrected = items.filter(item => item.correctedRule || item.segments.some(segment => segment.type === 'correction')).length
     return {
       items,
       hasCorrections: corrected > 0,
       inferredVerdicts,
+      sourceExplanation: question.explanation,
       coverage: { corrected, incorrect: items.filter(item => item.verdict === 'incorrect').length, unknown: items.filter(item => item.verdict === 'unknown').length }
     }
   }

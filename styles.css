@@ -372,6 +372,11 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .reference-heading h3 { margin: 0; font-size: 1.142857rem; }
 .reference-heading > span { color: var(--muted); font-size: .928571rem; }
 .reference-heading > span b { margin-left: 4px; color: var(--accent-ink); font-size: 1.285714rem; }
+.reference-choice { display: flex; align-items: flex-start; gap: 10px; padding: 12px; color: #11633b; background: #e7f6ec; border: 1px solid #c4e6d0; border-radius: 10px; }
+.reference-choice > b { flex: 0 0 27px; text-align: center; font-size: 1.142857rem; }
+.reference-choice > p { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.reference-prose { margin-top: 14px; padding: 13px; background: #fff9eb; border-radius: 10px; line-height: 1.8; overflow-wrap: anywhere; }
+.reference-prose > h4 { margin: 0 0 7px; color: var(--accent-ink); font-size: 1rem; }
 .reference-items { display: grid; gap: 11px; list-style: none; margin: 0; padding: 0; }
 .reference-item { min-width: 0; margin: 0; padding: 13px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
 .reference-item.incorrect { border-color: #ecc0c5; }
@@ -391,6 +396,14 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .reference-extra { margin-top: 9px; color: #62584f; font-size: .928571rem; }
 .reference-extra > summary { min-height: 32px; cursor: pointer; color: var(--accent-ink); }
 .reference-extra .reference-reason { margin-top: 3px; }
+.reference-review-note { margin: 8px 0 0; padding: 8px 10px; color: #7d4b13; background: #fff5df; border-radius: 6px; font-size: .928571rem; }
+.reference-sources { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); color: #756b60; font-size: .857143rem; line-height: 1.7; overflow-wrap: anywhere; }
+.reference-sources p { margin: 4px 0; }
+.reference-sources a { color: var(--accent-ink); }
+.reference-focus { color: #825214; background: #fff2d8; text-decoration: underline; text-decoration-color: #c68c39; text-underline-offset: 3px; border-radius: 3px; }
+.reference-rule { margin-top: 9px; padding: 10px 12px; color: #11633b; background: #e7f6ec; border-radius: 8px; line-height: 1.8; overflow-wrap: anywhere; }
+.reference-rule > b { font-size: .928571rem; }
+.reference-rule > p { margin: 5px 0 0; }
 .reference-original { margin-top: 13px; padding-top: 11px; border-top: 1px solid var(--line); color: #62584f; line-height: 1.75; }
 .reference-original > summary { min-height: 36px; color: var(--accent-ink); font-weight: 650; cursor: pointer; }
 .reference-original > p { margin-top: 7px; }

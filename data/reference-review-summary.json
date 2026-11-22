@@ -1,0 +1,25 @@
+{
+  "version": "20261122-3",
+  "questionCount": 1100,
+  "reviewedQuestionCount": 1100,
+  "numberedQuestionCount": 693,
+  "retainedStatementCount": 3002,
+  "reviewedStatementCount": 748,
+  "inlineCorrections": 832,
+  "fullRuleCorrections": 4,
+  "contextualFocuses": 22,
+  "supplementalExplanations": 46,
+  "unresolvedStatements": [],
+  "unresolvedQuestions": [],
+  "complete": true,
+  "canonicalQuestionBankSHA256": "3d6c5a303810092b5f284d0c57dec487ac553de528777bec53d0fd4dc0240869",
+  "checks": [
+    "全1100题参考答案渲染",
+    "全部批注实际应用及原句重建",
+    "原解析及官方补证对应关系",
+    "原题与判分键未改",
+    "整套交卷后显示解析",
+    "自动切题与末题手动交卷",
+    "返回/滑动/计时/草稿与历史记录"
+  ]
+}

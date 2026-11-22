@@ -112,7 +112,7 @@ function harness(saved, savedDraft, storageFails = false) {
     matchMedia: () => ({ matches: false, addEventListener() {} })
   }
   vm.createContext(context)
-  for (const file of ['text-format.js', 'explanation-format.js']) vm.runInContext(fs.readFileSync(path.join(repo, file), 'utf8'), context)
+  for (const file of ['text-format.js', 'reference-reviews.js', 'explanation-format.js']) vm.runInContext(fs.readFileSync(path.join(repo, file), 'utf8'), context)
   vm.runInContext(source + `\nglobalThis.testApi = {state, startQuiz, navigate, goBack, changeQuestion, pauseQuizTiming, resumeQuizTiming, getQuestionMilliseconds, getSessionMilliseconds, formatDuration, submitSession, render, renderQuiz, renderProgress, renderReferenceAnswer, conciseReferenceReason, saveUserState, setQuizFont, continueDraft};`, context)
   const api = context.testApi
   api.state.data = JSON.parse(JSON.stringify(bank))
@@ -489,6 +489,37 @@ test('selecting an answer advances once, guards double taps and keeps final subm
   h.advance(1000)
   h.fire('click', { target: option })
   assert.equal(JSON.stringify(h.state.sessionAnswers), submittedAnswers, 'Review cannot change a submitted answer')
+})
+
+test('all 1100 questions render reviewed references and repaired sources without changing grading data', () => {
+  const h = harness()
+  const fullBank = JSON.parse(fs.readFileSync(path.join(repo, 'data/questions.json'), 'utf8'))
+  const before = JSON.stringify(fullBank)
+  let rendered = 0
+  for (const question of fullBank.questions) {
+    const html = h.renderReferenceAnswer(question)
+    assert(html.includes('参考答案'), `${question.id}: unified reference layout`)
+    assert(!html.includes('待补清晰原件'), `${question.id}: no missing-source placeholder in learning explanations`)
+    assert(!html.includes('reference-review-note'), `${question.id}: all source uncertainties resolved`)
+    assert(!html.includes('C:\\Users\\'), `${question.id}: no private source paths in the page`)
+    assert(!html.includes('undefined'), `${question.id}: no missing template values`)
+    rendered++
+  }
+  assert.equal(rendered, 1100)
+  const repaired = id => h.renderReferenceAnswer(fullBank.questions.find(q => q.id === id))
+  assert(repaired('xh-newlaw-076').includes('统筹地区人民政府'))
+  assert(repaired('xh-newlaw-077').includes('职工个人不缴费'))
+  assert(repaired('xh-newlaw-077').includes('ybj.sh.gov.cn'))
+  assert(repaired('xh-500-196').includes('4150元/人'))
+  assert(!repaired('xh-500-196').includes('4巧0'))
+  assert(repaired('xh-500-467').includes('15岁'))
+  const contextual = repaired('cg-186')
+  assert(contextual.includes('reference-focus'))
+  assert(!contextual.includes('reference-wrong'), 'Correct policies in another category must not be crossed out as false facts')
+  const legalRule = repaired('xh-newlaw-053')
+  assert(legalRule.includes('<del class="reference-wrong">应当全部返还</del>'))
+  assert(legalRule.includes('明显违反公平原则'))
+  assert.equal(JSON.stringify(fullBank), before)
 })
 
 console.log(`PASS: ${passed} quiz navigation, gesture, timing, persistence and reference scenarios`)

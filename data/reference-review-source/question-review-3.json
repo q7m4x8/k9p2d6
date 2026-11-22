@@ -1,0 +1,1656 @@
+[
+  {
+    "id": "xh-500-481",
+    "sourceStatus": "consistent",
+    "note": "来源四项均与文件一致，A全选匹配。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-482",
+    "sourceStatus": "consistent",
+    "note": "来源五项均一致，5项对应D。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-500-483",
+    "sourceStatus": "consistent",
+    "note": "来源四项均一致，4项对应D。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-484",
+    "sourceStatus": "consistent",
+    "note": "来源四项均一致，A全选匹配。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-486",
+    "sourceStatus": "consistent",
+    "note": "来源人均4平方米对照A的8平方米，否定问法选A匹配。"
+  },
+  {
+    "id": "xh-500-488",
+    "sourceStatus": "consistent",
+    "note": "B三级竞赛体系与来源国家省市县四级不符，选B匹配。"
+  },
+  {
+    "id": "xh-500-489",
+    "sourceStatus": "consistent",
+    "note": "D将浙江共同富裕示范区误写为广西，来源区分浙江与广西，选D匹配。"
+  },
+  {
+    "id": "xh-500-494",
+    "sourceStatus": "consistent",
+    "note": "来源四项均符合，A全选匹配。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-495",
+    "sourceStatus": "consistent",
+    "note": "来源四项均符合，4项对应A。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-496",
+    "sourceStatus": "consistent",
+    "note": "D将东西部地区旅游定位对调，来源与答案D一致。"
+  },
+  {
+    "id": "xh-500-498",
+    "sourceStatus": "consistent",
+    "note": "来源将④明确列为2035年目标，非本题2030年范围；①②③按正确组合B并由来源排除④，④保持题意不符，不标为事实错误。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "unknown"
+    }
+  },
+  {
+    "id": "xh-500-499",
+    "sourceStatus": "consistent",
+    "note": "来源四项均符合，4项对应A。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-500-500",
+    "sourceStatus": "consistent",
+    "note": "来源四项均符合，A全选匹配。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-001",
+    "sourceStatus": "consistent",
+    "note": "四个编号逐项正面来源明确，4项对应D。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-002",
+    "sourceStatus": "consistent",
+    "note": "四项制度内容来源明确，D全选匹配。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-004",
+    "sourceStatus": "consistent",
+    "note": "光污染、电磁辐射、受控热核聚变、化学物质四项来源均明确，A全选匹配。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-008",
+    "sourceStatus": "consistent",
+    "note": "D设置30倍上限与来源按日连续且不设最高倍数矛盾；ABC来源逐项支持，答案D一致。"
+  },
+  {
+    "id": "xh-newlaw-011",
+    "sourceStatus": "consistent",
+    "note": "D无需承担民事责任与来源不影响承担民事责任矛盾；ABC法条明确支持，答案D一致。"
+  },
+  {
+    "id": "xh-newlaw-013",
+    "sourceStatus": "consistent",
+    "note": "公众参与四项来源逐条支持，D全选匹配。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-016",
+    "sourceStatus": "consistent",
+    "note": "B优先企业用水与来源优先城乡居民生活用水不符；ACD来源支持，答案B一致。"
+  },
+  {
+    "id": "xh-newlaw-019",
+    "sourceStatus": "consistent",
+    "note": "D突出少数民族文字与来源突出国家通用语言文字相反，答案D一致；题干尾部有原始推广文字公考资料免费加微信，应单独清理显示。"
+  },
+  {
+    "id": "xh-newlaw-020",
+    "sourceStatus": "consistent",
+    "note": "A把统战部门牵头与民族部门履职对调，来源分工明确，答案A一致。"
+  },
+  {
+    "id": "xh-newlaw-022",
+    "sourceStatus": "consistent",
+    "note": "来源主线明确为铸牢中华民族共同体意识，与D一致；民族T作是来源OCR字形问题，不影响答案。"
+  },
+  {
+    "id": "xh-newlaw-024",
+    "sourceStatus": "consistent",
+    "note": "来源①②③及④分别明确肯定，4项对应D。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-025",
+    "sourceStatus": "consistent",
+    "note": "教育招生、学术体系、贯穿教育、宗教中国化四项来源逐项支持，4项对应D。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-026",
+    "sourceStatus": "consistent",
+    "note": "四项立法背景和特点均有逐项来源，4项为A。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-028",
+    "sourceStatus": "consistent",
+    "note": "五项编制要求均在第九条原文，5项为D。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-029",
+    "sourceStatus": "consistent",
+    "note": "五项规划原则均在第五条原文，D全选一致。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-030",
+    "sourceStatus": "consistent",
+    "note": "前期研究、要素条件、民意、咨询论证、编制手段五项逐条来源一致，A为5项。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-031",
+    "sourceStatus": "consistent",
+    "note": "四项审议批准与调整程序逐条来源支持，A全选。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-032",
+    "sourceStatus": "consistent",
+    "note": "C不包括远景目标与第二条包括远景目标相反；ABD法条均支持，答案C一致。"
+  },
+  {
+    "id": "xh-newlaw-034",
+    "sourceStatus": "consistent",
+    "note": "法定救助对象含①②④⑤，低收入务工人员并非单独法定类别；③只标不属于题意，正确组合B一致。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "④": "correct",
+      "⑤": "correct",
+      "③": "unknown"
+    }
+  },
+  {
+    "id": "xh-newlaw-035",
+    "sourceStatus": "consistent",
+    "note": "专项救助含教育、受灾、医疗；特困供养属基本，流散属急难，属于类别区别，C正确。",
+    "verdicts": {
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "①": "unknown",
+      "⑤": "unknown"
+    }
+  },
+  {
+    "id": "xh-newlaw-037",
+    "sourceStatus": "consistent",
+    "note": "B临时救助申请地应为急难发生地而非户籍所在地，其余程序来源支持，答案B一致。"
+  },
+  {
+    "id": "xh-newlaw-039",
+    "sourceStatus": "consistent",
+    "note": "社会力量参与四项逐条来源支持，A全选。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-040",
+    "sourceStatus": "consistent",
+    "note": "临时、疾病、地方扩围及司法救助衔接四项逐条支持，D为4项。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-041",
+    "sourceStatus": "consistent",
+    "note": "A基本养老保险应为基本医疗保险，BCD逐条支持，答案A一致。"
+  },
+  {
+    "id": "xh-newlaw-042",
+    "sourceStatus": "consistent",
+    "note": "社会救助核心亮点四项逐条来源明确，A全选。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-043",
+    "sourceStatus": "consistent",
+    "note": "A按季度应按月，B统一差额应可差额或分档，C不得高于应不得低于，D来源明确，答案D一致。"
+  },
+  {
+    "id": "xh-newlaw-044",
+    "sourceStatus": "consistent",
+    "note": "A宗旨排序来源明确；B漏服务、C功能性范围及D互联网调整范围均有来源反驳，答案A一致。"
+  },
+  {
+    "id": "xh-newlaw-046",
+    "sourceStatus": "consistent",
+    "note": "四类不得注册标志均在来源条款；保留④通过使用取得显著特征的法定例外说明，D为4项。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-047",
+    "sourceStatus": "consistent",
+    "note": "B主动批量认定与被动、个案、按需确认相反，ACD来源支持，答案B一致。"
+  },
+  {
+    "id": "xh-newlaw-049",
+    "sourceStatus": "consistent",
+    "note": "B续展前六个月应为十二个月，另有六个月宽展，ACD来源支持，答案B一致。"
+  },
+  {
+    "id": "xh-newlaw-052",
+    "sourceStatus": "consistent",
+    "note": "B欺骗注册可主动无效有依据；A请求主体、C期限主体、D效力起点均有来源纠正，答案B一致。"
+  },
+  {
+    "id": "xh-newlaw-054",
+    "sourceStatus": "consistent",
+    "note": "A非持有人限定申请撤销，而为任何单位个人可申请；BCD来源逐条支持，答案A一致。"
+  },
+  {
+    "id": "xh-newlaw-055",
+    "sourceStatus": "consistent",
+    "note": "C专门立法与来源概括一致；施行日、公布方式和废止原条款三个干扰项有明确来源反驳。"
+  },
+  {
+    "id": "xh-newlaw-057",
+    "sourceStatus": "consistent",
+    "note": "C负总责主体为省自治区直辖市而非市级，ABD来源支持，答案C一致。"
+  },
+  {
+    "id": "xh-newlaw-058",
+    "sourceStatus": "consistent",
+    "note": "五类永久基本农田均对应第十八条列举，D全选一致。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-059",
+    "sourceStatus": "consistent",
+    "note": "四类不得划入永久基本农田均在第十九条列举，D全选一致。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-061",
+    "sourceStatus": "consistent",
+    "note": "A不得擅自改变用途与来源一致；BCD放宽调整、用途和批准层级与来源冲突。"
+  },
+  {
+    "id": "xh-newlaw-065",
+    "sourceStatus": "consistent",
+    "note": "四项耕地生态保护措施逐条来源一致，D为4项。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-066",
+    "sourceStatus": "consistent",
+    "note": "A基础处分警告记过记大过正确；BCD混淆加重处分条件，来源明确反驳，答案A一致。"
+  },
+  {
+    "id": "xh-newlaw-068",
+    "sourceStatus": "consistent",
+    "note": "D抛荒一年应为连续两年以上，ABC来源支持，答案D一致。"
+  },
+  {
+    "id": "xh-newlaw-069",
+    "sourceStatus": "consistent",
+    "note": "C把恢复优质耕地为主、新开垦为辅对调，ABD来源支持，答案C一致。"
+  },
+  {
+    "id": "xh-newlaw-070",
+    "sourceStatus": "consistent",
+    "note": "D中心任务应为增加农民收入而非保障粮食产量，ABC来源支持，答案D一致。"
+  },
+  {
+    "id": "xh-newlaw-071",
+    "sourceStatus": "consistent",
+    "note": "农业经营体制五项来源均明确，5项对应D。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-073",
+    "sourceStatus": "consistent",
+    "note": "农业绿色发展四项来源均支持，4项为D。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-075",
+    "sourceStatus": "source_unclear",
+    "note": "答案表已核C正向组合可确认①②④；详细解析原页损坏，无法对③补写更正或完整证据。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "④": "correct",
+      "③": "unknown"
+    }
+  },
+  {
+    "id": "xh-newlaw-076",
+    "sourceStatus": "source_unclear",
+    "note": "仅有答案表B即2项，详细解析原页损坏，不能由正确项数量推断哪两项或补写纠正。",
+    "verdicts": {
+      "①": "unknown",
+      "②": "unknown",
+      "③": "unknown",
+      "④": "unknown"
+    }
+  },
+  {
+    "id": "xh-newlaw-077",
+    "sourceStatus": "source_unclear",
+    "note": "仅有已核答案表A，详细解析原页损坏，不补写缺少依据的选项说明。"
+  },
+  {
+    "id": "xh-newlaw-078",
+    "sourceStatus": "consistent",
+    "note": "A税务征缴来源明确；B收支原则反转、C单一筹资、D市级统筹均与来源冲突，答案A一致。"
+  },
+  {
+    "id": "xh-newlaw-079",
+    "sourceStatus": "consistent",
+    "note": "B单一项目付费与来源多元复合支付相反，其余制度来源支持，答案B一致。"
+  },
+  {
+    "id": "xh-newlaw-080",
+    "sourceStatus": "consistent",
+    "note": "实名就医、代购药身份、追溯、互联网医疗四项来源明确，D全选。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-082",
+    "sourceStatus": "consistent",
+    "note": "B可在线但明确不同意除外与来源一致；A事先同意、C效力和D范围均被来源反驳。"
+  },
+  {
+    "id": "xh-newlaw-083",
+    "sourceStatus": "consistent",
+    "note": "B按行政区划层层设立与来源不层层设立矛盾，ACD来源支持，答案B一致。"
+  },
+  {
+    "id": "xh-newlaw-084",
+    "sourceStatus": "consistent",
+    "note": "D口头通知应为书面通知，ABC披露回避程序来源支持，答案D一致。"
+  },
+  {
+    "id": "xh-newlaw-085",
+    "sourceStatus": "consistent",
+    "note": "C虚假仲裁直接驳回请求与第六十一条一致，ABD分别在适用范围、终止方式、直接驳回权上被来源反驳。"
+  },
+  {
+    "id": "xh-newlaw-086",
+    "sourceStatus": "consistent",
+    "note": "B约定仲裁地及其适用法管辖功能来源支持，ACD概念、确定主体及裁决地均有来源反驳。"
+  },
+  {
+    "id": "xh-newlaw-088",
+    "sourceStatus": "consistent",
+    "note": "来源①②④法条与③新增制度说明均明确，4项为D。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-089",
+    "sourceStatus": "consistent",
+    "note": "撤销时限、取证、协议效力及一裁终局四项来源明确，4项为D。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-090",
+    "sourceStatus": "consistent",
+    "note": "D效力争议冲突时应由人民法院裁定，ABC协议内容及独立性来源支持，答案D一致。"
+  },
+  {
+    "id": "xh-newlaw-091",
+    "sourceStatus": "consistent",
+    "note": "开庭、公开及缺席两项程序均有法条来源，D全选。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-093",
+    "sourceStatus": "consistent",
+    "note": "撤销情形、三个月时限、两个月裁定及重新仲裁终结四项逐条支持，D为4项。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-newlaw-094",
+    "sourceStatus": "consistent",
+    "note": "C统一模式标准与因地制宜突出特色相反，ABD原则有来源支持，答案C一致。"
+  },
+  {
+    "id": "xh-newlaw-096",
+    "sourceStatus": "consistent",
+    "note": "D科学保护合理利用与定义一致；国务院、国家代表性及陆海区域明确反驳ABC。"
+  },
+  {
+    "id": "xh-newlaw-098",
+    "sourceStatus": "consistent",
+    "note": "B人工为主与自然恢复为主相反，ACD对应法条明确，答案B一致。"
+  },
+  {
+    "id": "xh-newlaw-100",
+    "sourceStatus": "consistent",
+    "note": "A优先应届毕业生应为当地居民，BCD票价经营程序来源支持，答案A一致。"
+  },
+  {
+    "id": "xh-special-002",
+    "sourceStatus": "consistent",
+    "note": "来源分别纠正A两个结合时间、C矢的倒置及D魂根互换；答案B与保留正确项一致。"
+  },
+  {
+    "id": "xh-special-010",
+    "sourceStatus": "consistent",
+    "note": "来源反驳A同步同等、B分做蛋糕顺序及D减少高收入；C总体概念对应答案正确。"
+  },
+  {
+    "id": "xh-special-012",
+    "sourceStatus": "consistent",
+    "note": "C绿色发展所解问题应为人与自然，内外联动属开放，答案C来源一致。"
+  },
+  {
+    "id": "xh-special-018",
+    "sourceStatus": "consistent",
+    "note": "A东北东部定位颠倒、B应长三角、D应县城，C三大空间格局作为正确项与来源答案一致。"
+  },
+  {
+    "id": "xh-special-022",
+    "sourceStatus": "consistent",
+    "note": "B引领应核心价值观、C发展保护利用错置、D应社会效益首位，答案A一致。"
+  },
+  {
+    "id": "xh-special-024",
+    "sourceStatus": "consistent",
+    "note": "B公益预防、C国家及社会保险、D统筹层级均有来源纠正，答案A结构就业一致。"
+  },
+  {
+    "id": "xh-special-025",
+    "sourceStatus": "consistent",
+    "note": "A初次与B再分配作用错位，D市场与知识价值误置，C慈善第三次分配为正确项，答案C一致。"
+  },
+  {
+    "id": "xh-special-027",
+    "sourceStatus": "consistent",
+    "note": "B十一届与十八届、C完善发展制度、D经济体制牵引分别有来源，A改革开放两奇迹与答案一致。"
+  },
+  {
+    "id": "xh-special-039",
+    "sourceStatus": "consistent",
+    "note": "A战略与市场导向对调、B大学与企业主体对调、C政府为主均有来源纠正，答案D一致。"
+  },
+  {
+    "id": "xh-special-041",
+    "sourceStatus": "consistent",
+    "note": "A意识能动性符合题意，B笼统促进、C直观映象、D意识客观实在性均被来源明确反驳。"
+  },
+  {
+    "id": "xh-special-042",
+    "sourceStatus": "consistent",
+    "note": "B物质决定意识符合题干；A决定性及D前提倒置错误，C事实正确但不符合题意，答案B一致。"
+  },
+  {
+    "id": "xh-special-043",
+    "sourceStatus": "consistent",
+    "note": "D同时体现变化与稳定最匹配；ABC各为其他侧重，均属题意不符而非事实错误，答案D一致。"
+  },
+  {
+    "id": "xh-special-044",
+    "sourceStatus": "consistent",
+    "note": "B普遍联系整体治理与材料相符；A无条件联系、C破坏性比较、D改造规律错误，答案B一致。"
+  },
+  {
+    "id": "xh-special-046",
+    "sourceStatus": "consistent",
+    "note": "①②③体现新旧更替，④仅体现变化及变不变，诗句本身无事实错误，A组合一致。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "unknown"
+    }
+  },
+  {
+    "id": "xh-special-047",
+    "sourceStatus": "consistent",
+    "note": "A矛盾同一性配诗句正确；BCD错在对应哲理，来源给出对立统一、整体部分及发展观点，答案A一致。"
+  },
+  {
+    "id": "xh-special-048",
+    "sourceStatus": "consistent",
+    "note": "①③与同一性对应；②量变、④主要矛盾属题意不符，保留完整正确事实且不标红，A一致。",
+    "verdicts": {
+      "①": "correct",
+      "③": "correct",
+      "②": "unknown",
+      "④": "unknown"
+    }
+  },
+  {
+    "id": "xh-special-049",
+    "sourceStatus": "consistent",
+    "note": "①②④兼顾重点与两点；③只统筹兼顾未区分主次，属于原理对应范围不符，C一致。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "④": "correct",
+      "③": "unknown"
+    }
+  },
+  {
+    "id": "xh-special-050",
+    "sourceStatus": "consistent",
+    "note": "B一分为二最符合；A内外因错误，CD说法本身正确但无关题意，答案B一致。"
+  },
+  {
+    "id": "xh-special-051",
+    "sourceStatus": "consistent",
+    "note": "内外因、两点论及普遍联系匹配；③原理正确但题干未体现斗争与同一属性，B一致。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "④": "correct",
+      "③": "unknown"
+    }
+  },
+  {
+    "id": "xh-special-052",
+    "sourceStatus": "consistent",
+    "note": "①④量变质变上升匹配；②一帆风顺及③无条件量变引起质变均有明确纠正，补充逐项标注，D一致。",
+    "verdicts": {
+      "①": "correct",
+      "④": "correct",
+      "②": "incorrect",
+      "③": "incorrect"
+    },
+    "extraReviews": [
+      {
+        "key": "xh-special-052:②",
+        "original": "新事物战胜旧事物是一帆风顺的过程",
+        "reason": "①符合题意：“一步一个脚印''“一个阶段一个阶段扎实推进\"，强调的是量的积累过程；“积小胜为大胜\"“目标就一定能实现\"强调的是量变积累到一定程度必然引起质变。②错误：新事物战胜旧事物是一个曲折的过程，不可能一帆风顺。事物发展是前进性与曲折性的统一，新事物的成长壮大必然经历由小到大、由弱到强的过程，其间难免遭遇挫折和反复。③错误：量变只有达到一定程度、突破度的界限时，才会引起质变；在度的范围内的量变不会引起质变。④符合题意：事物的发展总是从量变开始，量变积累到一定程度引起质变，质变又为新的量变开辟道路，如此循环往复、不断前进。题干中“个阶段一个阶段扎实推进\"“积小胜为大胜\"，体现了从量变到质变、再从新的质变基础上开始新的量变的螺旋上升过程。故本题答案为 D。",
+        "pairs": [
+          {
+            "wrong": "一帆风顺的过程",
+            "correct": "一个曲折的过程",
+            "evidence": "①符合题意：“一步一个脚印''“一个阶段一个阶段扎实推进\"，强调的是量的积累过程；“积小胜为大胜\"“目标就一定能实现\"强调的是量变积累到一定程度必然引起质变。②错误：新事物战胜旧事物是一个曲折的过程，不可能一帆风顺。事物发展是前进性与曲折性的统一，新事物的成长壮大必然经历由小到大、由弱到强的过程，其间难免遭遇挫折和反复。③错误：量变只有达到一定程度、突破度的界限时，才会引起质变；在度的范围内的量变不会引起质变。④符合题意：事物的发展总是从量变开始，量变积累到一定程度引起质变，质变又为新的量变开辟道路，如此循环往复、不断前进。题干中“个阶段一个阶段扎实推进\"“积小胜为大胜\"，体现了从量变到质变、再从新的质变基础上开始新的量变的螺旋上升过程。故本题答案为 D。"
+          }
+        ],
+        "status": "mapped",
+        "verdict": "incorrect"
+      },
+      {
+        "key": "xh-special-052:③",
+        "original": "量变必然引起质变，要不失时机促成事物的飞跃",
+        "reason": "①符合题意：“一步一个脚印''“一个阶段一个阶段扎实推进\"，强调的是量的积累过程；“积小胜为大胜\"“目标就一定能实现\"强调的是量变积累到一定程度必然引起质变。②错误：新事物战胜旧事物是一个曲折的过程，不可能一帆风顺。事物发展是前进性与曲折性的统一，新事物的成长壮大必然经历由小到大、由弱到强的过程，其间难免遭遇挫折和反复。③错误：量变只有达到一定程度、突破度的界限时，才会引起质变；在度的范围内的量变不会引起质变。④符合题意：事物的发展总是从量变开始，量变积累到一定程度引起质变，质变又为新的量变开辟道路，如此循环往复、不断前进。题干中“个阶段一个阶段扎实推进\"“积小胜为大胜\"，体现了从量变到质变、再从新的质变基础上开始新的量变的螺旋上升过程。故本题答案为 D。",
+        "pairs": [
+          {
+            "wrong": "量变必然引起质变",
+            "correct": "量变只有达到一定程度、突破度的界限时，才会引起质变",
+            "evidence": "①符合题意：“一步一个脚印''“一个阶段一个阶段扎实推进\"，强调的是量的积累过程；“积小胜为大胜\"“目标就一定能实现\"强调的是量变积累到一定程度必然引起质变。②错误：新事物战胜旧事物是一个曲折的过程，不可能一帆风顺。事物发展是前进性与曲折性的统一，新事物的成长壮大必然经历由小到大、由弱到强的过程，其间难免遭遇挫折和反复。③错误：量变只有达到一定程度、突破度的界限时，才会引起质变；在度的范围内的量变不会引起质变。④符合题意：事物的发展总是从量变开始，量变积累到一定程度引起质变，质变又为新的量变开辟道路，如此循环往复、不断前进。题干中“个阶段一个阶段扎实推进\"“积小胜为大胜\"，体现了从量变到质变、再从新的质变基础上开始新的量变的螺旋上升过程。故本题答案为 D。"
+          }
+        ],
+        "status": "mapped",
+        "verdict": "incorrect"
+      }
+    ]
+  },
+  {
+    "id": "xh-special-053",
+    "sourceStatus": "consistent",
+    "note": "A量变积累符合；BC原理正确但题意不符，D总是整体大于部分漏条件，答案A一致。"
+  },
+  {
+    "id": "xh-special-054",
+    "sourceStatus": "consistent",
+    "note": "度、主要矛盾、防不利质变匹配；④同一性原理本身正确但材料未体现转化，A一致。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "unknown"
+    }
+  },
+  {
+    "id": "xh-special-055",
+    "sourceStatus": "consistent",
+    "note": "A艰辛后成功与题干同理；BCD分别认识差异、矛盾转化、一般发展属对应不符，答案A一致。"
+  },
+  {
+    "id": "xh-special-056",
+    "sourceStatus": "consistent",
+    "note": "A前进与曲折统一匹配，B只斗争性推动错误，CD原理正确但无关，答案A一致。"
+  },
+  {
+    "id": "xh-special-057",
+    "sourceStatus": "consistent",
+    "note": "B千磨万击与前进曲折统一对应，AC错在哲理对应，D主客观前提颠倒，答案B一致。"
+  },
+  {
+    "id": "xh-special-058",
+    "sourceStatus": "consistent",
+    "note": "①②从实践及特殊到普遍匹配；③目的应改造世界、④只有正确认识促进实践，补充两条，A一致。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "incorrect",
+      "④": "incorrect"
+    },
+    "extraReviews": [
+      {
+        "key": "xh-special-058:③",
+        "original": "获得正确认识是人类从事实践活动的根本目的",
+        "reason": "①符合题意：三地在“试验田''里大胆探索、先行先试，从中总结出创新举措和经验做法，体现了实践是认识的基础，实践推动认识的产生和深化。②符合题意：三地的综合改革试点属于“特殊性\"，从中总结出的经验做法向全国推广，体现了从特殊性中提炼普遍性，矛盾的普遍性寓于特殊性之中，通过特殊性表现出来。③错误：实践是认识的目的和归宿，人类从事实践活动的根本目的是改造世界，而非获得正确认识。④错误：认识有正确与错误之分，只有正确的认识才能推动实践的创新发展。故本题答案为 A。",
+        "pairs": [
+          {
+            "wrong": "获得正确认识",
+            "correct": "改造世界",
+            "evidence": "①符合题意：三地在“试验田''里大胆探索、先行先试，从中总结出创新举措和经验做法，体现了实践是认识的基础，实践推动认识的产生和深化。②符合题意：三地的综合改革试点属于“特殊性\"，从中总结出的经验做法向全国推广，体现了从特殊性中提炼普遍性，矛盾的普遍性寓于特殊性之中，通过特殊性表现出来。③错误：实践是认识的目的和归宿，人类从事实践活动的根本目的是改造世界，而非获得正确认识。④错误：认识有正确与错误之分，只有正确的认识才能推动实践的创新发展。故本题答案为 A。"
+          }
+        ],
+        "status": "mapped",
+        "verdict": "incorrect"
+      },
+      {
+        "key": "xh-special-058:④",
+        "original": "认识的发展必然推动实践的创新发展",
+        "reason": "①符合题意：三地在“试验田''里大胆探索、先行先试，从中总结出创新举措和经验做法，体现了实践是认识的基础，实践推动认识的产生和深化。②符合题意：三地的综合改革试点属于“特殊性\"，从中总结出的经验做法向全国推广，体现了从特殊性中提炼普遍性，矛盾的普遍性寓于特殊性之中，通过特殊性表现出来。③错误：实践是认识的目的和归宿，人类从事实践活动的根本目的是改造世界，而非获得正确认识。④错误：认识有正确与错误之分，只有正确的认识才能推动实践的创新发展。故本题答案为 A。",
+        "pairs": [
+          {
+            "wrong": "认识的发展必然",
+            "correct": "只有正确的认识才能",
+            "evidence": "①符合题意：三地在“试验田''里大胆探索、先行先试，从中总结出创新举措和经验做法，体现了实践是认识的基础，实践推动认识的产生和深化。②符合题意：三地的综合改革试点属于“特殊性\"，从中总结出的经验做法向全国推广，体现了从特殊性中提炼普遍性，矛盾的普遍性寓于特殊性之中，通过特殊性表现出来。③错误：实践是认识的目的和归宿，人类从事实践活动的根本目的是改造世界，而非获得正确认识。④错误：认识有正确与错误之分，只有正确的认识才能推动实践的创新发展。故本题答案为 A。"
+          }
+        ],
+        "status": "mapped",
+        "verdict": "incorrect"
+      }
+    ]
+  },
+  {
+    "id": "xh-special-059",
+    "sourceStatus": "consistent",
+    "note": "A实践基础匹配；B圆圈循环错误，C扬弃原理本身正确但无关，D量变必然缺达到一定程度，答案A一致。"
+  },
+  {
+    "id": "xh-special-060",
+    "sourceStatus": "consistent",
+    "note": "本题问最不一致，A外因或从实际出发与实践运用主题距离最远，BCD各体现实践认识，答案A与否定问法一致。"
+  },
+  {
+    "id": "xh-special-062",
+    "sourceStatus": "consistent",
+    "note": "A户籍属上层建筑，B生产关系调整属题意不符；C根本动力及D笼统促进错误，答案A一致。"
+  },
+  {
+    "id": "xh-special-072",
+    "sourceStatus": "consistent",
+    "note": "A降至应继续、B物应人、D增加应严控，答案C财政转移支付正确，与来源排除一致。"
+  },
+  {
+    "id": "xh-special-076",
+    "sourceStatus": "consistent",
+    "note": "B新兴与C未来产业类别对调、D社会基金应政府基金，A传统产业措施为正确项，答案A一致。"
+  },
+  {
+    "id": "xh-special-077",
+    "sourceStatus": "consistent",
+    "note": "A降低长期支持错误、B杭州应上海、C高校应企业，D人才评价正确，与答案D一致。"
+  },
+  {
+    "id": "xh-special-078",
+    "sourceStatus": "consistent",
+    "note": "A规范而非差异优惠、B刚性非柔性、C整治非鼓励内卷，D改革试点正确，答案D一致。"
+  },
+  {
+    "id": "xh-special-079",
+    "sourceStatus": "consistent",
+    "note": "A提高而非降低资本收益、C减量非增量、D拓展非严控退出渠道，B消费税正确，答案B一致。"
+  },
+  {
+    "id": "xh-special-080",
+    "sourceStatus": "consistent",
+    "note": "A压减清单、B海南港、C贸易投资及内外贸一体化三项来源明确，D外资待遇为正确项，答案D一致。"
+  },
+  {
+    "id": "xh-special-081",
+    "sourceStatus": "consistent",
+    "note": "A流入地、B内涵发展、D差异政策来源明确，C三大城市群正确，答案C一致。"
+  },
+  {
+    "id": "xh-special-082",
+    "sourceStatus": "consistent",
+    "note": "五项民生举措均明确正确，5项为D。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-special-087",
+    "sourceStatus": "consistent",
+    "note": "②政绩观学习教育归2026而非2025，来源给出2025为中央八项规定精神；年份范围不符不否定该教育，B一致。",
+    "verdicts": {
+      "①": "correct",
+      "③": "correct",
+      "④": "correct",
+      "②": "unknown"
+    }
+  },
+  {
+    "id": "xh-special-089",
+    "sourceStatus": "consistent",
+    "note": "D属于形式主义官僚主义治理而非享乐奢靡范围，保留正确举措不作事实错误改写，答案D一致。"
+  },
+  {
+    "id": "xh-special-090",
+    "sourceStatus": "consistent",
+    "note": "A高压不敢、B监督不能、D一体推进来源明确，C廉洁教育不想腐正确，答案C一致。"
+  },
+  {
+    "id": "xh-special-091",
+    "sourceStatus": "consistent",
+    "note": "A治权非授权、B省巡视村巡察、C县级主战场来源明确，D制度与执行正确，答案D一致。"
+  },
+  {
+    "id": "xh-special-095",
+    "sourceStatus": "consistent",
+    "note": "五项理论品格来源明确均正确，5项为D。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-special-099",
+    "sourceStatus": "consistent",
+    "note": "A财产至上应为生命至上，来源七坚持与其他选项均一致，答案A一致。"
+  },
+  {
+    "id": "xh-special-104",
+    "sourceStatus": "consistent",
+    "note": "四项政治优势均在来源完整列举，A全选。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-special-105",
+    "sourceStatus": "consistent",
+    "note": "五项经验来源完整列举，A全选。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-special-111",
+    "sourceStatus": "consistent",
+    "note": "C新兴集群、传统改造对调错误，来源正确句明确，答案C一致。"
+  },
+  {
+    "id": "xh-special-112",
+    "sourceStatus": "consistent",
+    "note": "两岸共同缔造书写创造培育及信念五项来源完整对应，D全选。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct"
+    }
+  },
+  {
+    "id": "xh-special-116",
+    "sourceStatus": "consistent",
+    "note": "D统一评价应为分类评价，来源同时支持创新环境等，答案D一致。"
+  },
+  {
+    "id": "xh-special-117",
+    "sourceStatus": "consistent",
+    "note": "四阶段历史成就来源均属于，D全选一致。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-special-118",
+    "sourceStatus": "consistent",
+    "note": "六项优秀特质来源均属于，D全选一致。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct",
+      "⑥": "correct"
+    }
+  },
+  {
+    "id": "xh-special-121",
+    "sourceStatus": "consistent",
+    "note": "C戴庄经验对应赵亚夫而非王於昌，来源区分事迹，答案C一致。"
+  },
+  {
+    "id": "xh-special-122",
+    "sourceStatus": "consistent",
+    "note": "A科技角色转变方向颠倒，来源为参与贡献向开拓引领，答案A一致。"
+  },
+  {
+    "id": "xh-special-123",
+    "sourceStatus": "consistent",
+    "note": "D同质化发展与因地制宜比较优势、反对同质化相反，答案D一致。"
+  },
+  {
+    "id": "xh-special-124",
+    "sourceStatus": "consistent",
+    "note": "C理论导向应为应用导向，来源完整正确句明确，答案C一致。"
+  },
+  {
+    "id": "xh-special-125",
+    "sourceStatus": "consistent",
+    "note": "青年科技人才四项举措来源均正确，4项为A。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-special-129",
+    "sourceStatus": "consistent",
+    "note": "C从温饱不足到全面小康过度，应总体小康、奔向全面小康，答案C一致。"
+  },
+  {
+    "id": "xh-special-130",
+    "sourceStatus": "consistent",
+    "note": "A创造性回答课题、B邓小平成果及C三大制度时代归属均有来源纠正，D入世与引进走出为正确项，答案D一致。"
+  },
+  {
+    "id": "xh-special-132",
+    "sourceStatus": "consistent",
+    "note": "四个时代之问来源均属于，D全选一致。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-special-134",
+    "sourceStatus": "consistent",
+    "note": "人工智能开放共享、安全、价值及联合国协调四项来源均正确，D为4项。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-special-135",
+    "sourceStatus": "consistent",
+    "note": "D亚非拉与来源上合覆盖亚欧、未覆盖非拉矛盾，答案D一致。"
+  },
+  {
+    "id": "xh-special-137",
+    "sourceStatus": "consistent",
+    "note": "A传统与新兴合作领域互换，来源正确两类领域明确，答案A一致。"
+  },
+  {
+    "id": "xh-special-146",
+    "sourceStatus": "consistent",
+    "note": "党校育才献策、主课、研究智库、治校质量四项来源均正确，4项为D。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-special-147",
+    "sourceStatus": "consistent",
+    "note": "A乡镇非必须、B党委书记第一、C县级基层培训，D教学中心主业主课正确，答案D一致。"
+  },
+  {
+    "id": "xh-special-151",
+    "sourceStatus": "consistent",
+    "note": "央企作用党建及国有资本布局、国民企合作四项来源逐项明确，4项为D。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-special-153",
+    "sourceStatus": "consistent",
+    "note": "A服务贸易第二有来源；B需求非供给、C生活生产对调、D服务负面清单未清零，答案A一致。"
+  },
+  {
+    "id": "xh-special-155",
+    "sourceStatus": "consistent",
+    "note": "D供应链金融属生产性服务，ABC生活性服务，类别区别清楚，答案D一致。"
+  },
+  {
+    "id": "xh-special-156",
+    "sourceStatus": "consistent",
+    "note": "D因地制宜应侧重特殊性及具体分析，原普遍协调灵活不能对应该经验，答案D一致。"
+  },
+  {
+    "id": "xh-special-159",
+    "sourceStatus": "consistent",
+    "note": "A不含高等、B高等约61.3%、C基础为基点高等为龙头，D基础教育体系为正确项，与答案D一致。"
+  },
+  {
+    "id": "xh-special-163",
+    "sourceStatus": "consistent",
+    "note": "A不分批次阶段、B开门教育、D中央巡视非巡察，C民生为大正确，答案C一致。"
+  },
+  {
+    "id": "xh-special-164",
+    "sourceStatus": "consistent",
+    "note": "来源明确2013-2014群众路线、2023主题教育、2024党纪、2026政绩观，②①④③为A；四项事件本身均正确，不按次序选项排除事实。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-special-171",
+    "sourceStatus": "consistent",
+    "note": "B起步人群、C市地级起步及D相对均衡均有来源纠正，A属地参保为正确项，答案A一致。"
+  },
+  {
+    "id": "xh-special-173",
+    "sourceStatus": "consistent",
+    "note": "A退休原用人单位不缴费，而非同比例缴费，来源明确，答案A一致。"
+  },
+  {
+    "id": "xh-special-174",
+    "sourceStatus": "consistent",
+    "note": "A起步重度、B居民50职工70、C原则不发现金来源明确，D连续参保激励正确，答案D一致。"
+  },
+  {
+    "id": "xh-special-175",
+    "sourceStatus": "consistent",
+    "note": "A三级急重症、B二级桥梁与原颠倒，C同质化非差异化，D省级专科优势为正确项，答案D一致。"
+  },
+  {
+    "id": "xh-special-179",
+    "sourceStatus": "consistent",
+    "note": "A已落户应未落户，来源公租房扩大范围明确，答案A一致。"
+  },
+  {
+    "id": "xh-special-181",
+    "sourceStatus": "consistent",
+    "note": "四项常住地医保与临时救助来源均正确，4项为D。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-special-182",
+    "sourceStatus": "consistent",
+    "note": "D增加层次差异提高门槛与来源减少层次差异降低门槛相反，答案D一致。"
+  },
+  {
+    "id": "xh-special-187",
+    "sourceStatus": "consistent",
+    "note": "A第二部非第一、B绿色低碳编、D适度编纂均有来源，C五编体系正确，答案C一致。"
+  },
+  {
+    "id": "xh-special-190",
+    "sourceStatus": "consistent",
+    "note": "①公共服务属乡村建设类别，②③④属农业综合能力，分类不符不标事实错误，B一致。",
+    "verdicts": {
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "①": "unknown"
+    }
+  },
+  {
+    "id": "xh-special-191",
+    "sourceStatus": "consistent",
+    "note": "A漏规模性、B开发式非救济式、D乡村非市县监测，C财政规模正确，答案C一致。"
+  },
+  {
+    "id": "xh-special-193",
+    "sourceStatus": "consistent",
+    "note": "精准帮扶含①②③，④乡村消费属农民增收类别，A一致且不否定消费举措。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "unknown"
+    }
+  },
+  {
+    "id": "xh-special-197",
+    "sourceStatus": "consistent",
+    "note": "A主线农民土地、B依法权益、C所有承包经营三权，D集体根基与要素统一正确，答案D一致。"
+  },
+  {
+    "id": "xh-special-198",
+    "sourceStatus": "consistent",
+    "note": "A不可违法收回、B严禁打破集体界限、C仅内部农户家庭承包，D稳妥推进正确，答案D一致。"
+  },
+  {
+    "id": "xh-special-199",
+    "sourceStatus": "consistent",
+    "note": "C稳定调整主从颠倒，应大稳定小调整且前提大稳定，答案C来源一致。"
+  },
+  {
+    "id": "xh-special-200",
+    "sourceStatus": "consistent",
+    "note": "原图核实①依法选举产生、③乡镇政府和县级农业农村部门批准；两错误与B的2项匹配，②④完整保留正确。",
+    "verdicts": {
+      "②": "correct",
+      "④": "correct",
+      "①": "incorrect",
+      "③": "incorrect"
+    },
+    "extraReviews": [
+      {
+        "key": "xh-special-200:①",
+        "original": "延包工作小组由本村村委会成员决定产生",
+        "reason": "(I)错误：延包工作小组由本集体经济组织成员大会或成员代表大会依法选举产生。错误：延包方案涉及承包地调整的，应当报乡（镇）政府和县级政府农业农村主管部门批准。故本题答案为 B。",
+        "pairs": [
+          {
+            "wrong": "本村村委会成员决定",
+            "correct": "本集体经济组织成员大会或成员代表大会依法选举",
+            "evidence": "(I)错误：延包工作小组由本集体经济组织成员大会或成员代表大会依法选举产生。错误：延包方案涉及承包地调整的，应当报乡（镇）政府和县级政府农业农村主管部门批准。故本题答案为 B。",
+            "imageEvidence": "../source-explanations/xh-special-200-p32.webp"
+          }
+        ],
+        "status": "mapped",
+        "verdict": "incorrect",
+        "imageEvidence": "../source-explanations/xh-special-200-p32.webp",
+        "note": "原图已核对：①和③错误；OCR漏识别标签，不改变事实文字。"
+      },
+      {
+        "key": "xh-special-200:③",
+        "original": "延包方案涉及承包地调整的，应当报乡（镇）政府农业农村主管部门批准",
+        "reason": "(I)错误：延包工作小组由本集体经济组织成员大会或成员代表大会依法选举产生。错误：延包方案涉及承包地调整的，应当报乡（镇）政府和县级政府农业农村主管部门批准。故本题答案为 B。",
+        "pairs": [
+          {
+            "wrong": "乡（镇）政府农业农村主管部门",
+            "correct": "乡（镇）政府和县级政府农业农村主管部门",
+            "evidence": "(I)错误：延包工作小组由本集体经济组织成员大会或成员代表大会依法选举产生。错误：延包方案涉及承包地调整的，应当报乡（镇）政府和县级政府农业农村主管部门批准。故本题答案为 B。",
+            "imageEvidence": "../source-explanations/xh-special-200-p32.webp"
+          }
+        ],
+        "status": "mapped",
+        "verdict": "incorrect",
+        "imageEvidence": "../source-explanations/xh-special-200-p32.webp",
+        "note": "原图已核对：①和③错误；OCR漏识别标签，不改变事实文字。"
+      }
+    ]
+  },
+  {
+    "id": "xh-mock-001",
+    "sourceStatus": "consistent",
+    "note": "实际国情、前进曲折、普特统一及先进意识四项来源逐条匹配，A全选。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-mock-002",
+    "sourceStatus": "consistent",
+    "note": "①④体现内因；②群众史观、③主要矛盾、⑤能动性量积累原理正确但不对应，C一致。",
+    "verdicts": {
+      "①": "correct",
+      "④": "correct",
+      "②": "unknown",
+      "③": "unknown",
+      "⑤": "unknown"
+    }
+  },
+  {
+    "id": "xh-mock-004",
+    "sourceStatus": "consistent",
+    "note": "B自信自立对应准确，A系统观念、C胸怀天下、D人民至上来源明确，答案B一致。"
+  },
+  {
+    "id": "xh-mock-006",
+    "sourceStatus": "consistent",
+    "note": "A投资边际效益、B投资关键消费基础、C供需牵引创造方向来源纠正，D需求侧总量管理正确，答案D一致。"
+  },
+  {
+    "id": "xh-mock-007",
+    "sourceStatus": "consistent",
+    "note": "A应东部、B粤港澳、D以人为核心县城为载体，C三类主体功能区正确，答案C一致。"
+  },
+  {
+    "id": "xh-mock-011",
+    "sourceStatus": "consistent",
+    "note": "①传统产业，③未来产业，②④新兴产业，类别清楚，D一致。",
+    "verdicts": {
+      "②": "correct",
+      "④": "correct",
+      "①": "unknown",
+      "③": "unknown"
+    }
+  },
+  {
+    "id": "xh-mock-012",
+    "sourceStatus": "consistent",
+    "note": "D新兴市场发展中国家平台应为金砖，ABC上合发展成就精神经验来源支持，答案D一致。"
+  },
+  {
+    "id": "xh-mock-014",
+    "sourceStatus": "consistent",
+    "note": "A治权、B省巡视村巡察、C县级主战场来源明确，D制度执行正确，与答案D一致。"
+  },
+  {
+    "id": "xh-mock-016",
+    "sourceStatus": "consistent",
+    "note": "B需求牵引、C生产生活定位对调、D服务负面清单未清零，A服务贸易第二正确，答案A一致。"
+  },
+  {
+    "id": "xh-mock-017",
+    "sourceStatus": "consistent",
+    "note": "A主线农民土地、B内部农户、C承包经营权职能对调来源明确，D农民主体正确，答案D一致。"
+  },
+  {
+    "id": "xh-mock-021",
+    "sourceStatus": "consistent",
+    "note": "来源②标为数字2但原句对应量积累明确；①②③⑤匹配，④普特关系未体现不标事实错误，A一致。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "⑤": "correct",
+      "④": "unknown"
+    }
+  },
+  {
+    "id": "xh-mock-023",
+    "sourceStatus": "consistent",
+    "note": "C适度原则符合，A量变必然漏条件，B原理正确无关，D经济基础性质缺限制，答案C一致。"
+  },
+  {
+    "id": "xh-mock-025",
+    "sourceStatus": "consistent",
+    "note": "四项文化举措来源均正确，4项为D。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-mock-028",
+    "sourceStatus": "consistent",
+    "note": "A党章非宪法、B执政非行政、C政治非制度统领，D自我革命能力及四力正确，答案D一致。"
+  },
+  {
+    "id": "xh-mock-032",
+    "sourceStatus": "consistent",
+    "note": "A共性非个性、B央地协同非弱化、D提高非降低加回比例，C尽职免责正确，答案C一致。"
+  },
+  {
+    "id": "xh-mock-033",
+    "sourceStatus": "consistent",
+    "note": "A规范差异优惠、B刚性非柔性、C整治非鼓励内卷，D要素市场试点正确，答案D一致。"
+  },
+  {
+    "id": "xh-mock-035",
+    "sourceStatus": "consistent",
+    "note": "B竞争稳定结合、C我国首发、D分类评价来源明确，A多元基础研究投入正确，答案A一致。"
+  },
+  {
+    "id": "xh-mock-037",
+    "sourceStatus": "consistent",
+    "note": "A义乌县域、C枫桥基层、D千万工程乡村建设，B闽宁互补互动合作正确，答案B一致。"
+  },
+  {
+    "id": "xh-mock-040",
+    "sourceStatus": "consistent",
+    "note": "①④民生投资于人，②③基建能源投资于物，类别区别明确，B为2项。",
+    "verdicts": {
+      "①": "correct",
+      "④": "correct",
+      "②": "unknown",
+      "③": "unknown"
+    }
+  },
+  {
+    "id": "xh-mock-042",
+    "sourceStatus": "consistent",
+    "note": "认识深化、内外因、群众、辩证否定四项逐条来源支持，D全选。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-mock-043",
+    "sourceStatus": "consistent",
+    "note": "B防微杜渐量积累匹配，ACD原理本身正确但无关，答案B一致。"
+  },
+  {
+    "id": "xh-mock-046",
+    "sourceStatus": "consistent",
+    "note": "B国有主体、C错位发展、D盈利服从功能来源明确，A金融根本宗旨及永恒主题正确，答案A一致。"
+  },
+  {
+    "id": "xh-mock-048",
+    "sourceStatus": "consistent",
+    "note": "④从严治吏本身正确但不属所列原则，依宪治党则为实质错误应依规治党，只标该错误短语并保留来源分类说明；B一致。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "incorrect"
+    },
+    "extraReviews": [
+      {
+        "key": "xh-mock-048:④",
+        "original": "坚持从严治吏，坚持依宪治党",
+        "reason": "④选项的“坚持从严治吏\"说法本身正确，但全会并未将其纳入持之以恒推进全面从严治党遵循的七大原则范畴，且“坚持依宪治党\"说法错误。小黑提示，“国有宪法，党有党章\"。小黑在出题的时候故意将“坚持依规治党\"替换为“坚持依宪治党\"，为了“骗取\"同学们的注意力，还专门加入了“坚持从严治吏\"。①②③说法正确：全会强调，持之以恒推进全面从严治党遵循的原则是：坚持服务使命任务，坚持以党的政治建设为统领，坚持全面从严，坚持问题导向，坚持守正创新，坚持以上率下，坚持依规治党。故本题答案为 B。",
+        "pairs": [
+          {
+            "wrong": "依宪治党",
+            "correct": "依规治党",
+            "evidence": "④选项的“坚持从严治吏\"说法本身正确，但全会并未将其纳入持之以恒推进全面从严治党遵循的七大原则范畴，且“坚持依宪治党\"说法错误。小黑提示，“国有宪法，党有党章\"。小黑在出题的时候故意将“坚持依规治党\"替换为“坚持依宪治党\"，为了“骗取\"同学们的注意力，还专门加入了“坚持从严治吏\"。①②③说法正确：全会强调，持之以恒推进全面从严治党遵循的原则是：坚持服务使命任务，坚持以党的政治建设为统领，坚持全面从严，坚持问题导向，坚持守正创新，坚持以上率下，坚持依规治党。故本题答案为 B。"
+          }
+        ],
+        "status": "mapped",
+        "verdict": "incorrect",
+        "note": "坚持从严治吏本身正确，只属题目所列七原则范围不符；只纠正依宪治党。"
+      }
+    ]
+  },
+  {
+    "id": "xh-mock-050",
+    "sourceStatus": "consistent",
+    "note": "A应三医协同、B公益性、C集中采购，D药品供应监管正确，与答案D一致。"
+  },
+  {
+    "id": "xh-mock-051",
+    "sourceStatus": "consistent",
+    "note": "B政府非社会基金、C减少非增加监管次数、D适度脱钩非紧密挂钩，A选题管理评价制度正确，答案A一致。"
+  },
+  {
+    "id": "xh-mock-053",
+    "sourceStatus": "consistent",
+    "note": "就业教育住房医保四项来源均正确，4项为D。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-mock-054",
+    "sourceStatus": "consistent",
+    "note": "A错位发展、B产业出题科技答题、C科技金融三项来源纠正，D基础研究布局正确，答案D一致。"
+  },
+  {
+    "id": "xh-mock-055",
+    "sourceStatus": "consistent",
+    "note": "六项优秀特质均在来源属于，D全选一致。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "correct",
+      "⑥": "correct"
+    }
+  },
+  {
+    "id": "xh-mock-057",
+    "sourceStatus": "consistent",
+    "note": "A实为上海精神、C焦裕禄与建党错配、D建党与长征错配，B西迁内涵为正确项，答案B一致。"
+  },
+  {
+    "id": "xh-mock-058",
+    "sourceStatus": "consistent",
+    "note": "A政策总体稳定、B开发式、D乡村监测来源纠正，C产业分类巩固升级正确，答案C一致。"
+  },
+  {
+    "id": "xh-mock-060",
+    "sourceStatus": "consistent",
+    "note": "A一体非分类学查改、B不分批次阶段、D中央巡视非巡察，C实事求是出实绩正确，答案C一致；中文空格已由显示清理覆盖。"
+  },
+  {
+    "id": "xh-mock-062",
+    "sourceStatus": "consistent",
+    "note": "A局部服从整体最契合；BCD分别量积累、实践、群众史观，属于对应不符非事实错误，答案A一致。"
+  },
+  {
+    "id": "xh-mock-064",
+    "sourceStatus": "consistent",
+    "note": "B理论学习应为调查研究基本功，ACD来源明确正确，答案B一致。"
+  },
+  {
+    "id": "xh-mock-065",
+    "sourceStatus": "consistent",
+    "note": "A再分配、C初次分配、D引导支持非刚性慈善，B要素财产收入正确，答案B一致。"
+  },
+  {
+    "id": "xh-mock-071",
+    "sourceStatus": "consistent",
+    "note": "B企业非政府、C东数西算、D因地制宜非规范统一，A专业分工跨行业融合正确，答案A一致。"
+  },
+  {
+    "id": "xh-mock-073",
+    "sourceStatus": "consistent",
+    "note": "四项更高要求与对应举措来源均正确，4项为D。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-mock-075",
+    "sourceStatus": "consistent",
+    "note": "①②③全会意义逐条列举，④不在所列意义范围，不据此否定其一般政治表述；A一致。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "unknown"
+    }
+  },
+  {
+    "id": "xh-mock-076",
+    "sourceStatus": "consistent",
+    "note": "A目标自由探索并重、B国家战略、C一体部署研发转化来源纠正，D先用后付正确，答案D一致。"
+  },
+  {
+    "id": "xh-mock-077",
+    "sourceStatus": "consistent",
+    "note": "C技术路线高端引进应为高端自主，来源完整对照明确，答案C一致。"
+  },
+  {
+    "id": "xh-mock-079",
+    "sourceStatus": "consistent",
+    "note": "D机构养老应为居家养老基础，来源明确，答案D一致。"
+  },
+  {
+    "id": "xh-mock-080",
+    "sourceStatus": "consistent",
+    "note": "A浙江福建、B福建深圳、D上海海南定位错配，C山西资源型转型正确，答案C一致。"
+  },
+  {
+    "id": "xh-mock-081",
+    "sourceStatus": "consistent",
+    "note": "D先进社会意识反作用与材料匹配，A内外因倒置错误，BC本身正确但无关，答案D一致。"
+  },
+  {
+    "id": "xh-mock-084",
+    "sourceStatus": "consistent",
+    "note": "B养老年金对应正确；A数字、C普惠、D绿色的配对来源明确，答案B一致。"
+  },
+  {
+    "id": "xh-mock-089",
+    "sourceStatus": "consistent",
+    "note": "A健康中国时间应2035非本世纪中叶，来源明确，答案A一致。"
+  },
+  {
+    "id": "xh-mock-090",
+    "sourceStatus": "consistent",
+    "note": "A创新主导改革为要、B生产关系适应新质生产力、C科技创新引领，D三方面突破及三要素组合正确，答案D一致。"
+  },
+  {
+    "id": "xh-mock-092",
+    "sourceStatus": "consistent",
+    "note": "A赤字继续4且规模增加、B严控一般支出、D中小微企业来源明确，C货币政策考量正确，答案C一致。"
+  },
+  {
+    "id": "xh-mock-094",
+    "sourceStatus": "consistent",
+    "note": "B不可丢传统、C国内国际循环功能颠倒、D改善民生重点，A因地制宜产业比较优势正确，答案A一致。"
+  },
+  {
+    "id": "xh-mock-097",
+    "sourceStatus": "consistent",
+    "note": "①②③④在科技事业部署明确列举，⑤文化中心归文化强国，类别不符不标事实错误，B为4项。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct",
+      "⑤": "unknown"
+    }
+  },
+  {
+    "id": "xh-mock-099",
+    "sourceStatus": "consistent",
+    "note": "长期护理、分级诊疗、公积金、常住地服务四项来源均正确，4项为A。",
+    "verdicts": {
+      "①": "correct",
+      "②": "correct",
+      "③": "correct",
+      "④": "correct"
+    }
+  },
+  {
+    "id": "xh-mock-100",
+    "sourceStatus": "consistent",
+    "note": "A合作竞争定位颠倒、C互利共赢非零和、D建设性战略稳定关系非全面战略协作伙伴，B双向清单正确，答案B一致。"
+  }
+]

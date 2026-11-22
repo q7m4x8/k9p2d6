@@ -186,37 +186,74 @@ function escapeQuizText(value = '') {
   return escapeHtml(window.QuizText ? window.QuizText.normalize(value) : value)
 }
 
+function displayQuestionStem(question) {
+  const fix = window.QuizReferenceReviews?.displayFixes?.[question.id]
+  let stem = question.stem
+  if (fix?.expectedStem === stem) for (const [before, after] of fix.replacements || []) stem = stem.replace(before, after)
+  return stem
+}
+
 function conciseReferenceReason(reason, originalStatement) {
-  const compact = value => String(value).replace(/\s+/g, '')
+  const compact = value => String(value).normalize('NFKC').replace(/\s+/g, '').replace(/[“”"‘’「」『』]/g, '')
   return String(reason).replace(/[，,]\s*(?:而非|而不是)([^。！？；;\n]+)([。！？；;]|$)/g,
     (sentence, negated, punctuation) => compact(originalStatement).includes(compact(negated)) ? punctuation : sentence)
 }
 
+function referenceSupplement(question) {
+  const record = window.QuizReferenceReviews?.supplements?.[question.id]
+  return record?.approved && record.expectedExplanation === question.explanation ? record : null
+}
+
+function renderReferenceSources(question, supplement) {
+  const data = window.QuizReferenceReviews
+  if (!data) return ''
+  const identifiers = new Set(supplement?.sources || [])
+  for (const item of Object.values(data.entries || {})) {
+    if (!item.key.startsWith(question.id + ':')) continue
+    for (const identifier of item.sources || []) identifiers.add(identifier)
+    for (const pair of item.pairs || []) if (pair.externalEvidence) identifiers.add(pair.externalEvidence)
+  }
+  const sources = [...identifiers].map(identifier => data.sources[identifier]).filter(Boolean)
+  if (!sources.length) return ''
+  const links = sources.map(source => (source.url && /^https:\/\//.test(source.url)) || (source.asset && /^[a-zA-Z0-9-]+\.webp$/.test(source.asset))
+    ? `<a href="${escapeHtml(source.url || './data/source-explanations/' + source.asset)}" target="_blank" rel="noopener">${escapeHtml(source.title)}</a>`
+    : `<span>${escapeHtml(source.title)}</span>`).join('；')
+  const note = supplement?.note ? `<p>${escapeQuizText(supplement.note)}</p>` : ''
+  return `<aside class="reference-sources">${note}<p>核对依据：${links}</p></aside>`
+}
+
 function renderReferenceAnswer(question) {
-  const original = question.explanation || `正确答案：${question.answerLetter}`
+  const supplement = referenceSupplement(question)
+  const original = supplement?.explanation || question.explanation || `正确答案：${question.answerLetter}`
+  const sources = renderReferenceSources(question, supplement)
   const formatted = window.QuizExplanationFormatter?.format(question)
   if (!formatted) {
     const concise = conciseReferenceReason(original, [question.stem, ...(question.options || [])].join('\n'))
     const fullSource = concise !== original ? `<details class="reference-original"><summary>查看完整原解析</summary><p class="explanation-text">${escapeQuizText(original)}</p></details>` : ''
-    return `<section class="explanation"><strong>参考答案与解析</strong><p class="explanation-text">${escapeQuizText(concise)}</p>${fullSource}</section>`
+    const answerText = question.options?.[question.answer]
+    const answer = answerText ? `<div class="reference-choice"><b>${escapeHtml(question.answerLetter)}</b><p>${escapeQuizText(answerText)}</p></div>` : ''
+    return `<section class="reference-answer"><header class="reference-heading"><h3>参考答案</h3><span>正确答案 <b>${escapeHtml(question.answerLetter)}</b></span></header>${answer}<div class="reference-prose"><h4>答案解释</h4><p class="explanation-text">${escapeQuizText(concise)}</p></div>${fullSource}${sources}</section>`
   }
   const rows = formatted.items.map(item => {
-    const hasCorrection = item.segments.some(segment => segment.type === 'correction')
+    const hasCorrection = !!item.correctedRule || item.segments.some(segment => segment.type === 'correction')
     const verdict = ['correct', 'incorrect'].includes(item.verdict) ? item.verdict : 'unknown'
-    const status = verdict === 'correct' ? '✓ 正确' : verdict === 'incorrect' ? '× 错误' : '原句'
+    const status = item.reviewStatus === 'source_unclear' ? '待核对' : verdict === 'correct' ? '✓ 正确' : verdict === 'incorrect' ? '× 错误' : item.manuallyReviewed ? '题意说明' : '原句'
     const text = item.segments.map(segment => segment.type === 'correction'
       ? `<del class="reference-wrong" aria-label="错误词句：${escapeQuizText(segment.wrong)}">${escapeQuizText(segment.wrong)}</del><span class="reference-fix"><span>应为：</span><strong>${escapeQuizText(segment.correct)}</strong></span>`
-      : escapeHtml(segment.text)).join('')
+      : segment.type === 'focus' ? `<mark class="reference-focus">${escapeHtml(segment.text)}</mark>`
+        : segment.type === 'wrong-focus' ? `<del class="reference-wrong">${escapeHtml(segment.text)}</del>` : escapeHtml(segment.text)).join('')
     const reasonText = item.reason ? escapeQuizText(conciseReferenceReason(item.reason, item.text)) : ''
     const reason = (!hasCorrection || item.needsExplanation) && verdict !== 'correct' && reasonText
       ? (hasCorrection
         ? `<details class="reference-extra"><summary>补充说明</summary><p class="reference-reason">${reasonText}</p></details>`
         : `<p class="reference-reason"><span>原解析：</span>${reasonText}</p>`) : ''
-    return `<li class="reference-item ${verdict}"><div class="reference-item-head"><b>${escapeHtml(item.label)}</b><span class="reference-verdict ${verdict}">${status}</span></div><p class="reference-statement">${text}</p>${reason}</li>`
+    const reviewNote = item.reviewStatus === 'source_unclear' && item.reviewNote ? `<p class="reference-review-note">${escapeQuizText(item.reviewNote)}</p>` : ''
+    const rule = item.correctedRule ? `<div class="reference-rule"><b>正确表述</b><p>${escapeQuizText(item.correctedRule)}</p></div>` : ''
+    return `<li class="reference-item ${verdict}"><div class="reference-item-head"><b>${escapeHtml(item.label)}</b><span class="reference-verdict ${verdict}">${status}</span></div><p class="reference-statement">${text}</p>${rule}${reviewNote}${reason}</li>`
   }).join('')
   const countText = /^\d+\s*项$/.test(question.options?.[question.answer] || '')
     ? `（${question.options[question.answer].replace(/\s/g, '')}）` : ''
-  return `<section class="reference-answer" aria-label="参考答案"><header class="reference-heading"><h3>参考答案</h3><span>正确答案 <b>${escapeHtml(question.answerLetter)}</b>${escapeHtml(countText)}</span></header><ol class="reference-items">${rows}</ol><details class="reference-original" ${formatted.coverage.unknown ? 'open' : ''}><summary>查看完整解析</summary><p class="explanation-text">${escapeQuizText(original)}</p></details></section>`
+  return `<section class="reference-answer" aria-label="参考答案"><header class="reference-heading"><h3>参考答案</h3><span>正确答案 <b>${escapeHtml(question.answerLetter)}</b>${escapeHtml(countText)}</span></header><ol class="reference-items">${rows}</ol><details class="reference-original"><summary>查看完整解析</summary><p class="explanation-text">${escapeQuizText(original)}</p></details>${sources}</section>`
 }
 
 function renderSourceExplanation(question) {
@@ -433,7 +470,7 @@ function renderQuiz() {
     <article class="question-card">
       <div class="question-head"><span class="tag question-type">单选题 · ${escapeHtml(question.source)}</span><button class="favorite-button ${isFavorite ? 'active' : ''}" data-action="favorite">★ ${isFavorite ? '已收藏' : '收藏'}</button></div>
       ${reveal ? `<p class="question-duration">本题用时 ${formatDuration(recordedQuestionMilliseconds(question.id))}</p>` : ''}
-      <p class="question-stem">${escapeQuizText(question.stem)}</p>
+      <p class="question-stem">${escapeQuizText(displayQuestionStem(question))}</p>
       <div class="options">${options}</div>${feedback}${explanation}
     </article>
     <div class="quiz-actions"><button class="btn secondary" data-action="previous" ${state.sessionIndex === 0 ? 'disabled' : ''}>上一题</button><button class="btn primary" data-action="${primaryAction}">${primaryLabel}</button></div>
@@ -469,7 +506,7 @@ function renderQuestionList(type) {
   const desc = type === 'wrong' ? '针对薄弱点再练一次，答对后自动移出错题本。' : '手动标记的题目，方便随时回来复习。'
   const questions = ids.map(id => state.data.questions.find(item => item.id === id)).filter(Boolean)
   if (!questions.length) return `<section class="list-hero"><span class="eyebrow">${title}夹</span><h1>${title}</h1><p>${desc}</p></section><div class="empty-state"><b>这里还是空的</b>${type === 'wrong' ? '开始答题后，答错的题会自动出现在这里。' : '在答题页点击收藏，就能把题目保存到这里。'}</div>`
-  const cards = questions.map(question => `<article class="list-card"><small>${escapeHtml(question.album)} · ${escapeHtml(question.paper)}</small><p>${escapeQuizText(question.stem)}</p><p class="question-duration">上次用时 ${Number.isFinite(state.user.attempts[question.id]?.durationSeconds) ? formatDuration(state.user.attempts[question.id].durationSeconds * 1000) : '未计时'}</p><div class="list-actions"><button class="mini-btn" data-single="${question.id}">再做一次</button><button class="mini-btn ghost" data-remove="${question.id}" data-list="${type}">${type === 'wrong' ? '移出错题' : '取消收藏'}</button></div></article>`).join('')
+  const cards = questions.map(question => `<article class="list-card"><small>${escapeHtml(question.album)} · ${escapeHtml(question.paper)}</small><p>${escapeQuizText(displayQuestionStem(question))}</p><p class="question-duration">上次用时 ${Number.isFinite(state.user.attempts[question.id]?.durationSeconds) ? formatDuration(state.user.attempts[question.id].durationSeconds * 1000) : '未计时'}</p><div class="list-actions"><button class="mini-btn" data-single="${question.id}">再做一次</button><button class="mini-btn ghost" data-remove="${question.id}" data-list="${type}">${type === 'wrong' ? '移出错题' : '取消收藏'}</button></div></article>`).join('')
   return `<section class="list-hero"><span class="eyebrow">${title}夹</span><h1>${title}</h1><p>${desc} · 共 ${questions.length} 题</p><div class="filter-row"><button class="filter-chip active" data-list-practice="${type}">练习全部 ${questions.length} 题</button></div></section><div class="question-list">${cards}</div>`
 }
 
