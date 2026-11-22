@@ -112,7 +112,8 @@ function harness(saved, savedDraft, storageFails = false) {
     matchMedia: () => ({ matches: false, addEventListener() {} })
   }
   vm.createContext(context)
-  vm.runInContext(source + `\nglobalThis.testApi = {state, startQuiz, navigate, goBack, changeQuestion, pauseQuizTiming, resumeQuizTiming, getQuestionMilliseconds, getSessionMilliseconds, formatDuration, submitSession, render, renderQuiz, renderProgress, saveUserState, setQuizFont, continueDraft};`, context)
+  for (const file of ['text-format.js', 'explanation-format.js']) vm.runInContext(fs.readFileSync(path.join(repo, file), 'utf8'), context)
+  vm.runInContext(source + `\nglobalThis.testApi = {state, startQuiz, navigate, goBack, changeQuestion, pauseQuizTiming, resumeQuizTiming, getQuestionMilliseconds, getSessionMilliseconds, formatDuration, submitSession, render, renderQuiz, renderProgress, renderReferenceAnswer, saveUserState, setQuizFont, continueDraft};`, context)
   const api = context.testApi
   api.state.data = JSON.parse(JSON.stringify(bank))
   const fire = (type, event = {}, target = document) => {
@@ -317,10 +318,12 @@ test('a completed swipe suppresses its ghost tap without blocking keyboard answe
   assert.equal(h.state.sessionAnswers['test-2'], undefined)
   h.fire('click', { target: option, detail: 0 })
   assert.equal(h.state.sessionAnswers['test-2'], 2)
+  assert.equal(h.state.sessionIndex, 2)
   h.advance(500)
   option.dataset.option = '0'
   h.fire('click', { target: option, detail: 1 })
-  assert.equal(h.state.sessionAnswers['test-2'], 0)
+  assert.equal(h.state.sessionAnswers['test-3'], 0)
+  assert.equal(h.state.sessionSubmitted, false)
 })
 
 test('storage write failures preserve the running quiz and show an actionable notice', () => {
@@ -368,4 +371,97 @@ test('vertical, short, cancelled, multi-touch and selected-text gestures do not 
   assert.equal(h.state.route, 'home', 'A gesture outside the quiz cannot reopen it')
 })
 
-console.log(`PASS: ${passed} quiz navigation, gesture, timing and persistence scenarios`)
+test('numbered references appear only after submission, retain correct rows and highlight exact errors', () => {
+  const h = harness()
+  const fullBank = JSON.parse(fs.readFileSync(path.join(repo, 'data/questions.json'), 'utf8'))
+  const question = fullBank.questions.find(q => q.id === 'xh-special-021')
+  assert(question)
+  const snapshot = JSON.stringify(question)
+  h.startQuiz([question])
+  assert(!h.renderQuiz().includes('reference-answer'), 'Answers must stay hidden until the entire paper is submitted')
+  h.state.sessionAnswers[question.id] = 2
+  h.submitSession()
+  const html = h.renderQuiz()
+  assert.equal((html.match(/class="reference-item /g) || []).length, 4)
+  assert.equal((html.match(/reference-verdict correct/g) || []).length, 2)
+  assert.equal((html.match(/reference-verdict incorrect/g) || []).length, 2)
+  assert(html.includes('解决的就是人心和力量问题'))
+  assert(html.includes('错误词句：一致性中寻求多样性'))
+  assert(html.includes('<strong>多样性中寻求一致性</strong>'))
+  assert(html.includes('错误词句：以人民为中心'))
+  assert(html.includes('<strong>党的领导</strong>'))
+  assert(html.includes('查看完整解析'))
+  assert.equal(JSON.stringify(question), snapshot, 'Rendering cannot rewrite canonical question content')
+})
+
+test('display normalization repairs Chinese spacing across stems, choices and explanations, while escaping markup', () => {
+  const h = harness()
+  const question = { ...fixtures[0], stem: '测试 的题 干 <script>坏</script>', options: ['中 文选项', 'Open AI 5 kg', '丙', '丁'], explanation: '这 是解 析 <img src=x onerror=alert(1)>' }
+  const snapshot = JSON.stringify(question)
+  h.startQuiz([question])
+  const before = h.renderQuiz()
+  assert(before.includes('测试的题干'))
+  assert(before.includes('中文选项'))
+  assert(before.includes('Open AI 5 kg'))
+  assert(before.includes('&lt;script&gt;'))
+  h.state.sessionAnswers[question.id] = 0
+  h.submitSession()
+  const after = h.renderQuiz()
+  assert(after.includes('这是解析'))
+  assert(after.includes('&lt;img src=x onerror=alert(1)&gt;'))
+  assert(!after.includes('<img src=x'))
+  const numbered = { ...question, stem: '下列说法正确的有几项？①中 文是正确的 <svg/onload=alert(1)>②另一 项是错误的', options: ['1项', '2项', '3项', '4项'], explanation: '①正确。②错误：另一项应修改。<img src=x>' }
+  const numberedHtml = h.renderReferenceAnswer(numbered)
+  assert(numberedHtml.includes('&lt;svg/onload=alert(1)&gt;'))
+  assert(!numberedHtml.includes('<svg/'))
+  assert(!numberedHtml.includes('<img src=x>'))
+  assert.equal(JSON.stringify(question), snapshot)
+})
+
+test('selecting an answer advances once, guards double taps and keeps final submission manual', () => {
+  const h = harness()
+  h.startQuiz(h.state.data.questions)
+  const option = h.element('.option')
+  option.parentElement = h.element('.question-card')
+  option.dataset.option = '1'
+  h.advance(1250)
+  h.fire('click', { target: option })
+  assert.equal(h.state.sessionAnswers['test-1'], 1)
+  assert.equal(h.state.sessionIndex, 1)
+  assert.equal(h.getQuestionMilliseconds('test-1'), 1250)
+  assert.equal(h.draftSaved().index, 1)
+  assert.equal(h.draftSaved().answers['test-1'], 1)
+  assert(!h.renderQuiz().includes('reference-answer'))
+  assert(!h.renderQuiz().includes('feedback incorrect'))
+  const duplicate = h.fire('click', { target: option })
+  assert(duplicate.defaultPrevented)
+  assert.equal(h.state.sessionAnswers['test-2'], undefined)
+  assert.equal(h.state.sessionIndex, 1)
+  h.advance(1000)
+  option.dataset.option = '2'
+  h.fire('click', { target: option })
+  assert.equal(h.state.sessionIndex, 2)
+  assert.equal(h.getQuestionMilliseconds('test-2'), 1000)
+  h.advance(750)
+  option.dataset.option = '0'
+  h.fire('click', { target: option })
+  assert.equal(h.state.sessionIndex, 2)
+  assert.equal(h.state.sessionAnswers['test-3'], 0)
+  assert.equal(h.state.sessionSubmitted, false)
+  assert.equal(h.state.user.history.length, 0)
+  assert(h.renderQuiz().includes('交卷并查看解析'))
+  h.changeQuestion(0)
+  h.advance(500)
+  option.dataset.option = '3'
+  h.fire('click', { target: option })
+  assert.equal(h.state.sessionAnswers['test-1'], 3, 'A previous answer can still be changed')
+  assert.equal(h.state.sessionIndex, 1)
+  h.submitSession()
+  assert.equal(h.state.sessionSubmitted, true)
+  const submittedAnswers = JSON.stringify(h.state.sessionAnswers)
+  h.advance(1000)
+  h.fire('click', { target: option })
+  assert.equal(JSON.stringify(h.state.sessionAnswers), submittedAnswers, 'Review cannot change a submitted answer')
+})
+
+console.log(`PASS: ${passed} quiz navigation, gesture, timing, persistence and reference scenarios`)

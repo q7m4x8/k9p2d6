@@ -182,6 +182,32 @@ function escapeHtml(value = '') {
   return String(value).replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char])
 }
 
+function escapeQuizText(value = '') {
+  return escapeHtml(window.QuizText ? window.QuizText.normalize(value) : value)
+}
+
+function renderReferenceAnswer(question) {
+  const original = question.explanation || `正确答案：${question.answerLetter}`
+  const formatted = window.QuizExplanationFormatter?.format(question)
+  if (!formatted) {
+    return `<section class="explanation"><strong>参考答案与解析</strong><p class="explanation-text">${escapeQuizText(original)}</p></section>`
+  }
+  const rows = formatted.items.map(item => {
+    const hasCorrection = item.segments.some(segment => segment.type === 'correction')
+    const verdict = ['correct', 'incorrect'].includes(item.verdict) ? item.verdict : 'unknown'
+    const status = verdict === 'correct' ? '✓ 正确' : verdict === 'incorrect' ? '× 错误' : '原句'
+    const text = item.segments.map(segment => segment.type === 'correction'
+      ? `<del class="reference-wrong" aria-label="错误词句：${escapeQuizText(segment.wrong)}">${escapeQuizText(segment.wrong)}</del><span class="reference-fix"><span>应为：</span><strong>${escapeQuizText(segment.correct)}</strong></span>`
+      : escapeHtml(segment.text)).join('')
+    const reason = !hasCorrection && verdict !== 'correct' && item.reason
+      ? `<p class="reference-reason"><span>原解析：</span>${escapeQuizText(item.reason)}</p>` : ''
+    return `<li class="reference-item ${verdict}"><div class="reference-item-head"><b>${escapeHtml(item.label)}</b><span class="reference-verdict ${verdict}">${status}</span></div><p class="reference-statement">${text}</p>${reason}</li>`
+  }).join('')
+  const countText = /^\d+\s*项$/.test(question.options?.[question.answer] || '')
+    ? `（${question.options[question.answer].replace(/\s/g, '')}）` : ''
+  return `<section class="reference-answer" aria-label="参考答案"><header class="reference-heading"><h3>参考答案</h3><span>正确答案 <b>${escapeHtml(question.answerLetter)}</b>${escapeHtml(countText)}</span></header><ol class="reference-items">${rows}</ol><details class="reference-original" ${formatted.coverage.unknown ? 'open' : ''}><summary>查看完整解析</summary><p class="explanation-text">${escapeQuizText(original)}</p></details></section>`
+}
+
 function renderSourceExplanation(question) {
   const record = state.sourceExplanations?.questions?.[question.id]
   if (!record) return ''
@@ -365,12 +391,12 @@ function renderQuiz() {
     if (selectedOption === index) className += ' selected'
     if (reveal && index === question.answer) className += ' correct'
     if (reveal && selectedOption === index && index !== question.answer) className += ' incorrect'
-    return `<button class="${className}" data-option="${index}" ${reveal ? 'disabled' : ''}><span class="option-letter">${'ABCD'[index]}</span><span class="option-text">${escapeHtml(option)}</span></button>`
+    return `<button class="${className}" data-option="${index}" ${reveal ? 'disabled' : ''}><span class="option-letter">${'ABCD'[index]}</span><span class="option-text">${escapeQuizText(option)}</span></button>`
   }).join('')
   const feedback = reveal
     ? `<div class="feedback ${selectedOption === question.answer ? 'correct' : 'incorrect'}">${selectedOption === question.answer ? '回答正确' : `回答错误，你选了 ${Number.isInteger(selectedOption) ? 'ABCD'[selectedOption] : '未作答'}，正确答案是 ${question.answerLetter}`}</div>`
     : ''
-  const explanation = reveal ? `<div class="explanation"><strong>解析</strong>${escapeHtml(question.explanation || `正确答案：${question.answerLetter}`)}</div>${renderSourceExplanation(question)}` : ''
+  const explanation = reveal ? `${renderReferenceAnswer(question)}${renderSourceExplanation(question)}` : ''
   const resultSummary = reveal
     ? `<section class="result-summary"><div><span>本套成绩</span><strong>${correctCount} / ${state.session.length}</strong></div><p>正确率 ${Math.round(correctCount / state.session.length * 100)}% · 本套用时 ${formatDuration(getSessionMilliseconds())}<br>现在可以逐题查看答案与解析。</p></section>`
     : ''
@@ -396,11 +422,11 @@ function renderQuiz() {
     <article class="question-card">
       <div class="question-head"><span class="tag question-type">单选题 · ${escapeHtml(question.source)}</span><button class="favorite-button ${isFavorite ? 'active' : ''}" data-action="favorite">★ ${isFavorite ? '已收藏' : '收藏'}</button></div>
       ${reveal ? `<p class="question-duration">本题用时 ${formatDuration(recordedQuestionMilliseconds(question.id))}</p>` : ''}
-      <p class="question-stem">${escapeHtml(question.stem)}</p>
+      <p class="question-stem">${escapeQuizText(question.stem)}</p>
       <div class="options">${options}</div>${feedback}${explanation}
     </article>
     <div class="quiz-actions"><button class="btn secondary" data-action="previous" ${state.sessionIndex === 0 ? 'disabled' : ''}>上一题</button><button class="btn primary" data-action="${primaryAction}">${primaryLabel}</button></div>
-    <p class="swipe-hint">左滑下一题，右滑上一题${reveal ? '' : ' · 返回会保存本次作答'}</p>
+    <p class="swipe-hint">${reveal ? '左滑下一题，右滑上一题' : '点选后自动下一题 · 也可左右滑动切题 · 返回自动保存'}</p>
     <details class="answer-sheet" ${reveal ? 'open' : ''}><summary>答题卡 · ${reveal ? `答对 ${correctCount} 题` : `已答 ${answeredCount}/${state.session.length} 题`}</summary><div>${answerSheet}</div></details>
   </section>`
 }
@@ -432,7 +458,7 @@ function renderQuestionList(type) {
   const desc = type === 'wrong' ? '针对薄弱点再练一次，答对后自动移出错题本。' : '手动标记的题目，方便随时回来复习。'
   const questions = ids.map(id => state.data.questions.find(item => item.id === id)).filter(Boolean)
   if (!questions.length) return `<section class="list-hero"><span class="eyebrow">${title}夹</span><h1>${title}</h1><p>${desc}</p></section><div class="empty-state"><b>这里还是空的</b>${type === 'wrong' ? '开始答题后，答错的题会自动出现在这里。' : '在答题页点击收藏，就能把题目保存到这里。'}</div>`
-  const cards = questions.map(question => `<article class="list-card"><small>${escapeHtml(question.album)} · ${escapeHtml(question.paper)}</small><p>${escapeHtml(question.stem)}</p><p class="question-duration">上次用时 ${Number.isFinite(state.user.attempts[question.id]?.durationSeconds) ? formatDuration(state.user.attempts[question.id].durationSeconds * 1000) : '未计时'}</p><div class="list-actions"><button class="mini-btn" data-single="${question.id}">再做一次</button><button class="mini-btn ghost" data-remove="${question.id}" data-list="${type}">${type === 'wrong' ? '移出错题' : '取消收藏'}</button></div></article>`).join('')
+  const cards = questions.map(question => `<article class="list-card"><small>${escapeHtml(question.album)} · ${escapeHtml(question.paper)}</small><p>${escapeQuizText(question.stem)}</p><p class="question-duration">上次用时 ${Number.isFinite(state.user.attempts[question.id]?.durationSeconds) ? formatDuration(state.user.attempts[question.id].durationSeconds * 1000) : '未计时'}</p><div class="list-actions"><button class="mini-btn" data-single="${question.id}">再做一次</button><button class="mini-btn ghost" data-remove="${question.id}" data-list="${type}">${type === 'wrong' ? '移出错题' : '取消收藏'}</button></div></article>`).join('')
   return `<section class="list-hero"><span class="eyebrow">${title}夹</span><h1>${title}</h1><p>${desc} · 共 ${questions.length} 题</p><div class="filter-row"><button class="filter-chip active" data-list-practice="${type}">练习全部 ${questions.length} 题</button></div></section><div class="question-list">${cards}</div>`
 }
 
@@ -506,11 +532,12 @@ function toggleFavorite() {
 }
 
 function openGuide() {
-  document.querySelector('#modalRoot').innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>三步开始刷题</h2><ol><li>在首页选择专辑或子卷。</li><li>左右滑动切题，完成整套后统一交卷，再查看答案与解析。</li><li>在进度页查看每次练习及逐题用时；错题和收藏可随时复习。</li></ol><p>进入答题即开始计时，返回或切到后台暂停，交卷后停止。返回后可点“继续上次练习”恢复。</p><p>所有进度只保存在当前浏览器，不会覆盖其他人的记录。</p><button class="btn primary" data-action="close-modal">知道了</button></section></div>`
+  document.querySelector('#modalRoot').innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>三步开始刷题</h2><ol><li>在首页选择专辑或子卷。</li><li>点选答案后自动下一题，也可左右滑动切题；最后一题选完后手动交卷，统一查看答案与解析。</li><li>在进度页查看每次练习及逐题用时；错题和收藏可随时复习。</li></ol><p>进入答题即开始计时，返回或切到后台暂停，交卷后停止。返回后可点“继续上次练习”恢复。</p><p>所有进度只保存在当前浏览器，不会覆盖其他人的记录。</p><button class="btn primary" data-action="close-modal">知道了</button></section></div>`
 }
 
 let swipeGesture = null
 let suppressSwipeClickUntil = 0
+let suppressAutoAnswerUntil = 0
 
 function onTouchStart(event) {
   swipeGesture = null
@@ -568,7 +595,17 @@ document.addEventListener('click', event => {
   const paper = event.target.closest('[data-paper]')
   if (paper) return startQuiz(questionsFor(state.selectedAlbum.id, paper.dataset.paper))
   const option = event.target.closest('[data-option]')
-  if (option && !state.sessionSubmitted) { state.sessionAnswers[currentQuestion().id] = Number(option.dataset.option); persistDraft(); return render() }
+  if (option && state.route === 'quiz' && !state.sessionSubmitted) {
+    // A physical double tap must not accidentally answer the newly displayed question.
+    if (event.detail !== 0 && performance.now() < suppressAutoAnswerUntil) { event.preventDefault(); return }
+    const answer = Number(option.dataset.option)
+    const question = currentQuestion()
+    if (!Number.isInteger(answer) || answer < 0 || answer >= question.options.length) return
+    state.sessionAnswers[question.id] = answer
+    suppressAutoAnswerUntil = performance.now() + 250
+    if (!changeQuestion(state.sessionIndex + 1)) { persistDraft(); render() }
+    return
+  }
   const jump = event.target.closest('[data-jump]')
   if (jump) return changeQuestion(Number(jump.dataset.jump))
   const single = event.target.closest('[data-single]')
