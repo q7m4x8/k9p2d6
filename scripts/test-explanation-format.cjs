@@ -33,6 +33,30 @@ eq(sampleReference.items.flatMap(item => item.segments.filter(segment => segment
 ], 'The reviewed example marks complete phrases exactly')
 check(sampleReference.inferredVerdicts, 'The verified positive count accounts for the two correct original statements')
 
+const screenshotReference = formatter.format(bank.questions.find(item => item.id === 'xh-special-005'))
+eq(screenshotReference.items.length, 5, 'The reported screenshot includes both correct and all incorrect statements')
+eq(screenshotReference.items.map(item => item.verdict), ['correct', 'incorrect', 'correct', 'incorrect', 'incorrect'])
+eq(screenshotReference.items.flatMap(item => item.segments.filter(segment => segment.type === 'correction').map(segment => [segment.wrong, segment.correct])), [
+  ['矛盾的普遍性和客观性', '客观规律性和主观能动性的有机结合'],
+  ['辩证唯物主义普遍联系的原理', '矛盾的普遍性和客观性'],
+  ['客观规律性和主观能动性的有机结合', '辩证唯物主义普遍联系的原理']
+], 'Explicit source contrasts produce exact noun-phrase corrections without changing 体现了')
+for (const item of screenshotReference.items.filter(item => item.verdict === 'incorrect')) {
+  check(item.segments.some(segment => segment.type === 'text' && segment.text.endsWith('体现了')))
+  check(item.needsExplanation, 'The full factual explanation remains available with any inline edit')
+  check(item.reason.includes('而非'), 'The canonical source reason remains intact for the renderer to shorten separately')
+  check(item.segments.filter(segment => segment.type === 'correction').every(segment => !/而非|而不是/.test(segment.correct)))
+}
+const longWrong = '第一项原始表达中的完整概念名称和附带限定条件都应当完整保留'
+const longCorrect = '第二项来源已经明确写明的另一概念名称以及它的全部限定条件'
+eq(formatter.findDirectCorrection('本例体现了' + longWrong, '本例体现的是' + longCorrect + '，而非' + longWrong).filter(segment => segment.type === 'correction'),
+  [{ type: 'correction', wrong: longWrong, correct: longCorrect }], 'Direct explicit evidence has no arbitrary 24-character or ratio ceiling')
+eq(formatter.findDirectCorrection('本例采用原始方法', '本例不是原始方法，而是修正方法。').filter(segment => segment.type === 'correction'),
+  [{ type: 'correction', wrong: '原始方法', correct: '修正方法' }], 'The reversed 不是…而是… contrast is source grounded')
+eq(formatter.findDirectCorrection('本例采用原始方法', '“原始方法”应改为“修正方法”。').filter(segment => segment.type === 'correction'),
+  [{ type: 'correction', wrong: '原始方法', correct: '修正方法' }])
+eq(formatter.findDirectCorrection('原始方法出现两次，原始方法的第二次指另一对象', '应采用修正方法，而非原始方法。'), null, 'Ambiguous repeated terms do not select an arbitrary original occurrence')
+
 const noInline = formatter.format(question())
 eq(noInline.items.length, 4, 'A numbered question is retained even without a safe inline correction')
 eq(noInline.coverage, { corrected: 0, incorrect: 2, unknown: 0 })
@@ -65,7 +89,9 @@ eq(grouped.items.map(item => item.verdict), ['correct', 'correct', 'incorrect', 
 eq(formatter.format({ stem: '普通单选题，不包含编号陈述。' }), null)
 eq(formatter.format({ stem: '①第一条正确内容③编号并不连续的内容' }), null, 'Unclear source boundaries do not create truncated statement rows')
 eq(formatter.findCorrection('这一句的所有内容都是需要保留的原始陈述', '另一个完全不同的知识点，不能用来替换本题内容。'), null)
-eq(formatter.findCorrection('这一项认为科技强军是人民军队立军之本', '正确的应为政治建军，而不是科技强军。'), null, 'Explanatory negation is not a drop-in sentence replacement')
+eq(formatter.findCorrection('这一项认为科技强军是人民军队立军之本', '正确的应为政治建军，而不是科技强军。').filter(segment => segment.type === 'correction'),
+  [{ type: 'correction', wrong: '科技强军', correct: '政治建军' }], 'An explicit source contrast identifies the two terms without rewriting shared prose')
+eq(formatter.findCorrection('这一项认为科技强军是人民军队立军之本', '这一项并不是原文的完整表述，需要回到资料逐项核实。'), null, 'A negation without a source correction is not a drop-in replacement')
 const englishSegments = formatter.findCorrection('在本例之中需要保持英文术语 Alpha Beta 并且完整呈现所有内容', '在本例之中需要保持英文术语 Gamma Delta 并且完整呈现所有内容')
 check(englishSegments && englishSegments.some(segment => segment.correct === 'Gamma Delta'), 'Meaningful English word spacing survives mapped replacements')
 
@@ -79,9 +105,37 @@ for (const [id, wrong, correct] of compoundExamples) {
   const result = formatter.format(bank.questions.find(item => item.id === id))
   check(result.items.some(item => item.segments.some(segment => segment.wrong === wrong && segment.correct === correct)), `${id} highlights readable complete phrases`)
 }
+const sourceContrastCases = [
+  ['cg-035', '①', '底线思维', '辩证思维'],
+  ['xh-500-115', '③', '全球治理倡议', '全球安全倡议'],
+  ['xh-500-151', '②', '领导力量', '决定力量'],
+  ['xh-newlaw-003', '②', '习近平法治思想', '习近平生态文明思想'],
+  ['xh-newlaw-006', '②', '市级分局', '县级分局'],
+  ['xh-newlaw-023', '④', '审判机关', '检察机关'],
+  ['xh-special-028', '④', '坚持以经济建设为主线', '坚持以制度建设为主线']
+]
+for (const [id, label, wrong, correct] of sourceContrastCases) {
+  const item = formatter.format(bank.questions.find(question => question.id === id)).items.find(item => item.label === label)
+  eq(item.segments.filter(segment => segment.type === 'correction'), [{ type: 'correction', wrong, correct }], `${id}: exact reviewed contrast preserves unrelated prose`)
+}
+for (const [id, label] of [['cg-052', '④'], ['cg-109', '④'], ['xh-newlaw-048', '①'], ['xh-special-126', '①']]) {
+  const item = formatter.format(bank.questions.find(question => question.id === id)).items.find(item => item.label === label)
+  check(!item.segments.some(segment => segment.type === 'correction'), `${id}: a shared clause prefix/suffix alone is insufficient evidence`)
+}
+const groupedBank = formatter.format(bank.questions.find(item => item.id === 'xh-500-218'))
+eq(groupedBank.items.slice(0, 2).flatMap(item => item.segments.filter(segment => segment.type === 'correction').map(segment => [segment.wrong, segment.correct])), [
+  ['结构性问题', '总量性问题'], ['总量性问题', '结构性问题']
+], 'Reviewed grouped explanations may correct separate statements without serial replacement')
+const simultaneousSwap = formatter.format(bank.questions.find(item => item.id === 'xh-500-453')).items[1]
+eq(simultaneousSwap.segments.filter(segment => segment.type === 'correction').map(segment => [segment.wrong, segment.correct]), [
+  ['55%', '60％'], ['60%', '55％']
+], 'Two numeric swaps use the two original positions, avoiding replacement of inserted values')
 const ocrMixed = formatter.format(bank.questions.find(item => item.id === 'xh-500-375')).items[2]
-check(!ocrMixed.segments.some(segment => segment.type === 'correction'), 'An additional OCR-shaped edit is not absorbed into a factual replacement')
+eq(ocrMixed.segments.filter(segment => segment.type === 'correction'), [{ type: 'correction', wrong: '88%', correct: '95％' }], 'A reviewed numeric correction excludes the adjacent OCR mistake')
 check(ocrMixed.reason.includes('人园率'), 'The unverified original explanation is retained faithfully')
+check(ocrMixed.needsExplanation, 'An inline correction retains access to the rest of the explanation')
+const changedSource = { ...bank.questions.find(item => item.id === 'xh-500-375'), explanation: '③错误：数值请参照原件。④错误：此处为95％。' }
+check(!formatter.format(changedSource).items[2].segments.some(segment => segment.type === 'correction'), 'A reviewed replacement must remain in the specific statement source chunk, not another statement')
 for (const [id, label] of [['cg-116', '②'], ['xh-special-150', '②'], ['xh-mock-047', '①'], ['xh-500-275', '②'], ['xh-mock-087', '②']]) {
   const item = formatter.format(bank.questions.find(question => question.id === id)).items.find(item => item.label === label)
   check(!item.segments.some(segment => segment.type === 'correction'), `${id}: added/removed prose does not get marked as a factual error`)

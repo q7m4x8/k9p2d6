@@ -388,6 +388,9 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .reference-fix > strong { font-weight: 750; }
 .reference-reason { margin: 8px 0 0; color: #62584f; line-height: 1.75; overflow-wrap: anywhere; }
 .reference-reason > span { color: var(--accent-ink); font-weight: 650; }
+.reference-extra { margin-top: 9px; color: #62584f; font-size: .928571rem; }
+.reference-extra > summary { min-height: 32px; cursor: pointer; color: var(--accent-ink); }
+.reference-extra .reference-reason { margin-top: 3px; }
 .reference-original { margin-top: 13px; padding-top: 11px; border-top: 1px solid var(--line); color: #62584f; line-height: 1.75; }
 .reference-original > summary { min-height: 36px; color: var(--accent-ink); font-weight: 650; cursor: pointer; }
 .reference-original > p { margin-top: 7px; }

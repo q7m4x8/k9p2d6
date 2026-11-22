@@ -186,11 +186,19 @@ function escapeQuizText(value = '') {
   return escapeHtml(window.QuizText ? window.QuizText.normalize(value) : value)
 }
 
+function conciseReferenceReason(reason, originalStatement) {
+  const compact = value => String(value).replace(/\s+/g, '')
+  return String(reason).replace(/[，,]\s*(?:而非|而不是)([^。！？；;\n]+)([。！？；;]|$)/g,
+    (sentence, negated, punctuation) => compact(originalStatement).includes(compact(negated)) ? punctuation : sentence)
+}
+
 function renderReferenceAnswer(question) {
   const original = question.explanation || `正确答案：${question.answerLetter}`
   const formatted = window.QuizExplanationFormatter?.format(question)
   if (!formatted) {
-    return `<section class="explanation"><strong>参考答案与解析</strong><p class="explanation-text">${escapeQuizText(original)}</p></section>`
+    const concise = conciseReferenceReason(original, [question.stem, ...(question.options || [])].join('\n'))
+    const fullSource = concise !== original ? `<details class="reference-original"><summary>查看完整原解析</summary><p class="explanation-text">${escapeQuizText(original)}</p></details>` : ''
+    return `<section class="explanation"><strong>参考答案与解析</strong><p class="explanation-text">${escapeQuizText(concise)}</p>${fullSource}</section>`
   }
   const rows = formatted.items.map(item => {
     const hasCorrection = item.segments.some(segment => segment.type === 'correction')
@@ -199,8 +207,11 @@ function renderReferenceAnswer(question) {
     const text = item.segments.map(segment => segment.type === 'correction'
       ? `<del class="reference-wrong" aria-label="错误词句：${escapeQuizText(segment.wrong)}">${escapeQuizText(segment.wrong)}</del><span class="reference-fix"><span>应为：</span><strong>${escapeQuizText(segment.correct)}</strong></span>`
       : escapeHtml(segment.text)).join('')
-    const reason = !hasCorrection && verdict !== 'correct' && item.reason
-      ? `<p class="reference-reason"><span>原解析：</span>${escapeQuizText(item.reason)}</p>` : ''
+    const reasonText = item.reason ? escapeQuizText(conciseReferenceReason(item.reason, item.text)) : ''
+    const reason = (!hasCorrection || item.needsExplanation) && verdict !== 'correct' && reasonText
+      ? (hasCorrection
+        ? `<details class="reference-extra"><summary>补充说明</summary><p class="reference-reason">${reasonText}</p></details>`
+        : `<p class="reference-reason"><span>原解析：</span>${reasonText}</p>`) : ''
     return `<li class="reference-item ${verdict}"><div class="reference-item-head"><b>${escapeHtml(item.label)}</b><span class="reference-verdict ${verdict}">${status}</span></div><p class="reference-statement">${text}</p>${reason}</li>`
   }).join('')
   const countText = /^\d+\s*项$/.test(question.options?.[question.answer] || '')

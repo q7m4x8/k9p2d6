@@ -113,7 +113,7 @@ function harness(saved, savedDraft, storageFails = false) {
   }
   vm.createContext(context)
   for (const file of ['text-format.js', 'explanation-format.js']) vm.runInContext(fs.readFileSync(path.join(repo, file), 'utf8'), context)
-  vm.runInContext(source + `\nglobalThis.testApi = {state, startQuiz, navigate, goBack, changeQuestion, pauseQuizTiming, resumeQuizTiming, getQuestionMilliseconds, getSessionMilliseconds, formatDuration, submitSession, render, renderQuiz, renderProgress, renderReferenceAnswer, saveUserState, setQuizFont, continueDraft};`, context)
+  vm.runInContext(source + `\nglobalThis.testApi = {state, startQuiz, navigate, goBack, changeQuestion, pauseQuizTiming, resumeQuizTiming, getQuestionMilliseconds, getSessionMilliseconds, formatDuration, submitSession, render, renderQuiz, renderProgress, renderReferenceAnswer, conciseReferenceReason, saveUserState, setQuizFont, continueDraft};`, context)
   const api = context.testApi
   api.state.data = JSON.parse(JSON.stringify(bank))
   const fire = (type, event = {}, target = document) => {
@@ -416,6 +416,33 @@ test('display normalization repairs Chinese spacing across stems, choices and ex
   assert(!numberedHtml.includes('<svg/'))
   assert(!numberedHtml.includes('<img src=x>'))
   assert.equal(JSON.stringify(question), snapshot)
+})
+
+test('the reported screenshot highlights all three exact wrong phrases without repeated negative tails', () => {
+  const h = harness()
+  const fullBank = JSON.parse(fs.readFileSync(path.join(repo, 'data/questions.json'), 'utf8'))
+  const question = fullBank.questions.find(q => q.id === 'xh-special-005')
+  const html = h.renderReferenceAnswer(question)
+  const mainReference = html.split('<details class="reference-original"')[0]
+  assert.equal((mainReference.match(/class="reference-item /g) || []).length, 5)
+  assert.equal((mainReference.match(/reference-verdict correct/g) || []).length, 2)
+  assert.equal((mainReference.match(/class="reference-wrong"/g) || []).length, 3)
+  assert.equal((mainReference.match(/class="reference-fix"/g) || []).length, 3)
+  for (const phrase of ['矛盾的普遍性和客观性', '客观规律性和主观能动性的有机结合', '辩证唯物主义普遍联系的原理']) {
+    assert(mainReference.includes(`<strong>${phrase}</strong>`))
+  }
+  assert(!mainReference.includes('原解析：'))
+  assert(!mainReference.includes('而非'))
+  assert(!mainReference.includes('而不是'))
+  assert(html.includes('而非矛盾的普遍性和客观性'), 'The expandable original remains complete')
+  assert.equal(h.conciseReferenceReason('正确表述，而非矛盾的普遍性和客观性。', '体现了矛盾的普遍性和客观性'), '正确表述。')
+  assert.equal(h.conciseReferenceReason('正确表述，而不是辩证唯物主义普遍联系的原理。', '体现了辩证唯物主义普遍联系的原理'), '正确表述。')
+  assert.equal(h.conciseReferenceReason('需要保留的内容，而非另一个知识点。', '题干没有这句话'), '需要保留的内容，而非另一个知识点。', 'Unrelated source commentary is not stripped by a blanket deletion')
+  const ordinary = { ...question, stem: '这一说法体现了矛盾的普遍性和客观性，是否准确？', explanation: '体现的是客观规律性和主观能动性的有机结合，而非矛盾的普遍性和客观性。' }
+  const ordinaryReference = h.renderReferenceAnswer(ordinary).split('<details class="reference-original"')[0]
+  assert(ordinaryReference.includes('客观规律性和主观能动性的有机结合'))
+  assert(!ordinaryReference.includes('而非矛盾'))
+  assert.equal(ordinary.explanation, '体现的是客观规律性和主观能动性的有机结合，而非矛盾的普遍性和客观性。', 'Only the displayed explanation is shortened; canonical content stays unchanged')
 })
 
 test('selecting an answer advances once, guards double taps and keeps final submission manual', () => {
