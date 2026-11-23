@@ -116,7 +116,7 @@ function harness(saved, savedDraft, storageFails = false) {
   for (const file of ['text-format.js', 'reference-reviews.js', 'option-reviews.js', 'explanation-format.js']) {
     vm.runInContext(fs.readFileSync(path.join(repo, file), 'utf8'), context)
   }
-  vm.runInContext(source + `\nglobalThis.testApi = {state, startQuiz, navigate, goBack, changeQuestion, pauseQuizTiming, resumeQuizTiming, getQuestionMilliseconds, getSessionMilliseconds, formatDuration, submitSession, render, renderQuiz, renderProgress, renderReferenceAnswer, conciseReferenceReason, saveUserState, setQuizFont, continueDraft};`, context)
+  vm.runInContext(source + `\nglobalThis.testApi = {state, startQuiz, navigate, goBack, changeQuestion, pauseQuizTiming, resumeQuizTiming, getQuestionMilliseconds, getSessionMilliseconds, formatDuration, submitSession, render, renderQuiz, renderProgress, renderTimingHistory, openHistoryRecord, renderReferenceAnswer, conciseReferenceReason, saveUserState, setQuizFont, continueDraft};`, context)
   const api = context.testApi
   api.state.data = JSON.parse(JSON.stringify(bank))
   const fire = (type, event = {}, target = document) => {
@@ -579,6 +579,120 @@ test('ordinary ABCD references annotate all three wrong options in the reported 
   assert(!html.includes('reference-choice'))
   assert(html.includes('reference-wrong') && html.includes('合理调节高收入'))
   assert(!html.includes('查看完整解析') && !html.includes('查看原文解析'))
+})
+
+function practiceRecord(id, selected = 0) {
+  return {id,submittedAt:1800000000000,title:'测试专辑 · 历史套卷',totalSeconds:12,correctCount:selected===0?1:0,questions:[
+    {id:'test-1',selected,correct:selected===0,seconds:5,durationMs:4500},
+    {id:'test-2',selected:3,correct:false,seconds:7,durationMs:7500}
+  ]}
+}
+
+test('historical review restores each attempt rather than the latest answer to the same question', () => {
+  const records=[practiceRecord('new',2),practiceRecord('old',0)]
+  const h=harness({history:records,attempts:{'test-1':{selected:2,correct:false,at:2}},wrong:['test-1']})
+  const stored=JSON.stringify(h.saved())
+  assert.equal(h.openHistoryRecord(1),true)
+  assert.equal(h.state.sessionAnswers['test-1'],0)
+  assert.equal(h.state.reviewingHistory,true)
+  assert.equal(h.state.sessionSubmitted,true)
+  assert(h.renderQuiz().includes('历史作答'))
+  assert(h.renderQuiz().includes('class="option selected correct" data-option="0"'))
+  assert(h.renderQuiz().includes('当次作答：回答正确'))
+  h.goBack(); assert.equal(h.state.route,'progress')
+  h.openHistoryRecord(0)
+  assert.equal(h.state.sessionAnswers['test-1'],2)
+  assert(h.renderQuiz().includes('你选了 C，正确答案是 A'))
+  assert.equal(JSON.stringify(h.saved()),stored)
+  assert.equal(JSON.stringify(h.state.user.history),JSON.stringify(records))
+})
+
+test('history card and per-question controls open read-only review, support navigation and keep times frozen', () => {
+  const h=harness({history:[practiceRecord('clickable')]})
+  h.navigate('progress')
+  const html=h.renderTimingHistory()
+  assert(html.includes('查看当次作答与解析'))
+  assert(html.includes('逐题用时与作答'))
+  const row=h.element('.history-button'); row.dataset.historyRecord='0';row.dataset.historyQuestion='1'
+  h.fire('click',{target:row})
+  assert.equal(h.state.route,'quiz');assert.equal(h.state.sessionIndex,1)
+  assert.equal(h.state.sessionAnswers['test-2'],3)
+  assert.equal(h.getSessionMilliseconds(),12000)
+  assert.equal(h.element('#questionTimer').textContent,'00:07')
+  assert(h.renderQuiz().includes('返回练习记录'))
+  const stored=JSON.stringify(h.saved())
+  h.advance(60000);h.swipe({dx:100});h.advance(30000);h.setHidden(true);h.advance(30000);h.setHidden(false)
+  assert.equal(h.state.sessionIndex,0)
+  assert.equal(h.getSessionMilliseconds(),12000)
+  assert.equal(h.element('#questionTimer').textContent,'00:05')
+  assert.equal(h.element('#sessionTimer').textContent,'00:12')
+  const option=h.element('.option');option.dataset.option='2';h.fire('click',{target:option})
+  assert.equal(h.state.sessionAnswers['test-1'],0)
+  h.submitSession(); assert.equal(h.state.user.history.length,1)
+  assert.equal(JSON.stringify(h.saved()),stored)
+  h.goBack();assert.equal(h.state.route,'progress')
+})
+
+test('opening history preserves an active draft and cancels its pending auto-advance across reloads', () => {
+  const h=harness({history:[practiceRecord('past',2)]})
+  h.startQuiz(h.state.data.questions)
+  const option=h.element('.option');option.dataset.option='0';h.fire('click',{target:option});h.advance(600)
+  h.openHistoryRecord(0)
+  const draft=h.draftSaved()
+  assert.equal(draft.index,0);assert.equal(draft.answers['test-1'],0);assert.equal(draft.times['test-1'],600)
+  h.advance(5000)
+  assert.equal(h.state.sessionIndex,0,'Old auto-advance must not change the historical session')
+  h.changeQuestion(1);h.goBack();assert.equal(h.state.route,'progress')
+  assert.equal(JSON.stringify(h.draftSaved()),JSON.stringify(draft))
+  const reloaded=harness(h.saved(),h.draftSaved());reloaded.continueDraft()
+  assert.equal(reloaded.state.reviewingHistory,false);assert.equal(reloaded.state.sessionSubmitted,false)
+  assert.equal(reloaded.state.sessionIndex,0);assert.equal(reloaded.state.sessionAnswers['test-1'],0)
+  assert.equal(reloaded.getSessionMilliseconds(),600)
+  reloaded.advance(1000);assert.equal(reloaded.getSessionMilliseconds(),1600)
+})
+
+test('missing historical questions retain original totals and original row links without overwriting records', () => {
+  const record=practiceRecord('partially-missing')
+  record.questions.splice(1,0,{id:'removed',selected:0,correct:true,seconds:20})
+  record.totalSeconds=32;record.correctCount=2
+  const h=harness({history:[record]})
+  const before=JSON.stringify(h.state.user.history)
+  assert(h.openHistoryRecord(0,2))
+  assert.equal(h.state.sessionIndex,1)
+  assert.equal(h.state.session[1].id,'test-2')
+  assert.equal(h.getSessionMilliseconds(),32000)
+  assert(h.renderQuiz().includes('原记录中有 1 道题暂不可用'))
+  assert(h.renderQuiz().includes('2 / 3'))
+  assert.equal(JSON.stringify(h.state.user.history),before)
+  const unavailable=harness({history:[{...record,questions:[{id:'removed',seconds:20}]}]})
+  assert.equal(unavailable.openHistoryRecord(0),false)
+  assert.equal(unavailable.state.route,'home')
+  assert.equal(unavailable.openHistoryRecord(-1),false)
+  assert.equal(unavailable.openHistoryRecord(NaN),false)
+  assert.equal(unavailable.openHistoryRecord(100),false)
+})
+
+test('older records lacking a selected answer disclose it and never substitute the latest attempt', () => {
+  const record=practiceRecord('old-no-choice');delete record.questions[0].selected
+  const h=harness({history:[record],attempts:{'test-1':{selected:2,correct:false}}})
+  h.openHistoryRecord(0)
+  assert.equal(h.state.sessionAnswers['test-1'],undefined)
+  const html=h.renderQuiz()
+  assert(html.includes('这次记录没有保存所选选项'))
+  assert(!html.includes('你选了 C'))
+  assert(!html.includes('回答错误，你选了 未作答'))
+  assert(html.includes('参考答案'))
+})
+
+test('a draft remains resumable in memory after storage fails while opening historical review', () => {
+  const h=harness({history:[practiceRecord('quota')]},null,true)
+  h.startQuiz(h.state.data.questions);h.state.sessionAnswers['test-1']=3;h.advance(1800)
+  h.openHistoryRecord(0);h.goBack()
+  assert(h.continueDraft())
+  assert.equal(h.state.sessionSubmitted,false);assert.equal(h.state.reviewingHistory,false)
+  assert.equal(h.state.sessionAnswers['test-1'],3)
+  assert.equal(h.getSessionMilliseconds(),1800)
+  assert.equal(h.state.user.history.length,1)
 })
 
 console.log(`PASS: ${passed} quiz navigation, gesture, timing, persistence and reference scenarios`)

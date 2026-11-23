@@ -19,6 +19,8 @@ const state = {
   sessionIndex: 0,
   sessionAnswers: {},
   sessionSubmitted: false,
+  reviewingHistory: false,
+  historySkippedQuestions: 0,
   sessionTimes: {},
   timerStartedAt: null,
   sessionRecord: null,
@@ -94,7 +96,18 @@ function getQuestionMilliseconds(id) {
 }
 
 function getSessionMilliseconds() {
+  if (state.reviewingHistory && state.sessionRecord) return state.sessionRecord.totalSeconds * 1000
   return state.session.reduce((sum, question) => sum + getQuestionMilliseconds(question.id), 0)
+}
+
+function wasAnswerCorrect(question) {
+  const recorded = state.reviewingHistory && state.sessionRecord?.questions.find(entry => entry.id === question.id)
+  return typeof recorded?.correct === 'boolean' ? recorded.correct : state.sessionAnswers[question.id] === question.answer
+}
+
+function practiceDate(record) {
+  const date = new Date(record.submittedAt)
+  return Number.isFinite(date.getTime()) ? date.toLocaleString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) : '日期未记录'
 }
 
 function recordedQuestionMilliseconds(id) {
@@ -150,6 +163,8 @@ function continueDraft() {
     state.sessionTimes[question.id] = Number.isFinite(time) && time >= 0 ? time : 0
   }
   state.sessionSubmitted = false
+  state.reviewingHistory = false
+  state.historySkippedQuestions = 0
   state.sessionRecord = null
   state.sessionTitle = draft.title || '继续练习'
   state.quizReturn = draft.returnTo && ['home', 'album', 'wrong', 'favorites', 'progress'].includes(draft.returnTo.route) ? draft.returnTo : { route: 'home' }
@@ -434,6 +449,8 @@ function startQuiz(questions, startIndex = 0, options = {}) {
   state.sessionIndex = Math.max(0, Math.min(startIndex, questions.length - 1))
   state.sessionAnswers = {}
   state.sessionSubmitted = false
+  state.reviewingHistory = false
+  state.historySkippedQuestions = 0
   state.sessionTimes = {}
   state.timerStartedAt = null
   state.sessionRecord = null
@@ -445,6 +462,45 @@ function startQuiz(questions, startIndex = 0, options = {}) {
 
 function currentQuestion() { return state.session[state.sessionIndex] }
 
+function openHistoryRecord(recordIndex, questionIndex = 0) {
+  if (!Number.isInteger(recordIndex) || recordIndex < 0 || !state.data) return false
+  const record = state.user.history?.[recordIndex]
+  if (!record || !Array.isArray(record.questions)) return false
+  const byId = new Map(state.data.questions.map(question => [question.id, question]))
+  const seen = new Set()
+  const available = record.questions.flatMap((entry, originalIndex) => {
+    const question = byId.get(entry?.id)
+    if (!question || seen.has(question.id)) return []
+    seen.add(question.id)
+    const selected = Number.isInteger(entry.selected) && entry.selected >= 0 && entry.selected < question.options.length ? entry.selected : null
+    const seconds = Number.isFinite(entry.seconds) && entry.seconds >= 0 ? entry.seconds : Number.isFinite(entry.durationMs) && entry.durationMs >= 0 ? Math.floor(entry.durationMs / 1000) : 0
+    return [{ question, originalIndex, entry: { ...entry, selected, seconds, correct: typeof entry.correct === 'boolean' ? entry.correct : selected !== null && selected === question.answer } }]
+  })
+  if (!available.length) { showToast('这条记录的题目暂不在当前题库中，无法回看'); return false }
+  // Save the active practice before installing this read-only historical session.
+  pauseQuizTiming()
+  state.session = available.map(item => item.question)
+  const start = available.findIndex(item => item.originalIndex === questionIndex)
+  state.sessionIndex = start >= 0 ? start : 0
+  state.sessionAnswers = Object.fromEntries(available.filter(item => item.entry.selected !== null).map(item => [item.question.id, item.entry.selected]))
+  state.sessionTimes = Object.fromEntries(available.map(item => [item.question.id, item.entry.seconds * 1000]))
+  state.timerStartedAt = null
+  state.sessionSubmitted = true
+  state.reviewingHistory = true
+  state.historySkippedQuestions = record.questions.length - available.length
+  state.sessionRecord = {
+    ...record,
+    questions: available.map(item => item.entry),
+    questionCount: record.questions.length,
+    totalSeconds: Number.isFinite(record.totalSeconds) && record.totalSeconds >= 0 ? record.totalSeconds : available.reduce((sum, item) => sum + item.entry.seconds, 0),
+    correctCount: Number.isInteger(record.correctCount) && record.correctCount >= 0 && record.correctCount <= record.questions.length ? record.correctCount : available.filter(item => item.entry.correct).length
+  }
+  state.sessionTitle = record.title || '练习记录'
+  state.quizReturn = { route: 'progress' }
+  navigate('quiz')
+  return true
+}
+
 function renderQuiz() {
   const question = currentQuestion()
   if (!question) return '<div class="empty-state"><b>练习已完成</b>请选择其他题库继续。</div>'
@@ -452,10 +508,14 @@ function renderQuiz() {
   const progress = Math.round((state.sessionIndex + 1) / state.session.length * 100)
   const selectedOption = state.sessionAnswers[question.id]
   const reveal = state.sessionSubmitted
+  const historical = state.reviewingHistory
   const answeredCount = state.session.filter(item => Number.isInteger(state.sessionAnswers[item.id])).length
   const correctCount = state.sessionSubmitted
-    ? state.session.filter(item => state.sessionAnswers[item.id] === item.answer).length
+    ? historical ? state.sessionRecord.correctCount : state.session.filter(wasAnswerCorrect).length
     : 0
+  const resultTotal = historical ? state.sessionRecord.questionCount : state.session.length
+  const correct = wasAnswerCorrect(question)
+  const missingHistoricalAnswer = historical && !Number.isInteger(selectedOption)
   const options = question.options.map((option, index) => {
     let className = 'option'
     if (selectedOption === index) className += ' selected'
@@ -464,25 +524,27 @@ function renderQuiz() {
     return `<button class="${className}" data-option="${index}" aria-pressed="${selectedOption === index}" ${reveal ? 'disabled' : ''}><span class="option-letter">${'ABCD'[index]}</span><span class="option-text">${escapeQuizText(option)}</span></button>`
   }).join('')
   const feedback = reveal
-    ? `<div class="feedback ${selectedOption === question.answer ? 'correct' : 'incorrect'}">${selectedOption === question.answer ? '回答正确' : `回答错误，你选了 ${Number.isInteger(selectedOption) ? 'ABCD'[selectedOption] : '未作答'}，正确答案是 ${question.answerLetter}`}</div>`
+    ? missingHistoricalAnswer
+      ? '<div class="feedback history-missing-answer">这次记录没有保存所选选项，下方仍可查看正确答案与解析。</div>'
+      : `<div class="feedback ${correct ? 'correct' : 'incorrect'}">${historical ? '当次作答：' : ''}${correct ? '回答正确' : `回答错误，你选了 ${Number.isInteger(selectedOption) ? 'ABCD'[selectedOption] : '未作答'}，正确答案是 ${question.answerLetter}`}</div>`
     : ''
   const explanation = reveal ? renderReferenceAnswer(question) : ''
   const resultSummary = reveal
-    ? `<section class="result-summary"><div><span>本套成绩</span><strong>${correctCount} / ${state.session.length}</strong></div><p>正确率 ${Math.round(correctCount / state.session.length * 100)}% · 本套用时 ${formatDuration(getSessionMilliseconds())}<br>现在可以逐题查看答案与解析。</p></section>`
+    ? `<section class="result-summary"><div><span>${historical ? '历史作答' : '本套成绩'}</span><strong>${correctCount} / ${resultTotal}</strong></div><p>${historical ? `${escapeHtml(state.sessionTitle)}<br>${escapeHtml(practiceDate(state.sessionRecord))} · ` : ''}正确率 ${Math.round(correctCount / resultTotal * 100)}% · ${historical ? '当次用时' : '本套用时'} ${formatDuration(getSessionMilliseconds())}<br>${historical ? '正在回看当次选择、答案与解析。' : '现在可以逐题查看答案与解析。'}</p></section>${historical && state.historySkippedQuestions ? `<p class="history-review-note">原记录中有 ${state.historySkippedQuestions} 道题暂不可用，当前显示可回看的 ${state.session.length} 道题；上方保留当次总成绩和总用时。</p>` : ''}`
     : ''
   const answerSheet = state.session.map((item, index) => {
     const hasAnswer = Number.isInteger(state.sessionAnswers[item.id])
     let className = 'sheet-number'
     if (index === state.sessionIndex) className += ' current'
     if (hasAnswer) className += ' answered'
-    if (reveal) className += state.sessionAnswers[item.id] === item.answer ? ' correct' : ' incorrect'
+    if (reveal && (!historical || hasAnswer)) className += wasAnswerCorrect(item) ? ' correct' : ' incorrect'
     return `<button class="${className}" data-jump="${index}" ${reveal ? `title="本题用时 ${formatDuration(recordedQuestionMilliseconds(item.id))}"` : ''}>${index + 1}</button>`
   }).join('')
   const primaryAction = reveal
     ? (state.sessionIndex === state.session.length - 1 ? 'finish-review' : 'next')
     : (state.sessionIndex === state.session.length - 1 ? 'submit-session' : 'next')
   const primaryLabel = reveal
-    ? (state.sessionIndex === state.session.length - 1 ? '查看学习进度' : '下一题解析')
+    ? (state.sessionIndex === state.session.length - 1 ? historical ? '返回练习记录' : '查看学习进度' : '下一题解析')
     : (state.sessionIndex === state.session.length - 1 ? '交卷并查看解析' : '下一题')
   const fontControls = renderFontControls()
   return `<section class="quiz-shell">
@@ -503,12 +565,18 @@ function renderQuiz() {
 
 function renderTimingHistory() {
   const history = state.user.history || []
-  const records = history.map(record => {
-    const date = new Date(record.submittedAt).toLocaleString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
-    const rows = record.questions.map((entry, index) => `<div class="timing-question-row"><span>第 ${index + 1} 题 · ${entry.correct ? '正确' : '错误'}</span><b>${formatDuration(entry.seconds * 1000)}</b></div>`).join('')
-    return `<details class="timing-record"><summary><span><strong>${escapeHtml(record.title || '练习记录')}</strong><small>${escapeHtml(date)} · ${record.questions.length} 题</small></span><b>${formatDuration(record.totalSeconds * 1000)}</b></summary><div class="timing-summary">答对 ${record.correctCount} / ${record.questions.length} 题 · 总用时 ${record.totalSeconds} 秒</div><div class="timing-question-grid">${rows}</div></details>`
+  const byId = new Map(state.data.questions.map(question => [question.id, question]))
+  const records = history.map((record, recordIndex) => {
+    const date = practiceDate(record)
+    const canReview = record.questions.some(entry => byId.has(entry?.id))
+    const rows = record.questions.map((entry, index) => {
+      const selected = Number.isInteger(entry?.selected) && entry.selected >= 0 && entry.selected < 4 ? `选 ${'ABCD'[entry.selected]}` : '选项未记录'
+      const verdict = entry?.correct === true ? '正确' : entry?.correct === false ? '错误' : '判定未记录'
+      return `<button class="timing-question-row" data-history-record="${recordIndex}" data-history-question="${index}" ${byId.has(entry?.id) ? '' : 'disabled'} aria-label="查看第 ${index + 1} 题当次作答与解析"><span>第 ${index + 1} 题 · ${selected} · ${verdict}</span><b>${formatDuration((entry?.seconds || 0) * 1000)}</b></button>`
+    }).join('')
+    return `<article class="timing-record"><button class="timing-record-open" data-history-record="${recordIndex}" ${canReview ? '' : 'disabled'}><span><strong>${escapeHtml(record.title || '练习记录')}</strong><small>${escapeHtml(date)} · ${record.questions.length} 题</small><em>${canReview ? '查看当次作答与解析' : '暂无可回看的题目'}</em></span><b>${formatDuration(record.totalSeconds * 1000)}</b></button><details class="timing-breakdown"><summary>逐题用时与作答</summary><div class="timing-summary">答对 ${record.correctCount ?? '—'} / ${record.questions.length} 题 · 总用时 ${formatDuration(record.totalSeconds * 1000)}</div><div class="timing-question-grid">${rows}</div></details></article>`
   }).join('')
-  return `<section class="timing-history"><div class="section-head"><h2>练习用时记录</h2><p>交卷后保存，精确到秒</p></div>${records || '<div class="empty-state"><b>还没有计时记录</b>完成一套练习后，可在这里展开查看每题用时。</div>'}<p class="swipe-hint">记录保存在当前浏览器，保留最近的练习记录。</p></section>`
+  return `<section class="timing-history"><div class="section-head"><h2>练习用时记录</h2><p>点击记录，回看当次答案与解析</p></div>${records || '<div class="empty-state"><b>还没有计时记录</b>完成一套练习后，可在这里回看作答与每题用时。</div>'}<p class="swipe-hint">记录保存在当前浏览器，保留最近的练习记录。</p></section>`
 }
 
 function renderProgress() {
@@ -666,6 +734,8 @@ document.addEventListener('click', event => {
   if (album) return navigate('album', { albumId: album.dataset.album })
   const paper = event.target.closest('[data-paper]')
   if (paper) return startQuiz(questionsFor(state.selectedAlbum.id, paper.dataset.paper))
+  const historyRecord = target.closest('[data-history-record]')
+  if (historyRecord && !historyRecord.disabled) return openHistoryRecord(Number(historyRecord.dataset.historyRecord), Number(historyRecord.dataset.historyQuestion || 0))
   const option = event.target.closest('[data-option]')
   if (option && state.route === 'quiz' && !state.sessionSubmitted) {
     // A physical double tap must not accidentally answer the newly displayed question.
