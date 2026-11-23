@@ -301,7 +301,8 @@ function conciseReferenceReason(reason, originalStatement) {
 
 function referenceSupplement(question) {
   const record = window.QuizReferenceReviews?.supplements?.[question.id]
-  return record?.approved && record.expectedExplanation === question.explanation ? record : null
+  return record?.approved && record.expectedExplanation === question.explanation && record.expectedStem === question.stem &&
+    record.expectedAnswerLetter === question.answerLetter && JSON.stringify(record.expectedOptions) === JSON.stringify(question.options) ? record : null
 }
 
 function renderReferenceSources(question, supplement) {
@@ -336,7 +337,7 @@ function renderReferenceAnswer(question) {
   const rows = formatted.items.map(item => {
     const hasCorrection = !!item.correctedRule || item.segments.some(segment => segment.type === 'correction')
     const verdict = ['correct', 'incorrect'].includes(item.verdict) ? item.verdict : 'unknown'
-    const status = item.reviewStatus === 'source_unclear' ? '待核对' : verdict === 'correct' ? '✓ 正确' : verdict === 'incorrect' ? '× 错误' : item.manuallyReviewed ? '题意说明' : '原句'
+    const status = item.reviewStatus === 'source_unclear' ? '待核对' : verdict === 'correct' ? '✓ 正确' : verdict === 'incorrect' ? '× 错误' : item.contextual ? '题意不符' : item.manuallyReviewed ? '题意说明' : '原句'
     const text = item.segments.map(segment => segment.type === 'correction'
       ? `<del class="reference-wrong" aria-label="错误词句：${escapeQuizText(segment.wrong)}">${escapeQuizText(segment.wrong)}</del><span class="reference-fix"><span>应为：</span><strong>${escapeQuizText(segment.correct)}</strong></span>`
       : segment.type === 'focus' ? `<mark class="reference-focus">${escapeHtml(segment.text)}</mark>`
@@ -733,7 +734,7 @@ function renderProgress() {
   const percent = total ? Math.round(totalAnswered / total * 100) : 0
   const cards = state.data.albums.map(album => {
     const progress = albumProgress(album)
-    return `<article class="progress-card"><div class="progress-card-head"><h3>${escapeHtml(album.title)}</h3><b>${progress.percent}%</b></div><p>${progress.done} / ${progress.total} 题已完成</p><div class="paper-progress"><i style="--progress:${progress.percent}%"></i></div></article>`
+    return `<button type="button" class="progress-card" data-album="${escapeHtml(album.id)}" aria-label="查看${escapeHtml(album.title)}套卷列表，已完成 ${progress.done} / ${progress.total} 题"><span class="progress-card-head"><span class="progress-card-title">${escapeHtml(album.title)}</span><b>${progress.percent}%</b></span><span class="progress-card-count">${progress.done} / ${progress.total} 题已完成</span><span class="paper-progress"><i style="--progress:${progress.percent}%"></i></span></button>`
   }).join('')
   return `<section class="progress-hero"><div><span class="eyebrow">学习进度</span><h1>每一次作答，都算数</h1><p>累计作答 ${totalAnswered} 题，当前正确率 ${accuracy()}%。</p></div><div class="big-progress" style="--angle:${percent * 3.6}deg" data-value="${percent}%"></div></section><section class="progress-grid">${cards}</section>${renderTimingHistory()}`
 }

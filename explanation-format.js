@@ -483,7 +483,9 @@
     if (!question || typeof question !== 'object') return null
     const originalQuestion = question
     const supplemental = root?.QuizReferenceReviews?.supplements?.[question.id]
-    const activeSupplement = supplemental?.approved && supplemental.expectedExplanation === question.explanation
+    const activeSupplement = supplemental?.approved && supplemental.expectedExplanation === question.explanation &&
+      supplemental.expectedStem === question.stem && supplemental.expectedAnswerLetter === question.answerLetter &&
+      JSON.stringify(supplemental.expectedOptions) === JSON.stringify(question.options)
     if (activeSupplement) question = { ...question, explanation: supplemental.explanation }
     const displayFix = root?.QuizReferenceReviews?.displayFixes?.[question.id]
     if (displayFix?.expectedStem === originalQuestion.stem) {
@@ -492,7 +494,7 @@
       question = { ...question, stem }
     }
     let questionReview = root?.QuizReferenceReviews?.questionReviews?.[question.id]
-    if (questionReview && (questionReview.expectedStem !== originalQuestion.stem || questionReview.expectedExplanation !== originalQuestion.explanation || questionReview.expectedAnswerLetter !== originalQuestion.answerLetter)) questionReview = null
+    if (questionReview && (questionReview.expectedStem !== originalQuestion.stem || questionReview.expectedExplanation !== originalQuestion.explanation || questionReview.expectedAnswerLetter !== originalQuestion.answerLetter || JSON.stringify(questionReview.expectedOptions) !== JSON.stringify(originalQuestion.options))) questionReview = null
     const statements = extractStatements(question.stem)
     if (!statements.length) return null
     const parsed = parseVerdicts(question.explanation, statements.length)
@@ -523,6 +525,10 @@
         if (manual.review.displayExplanation) result.reason = manual.review.displayExplanation
         else if (!result.reason && manual.review.reason) result.reason = manual.review.reason
       }
+      // These per-statement explanations were reconciled against the exact stem,
+      // source explanation and answer key guarded by questionReview above.
+      if (questionReview?.reasons?.[item.label]) result.reason = questionReview.reasons[item.label]
+      if (verdict === 'unknown' && questionReview?.contextualLabels?.includes(item.label)) result.contextual = true
       if (verdict === 'incorrect' && result.reason) result.needsExplanation = true
       if (questionReview) result.questionReviewed = true
       return result
@@ -543,7 +549,10 @@
     if (!review || review.expectedStem !== question.stem || review.expectedExplanation !== question.explanation ||
       review.expectedAnswerLetter !== question.answerLetter || JSON.stringify(review.expectedOptions) !== JSON.stringify(question.options)) return null
     const supplemental = root?.QuizReferenceReviews?.supplements?.[question.id]
-    const explanation = supplemental?.approved && supplemental.expectedExplanation === question.explanation ? supplemental.explanation : question.explanation
+    const activeSupplement = supplemental?.approved && supplemental.expectedExplanation === question.explanation &&
+      supplemental.expectedStem === question.stem && supplemental.expectedAnswerLetter === question.answerLetter &&
+      JSON.stringify(supplemental.expectedOptions) === JSON.stringify(question.options)
+    const explanation = activeSupplement ? supplemental.explanation : question.explanation
     if (review.expectedEffectiveExplanation !== explanation) return null
     const source = evidenceText(explanation)
     const items = []
@@ -561,7 +570,8 @@
       const segments = changes.length ? segmentsFromPairs(text, changes) : [{type:'text',text}]
       if (!segments || segments.filter(segment => segment.type === 'correction').length !== pairs.length) return null
       items.push({label:option.label,text,verdict:option.verdict === 'contextual' ? 'unknown' : 'incorrect',segments,
-        reason:option.reason || '',correctedRule:option.rule?.correct,manuallyReviewed:true,needsExplanation:!!option.reason})
+        reason:option.reason || '',correctedRule:option.rule?.correct,manuallyReviewed:true,needsExplanation:!!option.reason,
+        contextual:option.verdict === 'contextual'})
     }
     return {mode:'options',items,sourceExplanation:explanation}
   }

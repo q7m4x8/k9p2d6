@@ -865,4 +865,60 @@ test('note loading accepts only string entries and clearing a note leaves histor
   assert.equal(h.saved().history.length,1)
 })
 
+test('all five progress album cards open their own paper lists and return to progress', () => {
+  const h = harness({ history: [practiceRecord('album-navigation')], wrong: ['test-1'], favorites: ['test-2'] })
+  h.state.data = JSON.parse(fs.readFileSync(path.join(repo, 'data/questions.json'), 'utf8'))
+  assert.equal(h.state.data.albums.length, 5)
+  const savedBefore = JSON.stringify(h.saved())
+  const userBefore = JSON.stringify(h.state.user)
+  h.navigate('progress')
+  const html = h.element('#mainContent').innerHTML
+  assert.equal((html.match(/<button type="button" class="progress-card" data-album=/g) || []).length, 5, 'Every album card must be a native keyboard-accessible button')
+  for (const album of h.state.data.albums) {
+    assert(html.includes(`data-album="${album.id}"`))
+    assert(html.includes(`查看${album.title}套卷列表`))
+    const card = h.element('.progress-card'); card.dataset.album = album.id
+    const title = new h.Element('.progress-card-title', card)
+    h.fire('click', { target: title })
+    assert.equal(h.state.route, 'album')
+    assert.equal(h.state.selectedAlbum.id, album.id)
+    const albumHtml = h.element('#mainContent').innerHTML
+    assert(albumHtml.includes(`<h1>${album.title}</h1>`))
+    assert.equal((albumHtml.match(/class="paper-row" data-paper=/g) || []).length, album.papers.length)
+    h.goBack()
+    assert.equal(h.state.route, 'progress')
+  }
+  assert.equal(JSON.stringify(h.state.user), userBefore)
+  assert.equal(JSON.stringify(h.saved()), savedBefore)
+})
+
+test('opening an album from progress preserves the unfinished draft, progress, notes and history', () => {
+  const h = harness({ history: [practiceRecord('keep-history')], attempts: { 'test-3': { selected: 2, correct: true } }, wrong: ['test-1'], favorites: ['test-2'] }, null, false, { 'test-1': '保留笔记' })
+  h.startQuiz(h.state.data.questions)
+  h.state.sessionAnswers['test-1'] = 1
+  h.advance(1600)
+  h.changeQuestion(1)
+  h.advance(2400)
+  h.navigate('progress')
+  const savedBefore = JSON.stringify(h.saved())
+  const userBefore = JSON.stringify(h.state.user)
+  const draftBefore = JSON.stringify(h.draftSaved())
+  const notesBefore = JSON.stringify(h.notesSaved())
+  const card = h.element('.progress-card'); card.dataset.album = 'test'
+  h.fire('click', { target: card })
+  h.advance(10000)
+  assert.equal(h.state.route, 'album')
+  h.goBack()
+  assert.equal(h.state.route, 'progress')
+  assert.equal(JSON.stringify(h.state.user), userBefore)
+  assert.equal(JSON.stringify(h.saved()), savedBefore)
+  assert.equal(JSON.stringify(h.draftSaved()), draftBefore)
+  assert.equal(JSON.stringify(h.notesSaved()), notesBefore)
+  const reloaded = harness(h.saved(), h.draftSaved(), false, h.notesSaved())
+  assert(reloaded.continueDraft())
+  assert.equal(reloaded.state.sessionIndex, 1)
+  assert.equal(reloaded.state.sessionAnswers['test-1'], 1)
+  assert.equal(reloaded.getSessionMilliseconds(), 4000)
+})
+
 console.log(`PASS: ${passed} quiz navigation, gesture, timing, persistence and reference scenarios`)

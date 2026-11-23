@@ -43,7 +43,7 @@ for (const batch of [1, 2, 3]) {
     if (!bank.questions.some(q => q.id === row.id) || questionReviews[row.id]) throw new Error(`Unexpected or duplicate question review: ${row.id}`)
     const question = bank.questions.find(q => q.id === row.id)
     const { extraReviews, ...description } = row
-    questionReviews[row.id] = { ...description, expectedStem: question.stem, expectedExplanation: question.explanation, expectedAnswerLetter: question.answerLetter }
+    questionReviews[row.id] = { ...description, expectedStem: question.stem, expectedExplanation: question.explanation, expectedAnswerLetter: question.answerLetter, expectedOptions: question.options }
     for (const extra of row.extraReviews || []) {
       if (pending.has(extra.key)) throw new Error(`Duplicate extra review: ${extra.key}`)
       pending.set(extra.key, extra)
@@ -117,7 +117,7 @@ if (missingQuestions.length && !partial) throw new Error(`Unreviewed questions (
 const supplements = Object.fromEntries(Object.entries(additions.supplements || {}).map(([id, item]) => {
   const question = bank.questions.find(q => q.id === id)
   if (!question || !item.sources?.every(source => additions.sources[source])) throw new Error(`Invalid supplement: ${id}`)
-  return [id, { ...item, expectedExplanation: question.explanation, approved: true }]
+  return [id, { ...item, expectedExplanation: question.explanation, expectedStem: question.stem, expectedAnswerLetter: question.answerLetter, expectedOptions: question.options, approved: true }]
 }))
 const unresolvedStatements = Object.values(entries).filter(row => row.status === 'source_unclear').map(row => row.key)
 const unresolvedQuestions = Object.values(questionReviews).filter(row => row.sourceStatus === 'source_unclear' && !supplements[row.id] && !additions.displayFixes?.[row.id]).map(row => row.id)

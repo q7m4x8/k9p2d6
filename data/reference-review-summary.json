@@ -1,14 +1,14 @@
 {
-  "version": "20261122-3",
+  "version": "20261123-5",
   "questionCount": 1100,
   "reviewedQuestionCount": 1100,
   "numberedQuestionCount": 693,
   "retainedStatementCount": 3002,
-  "reviewedStatementCount": 748,
-  "inlineCorrections": 832,
+  "reviewedStatementCount": 752,
+  "inlineCorrections": 836,
   "fullRuleCorrections": 4,
-  "contextualFocuses": 22,
-  "supplementalExplanations": 46,
+  "contextualFocuses": 23,
+  "supplementalExplanations": 53,
   "unresolvedStatements": [],
   "unresolvedQuestions": [],
   "complete": true,
@@ -20,6 +20,15 @@
     "原题与判分键未改",
     "整套交卷后显示解析",
     "自动切题与末题手动交卷",
-    "返回/滑动/计时/草稿与历史记录"
-  ]
+    "返回/滑动/计时/草稿与历史记录",
+    "全3002条逐项判断与原解析独立核对",
+    "所有计数题逐项数量与答案一致",
+    "全部题意排除项明确显示原因",
+    "题干/选项/解析/答案变更时旧复核结果失效"
+  ],
+  "previouslyNeutralReviewedStatements": 535,
+  "restoredIncorrectStatements": 4,
+  "restoredCorrectStatements": 439,
+  "contextualStatements": 92,
+  "sourceVerdictLabelsChecked": 736
 }
