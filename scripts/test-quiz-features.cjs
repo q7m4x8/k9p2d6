@@ -7,6 +7,7 @@ const repo = path.resolve(__dirname, '..')
 const storageKey = 'xiaotian_quiz_state_v1'
 const draftKey = 'xiaotian_quiz_draft_v1'
 const notesKey = 'xiaotian_quiz_notes_v1'
+const pitfallFavoritesKey = 'xiaotian_quiz_pitfall_favorites_v1'
 const source = fs.readFileSync(path.join(repo, 'app.js'), 'utf8').replace(/\ninit\(\)\s*$/, '')
 const fixtures = [
   { id: 'test-1', source: '测试', album: '测试专辑', paper: '第01套', number: 1, stem: '测试题一', options: ['甲', '乙', '丙', '丁'], answer: 0, answerLetter: 'A', explanation: '甲正确。' },
@@ -19,13 +20,14 @@ const bank = {
   stats: { questionCount: 3, paperCount: 1, albumCount: 1 }
 }
 
-function harness(saved, savedDraft, storageFails = false, savedNotes) {
+function harness(saved, savedDraft, storageFails = false, savedNotes, savedPitfallFavorites) {
   let failStorage = storageFails
   let now = 0
   const epoch = 1800000000000
   const storage = new Map(saved ? [[storageKey, JSON.stringify(saved)]] : [])
   if (savedDraft) storage.set(draftKey, JSON.stringify(savedDraft))
   if (savedNotes !== undefined) storage.set(notesKey, JSON.stringify(savedNotes))
+  if (savedPitfallFavorites !== undefined) storage.set(pitfallFavoritesKey, JSON.stringify(savedPitfallFavorites))
   const listeners = new Map()
   const windowListeners = new Map()
   const intervals = new Map()
@@ -119,7 +121,7 @@ function harness(saved, savedDraft, storageFails = false, savedNotes) {
   for (const file of ['text-format.js', 'reference-reviews.js', 'option-reviews.js', 'explanation-format.js']) {
     vm.runInContext(fs.readFileSync(path.join(repo, file), 'utf8'), context)
   }
-  vm.runInContext(source + `\nglobalThis.testApi = {state, startQuiz, navigate, goBack, changeQuestion, pauseQuizTiming, resumeQuizTiming, getQuestionMilliseconds, getSessionMilliseconds, formatDuration, submitSession, render, renderQuiz, renderProgress, renderTimingHistory, openHistoryRecord, renderReferenceAnswer, conciseReferenceReason, saveUserState, setQuizFont, continueDraft, toggleHistoryManagement, selectHistoryRecord, selectAllHistoryRecords, selectedHistoryRecords, requestHistoryDeletion, cancelHistoryDeletion, confirmHistoryDeletion, toggleQuestionNote, saveQuestionNote, renderQuestionNotes, pitfallScope, collectPitfalls, openPitfallManual, closePitfallManual, jumpFromPitfall, renderPitfallManual, referenceFormatter:window.QuizExplanationFormatter};`, context)
+  vm.runInContext(source + `\nglobalThis.testApi = {state, startQuiz, navigate, goBack, changeQuestion, pauseQuizTiming, resumeQuizTiming, getQuestionMilliseconds, getSessionMilliseconds, formatDuration, submitSession, render, renderQuiz, renderProgress, renderTimingHistory, openHistoryRecord, renderReferenceAnswer, conciseReferenceReason, saveUserState, setQuizFont, continueDraft, toggleHistoryManagement, selectHistoryRecord, selectAllHistoryRecords, selectedHistoryRecords, requestHistoryDeletion, cancelHistoryDeletion, confirmHistoryDeletion, toggleQuestionNote, saveQuestionNote, renderQuestionNotes, pitfallScope, collectPitfalls, openPitfallManual, closePitfallManual, renderPitfallManual, resolvePitfall, savedPitfallEntries, togglePitfallFavorite, setFavoriteTab, renderFavorites, referenceFormatter:window.QuizExplanationFormatter};`, context)
   const api = context.testApi
   api.state.data = JSON.parse(JSON.stringify(bank))
   const fire = (type, event = {}, target = document) => {
@@ -143,6 +145,7 @@ function harness(saved, savedDraft, storageFails = false, savedNotes) {
     saved() { return JSON.parse(storage.get(storageKey) || '{}') },
     draftSaved() { return JSON.parse(storage.get(draftKey) || 'null') },
     notesSaved() { return JSON.parse(storage.get(notesKey) || 'null') },
+    pitfallFavoritesSaved() { return JSON.parse(storage.get(pitfallFavoritesKey) || 'null') },
     setHidden(hidden) { document.hidden = hidden; document.visibilityState = hidden ? 'hidden' : 'visible'; fire('visibilitychange') },
     setSelection(value) { selection = value },
     setStorageFails(value) { failStorage = value },
@@ -978,9 +981,8 @@ test('one-question historical records expand to the entire paper without fabrica
   const html=h.renderPitfallManual()
   assert(html.includes('查看原题'))
   assert(!html.includes('data-pitfall-jump="xh-special-040"'),'Do not pretend an unrecorded question has historical answers')
-  assert.equal(h.jumpFromPitfall('xh-special-040'),false)
   assert.equal(h.state.session,beforeSession);assert.equal(h.state.session.length,1)
-  assert(h.jumpFromPitfall(q.id),'The current question must close the manual even when its index does not change')
+  assert(h.closePitfallManual())
   assert.equal(h.state.pitfallOpen,false);assert(!h.element('#mainContent').innerHTML.includes('class="pitfall-list"'))
   assert.equal(JSON.stringify(h.saved()),stored);assert.equal(JSON.stringify(h.notesSaved()),notes)
   assert.equal(h.state.sessionRecord.totalSeconds,12);assert.equal(h.state.sessionRecord.correctCount,1)
@@ -1006,8 +1008,8 @@ test('manual navigation, swipes and font changes preserve the original review, s
   const before={user:JSON.stringify(h.state.user),saved:JSON.stringify(h.saved()),draft:JSON.stringify(h.draftSaved()),notes:JSON.stringify(h.notesSaved()),session:h.state.session,index:h.state.sessionIndex,answers:JSON.stringify(h.state.sessionAnswers),times:JSON.stringify(h.state.sessionTimes),record:JSON.stringify(h.state.sessionRecord)}
   h.openPitfallManual();h.advance(60000);h.swipe({dx:-120});assert.equal(h.state.sessionIndex,before.index)
   h.goBack();assert.equal(h.state.route,'quiz');assert.equal(h.state.pitfallOpen,false)
-  h.openPitfallManual();assert(h.jumpFromPitfall('test-2'));assert.equal(h.state.sessionIndex,1)
-  h.openPitfallManual();assert.equal(h.jumpFromPitfall('unknown'),false);h.closePitfallManual()
+  h.openPitfallManual();h.closePitfallManual();assert(h.changeQuestion(1));assert.equal(h.state.sessionIndex,1)
+  h.openPitfallManual();h.closePitfallManual()
   assert.equal(h.state.session,before.session);assert.equal(JSON.stringify(h.state.sessionAnswers),before.answers)
   assert.equal(JSON.stringify(h.state.sessionTimes),before.times);assert.equal(JSON.stringify(h.state.sessionRecord),before.record)
   assert.equal(JSON.stringify(h.state.user),before.user);assert.equal(JSON.stringify(h.saved()),before.saved)
@@ -1046,6 +1048,102 @@ test('empty manuals and unsafe source text render safely without partial entries
   h.state.data.questions=[evil];h.startQuiz([evil]);finishPaper(h);h.openPitfallManual()
   const html=h.renderPitfallManual();assert(html.includes('&lt;script&gt;'));assert(!html.includes('<script>'))
   assert(html.includes('data-pitfall-entry="1"'))
+})
+
+function pitfallFavoriteHarness() {
+  const full=JSON.parse(fs.readFileSync(path.join(repo,'data/questions.json'),'utf8'))
+  const q=full.questions.find(q=>q.id==='xh-special-029')
+  const record={id:'favorite-manual',submittedAt:1800000000000,title:`${q.album} · ${q.paper}`,totalSeconds:12,correctCount:1,questions:[{id:q.id,selected:q.answer,correct:true,seconds:12}]}
+  const h=harness({history:[record],favorites:['xh-special-021'],wrong:['cg-003']},null,false,{'xh-special-029':'保留笔记'})
+  h.state.data=full;h.openHistoryRecord(0);h.openPitfallManual();return h
+}
+
+test('every manual entry can be individually favorited, including questions outside a partial historical record', () => {
+  const h=pitfallFavoriteHarness();const entries=h.collectPitfalls(h.pitfallScope().questions)
+  const html=h.renderPitfallManual()
+  assert.equal((html.match(/data-pitfall-favorite=/g)||[]).length,entries.length)
+  assert(!html.includes('回看作答')&&!html.includes('data-pitfall-jump'))
+  const card=h.element('.pitfall-favorite');card.dataset.pitfallFavorite='xh-special-021:③'
+  const star=new h.Element('span',card);h.fire('click',{target:star,detail:0})
+  assert.deepEqual(h.pitfallFavoritesSaved(),['xh-special-021:③'])
+  assert(h.renderPitfallManual().includes('aria-pressed="true" aria-label="取消收藏第 1 题 ③'))
+  assert.equal(h.state.session.length,1);assert.equal(h.state.session[0].id,'xh-special-029')
+})
+
+test('different false statements in one question remain separate from each other and from question favorites', () => {
+  const h=pitfallFavoriteHarness();const user=JSON.stringify(h.saved());const notes=JSON.stringify(h.notesSaved())
+  assert(h.togglePitfallFavorite('xh-special-021:③'));assert(h.togglePitfallFavorite('xh-special-021:④'))
+  assert.deepEqual(h.pitfallFavoritesSaved(),['xh-special-021:③','xh-special-021:④'])
+  assert.equal(JSON.stringify(h.saved()),user);assert.equal(JSON.stringify(h.notesSaved()),notes)
+  assert(h.togglePitfallFavorite('xh-special-021:③'))
+  assert.deepEqual(h.pitfallFavoritesSaved(),['xh-special-021:④'])
+  assert.deepEqual(Array.from(h.state.user.favorites),['xh-special-021'])
+  assert(h.state.pitfallOpen)
+})
+
+test('favorites has two persistent-content categories and the pitfall category reuses the reviewed red-green wording', () => {
+  const h=pitfallFavoriteHarness();h.togglePitfallFavorite('xh-special-021:③');h.togglePitfallFavorite('xh-special-021:④')
+  const reloaded=harness(h.saved(),h.draftSaved(),false,h.notesSaved(),h.pitfallFavoritesSaved());reloaded.state.data=h.state.data
+  reloaded.navigate('favorites')
+  let html=reloaded.element('#mainContent').innerHTML
+  assert(html.includes('题目收藏（1）')&&html.includes('挖坑手册收藏（2）'))
+  assert(html.includes('练习全部 1 题')&&html.includes('data-single="xh-special-021"'))
+  const tab=reloaded.element('.favorite-tab');tab.dataset.favoriteTab='pitfalls';reloaded.fire('click',{target:tab,detail:0})
+  html=reloaded.element('#mainContent').innerHTML
+  assert(html.includes('aria-label="挖坑手册收藏"'));assert(!html.includes('data-list-practice'))
+  assert(html.includes('<strong>多样性中寻求一致性</strong>')&&html.includes('<strong>党的领导</strong>'))
+  assert(html.includes('reference-wrong')&&html.includes('查看原题'))
+  assert.equal((html.match(/data-pitfall-entry=/g)||[]).length,2)
+  assert(reloaded.togglePitfallFavorite('xh-special-021:③'))
+  assert.deepEqual(reloaded.pitfallFavoritesSaved(),['xh-special-021:④'])
+  assert(reloaded.setFavoriteTab('questions'));assert.deepEqual(Array.from(reloaded.state.user.favorites),['xh-special-021'])
+})
+
+test('both favorites categories are available when empty and never turn pitfall text into a new quiz', () => {
+  const h=harness();assert.equal(h.setFavoriteTab('pitfalls'),false)
+  h.navigate('favorites');let html=h.renderFavorites()
+  assert(html.includes('题目收藏（0）')&&html.includes('挖坑手册收藏（0）'))
+  assert(h.setFavoriteTab('pitfalls'));html=h.renderFavorites()
+  assert(html.includes('还没有收藏易错表述')&&!html.includes('data-list-practice'))
+  const before=html;assert.equal(h.setFavoriteTab('invalid'),false);assert.equal(h.renderFavorites(),before)
+  assert.equal(h.state.session.length,0)
+})
+
+test('pitfall favorite saves and cancellations fail without false success and can be retried', () => {
+  const h=pitfallFavoriteHarness();const key='xh-special-021:③';const before=h.element('#mainContent').innerHTML
+  h.setStorageFails(true);assert.equal(h.togglePitfallFavorite(key),false)
+  assert.equal(h.state.pitfallFavorites.length,0);assert.equal(h.pitfallFavoritesSaved(),null)
+  assert.equal(h.element('#mainContent').innerHTML,before)
+  h.setStorageFails(false);assert(h.togglePitfallFavorite(key));h.setStorageFails(true)
+  assert.equal(h.togglePitfallFavorite(key),false);assert.deepEqual(h.pitfallFavoritesSaved(),[key])
+  assert.deepEqual(Array.from(h.state.pitfallFavorites),[key])
+  h.setStorageFails(false);assert(h.togglePitfallFavorite(key));assert.deepEqual(h.pitfallFavoritesSaved(),[])
+})
+
+test('pitfall favorites validate keys and current source verdicts, and pre-submission actions cannot add favorites', () => {
+  const h=pitfallFavoriteHarness()
+  for(const key of ['unknown:①','xh-special-021:①','cg-186:①','xh-special-021:ZZ','<script>:③',null,{},'xh-special-021:③\n'])assert.equal(h.togglePitfallFavorite(key),false)
+  h.closePitfallManual();assert.equal(h.togglePitfallFavorite('xh-special-021:③'),false)
+  h.navigate('home');h.startQuiz([h.state.data.questions.find(q=>q.id==='xh-special-021')])
+  const card=h.element('.pitfall-favorite');card.dataset.pitfallFavorite='xh-special-021:③';h.fire('click',{target:card})
+  assert.equal(h.pitfallFavoritesSaved(),null)
+  const bad=harness(null,null,false,null,['xh-special-021:③','xh-special-021:③',7,null,'<b>:①','xh-special-021:ZZ','unknown:①'])
+  assert.deepEqual(Array.from(bad.state.pitfallFavorites),['xh-special-021:③','unknown:①'])
+  bad.state.data=h.state.data;assert.equal(bad.savedPitfallEntries().length,1)
+  for(const value of [null,{},'broken-json',23])assert.equal(harness(null,null,false,null,value).state.pitfallFavorites.length,0)
+})
+
+test('browsing and removing pitfall favorites preserves draft, notes, history and question data; deleting history preserves manual favorites', () => {
+  const h=pitfallFavoriteHarness();h.togglePitfallFavorite('xh-special-021:③');h.togglePitfallFavorite('xh-special-021:④')
+  const before={user:JSON.stringify(h.state.user),saved:JSON.stringify(h.saved()),draft:JSON.stringify(h.draftSaved()),notes:JSON.stringify(h.notesSaved()),session:h.state.session,record:JSON.stringify(h.state.sessionRecord),answers:JSON.stringify(h.state.sessionAnswers),times:JSON.stringify(h.state.sessionTimes)}
+  h.navigate('favorites');h.setFavoriteTab('pitfalls');h.advance(60000);h.togglePitfallFavorite('xh-special-021:③')
+  assert.equal(JSON.stringify(h.state.user),before.user);assert.equal(JSON.stringify(h.saved()),before.saved)
+  assert.equal(JSON.stringify(h.draftSaved()),before.draft);assert.equal(JSON.stringify(h.notesSaved()),before.notes)
+  assert.equal(h.state.session,before.session);assert.equal(JSON.stringify(h.state.sessionRecord),before.record)
+  assert.equal(JSON.stringify(h.state.sessionAnswers),before.answers);assert.equal(JSON.stringify(h.state.sessionTimes),before.times)
+  h.navigate('progress');h.toggleHistoryManagement();h.selectAllHistoryRecords(true);h.requestHistoryDeletion();assert(h.confirmHistoryDeletion())
+  assert.equal(h.saved().history.length,0);assert.deepEqual(h.pitfallFavoritesSaved(),['xh-special-021:④'])
+  h.navigate('favorites');h.setFavoriteTab('pitfalls');assert(h.renderFavorites().includes('<strong>党的领导</strong>'))
 })
 
 console.log(`PASS: ${passed} quiz navigation, gesture, timing, persistence and reference scenarios`)

@@ -304,7 +304,12 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .pitfall-entry { display: grid; grid-template-columns: 32px minmax(0,1fr); gap: 12px; padding: 20px; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
 .pitfall-number { display: grid; place-items: center; align-self: start; min-width: 30px; height: 30px; border-radius: 9px; color: var(--accent-ink); background: var(--accent-soft); font-weight: 800; }
 .pitfall-content { min-width: 0; }
-.pitfall-source { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--muted); font-size: .928571rem; }
+.pitfall-source { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; color: var(--muted); font-size: .928571rem; }
+.pitfall-source > span { flex: 1; min-width: min(160px,100%); }
+.pitfall-favorite { flex-shrink: 0; margin-left: auto; white-space: nowrap; }
+.pitfall-favorite.active { color: var(--accent-ink); background: var(--accent-soft); }
+.favorites-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.favorite-practice { margin: 0 0 18px; }
 .pitfall-source-detail { display: block; margin-top: 4px; line-height: 1.5; }
 .pitfall-statement { margin: 12px 0 0; line-height: 1.85; overflow-wrap: anywhere; }
 .pitfall-original { margin-top: 13px; color: var(--muted); font-size: .928571rem; }
