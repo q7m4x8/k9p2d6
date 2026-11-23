@@ -19,6 +19,7 @@ const bank = {
 }
 
 function harness(saved, savedDraft, storageFails = false) {
+  let failStorage = storageFails
   let now = 0
   const epoch = 1800000000000
   const storage = new Map(saved ? [[storageKey, JSON.stringify(saved)]] : [])
@@ -92,7 +93,7 @@ function harness(saved, savedDraft, storageFails = false) {
     document,
     Element,
     HTMLElement: Element,
-    localStorage: { getItem: key => storage.get(key) ?? null, setItem: (key, value) => { if (storageFails) throw new Error('QuotaExceededError'); storage.set(key, String(value)) }, removeItem: key => storage.delete(key) },
+    localStorage: { getItem: key => storage.get(key) ?? null, setItem: (key, value) => { if (failStorage) throw new Error('QuotaExceededError'); storage.set(key, String(value)) }, removeItem: key => storage.delete(key) },
     performance: { now: () => now },
     Date: class extends Date { static now() { return epoch + now } },
     console,
@@ -116,7 +117,7 @@ function harness(saved, savedDraft, storageFails = false) {
   for (const file of ['text-format.js', 'reference-reviews.js', 'option-reviews.js', 'explanation-format.js']) {
     vm.runInContext(fs.readFileSync(path.join(repo, file), 'utf8'), context)
   }
-  vm.runInContext(source + `\nglobalThis.testApi = {state, startQuiz, navigate, goBack, changeQuestion, pauseQuizTiming, resumeQuizTiming, getQuestionMilliseconds, getSessionMilliseconds, formatDuration, submitSession, render, renderQuiz, renderProgress, renderTimingHistory, openHistoryRecord, renderReferenceAnswer, conciseReferenceReason, saveUserState, setQuizFont, continueDraft};`, context)
+  vm.runInContext(source + `\nglobalThis.testApi = {state, startQuiz, navigate, goBack, changeQuestion, pauseQuizTiming, resumeQuizTiming, getQuestionMilliseconds, getSessionMilliseconds, formatDuration, submitSession, render, renderQuiz, renderProgress, renderTimingHistory, openHistoryRecord, renderReferenceAnswer, conciseReferenceReason, saveUserState, setQuizFont, continueDraft, toggleHistoryManagement, selectHistoryRecord, selectAllHistoryRecords, selectedHistoryRecords, requestHistoryDeletion, cancelHistoryDeletion, confirmHistoryDeletion};`, context)
   const api = context.testApi
   api.state.data = JSON.parse(JSON.stringify(bank))
   const fire = (type, event = {}, target = document) => {
@@ -141,6 +142,7 @@ function harness(saved, savedDraft, storageFails = false) {
     draftSaved() { return JSON.parse(storage.get(draftKey) || 'null') },
     setHidden(hidden) { document.hidden = hidden; document.visibilityState = hidden ? 'hidden' : 'visible'; fire('visibilitychange') },
     setSelection(value) { selection = value },
+    setStorageFails(value) { failStorage = value },
     element: get,
     swipe({ dx = -100, dy = 5, fingers = 1, cancel = false, target = get('.question-card') } = {}) {
       const start = { clientX: 220, clientY: 250, identifier: 1 }
@@ -693,6 +695,96 @@ test('a draft remains resumable in memory after storage fails while opening hist
   assert.equal(h.state.sessionAnswers['test-1'],3)
   assert.equal(h.getSessionMilliseconds(),1800)
   assert.equal(h.state.user.history.length,1)
+})
+
+test('bulk history mode selects records with native checkboxes or card clicks and supports selecting all', () => {
+  const h=harness({history:[practiceRecord('a'),practiceRecord('b'),practiceRecord('c')]})
+  h.navigate('progress');h.toggleHistoryManagement()
+  assert.equal(h.state.historyManaging,true)
+  assert.equal(h.requestHistoryDeletion(),false)
+  assert(h.renderTimingHistory().includes('删除所选（0）'))
+  const check=h.element('.history-check');check.dataset.historySelect='0';check.checked=true
+  h.fire('change',{target:check})
+  assert.equal(h.selectedHistoryRecords().length,1)
+  const card=h.element('.history-card');card.dataset.historyRecord='1'
+  h.fire('click',{target:card})
+  assert.equal(h.state.route,'progress','Selecting a card in bulk mode must not enter answer review')
+  assert.equal(h.selectedHistoryRecords().length,2)
+  const all=h.element('.history-all');all.dataset.historyAll='';all.checked=true
+  h.fire('change',{target:all});assert.equal(h.selectedHistoryRecords().length,3)
+  all.checked=false;h.fire('change',{target:all});assert.equal(h.selectedHistoryRecords().length,0)
+  h.toggleHistoryManagement();assert.equal(h.state.historyManaging,false)
+  assert.equal(h.saved().history.length,3)
+})
+
+test('confirmed batch deletion removes only the selected histories and preserves progress, preferences and draft', () => {
+  const draft={version:1,ids:['test-1','test-2'],index:1,answers:{'test-1':2},times:{'test-1':1000,'test-2':2000},title:'未完成',returnTo:{route:'home'}}
+  const saved={history:[practiceRecord('a'),practiceRecord('b',2),practiceRecord('c')],attempts:{'test-1':{selected:2,correct:false,at:1}},wrong:['test-1'],favorites:['test-2'],theme:4,quizFont:'large',customPreference:'keep'}
+  const h=harness(saved,draft);h.navigate('progress');h.toggleHistoryManagement()
+  h.selectHistoryRecord(0,true);h.selectHistoryRecord(2,true)
+  assert(h.requestHistoryDeletion())
+  assert.equal(h.state.user.history.length,3,'Opening confirmation cannot delete data')
+  assert(h.element('#modalRoot').innerHTML.includes('确认删除 2 条'))
+  assert(h.confirmHistoryDeletion())
+  assert.deepEqual(h.saved().history.map(record=>record.id),['b'])
+  for(const key of ['attempts','wrong','favorites','theme','quizFont','customPreference']) assert.equal(JSON.stringify(h.saved()[key]),JSON.stringify(saved[key]),`${key} must stay intact`)
+  assert.equal(JSON.stringify(h.draftSaved()),JSON.stringify(draft))
+  assert.equal(h.state.historySelection.size,0)
+  h.toggleHistoryManagement();assert(h.openHistoryRecord(0))
+  assert.equal(h.state.sessionAnswers['test-1'],2,'Remaining records must retain their links after indices are rebuilt')
+  const reloaded=harness(h.saved(),h.draftSaved());assert(reloaded.continueDraft())
+  assert.equal(reloaded.state.sessionIndex,1);assert.equal(reloaded.state.sessionAnswers['test-1'],2)
+})
+
+test('cancel, Escape, and leaving progress discard deletion confirmation without removing records', () => {
+  const h=harness({history:[practiceRecord('a'),practiceRecord('b')]})
+  h.navigate('progress');h.toggleHistoryManagement();h.selectAllHistoryRecords(true)
+  const before=JSON.stringify(h.saved())
+  h.requestHistoryDeletion();h.cancelHistoryDeletion()
+  assert.equal(h.selectedHistoryRecords().length,2)
+  assert.equal(h.confirmHistoryDeletion(),false)
+  h.requestHistoryDeletion();h.fire('keydown',{key:'Escape'})
+  assert.equal(h.state.pendingHistoryDeletion,null)
+  h.requestHistoryDeletion();h.navigate('home')
+  assert.equal(h.state.pendingHistoryDeletion,null);assert.equal(h.state.historyManaging,false)
+  assert.equal(h.state.historySelection.size,0);assert.equal(h.confirmHistoryDeletion(),false)
+  assert.equal(JSON.stringify(h.saved()),before)
+})
+
+test('failed deletion persistence retains records and selection, and can be retried safely', () => {
+  const h=harness({history:[practiceRecord('a'),practiceRecord('b')]},null,true)
+  h.navigate('progress');h.toggleHistoryManagement();h.selectHistoryRecord(1,true);h.requestHistoryDeletion()
+  const before=JSON.stringify(h.state.user.history)
+  assert.equal(h.confirmHistoryDeletion(),false)
+  assert.equal(JSON.stringify(h.state.user.history),before)
+  assert.equal(h.saved().history.length,2);assert.equal(h.selectedHistoryRecords().length,1)
+  assert(h.element('#modalRoot').innerHTML.includes('删除未保存，记录仍然保留'))
+  h.setStorageFails(false);assert(h.confirmHistoryDeletion())
+  assert.deepEqual(h.saved().history.map(record=>record.id),['a'])
+})
+
+test('deletion uses a confirmation snapshot rather than duplicate IDs or shifting array indices', () => {
+  const h=harness({history:[practiceRecord('same'),practiceRecord('same',2),practiceRecord(undefined)]})
+  h.navigate('progress');h.toggleHistoryManagement();h.selectHistoryRecord(1,true);h.requestHistoryDeletion()
+  const extra=practiceRecord('new')
+  h.state.user.history.unshift(extra)
+  h.selectAllHistoryRecords(true)
+  assert.equal(h.selectedHistoryRecords().length,1,'Confirmation blocks changing selection behind its dialog')
+  assert(h.confirmHistoryDeletion())
+  assert.deepEqual(h.saved().history.map(record=>record.id||'no-id'),['new','same','no-id'])
+  assert.equal(h.saved().history[1].questions[0].selected,0,'The other record with the same ID must survive')
+  assert.equal(h.confirmHistoryDeletion(),false,'A second confirm cannot remove anything else')
+})
+
+test('all histories including unavailable old records can be removed, leaving a disabled bulk action', () => {
+  const h=harness({history:[practiceRecord('a'),{id:'old',questions:[{id:'removed',seconds:1}],totalSeconds:1}]})
+  h.navigate('progress');h.toggleHistoryManagement();h.selectAllHistoryRecords(true);h.requestHistoryDeletion();h.confirmHistoryDeletion()
+  assert.equal(h.saved().history.length,0);assert.equal(h.state.historyManaging,false)
+  const html=h.renderTimingHistory()
+  assert(html.includes('还没有计时记录'))
+  assert(/data-action="history-manage"[^>]*disabled/.test(html))
+  h.toggleHistoryManagement();assert.equal(h.state.historyManaging,false)
+  assert.equal(h.requestHistoryDeletion(),false)
 })
 
 console.log(`PASS: ${passed} quiz navigation, gesture, timing, persistence and reference scenarios`)

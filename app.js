@@ -21,6 +21,9 @@ const state = {
   sessionSubmitted: false,
   reviewingHistory: false,
   historySkippedQuestions: 0,
+  historyManaging: false,
+  historySelection: new Set(),
+  pendingHistoryDeletion: null,
   sessionTimes: {},
   timerStartedAt: null,
   sessionRecord: null,
@@ -364,6 +367,7 @@ function paperProgress(album, paper) {
 }
 
 function navigate(route, options = {}) {
+  if (route !== 'progress') endHistoryManagement()
   cancelAutoAdvance()
   if (state.route === 'quiz' && route !== 'quiz') pauseQuizTiming()
   if (!options.replace && state.route !== route && state.route !== 'quiz' && route !== 'quiz') state.backStack.push({ route: state.route, albumId: state.selectedAlbum?.id })
@@ -393,6 +397,8 @@ function render() {
   document.querySelector('#app').classList.toggle('quiz-mode', state.route === 'quiz')
   document.querySelector('#backButton').hidden = state.route === 'home'
   main.innerHTML = (renderers[state.route] || renderHome)()
+  const selectAll = main.querySelector('[data-history-all]')
+  if (selectAll) selectAll.indeterminate = selectedHistoryRecords().length > 0 && selectedHistoryRecords().length < state.user.history.length
   updateTimerDisplay()
 }
 
@@ -563,8 +569,85 @@ function renderQuiz() {
   </section>`
 }
 
+function selectedHistoryRecords() {
+  return (state.user.history || []).filter(record => state.historySelection.has(record))
+}
+
+function endHistoryManagement() {
+  if (state.pendingHistoryDeletion) document.querySelector('#modalRoot').innerHTML = ''
+  state.historyManaging = false
+  state.historySelection.clear()
+  state.pendingHistoryDeletion = null
+}
+
+function toggleHistoryManagement() {
+  if (state.route !== 'progress') return
+  if (state.historyManaging) endHistoryManagement()
+  else if (state.user.history.length) state.historyManaging = true
+  render()
+}
+
+function selectHistoryRecord(index, checked) {
+  if (state.route !== 'progress' || !state.historyManaging || state.pendingHistoryDeletion || !Number.isInteger(index)) return
+  const record = state.user.history[index]
+  if (!record) return
+  const selected = checked === undefined ? !state.historySelection.has(record) : checked
+  if (selected) state.historySelection.add(record)
+  else state.historySelection.delete(record)
+  render()
+}
+
+function selectAllHistoryRecords(checked) {
+  if (state.route !== 'progress' || !state.historyManaging || state.pendingHistoryDeletion) return
+  state.historySelection = checked ? new Set(state.user.history) : new Set()
+  render()
+}
+
+function renderHistoryDeletionDialog(error = '') {
+  const count = state.pendingHistoryDeletion?.length || 0
+  document.querySelector('#modalRoot').innerHTML = `<div class="modal-backdrop"><section class="modal" role="alertdialog" aria-modal="true" aria-labelledby="historyDeleteTitle" aria-describedby="historyDeleteDescription"><h2 id="historyDeleteTitle">删除 ${count} 条练习记录？</h2><p id="historyDeleteDescription">删除后将无法回看这些记录。累计做题进度、错题、收藏和未交卷草稿都会保留。</p>${error ? `<p class="history-delete-error" role="alert">${escapeHtml(error)}</p>` : ''}<div class="modal-actions"><button class="btn secondary" data-action="history-delete-cancel">取消</button><button class="btn danger" data-action="history-delete-confirm">确认删除 ${count} 条</button></div></section></div>`
+}
+
+function requestHistoryDeletion() {
+  if (state.route !== 'progress' || !state.historyManaging) return false
+  const selected = selectedHistoryRecords()
+  if (!selected.length) return false
+  state.pendingHistoryDeletion = [...selected]
+  renderHistoryDeletionDialog()
+  return true
+}
+
+function cancelHistoryDeletion() {
+  state.pendingHistoryDeletion = null
+  document.querySelector('#modalRoot').innerHTML = ''
+}
+
+function confirmHistoryDeletion() {
+  if (state.route !== 'progress' || !state.historyManaging || !state.pendingHistoryDeletion?.length) return false
+  const removed = new Set(state.pendingHistoryDeletion)
+  const history = state.user.history
+  const nextHistory = history.filter(record => !removed.has(record))
+  const count = history.length - nextHistory.length
+  if (!count) { cancelHistoryDeletion(); render(); return false }
+  const { draft, ...saved } = state.user
+  // Persist first: failed storage must leave both the list and its selection intact.
+  if (!writeStorage(STORAGE_KEY, { ...saved, history: nextHistory })) {
+    renderHistoryDeletionDialog('删除未保存，记录仍然保留，请重试。')
+    return false
+  }
+  state.user.history = nextHistory
+  cancelHistoryDeletion()
+  state.historySelection.clear()
+  if (!nextHistory.length) state.historyManaging = false
+  render()
+  showToast(`已删除 ${count} 条练习记录`)
+  return true
+}
+
 function renderTimingHistory() {
   const history = state.user.history || []
+  const managing = state.historyManaging
+  const selectedCount = selectedHistoryRecords().length
   const byId = new Map(state.data.questions.map(question => [question.id, question]))
   const records = history.map((record, recordIndex) => {
     const date = practiceDate(record)
@@ -574,9 +657,13 @@ function renderTimingHistory() {
       const verdict = entry?.correct === true ? '正确' : entry?.correct === false ? '错误' : '判定未记录'
       return `<button class="timing-question-row" data-history-record="${recordIndex}" data-history-question="${index}" ${byId.has(entry?.id) ? '' : 'disabled'} aria-label="查看第 ${index + 1} 题当次作答与解析"><span>第 ${index + 1} 题 · ${selected} · ${verdict}</span><b>${formatDuration((entry?.seconds || 0) * 1000)}</b></button>`
     }).join('')
-    return `<article class="timing-record"><button class="timing-record-open" data-history-record="${recordIndex}" ${canReview ? '' : 'disabled'}><span><strong>${escapeHtml(record.title || '练习记录')}</strong><small>${escapeHtml(date)} · ${record.questions.length} 题</small><em>${canReview ? '查看当次作答与解析' : '暂无可回看的题目'}</em></span><b>${formatDuration(record.totalSeconds * 1000)}</b></button><details class="timing-breakdown"><summary>逐题用时与作答</summary><div class="timing-summary">答对 ${record.correctCount ?? '—'} / ${record.questions.length} 题 · 总用时 ${formatDuration(record.totalSeconds * 1000)}</div><div class="timing-question-grid">${rows}</div></details></article>`
+    const selected = state.historySelection.has(record)
+    const selection = managing ? `<label class="history-record-check"><input type="checkbox" data-history-select="${recordIndex}" aria-label="选择第 ${recordIndex + 1} 条练习记录" ${selected ? 'checked' : ''}></label>` : ''
+    const details = managing ? '' : `<details class="timing-breakdown"><summary>逐题用时与作答</summary><div class="timing-summary">答对 ${record.correctCount ?? '—'} / ${record.questions.length} 题 · 总用时 ${formatDuration(record.totalSeconds * 1000)}</div><div class="timing-question-grid">${rows}</div></details>`
+    return `<article class="timing-record ${managing ? 'history-selecting' : ''} ${managing && selected ? 'history-selected' : ''}">${selection}<button class="timing-record-open" data-history-record="${recordIndex}" ${canReview || managing ? '' : 'disabled'}><span><strong>${escapeHtml(record.title || '练习记录')}</strong><small>${escapeHtml(date)} · ${record.questions.length} 题</small><em>${managing ? selected ? '已选择' : '点击选择这条记录' : canReview ? '查看当次作答与解析' : '暂无可回看的题目'}</em></span><b>${formatDuration(record.totalSeconds * 1000)}</b></button>${details}</article>`
   }).join('')
-  return `<section class="timing-history"><div class="section-head"><h2>练习用时记录</h2><p>点击记录，回看当次答案与解析</p></div>${records || '<div class="empty-state"><b>还没有计时记录</b>完成一套练习后，可在这里回看作答与每题用时。</div>'}<p class="swipe-hint">记录保存在当前浏览器，保留最近的练习记录。</p></section>`
+  const controls = managing ? `<div class="history-bulk-controls"><label><input type="checkbox" data-history-all ${history.length && selectedCount === history.length ? 'checked' : ''}>全选</label><span aria-live="polite">已选 ${selectedCount} / ${history.length} 条</span><button class="mini-btn danger" data-action="history-delete-request" ${selectedCount ? '' : 'disabled'}>删除所选（${selectedCount}）</button></div>` : ''
+  return `<section class="timing-history"><div class="section-head timing-history-head"><div class="timing-history-title"><h2>练习用时记录</h2><p>${managing ? '选择要删除的练习记录' : '点击记录，回看当次答案与解析'}</p></div><button class="mini-btn ghost history-manage-button" data-action="history-manage" aria-pressed="${managing}" ${history.length ? '' : 'disabled'}>${managing ? '取消' : '批量删除'}</button></div>${controls}${records || '<div class="empty-state"><b>还没有计时记录</b>完成一套练习后，可在这里回看作答与每题用时。</div>'}<p class="swipe-hint">记录保存在当前浏览器，保留最近的练习记录。</p></section>`
 }
 
 function renderProgress() {
@@ -735,7 +822,7 @@ document.addEventListener('click', event => {
   const paper = event.target.closest('[data-paper]')
   if (paper) return startQuiz(questionsFor(state.selectedAlbum.id, paper.dataset.paper))
   const historyRecord = target.closest('[data-history-record]')
-  if (historyRecord && !historyRecord.disabled) return openHistoryRecord(Number(historyRecord.dataset.historyRecord), Number(historyRecord.dataset.historyQuestion || 0))
+  if (historyRecord && !historyRecord.disabled) return state.historyManaging ? selectHistoryRecord(Number(historyRecord.dataset.historyRecord)) : openHistoryRecord(Number(historyRecord.dataset.historyRecord), Number(historyRecord.dataset.historyQuestion || 0))
   const option = event.target.closest('[data-option]')
   if (option && state.route === 'quiz' && !state.sessionSubmitted) {
     // A physical double tap must not accidentally answer the newly displayed question.
@@ -767,6 +854,10 @@ document.addEventListener('click', event => {
   }
   const action = event.target.closest('[data-action]')?.dataset.action
   if (!action) return
+  if (action === 'history-manage') return toggleHistoryManagement()
+  if (action === 'history-delete-request') return requestHistoryDeletion()
+  if (action === 'history-delete-cancel') return cancelHistoryDeletion()
+  if (action === 'history-delete-confirm') return confirmHistoryDeletion()
   if (action === 'random') return startQuiz([...state.data.questions].sort(() => Math.random() - .5).slice(0, 10), 0, { title: '随机十题' })
   if (action === 'continue') {
     if (continueDraft()) return
@@ -781,6 +872,17 @@ document.addEventListener('click', event => {
   if (action === 'previous') return previousQuestion()
   if (action === 'finish-review') return navigate('progress')
   if (action === 'close-modal') document.querySelector('#modalRoot').innerHTML = ''
+})
+
+document.addEventListener('change', event => {
+  const checkbox = event.target
+  if (!(checkbox instanceof Element)) return
+  if (checkbox.matches('[data-history-select]')) return selectHistoryRecord(Number(checkbox.dataset.historySelect), checkbox.checked)
+  if (checkbox.matches('[data-history-all]')) selectAllHistoryRecords(checkbox.checked)
+})
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && state.pendingHistoryDeletion) cancelHistoryDeletion()
 })
 
 document.querySelector('#brandButton').addEventListener('click', () => navigate('home'))

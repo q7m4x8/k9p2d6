@@ -461,6 +461,9 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .list-actions { display: flex; gap: 8px; }
 .mini-btn { padding: 8px 12px; color: var(--accent-ink); background: var(--accent-soft); border: 0; border-radius: 10px; font-weight: 700; cursor: pointer; }
 .mini-btn.ghost { color: var(--muted); background: #f5f2ee; }
+.mini-btn.danger { color: #b64141; background: var(--danger-soft); }
+.mini-btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn.danger { color: #fff; background: var(--danger); border: 1px solid var(--danger); }
 
 .empty-state { padding: 75px 20px; color: var(--muted); text-align: center; background: rgba(255,255,255,.72); border: 1px dashed #e0d7ce; border-radius: 24px; }
 .empty-state b { display: block; margin-bottom: 8px; color: var(--ink); font-size: 1.285714rem; }
@@ -496,6 +499,9 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .modal p { color: var(--muted); line-height: 1.7; }
 .modal ol { padding-left: 22px; line-height: 1.8; }
 .modal .btn { width: 100%; margin-top: 10px; }
+.modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+.modal .modal-actions .btn { flex: 1; width: auto; min-width: 0; margin: 0; padding: 11px 12px; }
+.history-delete-error { color: #b64141 !important; }
 .font-settings .font-controls { display: flex; gap: 8px; padding: 6px; }
 .font-settings .font-controls span { display: none; }
 .font-settings .font-controls button { flex: 1; min-height: 42px; font-size: 1rem; }
@@ -558,6 +564,17 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .question-duration { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; margin: 0 0 12px; padding: 6px 10px; border-radius: 10px; background: var(--accent-soft); color: var(--accent-ink); font-size: .928571rem; font-variant-numeric: tabular-nums; }
 .timing-history { margin-top: 28px; }
 .timing-history h2 { margin: 0 0 14px; font-size: 1.285714rem; }
+.section-head.timing-history-head { align-items: center; justify-content: space-between; flex-wrap: nowrap; }
+.timing-history-title { display: flex; flex: 1; flex-wrap: wrap; align-items: baseline; gap: 8px 14px; min-width: 0; }
+.timing-history-title h2 { margin: 0; }
+.history-manage-button { flex-shrink: 0; min-height: 38px; }
+.history-bulk-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-bottom: 14px; padding: 9px 12px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); }
+.history-bulk-controls label { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; cursor: pointer; }
+.history-bulk-controls > span { flex: 1; color: var(--muted); font-size: .928571rem; }
+.history-bulk-controls input, .history-record-check input { width: 20px; height: 20px; margin: 0; accent-color: var(--accent); cursor: pointer; }
+.timing-record.history-selecting { display: grid; grid-template-columns: 36px minmax(0,1fr); }
+.timing-record.history-selected { border-color: var(--accent); background: var(--accent-soft); }
+.history-record-check { display: flex; align-items: flex-start; justify-content: flex-end; padding-top: 19px; cursor: pointer; }
 .timing-record { margin: 0 0 12px; padding: 0; background: var(--card); border: 1px solid var(--line); border-radius: 16px; }
 .timing-record-open { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: start; gap: 14px; width: 100%; padding: 16px 18px; border: 0; border-radius: 16px; color: var(--ink); background: transparent; text-align: left; cursor: pointer; overflow-wrap: anywhere; }
 .timing-record-open > span { min-width: 0; }
