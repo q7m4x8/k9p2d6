@@ -65,7 +65,7 @@ function scheduleAutoAdvance() {
       state.sessionIndex !== index || currentQuestion()?.id !== id || state.sessionAnswers[id] !== answer) return
     suppressAutoAnswerUntil = performance.now() + 250
     changeQuestion(index + 1)
-  }, 1000)
+  }, 500)
 }
 
 function loadUserState() {
@@ -711,7 +711,7 @@ function renderQuiz() {
       <div class="${optionsClass}">${options}</div></div>${feedback}${explanation}
     </article>
     <div class="quiz-actions"><button class="btn secondary" data-action="previous" ${state.sessionIndex === 0 ? 'disabled' : ''}>上一题</button><button class="btn primary" data-action="${primaryAction}">${primaryLabel}</button></div>
-    <p class="swipe-hint">${reveal ? '左滑下一题，右滑上一题' : '选中后停留 1 秒自动下一题 · 可改选或左右滑动 · 返回自动保存'}</p>
+    <p class="swipe-hint">${reveal ? '左滑下一题，右滑上一题' : '选中后停留 0.5 秒自动下一题 · 可改选或左右滑动 · 返回自动保存'}</p>
     <details class="answer-sheet" ${reveal ? 'open' : ''}><summary>答题卡 · ${reveal ? `答对 ${correctCount} 题` : `已答 ${answeredCount}/${state.session.length} 题`}</summary><div>${answerSheet}</div></details>
   </section>`
 }
@@ -1029,7 +1029,7 @@ function toggleFavorite() {
 }
 
 function openGuide() {
-  document.querySelector('#modalRoot').innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>三步开始刷题</h2><ol><li>在首页选择专辑或子卷。</li><li>点选答案后先显示选中框，停留 1 秒自动下一题，改选后重新等待 1 秒；也可左右滑动切题。最后一题选完后手动交卷，统一查看答案与解析。</li><li>在进度页查看每次练习及逐题用时；错题和收藏可随时复习。</li></ol><p>进入答题即开始计时，返回或切到后台暂停，交卷后停止。返回后可点“继续上次练习”恢复。</p><p>所有进度只保存在当前浏览器，不会覆盖其他人的记录。</p><button class="btn primary" data-action="close-modal">知道了</button></section></div>`
+  document.querySelector('#modalRoot').innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>三步开始刷题</h2><ol><li>在首页选择专辑或子卷。</li><li>点选答案后先显示选中框，停留 0.5 秒自动下一题，改选后重新等待 0.5 秒；也可左右滑动切题。最后一题选完后手动交卷，统一查看答案与解析。</li><li>在进度页查看每次练习及逐题用时；错题和收藏可随时复习。</li></ol><p>进入答题即开始计时，返回或切到后台暂停，交卷后停止。返回后可点“继续上次练习”恢复。</p><p>所有进度只保存在当前浏览器，不会覆盖其他人的记录。</p><button class="btn primary" data-action="close-modal">知道了</button></section></div>`
 }
 
 let swipeGesture = null

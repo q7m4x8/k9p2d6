@@ -9,13 +9,17 @@ SCALE = 4
 def cursor(name, polygons, lines=()):
     image = Image.new('RGBA', (32 * SCALE, 32 * SCALE))
     draw = ImageDraw.Draw(image)
+    # Scale the pen around its (3,3) hotspot so the drawing tip stays aligned.
+    factor = .85 if name == 'pen' else 1
+    def point(x, y):
+        return (round((3 + (x - 3) * factor) * SCALE), round((3 + (y - 3) * factor) * SCALE))
     for points, fill, outline, width in polygons:
-        points = [(round(x * SCALE), round(y * SCALE)) for x, y in points]
+        points = [point(x, y) for x, y in points]
         draw.polygon(points, fill=fill)
         if outline:
-            draw.line(points + points[:1], fill=outline, width=round(width * SCALE), joint='curve')
+            draw.line(points + points[:1], fill=outline, width=round(width * factor * SCALE), joint='curve')
     for points, fill, width in lines:
-        draw.line([(round(x * SCALE), round(y * SCALE)) for x, y in points], fill=fill, width=round(width * SCALE))
+        draw.line([point(x, y) for x, y in points], fill=fill, width=round(width * factor * SCALE))
     image.resize((32, 32), Image.Resampling.LANCZOS).save(OUT / f'{name}.png')
 
 
