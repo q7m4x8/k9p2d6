@@ -360,6 +360,34 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .question-type { color: var(--accent-ink); background: var(--accent-soft); }
 .favorite-button { padding: 8px 11px; color: var(--muted); background: #fff; border: 1px solid var(--line); border-radius: 12px; cursor: pointer; }
 .favorite-button.active { color: #d39b00; background: #fff9d9; border-color: #f0d877; }
+.question-head-actions { display: flex; align-items: center; gap: 9px; }
+.question-pen-button { display: grid; place-items: center; width: 39px; height: 39px; padding: 8px; color: var(--muted); background: #fff; border: 1px solid var(--line); border-radius: 11px; cursor: pointer; }
+.question-pen-button.active { color: var(--accent-ink); background: var(--accent-soft); border-color: var(--accent); }
+.question-ink-surface { position: relative; isolation: isolate; min-width: 0; }
+.question-ink-layer { position: absolute; inset: 0; display: block; width: 100%; height: 100%; overflow: hidden; z-index: 3; pointer-events: none; }
+.ink-editing > .question-ink-layer { pointer-events: auto; touch-action: none; cursor: crosshair; background: rgba(255,255,255,.015); }
+.ink-editing.ink-moving > .question-ink-layer { pointer-events: none; }
+.ink-editing { outline: 2px solid var(--accent-soft); outline-offset: 5px; border-radius: 8px; }
+.question-ink-layer:focus-visible { outline: 2px dashed var(--accent); outline-offset: 3px; }
+.ink-toolbar { position: fixed; z-index: 75; right: max(12px,env(safe-area-inset-right)); top: 18vh; width: 62px; padding: 5px; background: #35404b; color: #fff; border-radius: 13px; box-shadow: 0 5px 24px #1d28343b; }
+.ink-toolbar[hidden] { display: none; }
+.ink-toolbar > button { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 3px; width: 100%; min-height: 47px; padding: 5px 2px; border: 0; border-radius: 8px; background: transparent; color: #fff; cursor: pointer; font-size: 12px; }
+.ink-toolbar > button.active { background: #ffffff24; color: #ffd99c; }
+.ink-toolbar > button:disabled { opacity: .35; cursor: default; }
+.ink-colors { display: flex; justify-content: center; gap: 1px; padding: 4px 0; }
+.ink-colors button { display: grid; place-items: center; width: 16px; height: 22px; padding: 0; border: 0; border-radius: 5px; background: transparent; cursor: pointer; }
+.ink-colors i { display: block; width: 12px; height: 12px; border: 1px solid #ffffff90; border-radius: 50%; background: var(--ink-color); }
+.ink-colors button[aria-pressed="true"] { outline: 1px solid #fff; }
+.ink-save-status { margin: 5px 0 2px; text-align: center; font-size: 10px; line-height: 1.5; color: #d4e2e9; overflow-wrap: anywhere; }
+.ink-save-status.ink-save-error { color: #ffd49d; }
+@media (max-width: 760px) {
+  .ink-toolbar { top: auto; bottom: max(12px,env(safe-area-inset-bottom)); left: 10px; right: 10px; width: auto; display: grid; grid-template-columns: repeat(8,minmax(0,1fr)); padding: 6px; }
+  .ink-colors { grid-column: 1 / 5; justify-content: flex-start; gap: 9px; padding: 3px 8px; }
+  .ink-colors button { width: 36px; height: 32px; }
+  .ink-colors i { width: 17px; height: 17px; }
+  .ink-toolbar > button { min-width: 0; min-height: 45px; font-size: 11px; grid-row: 2; }
+  .ink-save-status { grid-column: 5 / 9; grid-row: 1; margin: 0; align-self: center; text-align: right; padding-right: 7px; font-size: 11px; }
+}
 .question-stem { margin: 0 0 20px; font-size: var(--quiz-stem-size); font-weight: 630; line-height: var(--quiz-line-height); white-space: pre-wrap; }
 .options { display: grid; gap: 12px; }
 .option {

@@ -61,7 +61,7 @@ function scheduleAutoAdvance() {
   const answer = state.sessionAnswers[id]
   pendingAutoAdvance = setTimeout(() => {
     pendingAutoAdvance = null
-    if (state.route !== 'quiz' || document.hidden || state.sessionSubmitted || state.session !== session ||
+    if (state.route !== 'quiz' || document.hidden || window.QuizAnnotations?.active() || state.sessionSubmitted || state.session !== session ||
       state.sessionIndex !== index || currentQuestion()?.id !== id || state.sessionAnswers[id] !== answer) return
     suppressAutoAnswerUntil = performance.now() + 250
     changeQuestion(index + 1)
@@ -263,6 +263,7 @@ function setTheme(index) {
 }
 
 function setQuizFont(size) {
+  if (window.QuizAnnotations?.active()) return showToast('请先退出画笔，再调整字号')
   const nextSize = ['small', 'medium', 'large'].includes(size) ? size : 'small'
   document.documentElement.dataset.quizFont = nextSize
   state.user.quizFont = nextSize
@@ -518,6 +519,7 @@ function goBack() {
 
 function render() {
   if (!state.data) return
+  window.QuizAnnotations?.beforeRender()
   const renderers = {
     home: renderHome,
     album: renderAlbum,
@@ -529,6 +531,7 @@ function render() {
   document.querySelector('#app').classList.toggle('quiz-mode', state.route === 'quiz')
   document.querySelector('#backButton').hidden = state.route === 'home'
   main.innerHTML = (renderers[state.route] || renderHome)()
+  window.QuizAnnotations?.mount(main.querySelector('[data-ink-surface]'), state.route === 'quiz' && !state.pitfallOpen ? currentQuestion()?.id : null, main.querySelector('[data-action="ink-toggle"]'), showToast)
   const selectAll = main.querySelector('[data-history-all]')
   if (selectAll) selectAll.indeterminate = selectedHistoryRecords().length > 0 && selectedHistoryRecords().length < state.user.history.length
   updateTimerDisplay()
@@ -702,10 +705,10 @@ function renderQuiz() {
     <div class="quiz-topline"><div class="quiz-progress-copy"><b>${state.sessionIndex + 1}</b> / ${state.session.length}</div><div class="quiz-tools"><div class="quiz-meta"><span>${escapeHtml(question.paper)}</span><b>${reveal ? `答对 ${correctCount} 题` : `已答 ${answeredCount} 题`}</b></div>${fontControls}</div></div>
     <div class="progress-track"><i style="--progress:${progress}%"></i></div>
     <article class="question-card">
-      <div class="question-head"><span class="tag question-type">单选题 · ${escapeHtml(question.source)}</span><button class="favorite-button ${isFavorite ? 'active' : ''}" data-action="favorite">★ ${isFavorite ? '已收藏' : '收藏'}</button></div>
+      <div class="question-head"><span class="tag question-type">单选题 · ${escapeHtml(question.source)}</span><div class="question-head-actions"><button type="button" class="question-pen-button" data-action="ink-toggle" aria-label="打开题目画笔" aria-pressed="false" title="在题目上圈画"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 15 10-10 4 4-10 10-5 1 1-5Zm8-8 4 4M4 21h16"/></svg></button><button class="favorite-button ${isFavorite ? 'active' : ''}" data-action="favorite">★ ${isFavorite ? '已收藏' : '收藏'}</button></div></div>
       ${reveal ? `<p class="question-duration">本题用时 ${formatDuration(recordedQuestionMilliseconds(question.id))}</p>` : ''}
-      ${questionContent}${questionCheck}
-      <div class="${optionsClass}">${options}</div>${feedback}${explanation}
+      <div class="question-ink-surface" data-ink-surface>${questionContent}${questionCheck}
+      <div class="${optionsClass}">${options}</div></div>${feedback}${explanation}
     </article>
     <div class="quiz-actions"><button class="btn secondary" data-action="previous" ${state.sessionIndex === 0 ? 'disabled' : ''}>上一题</button><button class="btn primary" data-action="${primaryAction}">${primaryLabel}</button></div>
     <p class="swipe-hint">${reveal ? '左滑下一题，右滑上一题' : '选中后停留 1 秒自动下一题 · 可改选或左右滑动 · 返回自动保存'}</p>
@@ -1036,12 +1039,13 @@ let suppressAutoAnswerUntil = 0
 function onTouchStart(event) {
   swipeGesture = null
   const target = event.target instanceof Element ? event.target : event.target?.parentElement
-  if (state.route !== 'quiz' || state.pitfallOpen || event.touches.length !== 1 || !target?.closest('.quiz-shell') || target.closest('.source-explanation, .answer-sheet, .font-controls, a, input, textarea, select, [contenteditable="true"]') || document.querySelector('#modalRoot').children.length || window.getSelection?.()?.isCollapsed === false) return
+  if (state.route !== 'quiz' || state.pitfallOpen || window.QuizAnnotations?.active() || event.touches.length !== 1 || !target?.closest('.quiz-shell') || target.closest('.source-explanation, .answer-sheet, .font-controls, a, input, textarea, select, [contenteditable="true"]') || document.querySelector('#modalRoot').children.length || window.getSelection?.()?.isCollapsed === false) return
   const touch = event.touches[0]
   swipeGesture = { id: touch.identifier, x: touch.clientX, y: touch.clientY, startedAt: performance.now() }
 }
 
 function onTouchMove(event) {
+  if (window.QuizAnnotations?.active()) { swipeGesture = null; return }
   if (!swipeGesture) return
   if (event.touches.length !== 1) { swipeGesture = null; return }
   const touch = event.touches[0]
@@ -1055,7 +1059,7 @@ function onTouchMove(event) {
 function onTouchEnd(event) {
   const gesture = swipeGesture
   swipeGesture = null
-  if (!gesture || state.route !== 'quiz' || state.pitfallOpen || event.touches.length || performance.now() - gesture.startedAt > 1500 || document.querySelector('#modalRoot').children.length || window.getSelection?.()?.isCollapsed === false) return
+  if (!gesture || state.route !== 'quiz' || state.pitfallOpen || window.QuizAnnotations?.active() || event.touches.length || performance.now() - gesture.startedAt > 1500 || document.querySelector('#modalRoot').children.length || window.getSelection?.()?.isCollapsed === false) return
   const touch = [...event.changedTouches].find(item => item.identifier === gesture.id)
   if (!touch) return
   const dx = touch.clientX - gesture.x
@@ -1092,6 +1096,7 @@ document.addEventListener('click', event => {
   if (historyRecord && !historyRecord.disabled) return state.historyManaging ? selectHistoryRecord(Number(historyRecord.dataset.historyRecord)) : openHistoryRecord(Number(historyRecord.dataset.historyRecord), Number(historyRecord.dataset.historyQuestion || 0))
   const option = event.target.closest('[data-option]')
   if (option && state.route === 'quiz' && !state.sessionSubmitted) {
+    if (window.QuizAnnotations?.active()) return
     // A physical double tap must not accidentally answer the newly displayed question.
     if (event.detail !== 0 && performance.now() < suppressAutoAnswerUntil) { event.preventDefault(); return }
     const answer = Number(option.dataset.option)
@@ -1125,6 +1130,11 @@ document.addEventListener('click', event => {
   }
   const action = event.target.closest('[data-action]')?.dataset.action
   if (!action) return
+  if (action === 'ink-toggle') {
+    cancelAutoAdvance(); swipeGesture = null
+    if (!window.QuizAnnotations) return showToast('画笔载入失败，请刷新页面重试')
+    return window.QuizAnnotations.toggle()
+  }
   if (action === 'retry-original-image') return retryOriginalImage(target.closest('[data-action]'))
   if (action === 'open-pitfalls') return openPitfallManual()
   if (action === 'close-pitfalls') return closePitfallManual()
