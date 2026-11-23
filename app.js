@@ -126,7 +126,7 @@ function renderQuestionNoteButton(question) {
 
 function renderQuestionNotes(question) {
   const id = escapeHtml(question.id)
-  return `<section class="question-notes" id="notes-${id}" ${state.openNotes.has(question.id) ? '' : 'hidden'}><label for="note-input-${id}">我的笔记</label><textarea id="note-input-${id}" data-question-note="${id}" rows="4" placeholder="记下解题思路、易错点或记忆方法…" aria-describedby="note-status-${id}">${escapeHtml(state.notes[question.id] || '')}</textarea><div class="note-save-row"><span id="note-status-${id}" data-note-status="${id}" role="status" aria-live="polite">${escapeHtml(questionNoteStatus(question.id))}</span><button class="mini-btn ghost" data-action="note-retry" data-note-retry="${id}" ${state.noteSaveErrors.has(question.id) ? '' : 'hidden'}>重试保存</button></div></section>`
+  return `<section class="question-notes" id="notes-${id}" ${state.openNotes.has(question.id) ? '' : 'hidden'}><label for="note-input-${id}">我的笔记</label><textarea id="note-input-${id}" data-question-note="${id}" rows="4" placeholder="记下解题思路、易错点或记忆方法…" aria-describedby="note-status-${id}">\n${escapeHtml(state.notes[question.id] || '')}</textarea><div class="note-save-row"><span id="note-status-${id}" data-note-status="${id}" role="status" aria-live="polite">${escapeHtml(questionNoteStatus(question.id))}</span><button class="mini-btn ghost" data-action="note-retry" data-note-retry="${id}" ${state.noteSaveErrors.has(question.id) ? '' : 'hidden'}>重试保存</button></div></section>`
 }
 
 function writeStorage(key, value) {

@@ -808,13 +808,14 @@ test('question notes appear after submission, persist per question and reopen fr
 
 test('note input preserves whitespace and markup literally without re-rendering the focused editor', () => {
   const h=harness({history:[practiceRecord('notes')]});h.openHistoryRecord(0);h.toggleQuestionNote()
-  const text='中文  空格\n  English words  <b>bold</b>\n</textarea><script>alert("x")</script> & 原样'
+  const text='\n中文  空格\n  English words  <b>bold</b>\n</textarea><script>alert("x")</script> & 原样'
   const editor=h.element('.note-editor');editor.dataset.questionNote='test-1';editor.value=text
   const before=h.element('#mainContent').innerHTML
   h.fire('input',{target:editor})
   assert.equal(h.notesSaved()['test-1'],text)
   assert.equal(h.element('#mainContent').innerHTML,before,'Typing must not replace the textarea or reset its caret')
   const html=h.renderQuestionNotes(fixtures[0])
+  assert(/<textarea[^>]*>\n\n中文/.test(html),'An extra template LF must protect the user’s leading LF from HTML textarea parsing')
   assert(html.includes('中文  空格\n  English words'))
   assert(html.includes('&lt;/textarea&gt;&lt;script&gt;'))
   assert(!html.includes('<script>'));assert(!html.includes('<b>bold</b>'))
