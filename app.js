@@ -301,7 +301,55 @@ function escapeQuizText(value = '') {
   return escapeHtml(window.QuizText ? window.QuizText.normalize(value) : value)
 }
 
+function isOriginalAnnotated(question) {
+  return question?.referenceMode === 'original-annotated'
+}
+
+function originalImageAsset(image, role) {
+  if (!image || typeof image.file !== 'string' || !/^[a-zA-Z0-9][a-zA-Z0-9_-]*\.(?:webp|png|jpe?g)$/i.test(image.file)) return null
+  if (!['answer', 'question'].includes(role)) return null
+  return `./data/zhanggong/${role === 'question' ? 'questions' : 'answers'}/${image.file}`
+}
+
+function renderOriginalImage(question, image, index, total, role) {
+  const asset = originalImageAsset(image, role)
+  if (!asset) return ''
+  const isQuestion = role === 'question'
+  const page = Number.isInteger(image.page) && image.page > 0 ? `${isQuestion ? '讲义' : '笔记'}第 ${image.page} 页` : isQuestion ? '原题' : '原版笔记'
+  const position = total > 1 ? ` · ${index + 1}/${total}` : ''
+  const caption = image.caption ? `<span class="original-image-caption">${escapeHtml(image.caption)}</span>` : ''
+  const dimensions = ['width', 'height'].map(name => Number.isInteger(image[name]) && image[name] > 0 && image[name] <= 100000 ? ` ${name}="${image[name]}"` : '').join('')
+  const label = `${question.album || '张弓选词大典'}第 ${question.number} 题${isQuestion ? '原题' : '原版解析'}，${page}${position}`
+  return `<figure class="original-image-page ${isQuestion ? 'original-question-page' : 'original-answer-page'}" data-original-role="${role}"><figcaption><span>${escapeHtml(page + position)}${caption}</span><a href="${escapeHtml(asset)}" target="_blank" rel="noopener noreferrer">查看原尺寸 ↗</a></figcaption><a class="original-image-link" href="${escapeHtml(asset)}" target="_blank" rel="noopener noreferrer" aria-label="新标签查看${isQuestion ? '原题' : '原版解析'}原尺寸"><img class="original-notes-image" data-original-file="${escapeHtml(image.file)}" src="${escapeHtml(asset)}"${dimensions} loading="${isQuestion ? 'eager' : 'lazy'}" decoding="async" alt="${escapeHtml(label)}"></a><div class="original-image-error" role="status" hidden><p>${isQuestion ? '原题' : '原版解析'}图片加载失败，可重新加载或打开原尺寸查看。</p><button type="button" class="mini-btn ghost" data-action="retry-original-image">重新加载</button></div></figure>`
+}
+
+function renderOriginalReferenceAnswer(question, heading, notes) {
+  if (!state.sessionSubmitted) return ''
+  const images = Array.isArray(question.referenceImages) ? question.referenceImages : []
+  const pages = images.map((image, index) => renderOriginalImage(question, image, index, images.length, 'answer')).join('')
+  const content = pages || '<p class="original-image-unavailable">本题原版解析图片暂不可用，请稍后重试。</p>'
+  const notice = typeof question.sourceNotice === 'string' && question.sourceNotice.trim() ? `<p class="original-source-notice">${escapeHtml(question.sourceNotice)}</p>` : ''
+  return `<section class="reference-answer original-reference-answer" aria-label="原版笔记解析"><header class="reference-heading">${heading}<span>正确答案 <b>${escapeHtml(question.answerLetter)}</b></span></header>${notice}<p class="original-reference-hint">原版笔记解析 · 点击图片可在新标签查看原尺寸</p><div class="original-reference-pages">${content}</div>${notes}</section>`
+}
+
+function retryOriginalImage(button) {
+  const figure = button?.closest('.original-image-page')
+  const question = currentQuestion()
+  if (state.route !== 'quiz' || !isOriginalAnnotated(question) || !figure) return false
+  const role = figure.dataset.originalRole
+  if (role === 'answer' && !state.sessionSubmitted) return false
+  const image = figure.querySelector('img.original-notes-image')
+  const asset = originalImageAsset({ file: image?.dataset.originalFile }, role)
+  if (!asset) return false
+  const error = figure.querySelector('.original-image-error')
+  if (error) error.hidden = true
+  image.hidden = false
+  image.src = `${asset}?retry=${Date.now()}`
+  return true
+}
+
 function displayQuestionStem(question) {
+  if (isOriginalAnnotated(question)) return question.stem
   const fix = window.QuizReferenceReviews?.displayFixes?.[question.id]
   let stem = question.stem
   if (fix?.expectedStem === stem) for (const [before, after] of fix.replacements || []) stem = stem.replace(before, after)
@@ -348,6 +396,7 @@ function renderReferenceSegments(segments) {
 function renderReferenceAnswer(question) {
   const heading = `<div class="reference-heading-title"><h3>参考答案</h3>${renderQuestionNoteButton(question)}</div>`
   const notes = renderQuestionNotes(question)
+  if (isOriginalAnnotated(question)) return renderOriginalReferenceAnswer(question, heading, notes)
   const supplement = referenceSupplement(question)
   const original = supplement?.explanation || question.explanation || `正确答案：${question.answerLetter}`
   const sources = renderReferenceSources(question, supplement)
@@ -489,14 +538,14 @@ function renderHome() {
   const stats = state.data.stats
   const cards = state.data.albums.map((album, index) => `
     <article class="album-card" data-album="${album.id}">
-      <div class="album-icon">${['⚡','法','卷','专'][index] || '题'}</div>
+      <div class="album-icon">${album.referenceMode === 'original-annotated' ? '词' : ['⚡','法','卷','专'][index] || '题'}</div>
       <h3>${escapeHtml(album.title)}</h3>
       <p>${escapeHtml(album.subtitle)}</p>
       <div class="tag-row"><span class="tag">${album.count} 题</span><span class="tag neutral">${album.papers.length} 个子卷</span><span class="tag neutral">${album.source}</span></div>
     </article>`).join('')
   return `
     <section class="hero">
-      <div><span class="eyebrow">小天爱刷题</span><h1>把题刷透，<strong>把分拿到</strong></h1><p class="hero-copy">政治理论精选题库，按专辑与套卷练习，自动记录进度。</p></div>
+      <div><span class="eyebrow">小天爱刷题</span><h1>把题刷透，<strong>把分拿到</strong></h1><p class="hero-copy">政治理论与言语选词，按题本与套卷练习，自动记录进度。</p></div>
       <div class="hero-stats">
         <div class="stat-chip"><b>${stats.questionCount}</b><span>题目</span></div>
         <div class="stat-chip"><b>${stats.paperCount}</b><span>子卷</span></div>
@@ -591,7 +640,7 @@ function openHistoryRecord(recordIndex, questionIndex = 0) {
 }
 
 function renderQuiz() {
-  if (state.pitfallOpen && state.sessionSubmitted) return renderPitfallManual()
+  if (state.pitfallOpen && state.sessionSubmitted && state.session.some(question => !isOriginalAnnotated(question))) return renderPitfallManual()
   const question = currentQuestion()
   if (!question) return '<div class="empty-state"><b>练习已完成</b>请选择其他题库继续。</div>'
   const isFavorite = state.user.favorites.includes(question.id)
@@ -606,12 +655,21 @@ function renderQuiz() {
   const resultTotal = historical ? state.sessionRecord.questionCount : state.session.length
   const correct = wasAnswerCorrect(question)
   const missingHistoricalAnswer = historical && !Number.isInteger(selectedOption)
+  const originalQuestion = isOriginalAnnotated(question)
+  const imageQuestion = originalQuestion && question.questionRenderMode === 'image' && !!originalImageAsset(question.questionImage, 'question')
+  const questionContent = imageQuestion
+    ? `<div class="original-question">${renderOriginalImage(question, question.questionImage, 0, 1, 'question')}</div>`
+    : `${originalQuestion && question.questionRenderMode === 'image' ? '<p class="original-image-unavailable">原题图片暂不可用，下方显示题目文字。</p>' : ''}<p class="question-stem">${originalQuestion ? escapeHtml(displayQuestionStem(question)) : escapeQuizText(displayQuestionStem(question))}</p>`
+  const questionCheck = originalQuestion && !imageQuestion && originalImageAsset(question.questionImage, 'question')
+    ? `<details class="original-question-check"><summary>查看原题</summary>${renderOriginalImage(question, question.questionImage, 0, 1, 'question')}</details>` : ''
+  const optionsClass = imageQuestion ? 'options original-choice-only' : originalQuestion ? 'options original-word-options' : 'options'
   const options = question.options.map((option, index) => {
     let className = 'option'
     if (selectedOption === index) className += ' selected'
     if (reveal && index === question.answer) className += ' correct'
     if (reveal && selectedOption === index && index !== question.answer) className += ' incorrect'
-    return `<button class="${className}" data-option="${index}" aria-pressed="${selectedOption === index}" ${reveal ? 'disabled' : ''}><span class="option-letter">${'ABCD'[index]}</span><span class="option-text">${escapeQuizText(option)}</span></button>`
+    const optionText = imageQuestion ? '' : `<span class="option-text">${originalQuestion ? escapeHtml(option) : escapeQuizText(option)}</span>`
+    return `<button class="${className}" data-option="${index}" aria-pressed="${selectedOption === index}" ${imageQuestion ? `aria-label="选项 ${'ABCD'[index]}"` : ''} ${reveal ? 'disabled' : ''}><span class="option-letter">${'ABCD'[index]}</span>${optionText}</button>`
   }).join('')
   const feedback = reveal
     ? missingHistoricalAnswer
@@ -619,8 +677,10 @@ function renderQuiz() {
       : `<div class="feedback ${correct ? 'correct' : 'incorrect'}">${historical ? '当次作答：' : ''}${correct ? '回答正确' : `回答错误，你选了 ${Number.isInteger(selectedOption) ? 'ABCD'[selectedOption] : '未作答'}，正确答案是 ${question.answerLetter}`}</div>`
     : ''
   const explanation = reveal ? renderReferenceAnswer(question) : ''
+  const pitfallButton = state.session.some(item => !isOriginalAnnotated(item))
+    ? '<br><button type="button" class="pitfall-open" data-action="open-pitfalls">查看挖坑手册</button>' : ''
   const resultSummary = reveal
-    ? `<section class="result-summary"><div><span>${historical ? '历史作答' : '本套成绩'}</span><strong>${correctCount} / ${resultTotal}</strong></div><p>${historical ? `${escapeHtml(state.sessionTitle)}<br>` : ''}正确率 ${Math.round(correctCount / resultTotal * 100)}% · ${historical ? '当次用时' : '本套用时'} ${formatDuration(getSessionMilliseconds())}<br><button type="button" class="pitfall-open" data-action="open-pitfalls">查看挖坑手册</button></p></section>${historical && state.historySkippedQuestions ? `<p class="history-review-note">原记录中有 ${state.historySkippedQuestions} 道题暂不可用，当前显示可回看的 ${state.session.length} 道题；上方保留当次总成绩和总用时。</p>` : ''}`
+    ? `<section class="result-summary"><div><span>${historical ? '历史作答' : '本套成绩'}</span><strong>${correctCount} / ${resultTotal}</strong></div><p>${historical ? `${escapeHtml(state.sessionTitle)}<br>` : ''}正确率 ${Math.round(correctCount / resultTotal * 100)}% · ${historical ? '当次用时' : '本套用时'} ${formatDuration(getSessionMilliseconds())}${pitfallButton}</p></section>${historical && state.historySkippedQuestions ? `<p class="history-review-note">原记录中有 ${state.historySkippedQuestions} 道题暂不可用，当前显示可回看的 ${state.session.length} 道题；上方保留当次总成绩和总用时。</p>` : ''}`
     : ''
   const answerSheet = state.session.map((item, index) => {
     const hasAnswer = Number.isInteger(state.sessionAnswers[item.id])
@@ -644,8 +704,8 @@ function renderQuiz() {
     <article class="question-card">
       <div class="question-head"><span class="tag question-type">单选题 · ${escapeHtml(question.source)}</span><button class="favorite-button ${isFavorite ? 'active' : ''}" data-action="favorite">★ ${isFavorite ? '已收藏' : '收藏'}</button></div>
       ${reveal ? `<p class="question-duration">本题用时 ${formatDuration(recordedQuestionMilliseconds(question.id))}</p>` : ''}
-      <p class="question-stem">${escapeQuizText(displayQuestionStem(question))}</p>
-      <div class="options">${options}</div>${feedback}${explanation}
+      ${questionContent}${questionCheck}
+      <div class="${optionsClass}">${options}</div>${feedback}${explanation}
     </article>
     <div class="quiz-actions"><button class="btn secondary" data-action="previous" ${state.sessionIndex === 0 ? 'disabled' : ''}>上一题</button><button class="btn primary" data-action="${primaryAction}">${primaryLabel}</button></div>
     <p class="swipe-hint">${reveal ? '左滑下一题，右滑上一题' : '选中后停留 1 秒自动下一题 · 可改选或左右滑动 · 返回自动保存'}</p>
@@ -669,6 +729,7 @@ function pitfallScope() {
 function collectPitfalls(questions) {
   const entries = []
   questions.forEach((question,index) => {
+    if (isOriginalAnnotated(question)) return
     const formatted = window.QuizExplanationFormatter?.format(question) || window.QuizExplanationFormatter?.formatOptions(question)
     for (const item of formatted?.items || []) {
       if (item.verdict === 'incorrect') entries.push({question,questionNumber:index+1,item,number:entries.length+1})
@@ -678,7 +739,7 @@ function collectPitfalls(questions) {
 }
 
 function openPitfallManual() {
-  if (state.route !== 'quiz' || !state.sessionSubmitted || !state.session.length) return false
+  if (state.route !== 'quiz' || !state.sessionSubmitted || !state.session.some(question => !isOriginalAnnotated(question))) return false
   cancelAutoAdvance()
   swipeGesture = null
   state.pitfallOpen = true
@@ -755,7 +816,7 @@ function renderPitfallRows(entries,singlePaper=false) {
 }
 
 function renderPitfallManual() {
-  if (state.route !== 'quiz' || !state.sessionSubmitted || !state.pitfallOpen) return ''
+  if (state.route !== 'quiz' || !state.sessionSubmitted || !state.pitfallOpen || !state.session.some(question => !isOriginalAnnotated(question))) return ''
   const scope = pitfallScope()
   const entries = collectPitfalls(scope.questions)
   const rows = renderPitfallRows(entries,scope.singlePaper)
@@ -1064,6 +1125,7 @@ document.addEventListener('click', event => {
   }
   const action = event.target.closest('[data-action]')?.dataset.action
   if (!action) return
+  if (action === 'retry-original-image') return retryOriginalImage(target.closest('[data-action]'))
   if (action === 'open-pitfalls') return openPitfallManual()
   if (action === 'close-pitfalls') return closePitfallManual()
   if (action === 'note-toggle') return toggleQuestionNote()
@@ -1125,6 +1187,13 @@ document.addEventListener('toggle', event => {
 
 document.addEventListener('error', event => {
   const image = event.target
+  if (image instanceof Element && image.matches('img.original-notes-image')) {
+    image.hidden = true
+    image.removeAttribute('src')
+    const error = image.closest('.original-image-page')?.querySelector('.original-image-error')
+    if (error) error.hidden = false
+    return
+  }
   if (!(image instanceof Element) || !image.matches('img.source-explanation-image')) return
   image.hidden = true
   image.removeAttribute('src')
@@ -1156,9 +1225,12 @@ async function init() {
   setTheme(state.user.theme || 0)
   setQuizFont(state.user.quizFont || 'small')
   try {
-    const response = await fetch('./data/questions.json?v=20261121-5', { cache: 'no-cache' })
-    if (!response.ok) throw new Error(`HTTP ${response.status}`)
-    state.data = await response.json()
+    const banks = await Promise.all(['./data/questions.json?v=20261121-5', './data/zhanggong/questions.json?v=20261123-8'].map(async url => {
+      const response = await fetch(url, { cache: 'no-cache' })
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      return response.json()
+    }))
+    state.data = window.QuizBanks.merge(banks)
     render()
   } catch (error) {
     main.innerHTML = `<div class="empty-state"><b>题库载入失败</b>请刷新页面后重试。<br><small>${escapeHtml(error.message)}</small></div>`
