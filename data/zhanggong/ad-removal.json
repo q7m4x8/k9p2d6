@@ -1,0 +1,10063 @@
+{
+  "version": 1,
+  "approved": true,
+  "coordinateSystem": "source-page-pixels",
+  "questionEntries": [],
+  "answerEntries": [
+    {
+      "qid": "zg-2026-001",
+      "part": 1,
+      "note": 1,
+      "pdfPage": 3,
+      "rectPx": [
+        70,
+        210,
+        101,
+        263
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-001",
+      "part": 1,
+      "note": 1,
+      "pdfPage": 3,
+      "rectPx": [
+        72,
+        273,
+        101,
+        535
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-003",
+      "part": 1,
+      "note": 1,
+      "pdfPage": 4,
+      "rectPx": [
+        1015,
+        210,
+        1046,
+        263
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-003",
+      "part": 1,
+      "note": 1,
+      "pdfPage": 4,
+      "rectPx": [
+        1016,
+        273,
+        1046,
+        535
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-005",
+      "part": 1,
+      "note": 1,
+      "pdfPage": 5,
+      "rectPx": [
+        70,
+        210,
+        101,
+        263
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-005",
+      "part": 1,
+      "note": 1,
+      "pdfPage": 5,
+      "rectPx": [
+        72,
+        273,
+        101,
+        535
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-006",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 6,
+      "rectPx": [
+        1015,
+        210,
+        1046,
+        263
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-006",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 6,
+      "rectPx": [
+        1016,
+        273,
+        1046,
+        535
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-006",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 6,
+      "rectPx": [
+        142,
+        74,
+        352,
+        104
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-006",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 6,
+      "rectPx": [
+        141,
+        107,
+        823,
+        114
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-006",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 6,
+      "rectPx": [
+        831,
+        57,
+        980,
+        124
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-008",
+      "part": 1,
+      "note": 1,
+      "pdfPage": 7,
+      "rectPx": [
+        70,
+        210,
+        101,
+        263
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-008",
+      "part": 1,
+      "note": 1,
+      "pdfPage": 7,
+      "rectPx": [
+        72,
+        273,
+        101,
+        535
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-009",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 8,
+      "rectPx": [
+        1015,
+        210,
+        1046,
+        263
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-009",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 8,
+      "rectPx": [
+        1016,
+        273,
+        1046,
+        535
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-009",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 8,
+      "rectPx": [
+        142,
+        74,
+        352,
+        104
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-009",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 8,
+      "rectPx": [
+        141,
+        107,
+        823,
+        114
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-009",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 8,
+      "rectPx": [
+        831,
+        57,
+        980,
+        124
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-011",
+      "part": 1,
+      "note": 1,
+      "pdfPage": 9,
+      "rectPx": [
+        70,
+        210,
+        101,
+        263
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-011",
+      "part": 1,
+      "note": 1,
+      "pdfPage": 9,
+      "rectPx": [
+        72,
+        273,
+        101,
+        535
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-012",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 10,
+      "rectPx": [
+        1015,
+        210,
+        1046,
+        263
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-012",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 10,
+      "rectPx": [
+        1016,
+        273,
+        1046,
+        535
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-012",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 10,
+      "rectPx": [
+        142,
+        74,
+        352,
+        104
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-012",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 10,
+      "rectPx": [
+        141,
+        107,
+        823,
+        114
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-012",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 10,
+      "rectPx": [
+        831,
+        57,
+        980,
+        124
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-013",
+      "part": 1,
+      "note": 1,
+      "pdfPage": 10,
+      "rectPx": [
+        1016,
+        273,
+        1046,
+        535
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-013",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 11,
+      "rectPx": [
+        70,
+        210,
+        101,
+        263
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-013",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 11,
+      "rectPx": [
+        72,
+        273,
+        101,
+        535
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-013",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 11,
+      "rectPx": [
+        142,
+        74,
+        352,
+        104
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-013",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 11,
+      "rectPx": [
+        141,
+        107,
+        823,
+        114
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-013",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 11,
+      "rectPx": [
+        831,
+        57,
+        980,
+        124
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-015",
+      "part": 1,
+      "note": 1,
+      "pdfPage": 12,
+      "rectPx": [
+        1015,
+        210,
+        1046,
+        263
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-015",
+      "part": 1,
+      "note": 1,
+      "pdfPage": 12,
+      "rectPx": [
+        1016,
+        273,
+        1046,
+        535
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-016",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 13,
+      "rectPx": [
+        70,
+        210,
+        101,
+        263
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-016",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 13,
+      "rectPx": [
+        72,
+        273,
+        101,
+        535
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-016",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 13,
+      "rectPx": [
+        142,
+        74,
+        352,
+        104
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-016",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 13,
+      "rectPx": [
+        141,
+        107,
+        823,
+        114
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-016",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 13,
+      "rectPx": [
+        831,
+        57,
+        980,
+        124
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-018",
+      "part": 1,
+      "note": 1,
+      "pdfPage": 14,
+      "rectPx": [
+        1015,
+        210,
+        1046,
+        263
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-018",
+      "part": 1,
+      "note": 1,
+      "pdfPage": 14,
+      "rectPx": [
+        1016,
+        273,
+        1046,
+        535
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-019",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 15,
+      "rectPx": [
+        70,
+        210,
+        101,
+        263
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-019",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 15,
+      "rectPx": [
+        72,
+        273,
+        101,
+        535
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-019",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 15,
+      "rectPx": [
+        142,
+        74,
+        352,
+        104
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-019",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 15,
+      "rectPx": [
+        141,
+        107,
+        823,
+        114
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-019",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 15,
+      "rectPx": [
+        831,
+        57,
+        980,
+        124
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-020",
+      "part": 1,
+      "note": 1,
+      "pdfPage": 15,
+      "rectPx": [
+        72,
+        273,
+        101,
+        535
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-021",
+      "part": 1,
+      "note": 1,
+      "pdfPage": 16,
+      "rectPx": [
+        1015,
+        210,
+        1046,
+        263
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-021",
+      "part": 1,
+      "note": 1,
+      "pdfPage": 16,
+      "rectPx": [
+        1016,
+        273,
+        1046,
+        535
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-022",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 17,
+      "rectPx": [
+        70,
+        210,
+        101,
+        263
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-022",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 17,
+      "rectPx": [
+        72,
+        273,
+        101,
+        535
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-022",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 17,
+      "rectPx": [
+        142,
+        74,
+        352,
+        104
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-022",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 17,
+      "rectPx": [
+        141,
+        107,
+        823,
+        114
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-022",
+      "part": 2,
+      "note": 1,
+      "pdfPage": 17,
+      "rectPx": [
+        831,
+        57,
+        980,
+        124
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-023",
+      "part": 1,
+      "note": 1,
+      "pdfPage": 17,
+      "rectPx": [
+        72,
+        273,
+        101,
+        535
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-024",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 2,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-024",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 2,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-026",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 3,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-026",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 3,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-028",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 4,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-028",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 4,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-030",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 5,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-030",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 5,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-032",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 6,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-032",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 6,
+      "rectPx": [
+        885,
+        239,
+        912,
+        464
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-032",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 6,
+      "rectPx": [
+        885,
+        464,
+        906,
+        465
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-032",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 6,
+      "rectPx": [
+        907,
+        464,
+        912,
+        466
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-032",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 6,
+      "rectPx": [
+        889,
+        465,
+        906,
+        466
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-032",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 6,
+      "rectPx": [
+        885,
+        465,
+        886,
+        467
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-032",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 6,
+      "rectPx": [
+        891,
+        466,
+        898,
+        467
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-032",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 6,
+      "rectPx": [
+        899,
+        466,
+        912,
+        467
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-032",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 6,
+      "rectPx": [
+        890,
+        467,
+        903,
+        469
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-032",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 6,
+      "rectPx": [
+        894,
+        469,
+        897,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-032",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 6,
+      "rectPx": [
+        898,
+        469,
+        903,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-034",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 7,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-034",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 7,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-035",
+      "part": 2,
+      "note": 2,
+      "pdfPage": 8,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-035",
+      "part": 2,
+      "note": 2,
+      "pdfPage": 8,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-035",
+      "part": 2,
+      "note": 2,
+      "pdfPage": 8,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-035",
+      "part": 2,
+      "note": 2,
+      "pdfPage": 8,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-035",
+      "part": 2,
+      "note": 2,
+      "pdfPage": 8,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-037",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 9,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-037",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 9,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-039",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 10,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-039",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 10,
+      "rectPx": [
+        885,
+        239,
+        912,
+        465
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-039",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 10,
+      "rectPx": [
+        885,
+        465,
+        887,
+        466
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-039",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 10,
+      "rectPx": [
+        888,
+        465,
+        912,
+        466
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-039",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 10,
+      "rectPx": [
+        885,
+        466,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-041",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 11,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-041",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 11,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-042",
+      "part": 2,
+      "note": 2,
+      "pdfPage": 12,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-042",
+      "part": 2,
+      "note": 2,
+      "pdfPage": 12,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-042",
+      "part": 2,
+      "note": 2,
+      "pdfPage": 12,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-042",
+      "part": 2,
+      "note": 2,
+      "pdfPage": 12,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-042",
+      "part": 2,
+      "note": 2,
+      "pdfPage": 12,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-044",
+      "part": 2,
+      "note": 2,
+      "pdfPage": 13,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-044",
+      "part": 2,
+      "note": 2,
+      "pdfPage": 13,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-044",
+      "part": 2,
+      "note": 2,
+      "pdfPage": 13,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-044",
+      "part": 2,
+      "note": 2,
+      "pdfPage": 13,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-044",
+      "part": 2,
+      "note": 2,
+      "pdfPage": 13,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-046",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 14,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-046",
+      "part": 1,
+      "note": 2,
+      "pdfPage": 14,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-047",
+      "part": 1,
+      "note": 3,
+      "pdfPage": 2,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-047",
+      "part": 1,
+      "note": 3,
+      "pdfPage": 2,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-048",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 3,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-048",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 3,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-048",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 3,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-048",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 3,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-048",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 3,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-049",
+      "part": 1,
+      "note": 3,
+      "pdfPage": 3,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-050",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 4,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-050",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 4,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-050",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 4,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-050",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 4,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-050",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 4,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-052",
+      "part": 1,
+      "note": 3,
+      "pdfPage": 5,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-052",
+      "part": 1,
+      "note": 3,
+      "pdfPage": 5,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-054",
+      "part": 1,
+      "note": 3,
+      "pdfPage": 6,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-054",
+      "part": 1,
+      "note": 3,
+      "pdfPage": 6,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-055",
+      "part": 1,
+      "note": 3,
+      "pdfPage": 7,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-055",
+      "part": 1,
+      "note": 3,
+      "pdfPage": 7,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-056",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 8,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-056",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 8,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-056",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 8,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-056",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 8,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-056",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 8,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-058",
+      "part": 1,
+      "note": 3,
+      "pdfPage": 9,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-058",
+      "part": 1,
+      "note": 3,
+      "pdfPage": 9,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-059",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 10,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-059",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 10,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-059",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 10,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-059",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 10,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-059",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 10,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-061",
+      "part": 1,
+      "note": 3,
+      "pdfPage": 11,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-061",
+      "part": 1,
+      "note": 3,
+      "pdfPage": 11,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-062",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 12,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-062",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 12,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-062",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 12,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-062",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 12,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-062",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 12,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-064",
+      "part": 1,
+      "note": 3,
+      "pdfPage": 13,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-064",
+      "part": 1,
+      "note": 3,
+      "pdfPage": 13,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-065",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 14,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-065",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 14,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-065",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 14,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-065",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 14,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-065",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 14,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-067",
+      "part": 1,
+      "note": 3,
+      "pdfPage": 15,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-067",
+      "part": 1,
+      "note": 3,
+      "pdfPage": 15,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-068",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 16,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-068",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 16,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-068",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 16,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-068",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 16,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-068",
+      "part": 2,
+      "note": 3,
+      "pdfPage": 16,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-070",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 2,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-070",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 2,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-071",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 3,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-071",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 3,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-072",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 4,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-072",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 4,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-072",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 4,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-072",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 4,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-072",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 4,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-074",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 5,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-074",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 5,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-076",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 6,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-076",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 6,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-078",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 7,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-078",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 7,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-080",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 8,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-080",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 8,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-081",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 9,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-081",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 9,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-081",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 9,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-081",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 9,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-081",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 9,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-082",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 9,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-083",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 10,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-083",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 10,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-083",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 10,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-083",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 10,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-083",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 10,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-085",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 11,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-085",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 11,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-086",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 12,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-086",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 12,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-086",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 12,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-086",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 12,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-086",
+      "part": 2,
+      "note": 4,
+      "pdfPage": 12,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-088",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 13,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-088",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 13,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-090",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 14,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-090",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 14,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-090",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 14,
+      "rectPx": [
+        842,
+        489,
+        881,
+        625
+      ],
+      "kind": "embedded-brand-logo"
+    },
+    {
+      "qid": "zg-2026-092",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 15,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-092",
+      "part": 1,
+      "note": 4,
+      "pdfPage": 15,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-093",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 2,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-093",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 2,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-094",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 3,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-094",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 3,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-094",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 3,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-094",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 3,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-094",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 3,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-096",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 4,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-096",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 4,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-098",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 5,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-098",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 5,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-100",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 6,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-100",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 6,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-102",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 7,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-102",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 7,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-103",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 8,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-103",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 8,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-103",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 8,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-103",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 8,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-103",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 8,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-104",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 9,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-104",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 9,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-104",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 9,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-104",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 9,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-104",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 9,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-105",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 9,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-106",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 10,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-106",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 10,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-107",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 11,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-107",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 11,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-107",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 11,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-107",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 11,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-107",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 11,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-109",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 12,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-109",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 12,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-110",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 13,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-110",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 13,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-110",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 13,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-110",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 13,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-110",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 13,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-111",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 13,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-112",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 14,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-112",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 14,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-113",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 15,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-113",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 15,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-113",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 15,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-113",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 15,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-113",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 15,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2026-115",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 16,
+      "rectPx": [
+        884,
+        184,
+        911,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-115",
+      "part": 1,
+      "note": 5,
+      "pdfPage": 16,
+      "rectPx": [
+        885,
+        239,
+        912,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-115",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 17,
+      "rectPx": [
+        56,
+        184,
+        83,
+        231
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2026-115",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 17,
+      "rectPx": [
+        59,
+        239,
+        83,
+        470
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2026-115",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 17,
+      "rectPx": [
+        119,
+        65,
+        305,
+        92
+      ],
+      "kind": "header-free-materials-text"
+    },
+    {
+      "qid": "zg-2026-115",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 17,
+      "rectPx": [
+        118,
+        93,
+        716,
+        100
+      ],
+      "kind": "header-rule"
+    },
+    {
+      "qid": "zg-2026-115",
+      "part": 2,
+      "note": 5,
+      "pdfPage": 17,
+      "rectPx": [
+        721,
+        50,
+        853,
+        109
+      ],
+      "kind": "header-brand-logo"
+    },
+    {
+      "qid": "zg-2025-001",
+      "part": 1,
+      "note": 6,
+      "pdfPage": 2,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-001",
+      "part": 1,
+      "note": 6,
+      "pdfPage": 2,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-003",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 3,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-003",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 3,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-003",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 3,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-003",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 3,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-004",
+      "part": 1,
+      "note": 6,
+      "pdfPage": 3,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-006",
+      "part": 1,
+      "note": 6,
+      "pdfPage": 4,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-006",
+      "part": 1,
+      "note": 6,
+      "pdfPage": 4,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-006",
+      "part": 1,
+      "note": 6,
+      "pdfPage": 4,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-006",
+      "part": 1,
+      "note": 6,
+      "pdfPage": 4,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-008",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 5,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-008",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 5,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-008",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 5,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-009",
+      "part": 1,
+      "note": 6,
+      "pdfPage": 5,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-009",
+      "part": 1,
+      "note": 6,
+      "pdfPage": 5,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-011",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 6,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-011",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 6,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-011",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 6,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-011",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 6,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-012",
+      "part": 1,
+      "note": 6,
+      "pdfPage": 6,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-014",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 7,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-014",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 7,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-014",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 7,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-014",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 7,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-015",
+      "part": 1,
+      "note": 6,
+      "pdfPage": 7,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-017",
+      "part": 1,
+      "note": 6,
+      "pdfPage": 8,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-017",
+      "part": 1,
+      "note": 6,
+      "pdfPage": 8,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-017",
+      "part": 1,
+      "note": 6,
+      "pdfPage": 8,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-017",
+      "part": 1,
+      "note": 6,
+      "pdfPage": 8,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-019",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 9,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-019",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 9,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-019",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 9,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-020",
+      "part": 1,
+      "note": 6,
+      "pdfPage": 9,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-020",
+      "part": 1,
+      "note": 6,
+      "pdfPage": 9,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-022",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 10,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-022",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 10,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-022",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 10,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-022",
+      "part": 2,
+      "note": 6,
+      "pdfPage": 10,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-023",
+      "part": 1,
+      "note": 6,
+      "pdfPage": 10,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        759,
+        83,
+        822,
+        128
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        759,
+        128,
+        807,
+        129
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        808,
+        128,
+        822,
+        129
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        759,
+        129,
+        822,
+        132
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        809,
+        132,
+        822,
+        133
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        759,
+        132,
+        772,
+        134
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        774,
+        132,
+        806,
+        134
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        808,
+        133,
+        822,
+        134
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        759,
+        134,
+        762,
+        135
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        763,
+        134,
+        764,
+        135
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        765,
+        134,
+        777,
+        135
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        780,
+        134,
+        817,
+        135
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        818,
+        134,
+        822,
+        136
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        766,
+        135,
+        767,
+        136
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        774,
+        135,
+        777,
+        136
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        778,
+        135,
+        816,
+        136
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        775,
+        136,
+        815,
+        137
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        820,
+        136,
+        822,
+        137
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        776,
+        137,
+        812,
+        138
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        813,
+        137,
+        815,
+        138
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        821,
+        137,
+        822,
+        138
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        759,
+        135,
+        764,
+        139
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        777,
+        138,
+        813,
+        140
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        759,
+        139,
+        763,
+        140
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        777,
+        140,
+        808,
+        141
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        809,
+        140,
+        812,
+        141
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        759,
+        140,
+        764,
+        142
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        777,
+        141,
+        812,
+        142
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        776,
+        142,
+        811,
+        143
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        759,
+        142,
+        765,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        777,
+        143,
+        810,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        630,
+        118,
+        752,
+        128
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        700,
+        128,
+        747,
+        129
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        749,
+        128,
+        752,
+        129
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        630,
+        128,
+        696,
+        130
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        697,
+        128,
+        699,
+        130
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        700,
+        129,
+        752,
+        131
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        637,
+        130,
+        670,
+        131
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        672,
+        130,
+        686,
+        131
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        630,
+        130,
+        635,
+        132
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        688,
+        130,
+        699,
+        132
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        637,
+        131,
+        642,
+        132
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        643,
+        131,
+        669,
+        132
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        671,
+        131,
+        686,
+        132
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        715,
+        131,
+        747,
+        132
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        748,
+        131,
+        752,
+        132
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        700,
+        131,
+        714,
+        133
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        630,
+        132,
+        648,
+        133
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        649,
+        132,
+        699,
+        133
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        716,
+        132,
+        739,
+        133
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        740,
+        132,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-025",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        630,
+        133,
+        739,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-026",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 3,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-028",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 4,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-028",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 4,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-028",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 4,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-030",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 5,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-030",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 5,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-031",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 5,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-031",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 5,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-033",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 6,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-033",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 6,
+      "rectPx": [
+        90,
+        290,
+        113,
+        518
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-033",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 6,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-033",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 6,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-034",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 6,
+      "rectPx": [
+        90,
+        290,
+        113,
+        518
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-034",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 6,
+      "rectPx": [
+        90,
+        518,
+        109,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-036",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 7,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-036",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 7,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-036",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 7,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-036",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 7,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-037",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 7,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-038",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 8,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-038",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 8,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-038",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 8,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-039",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 8,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-041",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 9,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-041",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 9,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-041",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 9,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-041",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 9,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-042",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 9,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-044",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 10,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-044",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 10,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-044",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 10,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-044",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 10,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-045",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 10,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-046",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-046",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-046",
+      "part": 2,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        887,
+        290,
+        912,
+        372
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        887,
+        372,
+        895,
+        373
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        896,
+        372,
+        912,
+        373
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        887,
+        373,
+        912,
+        376
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        887,
+        376,
+        891,
+        377
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        892,
+        376,
+        912,
+        377
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        887,
+        377,
+        912,
+        379
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        887,
+        379,
+        892,
+        380
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        893,
+        379,
+        912,
+        380
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        887,
+        380,
+        893,
+        381
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        894,
+        380,
+        912,
+        381
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        891,
+        381,
+        912,
+        382
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        887,
+        381,
+        888,
+        383
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        893,
+        382,
+        912,
+        383
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        892,
+        383,
+        912,
+        385
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        890,
+        385,
+        912,
+        386
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        889,
+        386,
+        912,
+        387
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        890,
+        387,
+        912,
+        388
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        891,
+        388,
+        912,
+        390
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        887,
+        391,
+        888,
+        393
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        893,
+        390,
+        912,
+        394
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        887,
+        393,
+        889,
+        394
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        887,
+        394,
+        890,
+        395
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        887,
+        395,
+        891,
+        397
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        895,
+        394,
+        912,
+        398
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        887,
+        397,
+        892,
+        398
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-047",
+      "part": 1,
+      "note": 7,
+      "pdfPage": 11,
+      "rectPx": [
+        887,
+        398,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-049",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 3,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-049",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-049",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 3,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-049",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 3,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-050",
+      "part": 1,
+      "note": 8,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-051",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 4,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-051",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 4,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-051",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 4,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-052",
+      "part": 1,
+      "note": 8,
+      "pdfPage": 4,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-052",
+      "part": 1,
+      "note": 8,
+      "pdfPage": 4,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-054",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 5,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-054",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 5,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-054",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 5,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-054",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 5,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-055",
+      "part": 1,
+      "note": 8,
+      "pdfPage": 5,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-057",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 6,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-057",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 6,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-057",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 6,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-057",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 6,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-058",
+      "part": 1,
+      "note": 8,
+      "pdfPage": 6,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-059",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 7,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-059",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 7,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-059",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 7,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-059",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 7,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-060",
+      "part": 1,
+      "note": 8,
+      "pdfPage": 7,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-062",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 8,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-062",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 8,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-062",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 8,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-062",
+      "part": 2,
+      "note": 8,
+      "pdfPage": 8,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-063",
+      "part": 1,
+      "note": 8,
+      "pdfPage": 8,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-065",
+      "part": 1,
+      "note": 8,
+      "pdfPage": 9,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-065",
+      "part": 1,
+      "note": 8,
+      "pdfPage": 9,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-068",
+      "part": 1,
+      "note": 8,
+      "pdfPage": 10,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-068",
+      "part": 1,
+      "note": 8,
+      "pdfPage": 10,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-071",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 1,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-071",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 1,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-071",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 1,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-073",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 2,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-073",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 2,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-073",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 2,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-073",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 2,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-074",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 2,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        290,
+        113,
+        338
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        338,
+        105,
+        339
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        106,
+        338,
+        113,
+        339
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        339,
+        103,
+        340
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        104,
+        339,
+        113,
+        340
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        340,
+        113,
+        342
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        342,
+        104,
+        343
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        105,
+        342,
+        113,
+        343
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        343,
+        113,
+        347
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        347,
+        108,
+        348
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        109,
+        347,
+        110,
+        348
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        111,
+        347,
+        113,
+        348
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        348,
+        107,
+        350
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        350,
+        106,
+        351
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        112,
+        350,
+        113,
+        351
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        351,
+        107,
+        352
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        352,
+        110,
+        353
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        112,
+        352,
+        113,
+        353
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        353,
+        109,
+        354
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        110,
+        353,
+        113,
+        355
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        354,
+        108,
+        356
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        111,
+        355,
+        112,
+        356
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        356,
+        107,
+        357
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        112,
+        356,
+        113,
+        357
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        357,
+        106,
+        358
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        358,
+        107,
+        359
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        359,
+        108,
+        361
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        361,
+        106,
+        366
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        366,
+        107,
+        367
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        108,
+        366,
+        109,
+        367
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        367,
+        112,
+        368
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        368,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-076",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-077",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        368,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-078",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 4,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-078",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 4,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-078",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 4,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-079",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 4,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-079",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 4,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-081",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 5,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-081",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 5,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-081",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 5,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-081",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 5,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-082",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 5,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-084",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 6,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-084",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 6,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-084",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 6,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-084",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 6,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-085",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 6,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-087",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 7,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-087",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 7,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-089",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 8,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-089",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 8,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-089",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 8,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-089",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 8,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-090",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 8,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-092",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 9,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-092",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 9,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-092",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 9,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-092",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 9,
+      "rectPx": [
+        249,
+        118,
+        370,
+        128
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-092",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 9,
+      "rectPx": [
+        249,
+        128,
+        299,
+        129
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-092",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 9,
+      "rectPx": [
+        300,
+        128,
+        370,
+        129
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-092",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 9,
+      "rectPx": [
+        249,
+        129,
+        370,
+        131
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-092",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 9,
+      "rectPx": [
+        249,
+        131,
+        273,
+        132
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-092",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 9,
+      "rectPx": [
+        274,
+        131,
+        370,
+        132
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-092",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 9,
+      "rectPx": [
+        249,
+        132,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-093",
+      "part": 1,
+      "note": 9,
+      "pdfPage": 9,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-094",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 10,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-094",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 10,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-094",
+      "part": 2,
+      "note": 9,
+      "pdfPage": 10,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-095",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 2,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-095",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 2,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        179,
+        83,
+        240,
+        136
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        179,
+        136,
+        232,
+        137
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        234,
+        136,
+        240,
+        137
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        179,
+        137,
+        240,
+        138
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        179,
+        138,
+        238,
+        139
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        239,
+        138,
+        240,
+        139
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        179,
+        139,
+        237,
+        140
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        179,
+        140,
+        225,
+        141
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        227,
+        140,
+        233,
+        141
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        234,
+        140,
+        237,
+        141
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        228,
+        141,
+        234,
+        142
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        236,
+        141,
+        237,
+        142
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        179,
+        141,
+        224,
+        143
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        227,
+        142,
+        234,
+        143
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        179,
+        143,
+        223,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        228,
+        143,
+        233,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        249,
+        118,
+        370,
+        128
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        249,
+        128,
+        265,
+        129
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        266,
+        128,
+        312,
+        129
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        313,
+        128,
+        344,
+        129
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        346,
+        128,
+        370,
+        130
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        249,
+        129,
+        345,
+        130
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        320,
+        130,
+        358,
+        131
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        359,
+        130,
+        370,
+        131
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        249,
+        130,
+        318,
+        132
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        319,
+        131,
+        334,
+        132
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        335,
+        131,
+        336,
+        132
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        337,
+        131,
+        370,
+        132
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        249,
+        132,
+        289,
+        133
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        290,
+        132,
+        370,
+        133
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-097",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        249,
+        133,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-098",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-100",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 4,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-100",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 4,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-100",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 4,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-100",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 4,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-101",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 4,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-102",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 5,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-103",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 5,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-103",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 5,
+      "rectPx": [
+        95,
+        290,
+        113,
+        308
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-103",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 5,
+      "rectPx": [
+        94,
+        308,
+        113,
+        310
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-103",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 5,
+      "rectPx": [
+        95,
+        310,
+        113,
+        325
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-103",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 5,
+      "rectPx": [
+        94,
+        325,
+        113,
+        326
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-103",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 5,
+      "rectPx": [
+        93,
+        326,
+        113,
+        327
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-103",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 5,
+      "rectPx": [
+        92,
+        327,
+        94,
+        328
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-103",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 5,
+      "rectPx": [
+        92,
+        328,
+        93,
+        329
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-103",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 5,
+      "rectPx": [
+        95,
+        327,
+        113,
+        334
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-103",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 5,
+      "rectPx": [
+        94,
+        334,
+        113,
+        336
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-103",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 5,
+      "rectPx": [
+        95,
+        336,
+        113,
+        339
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-103",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 5,
+      "rectPx": [
+        94,
+        339,
+        113,
+        341
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-103",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 5,
+      "rectPx": [
+        93,
+        341,
+        113,
+        342
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-103",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 5,
+      "rectPx": [
+        93,
+        342,
+        94,
+        343
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-103",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 5,
+      "rectPx": [
+        92,
+        343,
+        93,
+        345
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-103",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 5,
+      "rectPx": [
+        95,
+        342,
+        113,
+        346
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-103",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 5,
+      "rectPx": [
+        90,
+        346,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-105",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 6,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-105",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 6,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-105",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 6,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-105",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 6,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-106",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 6,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-108",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 7,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-108",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 7,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-108",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 7,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-108",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 7,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-109",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 7,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-111",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 8,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-111",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 8,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-113",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 9,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-113",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 9,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-113",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 9,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-113",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 9,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-114",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 9,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-116",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 10,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-116",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 10,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-116",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 10,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-116",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 10,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-117",
+      "part": 1,
+      "note": 10,
+      "pdfPage": 10,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-118",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 11,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-118",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 11,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-118",
+      "part": 2,
+      "note": 10,
+      "pdfPage": 11,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-119",
+      "part": 1,
+      "note": 11,
+      "pdfPage": 2,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-119",
+      "part": 1,
+      "note": 11,
+      "pdfPage": 2,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-121",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 3,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-121",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 3,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-121",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 3,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-121",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 3,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-122",
+      "part": 1,
+      "note": 11,
+      "pdfPage": 3,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-123",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 4,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-123",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 4,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-124",
+      "part": 1,
+      "note": 11,
+      "pdfPage": 4,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-124",
+      "part": 1,
+      "note": 11,
+      "pdfPage": 4,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-126",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 5,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-126",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 5,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-126",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 5,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-126",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 5,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-127",
+      "part": 1,
+      "note": 11,
+      "pdfPage": 5,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-129",
+      "part": 1,
+      "note": 11,
+      "pdfPage": 6,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-129",
+      "part": 1,
+      "note": 11,
+      "pdfPage": 6,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-129",
+      "part": 1,
+      "note": 11,
+      "pdfPage": 6,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-129",
+      "part": 1,
+      "note": 11,
+      "pdfPage": 6,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-131",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 7,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-131",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 7,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-131",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 7,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-131",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 7,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-132",
+      "part": 1,
+      "note": 11,
+      "pdfPage": 7,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-134",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 8,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-134",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 8,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-134",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 8,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-134",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 8,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-135",
+      "part": 1,
+      "note": 11,
+      "pdfPage": 8,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-137",
+      "part": 1,
+      "note": 11,
+      "pdfPage": 9,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-137",
+      "part": 1,
+      "note": 11,
+      "pdfPage": 9,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        179,
+        83,
+        240,
+        131
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        179,
+        131,
+        182,
+        132
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        183,
+        131,
+        240,
+        132
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        179,
+        132,
+        240,
+        134
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        179,
+        134,
+        213,
+        135
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        222,
+        134,
+        240,
+        135
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        214,
+        134,
+        219,
+        136
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        179,
+        135,
+        182,
+        136
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        184,
+        135,
+        202,
+        136
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        204,
+        135,
+        213,
+        136
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        220,
+        135,
+        240,
+        136
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        179,
+        136,
+        191,
+        137
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        192,
+        136,
+        202,
+        137
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        204,
+        136,
+        229,
+        137
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        230,
+        136,
+        240,
+        137
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        184,
+        137,
+        191,
+        138
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        193,
+        137,
+        196,
+        138
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        204,
+        137,
+        240,
+        138
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        185,
+        138,
+        191,
+        139
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        206,
+        138,
+        208,
+        139
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        209,
+        138,
+        225,
+        139
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        227,
+        138,
+        230,
+        139
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        232,
+        138,
+        240,
+        140
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        210,
+        139,
+        219,
+        140
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        220,
+        139,
+        224,
+        140
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        229,
+        139,
+        231,
+        140
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        212,
+        140,
+        224,
+        141
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        229,
+        140,
+        233,
+        141
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        235,
+        140,
+        239,
+        141
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        213,
+        141,
+        219,
+        142
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        220,
+        141,
+        224,
+        142
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        230,
+        141,
+        231,
+        142
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        237,
+        141,
+        239,
+        142
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        214,
+        142,
+        217,
+        143
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        223,
+        142,
+        224,
+        143
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        236,
+        142,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        222,
+        143,
+        224,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        249,
+        118,
+        370,
+        131
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        249,
+        131,
+        251,
+        132
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        252,
+        131,
+        370,
+        132
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        249,
+        132,
+        283,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-139",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        284,
+        132,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-140",
+      "part": 1,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-140",
+      "part": 1,
+      "note": 11,
+      "pdfPage": 10,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-142",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 11,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-142",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 11,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-142",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 11,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-142",
+      "part": 2,
+      "note": 11,
+      "pdfPage": 11,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-143",
+      "part": 1,
+      "note": 12,
+      "pdfPage": 2,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-145",
+      "part": 1,
+      "note": 12,
+      "pdfPage": 3,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-145",
+      "part": 1,
+      "note": 12,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        290,
+        113,
+        442
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-145",
+      "part": 1,
+      "note": 12,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        442,
+        112,
+        443
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-145",
+      "part": 1,
+      "note": 12,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        443,
+        113,
+        447
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-145",
+      "part": 1,
+      "note": 12,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        447,
+        112,
+        451
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-145",
+      "part": 1,
+      "note": 12,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        451,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-146",
+      "part": 1,
+      "note": 12,
+      "pdfPage": 3,
+      "rectPx": [
+        90,
+        451,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-147",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 4,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-147",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 4,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-147",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 4,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-147",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 4,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-148",
+      "part": 1,
+      "note": 12,
+      "pdfPage": 4,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-150",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 5,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-150",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 5,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-150",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 5,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-150",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 5,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-151",
+      "part": 1,
+      "note": 12,
+      "pdfPage": 5,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-152",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 6,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-152",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 6,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-152",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 6,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-152",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 6,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-153",
+      "part": 1,
+      "note": 12,
+      "pdfPage": 6,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-155",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 7,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-155",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 7,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-155",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 7,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-155",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 7,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-156",
+      "part": 1,
+      "note": 12,
+      "pdfPage": 7,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-158",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 8,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-158",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 8,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-158",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 8,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-158",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 8,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-160",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 9,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-160",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 9,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-160",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 9,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-161",
+      "part": 1,
+      "note": 12,
+      "pdfPage": 9,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-161",
+      "part": 1,
+      "note": 12,
+      "pdfPage": 9,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-163",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 10,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-163",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 10,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-163",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 10,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-163",
+      "part": 2,
+      "note": 12,
+      "pdfPage": 10,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-164",
+      "part": 1,
+      "note": 12,
+      "pdfPage": 10,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-166",
+      "part": 1,
+      "note": 12,
+      "pdfPage": 11,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-166",
+      "part": 1,
+      "note": 12,
+      "pdfPage": 11,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-166",
+      "part": 1,
+      "note": 12,
+      "pdfPage": 11,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-166",
+      "part": 1,
+      "note": 12,
+      "pdfPage": 11,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-168",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 3,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-168",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 3,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-168",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 3,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-168",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 3,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-169",
+      "part": 1,
+      "note": 13,
+      "pdfPage": 3,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-171",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 4,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-171",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 4,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-171",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 4,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-171",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 4,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-173",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 5,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-173",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 5,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-173",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 5,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-173",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 5,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-174",
+      "part": 1,
+      "note": 13,
+      "pdfPage": 5,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-176",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 6,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-176",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 6,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-176",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 6,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-176",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 6,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-177",
+      "part": 1,
+      "note": 13,
+      "pdfPage": 6,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-178",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 7,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-178",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 7,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-178",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 7,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-179",
+      "part": 1,
+      "note": 13,
+      "pdfPage": 7,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-179",
+      "part": 1,
+      "note": 13,
+      "pdfPage": 7,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-181",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 8,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-181",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 8,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-181",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 8,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-181",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 8,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-182",
+      "part": 1,
+      "note": 13,
+      "pdfPage": 8,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-184",
+      "part": 1,
+      "note": 13,
+      "pdfPage": 9,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-184",
+      "part": 1,
+      "note": 13,
+      "pdfPage": 9,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-186",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 10,
+      "rectPx": [
+        83,
+        221,
+        118,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-186",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 10,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-186",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 10,
+      "rectPx": [
+        179,
+        83,
+        240,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-186",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 10,
+      "rectPx": [
+        249,
+        118,
+        370,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    },
+    {
+      "qid": "zg-2025-187",
+      "part": 1,
+      "note": 13,
+      "pdfPage": 10,
+      "rectPx": [
+        90,
+        290,
+        113,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-189",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 11,
+      "rectPx": [
+        881,
+        221,
+        916,
+        283
+      ],
+      "kind": "side-brand-logo"
+    },
+    {
+      "qid": "zg-2025-189",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 11,
+      "rectPx": [
+        887,
+        290,
+        912,
+        521
+      ],
+      "kind": "vertical-brand-slogan"
+    },
+    {
+      "qid": "zg-2025-189",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 11,
+      "rectPx": [
+        759,
+        83,
+        822,
+        144
+      ],
+      "kind": "course-materials-qr"
+    },
+    {
+      "qid": "zg-2025-189",
+      "part": 2,
+      "note": 13,
+      "pdfPage": 11,
+      "rectPx": [
+        630,
+        118,
+        752,
+        134
+      ],
+      "kind": "course-materials-qr-caption"
+    }
+  ],
+  "evidence": {
+    "answerPlanSha256": "73b69586e9aa958f7e146cef9ba71aee026d3f11537ad79263111818d5757fac",
+    "finalReviewer": "root",
+    "independentCheckerPassed": true,
+    "reviewFile": "root-final-ad-review.json"
+  }
+}

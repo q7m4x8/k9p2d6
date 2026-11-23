@@ -191,7 +191,7 @@ test('image failures offer a retry in the same figure and never fall back to a p
   h.fire('click', { target: retry })
   assert.equal(image.hidden, false)
   assert.equal(error.hidden, true)
-  assert.match(image.src, /^\.\/data\/zhanggong\/answers\/zg-2026-001-02\.webp\?retry=\d+$/)
+  assert.match(image.src, /^\.\/data\/zhanggong\/answers\/zg-2026-001-02\.webp\?v=20261123-9&retry=\d+$/)
   h.fire('error', { target: image })
   assert.equal(error.hidden, false)
   assert(!h.renderQuiz().includes('此处不应显示自动政治解析'))
@@ -210,7 +210,7 @@ test('retry actions cannot reveal answer images before submission but can retry 
   h.fire('error', { target: question.image })
   assert.equal(question.error.hidden, false)
   h.fire('click', { target: question.retry })
-  assert.match(question.image.src, /^\.\/data\/zhanggong\/questions\/zg-2026-001-00\.webp\?retry=\d+$/)
+  assert.match(question.image.src, /^\.\/data\/zhanggong\/questions\/zg-2026-001-00\.webp\?v=20261123-9&retry=\d+$/)
   assert.equal(question.error.hidden, true)
 })
 

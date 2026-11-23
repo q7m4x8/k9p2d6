@@ -13,6 +13,12 @@ assert.equal(hash(original), '3d6c5a303810092b5f284d0c57dec487ac553de528777bec53
 const base = read(original)
 const bank = read(path.join(root, 'questions.json'))
 const audit = read(path.join(root, 'source-audit.json'))
+const adRemoval = read(path.join(root, 'ad-removal.json'))
+assert.equal(bank.version, '20261123-9')
+assert.equal(adRemoval.coordinateSystem, 'source-page-pixels')
+assert.equal(adRemoval.approved, true)
+assert(adRemoval.answerEntries.length > 0)
+assert.equal(adRemoval.questionEntries.length, 0, 'Clean question crops were independently verified outside all advertising areas')
 assert.equal(audit.sourceFiles.length, 14)
 assert.equal(new Set(audit.sourceFiles.map(file => file.file)).size, 14)
 assert(audit.sourceFiles.every(file => file.bytes > 0 && /^[a-f0-9]{64}$/.test(file.sha256)))
@@ -36,6 +42,17 @@ for (const [year, expected] of [[2026, 115], [2025, 189]]) {
 }
 const assetReferences = new Set()
 const audited = new Map(audit.questions.map(q => [q.id, q]))
+for (const entry of adRemoval.answerEntries) {
+  const source = audited.get(entry.qid)
+  assert(source, entry.qid)
+  assert(Number.isInteger(entry.part) && entry.part >= 1 && entry.part <= source.answerCrops.length)
+  const crop = source.answerCrops[entry.part - 1]
+  assert.equal(entry.pdfPage, crop.pdfPage)
+  assert.equal(entry.note, crop.note)
+  assert.equal(entry.rectPx.length, 4)
+  assert(entry.rectPx.every(Number.isInteger))
+  assert(entry.rectPx[0] >= 0 && entry.rectPx[1] >= 0 && entry.rectPx[2] <= crop.pageWidthPx && entry.rectPx[3] <= crop.pageHeightPx)
+}
 for (const [i, q] of bank.questions.entries()) {
   const source = audited.get(q.id)
   assert(source, q.id)
@@ -54,6 +71,7 @@ for (const [i, q] of bank.questions.entries()) {
   assetReferences.add(`questions/${q.questionImage.file}`)
   assert(q.referenceImages.length > 0)
   assert.equal(q.referenceImages.length, source.answerCrops.length)
+  assert(source.answerCrops.every(crop => Array.isArray(crop.advertisingRemoved)))
   for (const image of q.referenceImages) {
     assert(/^[a-zA-Z0-9_-]+\.webp$/.test(image.file))
     assert(image.width > 0 && image.height > 0 && image.page > 0)
@@ -79,4 +97,4 @@ assert.equal(new Set(combined.questions.map(q => q.id)).size, 1404)
 assert.deepEqual(combined.questions.slice(0, 1100), base.questions)
 assert.throws(() => merge([base, base]), /重复/)
 assert.throws(() => merge([{ albums: [], questions: [{ id: 'orphan', album: 'missing' }] }]), /所属/)
-console.log(JSON.stringify({ verifiedQuestions: 304, papers: 16, completePapers: 15, finalPaper: 4, assets: assetReferences.size, originalFiles: 14, disclosedSourceConflicts: 1, mergedQuestions: 1404, legacyBankUnchanged: true }))
+console.log(JSON.stringify({ verifiedQuestions: 304, papers: 16, completePapers: 15, finalPaper: 4, assets: assetReferences.size, originalFiles: 14, disclosedSourceConflicts: 1, reviewedAdExclusions: adRemoval.answerEntries.length, mergedQuestions: 1404, legacyBankUnchanged: true }))
