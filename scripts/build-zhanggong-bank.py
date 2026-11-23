@@ -19,6 +19,14 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def question_placements(coordinates):
+    # Facing source pages differ by 70 px. Retain each crop's indentation
+    # relative to that page's text column, including option-only continuations.
+    normalized = [item['bbox'][0] - (293 if item['page'] % 2 == 0 else 363) for item in coordinates]
+    left = min(normalized)
+    return [x - left for x in normalized]
+
+
 def remove_advertising(image, entries, crop_box, page_size):
     applied = []
     draw = ImageDraw.Draw(image)
@@ -76,12 +84,15 @@ def main():
                 question_ads.append(applied)
         assert parts, qid
         # Preserve source pixel scale, even when a continuation contains only options.
-        width = max(image.width for image in parts)
+        offsets = question_placements(row['source']['pageCoordinates'])
+        width = max(offset + image.width for offset, image in zip(offsets, parts))
         height = sum(image.height for image in parts) + 16 * (len(parts) - 1)
         merged = Image.new('RGB', (width, height), 'white')
         top = 0
-        for image in parts:
-            merged.paste(image, (0, top))
+        placements = []
+        for offset, image in zip(offsets, parts):
+            merged.paste(image, (offset, top))
+            placements.append({'pasteX': offset, 'pasteY': top})
             top += image.height + 16
         filename = qid + '.webp'
         question_destination = args.output / 'questions' / filename
@@ -125,7 +136,7 @@ def main():
         audit = {
             'id': qid, 'year': year, 'number': original,
             'answerLetter': question['answerLetter'], 'answerSource': answer['answerSource'],
-            'questionCrops': [{key: value for key, value in item.items() if key != 'sourceRows'} | {'advertisingRemoved': question_ads[index]} for index, item in enumerate(row['source']['pageCoordinates'])],
+            'questionCrops': [{key: value for key, value in item.items() if key != 'sourceRows'} | {'advertisingRemoved': question_ads[index], 'columnLeft': 293 if item['page'] % 2 == 0 else 363, **placements[index]} for index, item in enumerate(row['source']['pageCoordinates'])],
             'answerCrops': answer_audit,
             'sourceNotice': answer.get('sourceNotice', '')
         }
@@ -136,8 +147,8 @@ def main():
     questions = [item[0] for item in built]
     assert [item['number'] for item in questions] == list(range(1, 305))
     papers = [{'id': f'zg-{i:02d}', 'name': f'第{i:02d}套', 'count': sum(q['paper'] == f'第{i:02d}套' for q in questions)} for i in range(1, 17)]
-    album = {'id': 'zhanggong', 'source': '张弓', 'title': '张弓选词大典', 'subtitle': '每套20题，交卷查看老师原版批注；最后一套4题', 'accent': '#2878e8', 'referenceMode': 'original-annotated', 'papers': papers, 'count': 304}
-    bank = {'appName': '小天爱刷题', 'version': '20261123-9', 'albums': [album], 'questions': questions, 'stats': {'questionCount': 304, 'paperCount': 16, 'albumCount': 1}}
+    album = {'id': 'zhanggong', 'source': '张弓', 'title': '张弓选词大典', 'subtitle': '2026年115题＋2025年189题；每套20题，末套4题', 'accent': '#2878e8', 'referenceMode': 'original-annotated', 'papers': papers, 'count': 304}
+    bank = {'appName': '小天爱刷题', 'version': '20261123-10', 'albums': [album], 'questions': questions, 'stats': {'questionCount': 304, 'paperCount': 16, 'albumCount': 1}}
     (args.output / 'questions.json').write_text(json.dumps(bank, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
     sources = [{'file': file.name, 'bytes': file.stat().st_size, 'sha256': digest(file)} for file in sorted(args.source_root.glob('*.pdf'))]
     assert len(sources) == 14
@@ -145,6 +156,8 @@ def main():
     manifest = {'book': album['title'], 'sourceFiles': sources, 'answerKey': {str(year): ''.join(independent[str(year)]) for year in [2026, 2025]}, 'policy': 'Original question and annotated answer images, with reviewed promotional QR codes and branding removed from published copies. Source PDFs and crops remain intact. OCR is excluded from production content. Printed answer tables were independently transcribed twice; a source discrepancy is disclosed on the affected question.', 'questions': [item[1] for item in built], 'assets': assets}
     (args.output / 'ad-removal.json').write_text(json.dumps(ad_plan, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     (args.output / 'source-audit.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    alignment_audit = read_json(args.work / 'alignment-audit.json')
+    (args.output / 'alignment-audit.json').write_text(json.dumps(alignment_audit, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     print(json.dumps({'questions': len(questions), 'papers': len(papers), 'questionImages': len(questions), 'answerImages': sum(len(q['referenceImages']) for q in questions), 'assetBytes': sum(item['bytes'] for item in assets), 'sourceFiles': len(sources)}, ensure_ascii=False))
 
 

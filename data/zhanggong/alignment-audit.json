@@ -1,0 +1,7546 @@
+{
+  "scope": "Read-only audit; no repository or source crop changes",
+  "questions": 304,
+  "crossPageQuestions": 93,
+  "fragments": 397,
+  "pagesAudited": 116,
+  "optionFirstLines": 1216,
+  "optionAnchorExceptions": [],
+  "bodyAnchorRule": {
+    "evenPage": 293,
+    "oddPage": 363,
+    "basis": "Every option glyph left position shifts exactly +70px from even to odd pages (382/383 to452/453). Per-glyph body ink bearings vary 1-4px; do not estimate page layout independently from each trimmed fragment."
+  },
+  "formula": {
+    "normalizedX": "crop.bbox[0] - bodyLeft(page)",
+    "commonLeft": "minimum normalizedX for all parts of the question",
+    "pasteX": "normalizedX - commonLeft",
+    "canvasWidth": "maximum(pasteX + original crop width)",
+    "scale": "Preserve source pixel scale, original fragment order and vertical white gap."
+  },
+  "affectedQuestions": 79,
+  "oldSpreadOver3": 32,
+  "newSpreadOver1": 0,
+  "maxNewLabelLeftSpread": 1,
+  "spotChecks": [
+    "zg-2026-013",
+    "zg-2025-189",
+    "zg-2026-013",
+    "zg-2026-018",
+    "zg-2026-023",
+    "zg-2026-026",
+    "zg-2026-034",
+    "zg-2026-042"
+  ],
+  "pages": [
+    {
+      "page": 6,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 8
+    },
+    {
+      "page": 7,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 8,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 8
+    },
+    {
+      "page": 9,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 10,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 11,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 9
+    },
+    {
+      "page": 12,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 9
+    },
+    {
+      "page": 13,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 14,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 15,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 16,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 17,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 18,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 19,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 20,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 21,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 9
+    },
+    {
+      "page": 22,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 23,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 24,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 25,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 9
+    },
+    {
+      "page": 26,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 27,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 28,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 8
+    },
+    {
+      "page": 29,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 30,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 8
+    },
+    {
+      "page": 31,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 32,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 33,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 34,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 35,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 36,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 37,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 38,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 39,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 9
+    },
+    {
+      "page": 40,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 41,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 42,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 43,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 44,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 45,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 46,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 8
+    },
+    {
+      "page": 47,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 48,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 49,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 9
+    },
+    {
+      "page": 51,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 8
+    },
+    {
+      "page": 52,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 53,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 54,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 55,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 56,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 57,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 58,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 59,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 60,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 61,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 62,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 9
+    },
+    {
+      "page": 63,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 364,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 64,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 9
+    },
+    {
+      "page": 65,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 66,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 67,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 68,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 9
+    },
+    {
+      "page": 69,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 70,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 71,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 72,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 8
+    },
+    {
+      "page": 73,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 74,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 75,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 76,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 77,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 8
+    },
+    {
+      "page": 78,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 79,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 80,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 9
+    },
+    {
+      "page": 81,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 82,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 83,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 8
+    },
+    {
+      "page": 84,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 85,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 86,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 87,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 88,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 89,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 9
+    },
+    {
+      "page": 90,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 91,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 92,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 8
+    },
+    {
+      "page": 93,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 94,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 95,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 9
+    },
+    {
+      "page": 96,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 97,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 9
+    },
+    {
+      "page": 98,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 99,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 8
+    },
+    {
+      "page": 100,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 101,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 102,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 103,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 104,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 105,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 9
+    },
+    {
+      "page": 106,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 107,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 9
+    },
+    {
+      "page": 108,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 109,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 110,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 111,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 112,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 113,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 9
+    },
+    {
+      "page": 114,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 115,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 9
+    },
+    {
+      "page": 116,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 11
+    },
+    {
+      "page": 117,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 118,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 10
+    },
+    {
+      "page": 119,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 120,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 8
+    },
+    {
+      "page": 121,
+      "bodyLeft": 363,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 363,
+      "observedOptionLeftRange": [
+        452,
+        453
+      ],
+      "optionCount": 12
+    },
+    {
+      "page": 122,
+      "bodyLeft": 293,
+      "relativeOddEvenShift": 70,
+      "minObservedBodyLineLeft": 293,
+      "observedOptionLeftRange": [
+        382,
+        383
+      ],
+      "optionCount": 4
+    }
+  ],
+  "crossPageCases": [
+    {
+      "id": "zg-2026-003",
+      "year": 2026,
+      "number": 3,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 6,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            2421,
+            1849,
+            2760
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 339
+        },
+        {
+          "part": 2,
+          "page": 7,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            353,
+            350,
+            1086,
+            869
+          ],
+          "pasteX": 4,
+          "width": 733,
+          "height": 519
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 7,
+          "oldX": 99,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 7,
+          "oldX": 100,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 7,
+          "oldX": 100,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 7,
+          "oldX": 100,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-008",
+      "year": 2026,
+      "number": 8,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1572,
+      "newCanvasWidth": 1572,
+      "placements": [
+        {
+          "part": 1,
+          "page": 8,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            2330,
+            1851,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1572,
+          "height": 429
+        },
+        {
+          "part": 2,
+          "page": 9,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            1173,
+            778
+          ],
+          "pasteX": 90,
+          "width": 734,
+          "height": 428
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 9,
+          "oldX": 13,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 9,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 9,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 9,
+          "oldX": 14,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-011",
+      "year": 2026,
+      "number": 11,
+      "changed": true,
+      "commonLeft": -15,
+      "oldCanvasWidth": 1567,
+      "newCanvasWidth": 1572,
+      "placements": [
+        {
+          "part": 1,
+          "page": 9,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            353,
+            2600,
+            1920,
+            2760
+          ],
+          "pasteX": 5,
+          "width": 1567,
+          "height": 160
+        },
+        {
+          "part": 2,
+          "page": 10,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            278,
+            350,
+            1825,
+            1049
+          ],
+          "pasteX": 0,
+          "width": 1547,
+          "height": 699
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 10,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "B",
+          "page": 10,
+          "oldX": 105,
+          "newX": 105
+        },
+        {
+          "label": "C",
+          "page": 10,
+          "oldX": 105,
+          "newX": 105
+        },
+        {
+          "label": "D",
+          "page": 10,
+          "oldX": 105,
+          "newX": 105
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-013",
+      "year": 2026,
+      "number": 13,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1569,
+      "newCanvasWidth": 1569,
+      "placements": [
+        {
+          "part": 1,
+          "page": 10,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            2060,
+            1849,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 699
+        },
+        {
+          "part": 2,
+          "page": 11,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            817,
+            419
+          ],
+          "pasteX": 89,
+          "width": 378,
+          "height": 69
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 10,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 10,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 10,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 11,
+          "oldX": 14,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 89,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-016",
+      "year": 2026,
+      "number": 16,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 11,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            2510,
+            1920,
+            2759
+          ],
+          "pasteX": 1,
+          "width": 1570,
+          "height": 249
+        },
+        {
+          "part": 2,
+          "page": 12,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            350,
+            1850,
+            1049
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 699
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 12,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 12,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 12,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 12,
+          "oldX": 104,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-018",
+      "year": 2026,
+      "number": 18,
+      "changed": true,
+      "commonLeft": -15,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 12,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            278,
+            2150,
+            1849,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 609
+        },
+        {
+          "part": 2,
+          "page": 13,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            730,
+            599
+          ],
+          "pasteX": 91,
+          "width": 291,
+          "height": 249
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 12,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "B",
+          "page": 13,
+          "oldX": 14,
+          "newX": 105
+        },
+        {
+          "label": "C",
+          "page": 13,
+          "oldX": 14,
+          "newX": 105
+        },
+        {
+          "label": "D",
+          "page": 13,
+          "oldX": 14,
+          "newX": 105
+        }
+      ],
+      "oldLabelLeftSpread": 90,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-021",
+      "year": 2026,
+      "number": 21,
+      "changed": false,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1568,
+      "newCanvasWidth": 1568,
+      "placements": [
+        {
+          "part": 1,
+          "page": 13,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            2600,
+            1918,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1568,
+          "height": 159
+        },
+        {
+          "part": 2,
+          "page": 14,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            350,
+            1848,
+            959
+          ],
+          "pasteX": 0,
+          "width": 1568,
+          "height": 609
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 14,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 14,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 14,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 14,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-023",
+      "year": 2026,
+      "number": 23,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 14,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            1970,
+            1850,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 789
+        },
+        {
+          "part": 2,
+          "page": 15,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            353,
+            860,
+            421
+          ],
+          "pasteX": 90,
+          "width": 421,
+          "height": 68
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 14,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 14,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 14,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 15,
+          "oldX": 14,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 90,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-026",
+      "year": 2026,
+      "number": 26,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 15,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            349,
+            2242,
+            1919,
+            2761
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 519
+        },
+        {
+          "part": 2,
+          "page": 16,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            369,
+            350,
+            1050,
+            599
+          ],
+          "pasteX": 90,
+          "width": 681,
+          "height": 249
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 15,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 16,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 16,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 16,
+          "oldX": 14,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 89,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-029",
+      "year": 2026,
+      "number": 29,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 16,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            2420,
+            1851,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 339
+        },
+        {
+          "part": 2,
+          "page": 17,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            1173,
+            779
+          ],
+          "pasteX": 89,
+          "width": 734,
+          "height": 429
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 17,
+          "oldX": 13,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 17,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 17,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 17,
+          "oldX": 14,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-032",
+      "year": 2026,
+      "number": 32,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 17,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            2690,
+            1914,
+            2759
+          ],
+          "pasteX": 89,
+          "width": 1475,
+          "height": 69
+        },
+        {
+          "part": 2,
+          "page": 18,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            350,
+            1850,
+            1139
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 789
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 18,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 18,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 18,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 18,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-034",
+      "year": 2026,
+      "number": 34,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 18,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            2240,
+            1849,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 519
+        },
+        {
+          "part": 2,
+          "page": 19,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            773,
+            509
+          ],
+          "pasteX": 90,
+          "width": 334,
+          "height": 159
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 18,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 18,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 19,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 19,
+          "oldX": 14,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 90,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-037",
+      "year": 2026,
+      "number": 37,
+      "changed": false,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1569,
+      "newCanvasWidth": 1569,
+      "placements": [
+        {
+          "part": 1,
+          "page": 19,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            2420,
+            1919,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 339
+        },
+        {
+          "part": 2,
+          "page": 20,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            350,
+            1103,
+            869
+          ],
+          "pasteX": 0,
+          "width": 823,
+          "height": 519
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 20,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 20,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 20,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 20,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-042",
+      "year": 2026,
+      "number": 42,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1573,
+      "newCanvasWidth": 1573,
+      "placements": [
+        {
+          "part": 1,
+          "page": 21,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            349,
+            2240,
+            1922,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1573,
+          "height": 519
+        },
+        {
+          "part": 2,
+          "page": 22,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            369,
+            350,
+            833,
+            599
+          ],
+          "pasteX": 90,
+          "width": 464,
+          "height": 249
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 21,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 22,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 22,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 22,
+          "oldX": 14,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 89,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-045",
+      "year": 2026,
+      "number": 45,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 22,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            2510,
+            1849,
+            2760
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 250
+        },
+        {
+          "part": 2,
+          "page": 23,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            350,
+            1466,
+            869
+          ],
+          "pasteX": 1,
+          "width": 1116,
+          "height": 519
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 23,
+          "oldX": 102,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 23,
+          "oldX": 103,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 23,
+          "oldX": 103,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 23,
+          "oldX": 103,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-050",
+      "year": 2026,
+      "number": 50,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1569,
+      "newCanvasWidth": 1569,
+      "placements": [
+        {
+          "part": 1,
+          "page": 24,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            2060,
+            1849,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 699
+        },
+        {
+          "part": 2,
+          "page": 25,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            947,
+            419
+          ],
+          "pasteX": 89,
+          "width": 508,
+          "height": 69
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 24,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 24,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 24,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 25,
+          "oldX": 14,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 89,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-053",
+      "year": 2026,
+      "number": 53,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1573,
+      "newCanvasWidth": 1573,
+      "placements": [
+        {
+          "part": 1,
+          "page": 25,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            349,
+            2240,
+            1922,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1573,
+          "height": 519
+        },
+        {
+          "part": 2,
+          "page": 26,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            368,
+            350,
+            790,
+            689
+          ],
+          "pasteX": 89,
+          "width": 422,
+          "height": 339
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 26,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 26,
+          "oldX": 15,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 26,
+          "oldX": 15,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 26,
+          "oldX": 15,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-056",
+      "year": 2026,
+      "number": 56,
+      "changed": true,
+      "commonLeft": -15,
+      "oldCanvasWidth": 1572,
+      "newCanvasWidth": 1572,
+      "placements": [
+        {
+          "part": 1,
+          "page": 26,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            278,
+            2600,
+            1850,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1572,
+          "height": 159
+        },
+        {
+          "part": 2,
+          "page": 27,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            350,
+            1919,
+            959
+          ],
+          "pasteX": 2,
+          "width": 1569,
+          "height": 609
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 27,
+          "oldX": 102,
+          "newX": 104
+        },
+        {
+          "label": "B",
+          "page": 27,
+          "oldX": 103,
+          "newX": 105
+        },
+        {
+          "label": "C",
+          "page": 27,
+          "oldX": 103,
+          "newX": 105
+        },
+        {
+          "label": "D",
+          "page": 27,
+          "oldX": 103,
+          "newX": 105
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-061",
+      "year": 2026,
+      "number": 61,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1572,
+      "newCanvasWidth": 1572,
+      "placements": [
+        {
+          "part": 1,
+          "page": 28,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            2240,
+            1851,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1572,
+          "height": 519
+        },
+        {
+          "part": 2,
+          "page": 29,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            948,
+            689
+          ],
+          "pasteX": 90,
+          "width": 509,
+          "height": 339
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 29,
+          "oldX": 13,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 29,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 29,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 29,
+          "oldX": 14,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-064",
+      "year": 2026,
+      "number": 64,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 29,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            359,
+            2600,
+            1919,
+            2759
+          ],
+          "pasteX": 9,
+          "width": 1560,
+          "height": 159
+        },
+        {
+          "part": 2,
+          "page": 30,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            350,
+            1850,
+            958
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 608
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 30,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 30,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 30,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 30,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-066",
+      "year": 2026,
+      "number": 66,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 30,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            2330,
+            1850,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 429
+        },
+        {
+          "part": 2,
+          "page": 31,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            817,
+            688
+          ],
+          "pasteX": 90,
+          "width": 378,
+          "height": 338
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 31,
+          "oldX": 13,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 31,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 31,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 31,
+          "oldX": 14,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-069",
+      "year": 2026,
+      "number": 69,
+      "changed": true,
+      "commonLeft": -15,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1572,
+      "placements": [
+        {
+          "part": 1,
+          "page": 31,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            349,
+            2600,
+            1920,
+            2759
+          ],
+          "pasteX": 1,
+          "width": 1571,
+          "height": 159
+        },
+        {
+          "part": 2,
+          "page": 32,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            278,
+            350,
+            1846,
+            1049
+          ],
+          "pasteX": 0,
+          "width": 1568,
+          "height": 699
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 32,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "B",
+          "page": 32,
+          "oldX": 105,
+          "newX": 105
+        },
+        {
+          "label": "C",
+          "page": 32,
+          "oldX": 105,
+          "newX": 105
+        },
+        {
+          "label": "D",
+          "page": 32,
+          "oldX": 105,
+          "newX": 105
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-071",
+      "year": 2026,
+      "number": 71,
+      "changed": true,
+      "commonLeft": -15,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 32,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            278,
+            2060,
+            1849,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 699
+        },
+        {
+          "part": 2,
+          "page": 33,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            904,
+            509
+          ],
+          "pasteX": 91,
+          "width": 465,
+          "height": 159
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 32,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "B",
+          "page": 32,
+          "oldX": 105,
+          "newX": 105
+        },
+        {
+          "label": "C",
+          "page": 33,
+          "oldX": 14,
+          "newX": 105
+        },
+        {
+          "label": "D",
+          "page": 33,
+          "oldX": 14,
+          "newX": 105
+        }
+      ],
+      "oldLabelLeftSpread": 91,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-074",
+      "year": 2026,
+      "number": 74,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 33,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            2600,
+            1920,
+            2760
+          ],
+          "pasteX": 1,
+          "width": 1570,
+          "height": 160
+        },
+        {
+          "part": 2,
+          "page": 34,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            350,
+            1850,
+            958
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 608
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 34,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 34,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 34,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 34,
+          "oldX": 104,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-082",
+      "year": 2026,
+      "number": 82,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 36,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            2150,
+            1850,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 609
+        },
+        {
+          "part": 2,
+          "page": 37,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            731,
+            509
+          ],
+          "pasteX": 90,
+          "width": 292,
+          "height": 159
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 36,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 36,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 37,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 37,
+          "oldX": 14,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 90,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-085",
+      "year": 2026,
+      "number": 85,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 37,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            2420,
+            1920,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 339
+        },
+        {
+          "part": 2,
+          "page": 38,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            281,
+            350,
+            1754,
+            869
+          ],
+          "pasteX": 1,
+          "width": 1473,
+          "height": 519
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 38,
+          "oldX": 101,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 38,
+          "oldX": 102,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 38,
+          "oldX": 102,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 38,
+          "oldX": 102,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-087",
+      "year": 2026,
+      "number": 87,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 38,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            1790,
+            1850,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 969
+        },
+        {
+          "part": 2,
+          "page": 39,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            904,
+            419
+          ],
+          "pasteX": 89,
+          "width": 465,
+          "height": 69
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 38,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 38,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 38,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 39,
+          "oldX": 14,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 89,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-090",
+      "year": 2026,
+      "number": 90,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 39,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            349,
+            2330,
+            1920,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 429
+        },
+        {
+          "part": 2,
+          "page": 40,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            368,
+            350,
+            1103,
+            779
+          ],
+          "pasteX": 89,
+          "width": 735,
+          "height": 429
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 40,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 40,
+          "oldX": 15,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 40,
+          "oldX": 15,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 40,
+          "oldX": 15,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-093",
+      "year": 2026,
+      "number": 93,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 40,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            281,
+            2510,
+            1850,
+            2759
+          ],
+          "pasteX": 1,
+          "width": 1569,
+          "height": 249
+        },
+        {
+          "part": 2,
+          "page": 41,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            350,
+            1920,
+            1049
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 699
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 41,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 41,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 41,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 41,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-095",
+      "year": 2026,
+      "number": 95,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1569,
+      "newCanvasWidth": 1569,
+      "placements": [
+        {
+          "part": 1,
+          "page": 41,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            2150,
+            1919,
+            2758
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 608
+        },
+        {
+          "part": 2,
+          "page": 42,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            369,
+            350,
+            660,
+            509
+          ],
+          "pasteX": 89,
+          "width": 291,
+          "height": 159
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 41,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 41,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 42,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 42,
+          "oldX": 14,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 89,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-098",
+      "year": 2026,
+      "number": 98,
+      "changed": false,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1569,
+      "newCanvasWidth": 1569,
+      "placements": [
+        {
+          "part": 1,
+          "page": 42,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            2510,
+            1849,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 249
+        },
+        {
+          "part": 2,
+          "page": 43,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            350,
+            1574,
+            868
+          ],
+          "pasteX": 0,
+          "width": 1224,
+          "height": 518
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 43,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 43,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 43,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 43,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-101",
+      "year": 2026,
+      "number": 101,
+      "changed": true,
+      "commonLeft": -15,
+      "oldCanvasWidth": 1572,
+      "newCanvasWidth": 1572,
+      "placements": [
+        {
+          "part": 1,
+          "page": 43,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            442,
+            2690,
+            1914,
+            2759
+          ],
+          "pasteX": 94,
+          "width": 1472,
+          "height": 69
+        },
+        {
+          "part": 2,
+          "page": 44,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            278,
+            350,
+            1850,
+            1139
+          ],
+          "pasteX": 0,
+          "width": 1572,
+          "height": 789
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 44,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "B",
+          "page": 44,
+          "oldX": 105,
+          "newX": 105
+        },
+        {
+          "label": "C",
+          "page": 44,
+          "oldX": 105,
+          "newX": 105
+        },
+        {
+          "label": "D",
+          "page": 44,
+          "oldX": 105,
+          "newX": 105
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-103",
+      "year": 2026,
+      "number": 103,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1569,
+      "newCanvasWidth": 1569,
+      "placements": [
+        {
+          "part": 1,
+          "page": 44,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            2150,
+            1849,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 609
+        },
+        {
+          "part": 2,
+          "page": 45,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            860,
+            509
+          ],
+          "pasteX": 89,
+          "width": 421,
+          "height": 159
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 44,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 44,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 45,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 45,
+          "oldX": 14,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 89,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-108",
+      "year": 2026,
+      "number": 108,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 46,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            2330,
+            1850,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 429
+        },
+        {
+          "part": 2,
+          "page": 47,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            860,
+            689
+          ],
+          "pasteX": 90,
+          "width": 421,
+          "height": 339
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 47,
+          "oldX": 13,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 47,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 47,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 47,
+          "oldX": 14,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-111",
+      "year": 2026,
+      "number": 111,
+      "changed": true,
+      "commonLeft": -15,
+      "oldCanvasWidth": 1572,
+      "newCanvasWidth": 1572,
+      "placements": [
+        {
+          "part": 1,
+          "page": 47,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            442,
+            2690,
+            1917,
+            2759
+          ],
+          "pasteX": 94,
+          "width": 1475,
+          "height": 69
+        },
+        {
+          "part": 2,
+          "page": 48,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            278,
+            350,
+            1850,
+            1139
+          ],
+          "pasteX": 0,
+          "width": 1572,
+          "height": 789
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 48,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "B",
+          "page": 48,
+          "oldX": 105,
+          "newX": 105
+        },
+        {
+          "label": "C",
+          "page": 48,
+          "oldX": 105,
+          "newX": 105
+        },
+        {
+          "label": "D",
+          "page": 48,
+          "oldX": 105,
+          "newX": 105
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2026-113",
+      "year": 2026,
+      "number": 113,
+      "changed": true,
+      "commonLeft": -15,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 48,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            278,
+            1970,
+            1849,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 789
+        },
+        {
+          "part": 2,
+          "page": 49,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            948,
+            419
+          ],
+          "pasteX": 91,
+          "width": 509,
+          "height": 69
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 48,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "B",
+          "page": 48,
+          "oldX": 105,
+          "newX": 105
+        },
+        {
+          "label": "C",
+          "page": 48,
+          "oldX": 105,
+          "newX": 105
+        },
+        {
+          "label": "D",
+          "page": 49,
+          "oldX": 14,
+          "newX": 105
+        }
+      ],
+      "oldLabelLeftSpread": 91,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-003",
+      "year": 2025,
+      "number": 3,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 51,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            349,
+            2601,
+            1919,
+            2760
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 159
+        },
+        {
+          "part": 2,
+          "page": 52,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            347,
+            1060,
+            866
+          ],
+          "pasteX": 1,
+          "width": 780,
+          "height": 519
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 52,
+          "oldX": 102,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 52,
+          "oldX": 103,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 52,
+          "oldX": 103,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 52,
+          "oldX": 103,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-008",
+      "year": 2025,
+      "number": 8,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1568,
+      "newCanvasWidth": 1568,
+      "placements": [
+        {
+          "part": 1,
+          "page": 53,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            349,
+            2150,
+            1917,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1568,
+          "height": 609
+        },
+        {
+          "part": 2,
+          "page": 54,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            369,
+            350,
+            920,
+            509
+          ],
+          "pasteX": 90,
+          "width": 551,
+          "height": 159
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 53,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 53,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 54,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 54,
+          "oldX": 14,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 90,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-011",
+      "year": 2025,
+      "number": 11,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1569,
+      "newCanvasWidth": 1569,
+      "placements": [
+        {
+          "part": 1,
+          "page": 54,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            2420,
+            1848,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 339
+        },
+        {
+          "part": 2,
+          "page": 55,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            1303,
+            778
+          ],
+          "pasteX": 90,
+          "width": 864,
+          "height": 428
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 55,
+          "oldX": 13,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 55,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 55,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 55,
+          "oldX": 14,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-014",
+      "year": 2025,
+      "number": 14,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1569,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 55,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            442,
+            2690,
+            1920,
+            2759
+          ],
+          "pasteX": 92,
+          "width": 1478,
+          "height": 69
+        },
+        {
+          "part": 2,
+          "page": 56,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            350,
+            1849,
+            1049
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 699
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 56,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 56,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 56,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 56,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-019",
+      "year": 2025,
+      "number": 19,
+      "changed": true,
+      "commonLeft": -12,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 57,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            351,
+            2150,
+            1922,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 609
+        },
+        {
+          "part": 2,
+          "page": 58,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            369,
+            350,
+            788,
+            509
+          ],
+          "pasteX": 88,
+          "width": 419,
+          "height": 159
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 57,
+          "oldX": 101,
+          "newX": 101
+        },
+        {
+          "label": "B",
+          "page": 57,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "C",
+          "page": 58,
+          "oldX": 14,
+          "newX": 102
+        },
+        {
+          "label": "D",
+          "page": 58,
+          "oldX": 14,
+          "newX": 102
+        }
+      ],
+      "oldLabelLeftSpread": 88,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-022",
+      "year": 2025,
+      "number": 22,
+      "changed": false,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 58,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            2600,
+            1848,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1568,
+          "height": 159
+        },
+        {
+          "part": 2,
+          "page": 59,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            350,
+            1920,
+            959
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 609
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 59,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 59,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 59,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 59,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-025",
+      "year": 2025,
+      "number": 25,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1569,
+      "newCanvasWidth": 1569,
+      "placements": [
+        {
+          "part": 1,
+          "page": 59,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            2690,
+            1917,
+            2759
+          ],
+          "pasteX": 89,
+          "width": 1478,
+          "height": 69
+        },
+        {
+          "part": 2,
+          "page": 60,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            350,
+            1849,
+            959
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 609
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 60,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 60,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 60,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 60,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-030",
+      "year": 2025,
+      "number": 30,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 61,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            1970,
+            1920,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 789
+        },
+        {
+          "part": 2,
+          "page": 62,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            369,
+            350,
+            661,
+            419
+          ],
+          "pasteX": 89,
+          "width": 292,
+          "height": 69
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 61,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 61,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 61,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 62,
+          "oldX": 14,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 89,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-033",
+      "year": 2025,
+      "number": 33,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1569,
+      "newCanvasWidth": 1569,
+      "placements": [
+        {
+          "part": 1,
+          "page": 62,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            2420,
+            1849,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 339
+        },
+        {
+          "part": 2,
+          "page": 63,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            1086,
+            779
+          ],
+          "pasteX": 89,
+          "width": 647,
+          "height": 429
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 63,
+          "oldX": 13,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 63,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 63,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 63,
+          "oldX": 14,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-036",
+      "year": 2025,
+      "number": 36,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1569,
+      "newCanvasWidth": 1569,
+      "placements": [
+        {
+          "part": 1,
+          "page": 63,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            2690,
+            1919,
+            2759
+          ],
+          "pasteX": 89,
+          "width": 1480,
+          "height": 69
+        },
+        {
+          "part": 2,
+          "page": 64,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            350,
+            1849,
+            1049
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 699
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 64,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 64,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 64,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 64,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-038",
+      "year": 2025,
+      "number": 38,
+      "changed": true,
+      "commonLeft": -15,
+      "oldCanvasWidth": 1572,
+      "newCanvasWidth": 1572,
+      "placements": [
+        {
+          "part": 1,
+          "page": 64,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            278,
+            2150,
+            1850,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1572,
+          "height": 609
+        },
+        {
+          "part": 2,
+          "page": 65,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            730,
+            599
+          ],
+          "pasteX": 91,
+          "width": 291,
+          "height": 249
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 64,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "B",
+          "page": 65,
+          "oldX": 14,
+          "newX": 105
+        },
+        {
+          "label": "C",
+          "page": 65,
+          "oldX": 14,
+          "newX": 105
+        },
+        {
+          "label": "D",
+          "page": 65,
+          "oldX": 14,
+          "newX": 105
+        }
+      ],
+      "oldLabelLeftSpread": 90,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-041",
+      "year": 2025,
+      "number": 41,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 65,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            349,
+            2420,
+            1920,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 339
+        },
+        {
+          "part": 2,
+          "page": 66,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            368,
+            350,
+            1103,
+            779
+          ],
+          "pasteX": 89,
+          "width": 735,
+          "height": 429
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 66,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 66,
+          "oldX": 15,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 66,
+          "oldX": 15,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 66,
+          "oldX": 15,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-044",
+      "year": 2025,
+      "number": 44,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 66,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            368,
+            2690,
+            1848,
+            2759
+          ],
+          "pasteX": 89,
+          "width": 1480,
+          "height": 69
+        },
+        {
+          "part": 2,
+          "page": 67,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            349,
+            350,
+            1919,
+            1049
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 699
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 67,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 67,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 67,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 67,
+          "oldX": 104,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-046",
+      "year": 2025,
+      "number": 46,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 67,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            349,
+            2060,
+            1919,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 699
+        },
+        {
+          "part": 2,
+          "page": 68,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            369,
+            350,
+            745,
+            419
+          ],
+          "pasteX": 90,
+          "width": 376,
+          "height": 69
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 67,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 67,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 67,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 68,
+          "oldX": 14,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 90,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-049",
+      "year": 2025,
+      "number": 49,
+      "changed": false,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 68,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            2330,
+            1849,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 429
+        },
+        {
+          "part": 2,
+          "page": 69,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            350,
+            1920,
+            959
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 609
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 69,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 69,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 69,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 69,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-051",
+      "year": 2025,
+      "number": 51,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 69,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            2150,
+            1920,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 609
+        },
+        {
+          "part": 2,
+          "page": 70,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            369,
+            350,
+            618,
+            509
+          ],
+          "pasteX": 89,
+          "width": 249,
+          "height": 159
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 69,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 69,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 70,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 70,
+          "oldX": 14,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 89,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-054",
+      "year": 2025,
+      "number": 54,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 70,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            2240,
+            1850,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 519
+        },
+        {
+          "part": 2,
+          "page": 71,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            817,
+            689
+          ],
+          "pasteX": 89,
+          "width": 378,
+          "height": 339
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 71,
+          "oldX": 13,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 71,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 71,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 71,
+          "oldX": 14,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-057",
+      "year": 2025,
+      "number": 57,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 71,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            349,
+            2600,
+            1919,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 159
+        },
+        {
+          "part": 2,
+          "page": 72,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            350,
+            1848,
+            959
+          ],
+          "pasteX": 1,
+          "width": 1568,
+          "height": 609
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 72,
+          "oldX": 102,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 72,
+          "oldX": 103,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 72,
+          "oldX": 103,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 72,
+          "oldX": 103,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-059",
+      "year": 2025,
+      "number": 59,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1569,
+      "newCanvasWidth": 1569,
+      "placements": [
+        {
+          "part": 1,
+          "page": 72,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            2150,
+            1849,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 609
+        },
+        {
+          "part": 2,
+          "page": 73,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            1121,
+            689
+          ],
+          "pasteX": 89,
+          "width": 682,
+          "height": 339
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 73,
+          "oldX": 13,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 73,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 73,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 73,
+          "oldX": 14,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-062",
+      "year": 2025,
+      "number": 62,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 73,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            2690,
+            1903,
+            2759
+          ],
+          "pasteX": 90,
+          "width": 1464,
+          "height": 69
+        },
+        {
+          "part": 2,
+          "page": 74,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            350,
+            1849,
+            1049
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 699
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 74,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 74,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 74,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 74,
+          "oldX": 104,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-073",
+      "year": 2025,
+      "number": 73,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 77,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            349,
+            2330,
+            1920,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 429
+        },
+        {
+          "part": 2,
+          "page": 78,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            368,
+            350,
+            964,
+            689
+          ],
+          "pasteX": 89,
+          "width": 596,
+          "height": 339
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 78,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 78,
+          "oldX": 15,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 78,
+          "oldX": 15,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 78,
+          "oldX": 15,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-078",
+      "year": 2025,
+      "number": 78,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1569,
+      "newCanvasWidth": 1569,
+      "placements": [
+        {
+          "part": 1,
+          "page": 79,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            2150,
+            1919,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 609
+        },
+        {
+          "part": 2,
+          "page": 80,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            369,
+            350,
+            572,
+            418
+          ],
+          "pasteX": 89,
+          "width": 203,
+          "height": 68
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 79,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 79,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 79,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 80,
+          "oldX": 14,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 89,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-081",
+      "year": 2025,
+      "number": 81,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 80,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            2330,
+            1849,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 429
+        },
+        {
+          "part": 2,
+          "page": 81,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            818,
+            689
+          ],
+          "pasteX": 90,
+          "width": 379,
+          "height": 339
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 81,
+          "oldX": 13,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 81,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 81,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 81,
+          "oldX": 14,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-084",
+      "year": 2025,
+      "number": 84,
+      "changed": false,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1568,
+      "newCanvasWidth": 1568,
+      "placements": [
+        {
+          "part": 1,
+          "page": 81,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            2600,
+            1917,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1567,
+          "height": 159
+        },
+        {
+          "part": 2,
+          "page": 82,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            349,
+            1848,
+            959
+          ],
+          "pasteX": 0,
+          "width": 1568,
+          "height": 610
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 82,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 82,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 82,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 82,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-089",
+      "year": 2025,
+      "number": 89,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 83,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            2240,
+            1920,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 519
+        },
+        {
+          "part": 2,
+          "page": 84,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            368,
+            350,
+            834,
+            689
+          ],
+          "pasteX": 88,
+          "width": 466,
+          "height": 339
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 84,
+          "oldX": 14,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 84,
+          "oldX": 15,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 84,
+          "oldX": 15,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 84,
+          "oldX": 15,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-092",
+      "year": 2025,
+      "number": 92,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 84,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            2510,
+            1849,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 249
+        },
+        {
+          "part": 2,
+          "page": 85,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            350,
+            1173,
+            869
+          ],
+          "pasteX": 1,
+          "width": 823,
+          "height": 519
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 85,
+          "oldX": 102,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 85,
+          "oldX": 103,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 85,
+          "oldX": 103,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 85,
+          "oldX": 103,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-094",
+      "year": 2025,
+      "number": 94,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1569,
+      "newCanvasWidth": 1569,
+      "placements": [
+        {
+          "part": 1,
+          "page": 85,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            2150,
+            1919,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 609
+        },
+        {
+          "part": 2,
+          "page": 86,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            369,
+            350,
+            704,
+            508
+          ],
+          "pasteX": 89,
+          "width": 335,
+          "height": 158
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 85,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 85,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 86,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 86,
+          "oldX": 14,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 89,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-097",
+      "year": 2025,
+      "number": 97,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1568,
+      "newCanvasWidth": 1568,
+      "placements": [
+        {
+          "part": 1,
+          "page": 86,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            2330,
+            1848,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1568,
+          "height": 429
+        },
+        {
+          "part": 2,
+          "page": 87,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            816,
+            599
+          ],
+          "pasteX": 89,
+          "width": 377,
+          "height": 249
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 86,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 87,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 87,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 87,
+          "oldX": 14,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 88,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-100",
+      "year": 2025,
+      "number": 100,
+      "changed": false,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1569,
+      "newCanvasWidth": 1569,
+      "placements": [
+        {
+          "part": 1,
+          "page": 87,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            2600,
+            1919,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 159
+        },
+        {
+          "part": 2,
+          "page": 88,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            350,
+            1848,
+            1049
+          ],
+          "pasteX": 0,
+          "width": 1568,
+          "height": 699
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 88,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 88,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 88,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 88,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-102",
+      "year": 2025,
+      "number": 102,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1569,
+      "newCanvasWidth": 1569,
+      "placements": [
+        {
+          "part": 1,
+          "page": 88,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            2060,
+            1849,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 699
+        },
+        {
+          "part": 2,
+          "page": 89,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            861,
+            419
+          ],
+          "pasteX": 89,
+          "width": 422,
+          "height": 69
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 88,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 88,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 88,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 89,
+          "oldX": 14,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 89,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-105",
+      "year": 2025,
+      "number": 105,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 89,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            2240,
+            1920,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 519
+        },
+        {
+          "part": 2,
+          "page": 90,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            368,
+            350,
+            618,
+            689
+          ],
+          "pasteX": 88,
+          "width": 250,
+          "height": 339
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 90,
+          "oldX": 14,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 90,
+          "oldX": 15,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 90,
+          "oldX": 15,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 90,
+          "oldX": 15,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-108",
+      "year": 2025,
+      "number": 108,
+      "changed": false,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 90,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            2510,
+            1851,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 249
+        },
+        {
+          "part": 2,
+          "page": 91,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            350,
+            1919,
+            959
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 609
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 91,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 91,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 91,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 91,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-113",
+      "year": 2025,
+      "number": 113,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 92,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            2330,
+            1849,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 429
+        },
+        {
+          "part": 2,
+          "page": 93,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            903,
+            689
+          ],
+          "pasteX": 90,
+          "width": 464,
+          "height": 339
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 93,
+          "oldX": 13,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 93,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 93,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 93,
+          "oldX": 14,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-116",
+      "year": 2025,
+      "number": 116,
+      "changed": false,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 93,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            2510,
+            1920,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 249
+        },
+        {
+          "part": 2,
+          "page": 94,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            350,
+            1547,
+            869
+          ],
+          "pasteX": 0,
+          "width": 1267,
+          "height": 519
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 94,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 94,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 94,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 94,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-118",
+      "year": 2025,
+      "number": 118,
+      "changed": true,
+      "commonLeft": -15,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 94,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            278,
+            1880,
+            1849,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 879
+        },
+        {
+          "part": 2,
+          "page": 95,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            990,
+            419
+          ],
+          "pasteX": 91,
+          "width": 551,
+          "height": 69
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 94,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "B",
+          "page": 94,
+          "oldX": 105,
+          "newX": 105
+        },
+        {
+          "label": "C",
+          "page": 94,
+          "oldX": 105,
+          "newX": 105
+        },
+        {
+          "label": "D",
+          "page": 95,
+          "oldX": 14,
+          "newX": 105
+        }
+      ],
+      "oldLabelLeftSpread": 91,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-121",
+      "year": 2025,
+      "number": 121,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 95,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            349,
+            2420,
+            1919,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 339
+        },
+        {
+          "part": 2,
+          "page": 96,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            283,
+            350,
+            1190,
+            868
+          ],
+          "pasteX": 4,
+          "width": 907,
+          "height": 518
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 96,
+          "oldX": 99,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 96,
+          "oldX": 100,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 96,
+          "oldX": 100,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 96,
+          "oldX": 100,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-123",
+      "year": 2025,
+      "number": 123,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 96,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            1970,
+            1850,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 789
+        },
+        {
+          "part": 2,
+          "page": 97,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            817,
+            419
+          ],
+          "pasteX": 90,
+          "width": 378,
+          "height": 69
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 96,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 96,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 96,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 97,
+          "oldX": 14,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 90,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-126",
+      "year": 2025,
+      "number": 126,
+      "changed": true,
+      "commonLeft": -12,
+      "oldCanvasWidth": 1566,
+      "newCanvasWidth": 1568,
+      "placements": [
+        {
+          "part": 1,
+          "page": 97,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            353,
+            2510,
+            1919,
+            2759
+          ],
+          "pasteX": 2,
+          "width": 1566,
+          "height": 249
+        },
+        {
+          "part": 2,
+          "page": 98,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            281,
+            350,
+            1494,
+            868
+          ],
+          "pasteX": 0,
+          "width": 1213,
+          "height": 518
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 98,
+          "oldX": 101,
+          "newX": 101
+        },
+        {
+          "label": "B",
+          "page": 98,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "C",
+          "page": 98,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "D",
+          "page": 98,
+          "oldX": 102,
+          "newX": 102
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-131",
+      "year": 2025,
+      "number": 131,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1569,
+      "newCanvasWidth": 1569,
+      "placements": [
+        {
+          "part": 1,
+          "page": 99,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            2240,
+            1919,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 519
+        },
+        {
+          "part": 2,
+          "page": 100,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            368,
+            350,
+            876,
+            689
+          ],
+          "pasteX": 88,
+          "width": 508,
+          "height": 339
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 100,
+          "oldX": 14,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 100,
+          "oldX": 15,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 100,
+          "oldX": 15,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 100,
+          "oldX": 15,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-134",
+      "year": 2025,
+      "number": 134,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1568,
+      "newCanvasWidth": 1568,
+      "placements": [
+        {
+          "part": 1,
+          "page": 100,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            372,
+            2690,
+            1847,
+            2759
+          ],
+          "pasteX": 92,
+          "width": 1475,
+          "height": 69
+        },
+        {
+          "part": 2,
+          "page": 101,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            350,
+            1918,
+            959
+          ],
+          "pasteX": 0,
+          "width": 1568,
+          "height": 609
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 101,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 101,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 101,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 101,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-139",
+      "year": 2025,
+      "number": 139,
+      "changed": true,
+      "commonLeft": -15,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 102,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            278,
+            2150,
+            1849,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 609
+        },
+        {
+          "part": 2,
+          "page": 103,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            860,
+            509
+          ],
+          "pasteX": 91,
+          "width": 421,
+          "height": 159
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 102,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "B",
+          "page": 102,
+          "oldX": 105,
+          "newX": 105
+        },
+        {
+          "label": "C",
+          "page": 103,
+          "oldX": 14,
+          "newX": 105
+        },
+        {
+          "label": "D",
+          "page": 103,
+          "oldX": 14,
+          "newX": 105
+        }
+      ],
+      "oldLabelLeftSpread": 91,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-142",
+      "year": 2025,
+      "number": 142,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1564,
+      "newCanvasWidth": 1565,
+      "placements": [
+        {
+          "part": 1,
+          "page": 103,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            2600,
+            1914,
+            2759
+          ],
+          "pasteX": 1,
+          "width": 1564,
+          "height": 159
+        },
+        {
+          "part": 2,
+          "page": 104,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            350,
+            1624,
+            869
+          ],
+          "pasteX": 0,
+          "width": 1345,
+          "height": 519
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 104,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 104,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 104,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 104,
+          "oldX": 104,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-147",
+      "year": 2025,
+      "number": 147,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 105,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            2150,
+            1920,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 609
+        },
+        {
+          "part": 2,
+          "page": 106,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            369,
+            350,
+            790,
+            599
+          ],
+          "pasteX": 89,
+          "width": 421,
+          "height": 249
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 105,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 106,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 106,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 106,
+          "oldX": 14,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 88,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-150",
+      "year": 2025,
+      "number": 150,
+      "changed": false,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1568,
+      "newCanvasWidth": 1568,
+      "placements": [
+        {
+          "part": 1,
+          "page": 106,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            2510,
+            1848,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1568,
+          "height": 249
+        },
+        {
+          "part": 2,
+          "page": 107,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            350,
+            1661,
+            869
+          ],
+          "pasteX": 0,
+          "width": 1311,
+          "height": 519
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 107,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 107,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 107,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 107,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-152",
+      "year": 2025,
+      "number": 152,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 107,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            1880,
+            1920,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 879
+        },
+        {
+          "part": 2,
+          "page": 108,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            369,
+            350,
+            834,
+            599
+          ],
+          "pasteX": 89,
+          "width": 465,
+          "height": 249
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 107,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 108,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 108,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 108,
+          "oldX": 14,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 88,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-155",
+      "year": 2025,
+      "number": 155,
+      "changed": false,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1568,
+      "newCanvasWidth": 1568,
+      "placements": [
+        {
+          "part": 1,
+          "page": 108,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            2600,
+            1848,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1568,
+          "height": 159
+        },
+        {
+          "part": 2,
+          "page": 109,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            350,
+            1270,
+            869
+          ],
+          "pasteX": 0,
+          "width": 920,
+          "height": 519
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 109,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 109,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 109,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 109,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-158",
+      "year": 2025,
+      "number": 158,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 109,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            442,
+            2690,
+            1914,
+            2759
+          ],
+          "pasteX": 92,
+          "width": 1472,
+          "height": 69
+        },
+        {
+          "part": 2,
+          "page": 110,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            350,
+            1850,
+            1139
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 789
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 110,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 110,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 110,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 110,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-160",
+      "year": 2025,
+      "number": 160,
+      "changed": true,
+      "commonLeft": -15,
+      "oldCanvasWidth": 1572,
+      "newCanvasWidth": 1572,
+      "placements": [
+        {
+          "part": 1,
+          "page": 110,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            278,
+            2150,
+            1850,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1572,
+          "height": 609
+        },
+        {
+          "part": 2,
+          "page": 111,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            1034,
+            509
+          ],
+          "pasteX": 91,
+          "width": 595,
+          "height": 159
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 110,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "B",
+          "page": 110,
+          "oldX": 105,
+          "newX": 105
+        },
+        {
+          "label": "C",
+          "page": 111,
+          "oldX": 14,
+          "newX": 105
+        },
+        {
+          "label": "D",
+          "page": 111,
+          "oldX": 14,
+          "newX": 105
+        }
+      ],
+      "oldLabelLeftSpread": 91,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-163",
+      "year": 2025,
+      "number": 163,
+      "changed": false,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 111,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            2510,
+            1921,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 249
+        },
+        {
+          "part": 2,
+          "page": 112,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            350,
+            1849,
+            959
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 609
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 112,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 112,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 112,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 112,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-168",
+      "year": 2025,
+      "number": 168,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 113,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            349,
+            2149,
+            1920,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 610
+        },
+        {
+          "part": 2,
+          "page": 114,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            369,
+            350,
+            748,
+            599
+          ],
+          "pasteX": 90,
+          "width": 379,
+          "height": 249
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 113,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 114,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 114,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 114,
+          "oldX": 14,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 89,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-171",
+      "year": 2025,
+      "number": 171,
+      "changed": false,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 114,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            2510,
+            1850,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 249
+        },
+        {
+          "part": 2,
+          "page": 115,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            349,
+            1920,
+            1319
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 970
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 115,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 115,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 115,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 115,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-173",
+      "year": 2025,
+      "number": 173,
+      "changed": true,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1569,
+      "newCanvasWidth": 1569,
+      "placements": [
+        {
+          "part": 1,
+          "page": 115,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            2239,
+            1919,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1569,
+          "height": 520
+        },
+        {
+          "part": 2,
+          "page": 116,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            369,
+            350,
+            618,
+            599
+          ],
+          "pasteX": 89,
+          "width": 249,
+          "height": 249
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 115,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 116,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 116,
+          "oldX": 14,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 116,
+          "oldX": 14,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 88,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-176",
+      "year": 2025,
+      "number": 176,
+      "changed": false,
+      "commonLeft": -13,
+      "oldCanvasWidth": 1568,
+      "newCanvasWidth": 1568,
+      "placements": [
+        {
+          "part": 1,
+          "page": 116,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            280,
+            2510,
+            1848,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1568,
+          "height": 249
+        },
+        {
+          "part": 2,
+          "page": 117,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            350,
+            350,
+            1173,
+            869
+          ],
+          "pasteX": 0,
+          "width": 823,
+          "height": 519
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 117,
+          "oldX": 102,
+          "newX": 102
+        },
+        {
+          "label": "B",
+          "page": 117,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "C",
+          "page": 117,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "D",
+          "page": 117,
+          "oldX": 103,
+          "newX": 103
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-178",
+      "year": 2025,
+      "number": 178,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 117,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            349,
+            2059,
+            1920,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 700
+        },
+        {
+          "part": 2,
+          "page": 118,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            369,
+            349,
+            965,
+            509
+          ],
+          "pasteX": 90,
+          "width": 596,
+          "height": 160
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 117,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 117,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 118,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 118,
+          "oldX": 14,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 90,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-181",
+      "year": 2025,
+      "number": 181,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 118,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            2420,
+            1849,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 339
+        },
+        {
+          "part": 2,
+          "page": 119,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            1173,
+            779
+          ],
+          "pasteX": 90,
+          "width": 734,
+          "height": 429
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 119,
+          "oldX": 13,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 119,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 119,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 119,
+          "oldX": 14,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-186",
+      "year": 2025,
+      "number": 186,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1571,
+      "newCanvasWidth": 1571,
+      "placements": [
+        {
+          "part": 1,
+          "page": 120,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            2330,
+            1850,
+            2759
+          ],
+          "pasteX": 0,
+          "width": 1571,
+          "height": 429
+        },
+        {
+          "part": 2,
+          "page": 121,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            439,
+            350,
+            1173,
+            779
+          ],
+          "pasteX": 90,
+          "width": 734,
+          "height": 429
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 121,
+          "oldX": 13,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 121,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 121,
+          "oldX": 14,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 121,
+          "oldX": 14,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    },
+    {
+      "id": "zg-2025-189",
+      "year": 2025,
+      "number": 189,
+      "changed": true,
+      "commonLeft": -14,
+      "oldCanvasWidth": 1570,
+      "newCanvasWidth": 1570,
+      "placements": [
+        {
+          "part": 1,
+          "page": 121,
+          "bodyLeft": 363,
+          "sourceCropBox": [
+            442,
+            2690,
+            1917,
+            2759
+          ],
+          "pasteX": 93,
+          "width": 1475,
+          "height": 69
+        },
+        {
+          "part": 2,
+          "page": 122,
+          "bodyLeft": 293,
+          "sourceCropBox": [
+            279,
+            350,
+            1849,
+            1139
+          ],
+          "pasteX": 0,
+          "width": 1570,
+          "height": 789
+        }
+      ],
+      "optionLabels": [
+        {
+          "label": "A",
+          "page": 122,
+          "oldX": 103,
+          "newX": 103
+        },
+        {
+          "label": "B",
+          "page": 122,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "C",
+          "page": 122,
+          "oldX": 104,
+          "newX": 104
+        },
+        {
+          "label": "D",
+          "page": 122,
+          "oldX": 104,
+          "newX": 104
+        }
+      ],
+      "oldLabelLeftSpread": 1,
+      "newLabelLeftSpread": 1
+    }
+  ]
+}

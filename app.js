@@ -308,7 +308,7 @@ function isOriginalAnnotated(question) {
 function originalImageAsset(image, role) {
   if (!image || typeof image.file !== 'string' || !/^[a-zA-Z0-9][a-zA-Z0-9_-]*\.(?:webp|png|jpe?g)$/i.test(image.file)) return null
   if (!['answer', 'question'].includes(role)) return null
-  return `./data/zhanggong/${role === 'question' ? 'questions' : 'answers'}/${image.file}?v=20261123-9`
+  return `./data/zhanggong/${role === 'question' ? 'questions' : 'answers'}/${image.file}?v=20261123-10`
 }
 
 function renderOriginalImage(question, image, index, total, role) {
@@ -1225,7 +1225,7 @@ async function init() {
   setTheme(state.user.theme || 0)
   setQuizFont(state.user.quizFont || 'small')
   try {
-    const banks = await Promise.all(['./data/questions.json?v=20261121-5', './data/zhanggong/questions.json?v=20261123-9'].map(async url => {
+    const banks = await Promise.all(['./data/questions.json?v=20261121-5', './data/zhanggong/questions.json?v=20261123-10'].map(async url => {
       const response = await fetch(url, { cache: 'no-cache' })
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
       return response.json()
