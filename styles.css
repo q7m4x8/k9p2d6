@@ -294,6 +294,26 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .result-summary span { opacity: .86; font-weight: 700; }
 .result-summary strong { font-size: 1.714286rem; }
 .result-summary p { margin: 0; text-align: right; line-height: 1.6; opacity: .9; }
+.pitfall-open { display: block; margin: 8px 0 0 auto; padding: 7px 14px; border: 1px solid #ffffffb3; border-radius: 10px; color: #fff; background: #ffffff21; font: inherit; font-weight: 700; cursor: pointer; }
+.pitfall-open:hover { background: #ffffff38; }
+.pitfall-open:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.pitfall-heading { margin-bottom: 24px; }
+.pitfall-heading h1 { margin: 8px 0 12px; font-size: 1.8rem; }
+.pitfall-heading p { margin: 6px 0; color: var(--muted); line-height: 1.6; }
+.pitfall-list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.pitfall-entry { display: grid; grid-template-columns: 32px minmax(0,1fr); gap: 12px; padding: 20px; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
+.pitfall-number { display: grid; place-items: center; align-self: start; min-width: 30px; height: 30px; border-radius: 9px; color: var(--accent-ink); background: var(--accent-soft); font-weight: 800; }
+.pitfall-content { min-width: 0; }
+.pitfall-source { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--muted); font-size: .928571rem; }
+.pitfall-source-detail { display: block; margin-top: 4px; line-height: 1.5; }
+.pitfall-statement { margin: 12px 0 0; line-height: 1.85; overflow-wrap: anywhere; }
+.pitfall-original { margin-top: 13px; color: var(--muted); font-size: .928571rem; }
+.pitfall-original summary { width: fit-content; color: var(--accent-ink); cursor: pointer; }
+.pitfall-original p { line-height: 1.8; }
+.pitfall-original ul { display: grid; gap: 8px; padding: 0; list-style: none; }
+.pitfall-original li { display: flex; align-items: baseline; gap: 10px; line-height: 1.7; }
+.pitfall-return { width: 100%; margin-top: 20px; }
+@media (max-width: 480px) { .pitfall-entry { grid-template-columns: 26px minmax(0,1fr); gap: 8px; padding: 13px 10px; } .pitfall-number { min-width: 26px; height: 26px; } }
 .quiz-topline { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 16px; }
 .quiz-progress-copy { color: var(--muted); font-size: .928571rem; }
 .quiz-progress-copy b { color: var(--accent); font-size: 1.285714rem; }

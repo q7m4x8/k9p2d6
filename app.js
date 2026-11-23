@@ -20,6 +20,7 @@ const state = {
   sessionIndex: 0,
   sessionAnswers: {},
   sessionSubmitted: false,
+  pitfallOpen: false,
   reviewingHistory: false,
   historySkippedQuestions: 0,
   historyManaging: false,
@@ -323,6 +324,13 @@ function renderReferenceSources(question, supplement) {
   return `<aside class="reference-sources">${note}<p>核对依据：${links}</p></aside>`
 }
 
+function renderReferenceSegments(segments) {
+  return segments.map(segment => segment.type === 'correction'
+    ? `<del class="reference-wrong" aria-label="错误词句：${escapeQuizText(segment.wrong)}">${escapeQuizText(segment.wrong)}</del><span class="reference-fix"><span>应为：</span><strong>${escapeQuizText(segment.correct)}</strong></span>`
+    : segment.type === 'focus' ? `<mark class="reference-focus">${escapeHtml(segment.text)}</mark>`
+      : segment.type === 'wrong-focus' ? `<del class="reference-wrong">${escapeHtml(segment.text)}</del>` : escapeHtml(segment.text)).join('')
+}
+
 function renderReferenceAnswer(question) {
   const heading = `<div class="reference-heading-title"><h3>参考答案</h3>${renderQuestionNoteButton(question)}</div>`
   const notes = renderQuestionNotes(question)
@@ -338,10 +346,7 @@ function renderReferenceAnswer(question) {
     const hasCorrection = !!item.correctedRule || item.segments.some(segment => segment.type === 'correction')
     const verdict = ['correct', 'incorrect'].includes(item.verdict) ? item.verdict : 'unknown'
     const status = item.reviewStatus === 'source_unclear' ? '待核对' : verdict === 'correct' ? '✓ 正确' : verdict === 'incorrect' ? '× 错误' : item.contextual ? '题意不符' : item.manuallyReviewed ? '题意说明' : '原句'
-    const text = item.segments.map(segment => segment.type === 'correction'
-      ? `<del class="reference-wrong" aria-label="错误词句：${escapeQuizText(segment.wrong)}">${escapeQuizText(segment.wrong)}</del><span class="reference-fix"><span>应为：</span><strong>${escapeQuizText(segment.correct)}</strong></span>`
-      : segment.type === 'focus' ? `<mark class="reference-focus">${escapeHtml(segment.text)}</mark>`
-        : segment.type === 'wrong-focus' ? `<del class="reference-wrong">${escapeHtml(segment.text)}</del>` : escapeHtml(segment.text)).join('')
+    const text = renderReferenceSegments(item.segments)
     const reasonText = item.reason ? escapeQuizText(conciseReferenceReason(item.reason, item.text)) : ''
     const reason = (!hasCorrection || item.needsExplanation) && verdict !== 'correct' && reasonText
       ? (hasCorrection
@@ -429,6 +434,7 @@ function paperProgress(album, paper) {
 }
 
 function navigate(route, options = {}) {
+  state.pitfallOpen = false
   if (route !== 'progress') endHistoryManagement()
   cancelAutoAdvance()
   if (state.route === 'quiz' && route !== 'quiz') pauseQuizTiming()
@@ -442,6 +448,7 @@ function navigate(route, options = {}) {
 }
 
 function goBack() {
+  if (state.pitfallOpen) return closePitfallManual()
   const destination = state.route === 'quiz' ? state.quizReturn : state.backStack.pop() || { route: 'home' }
   navigate(destination.route, { albumId: destination.albumId, replace: true })
 }
@@ -570,6 +577,7 @@ function openHistoryRecord(recordIndex, questionIndex = 0) {
 }
 
 function renderQuiz() {
+  if (state.pitfallOpen && state.sessionSubmitted) return renderPitfallManual()
   const question = currentQuestion()
   if (!question) return '<div class="empty-state"><b>练习已完成</b>请选择其他题库继续。</div>'
   const isFavorite = state.user.favorites.includes(question.id)
@@ -598,7 +606,7 @@ function renderQuiz() {
     : ''
   const explanation = reveal ? renderReferenceAnswer(question) : ''
   const resultSummary = reveal
-    ? `<section class="result-summary"><div><span>${historical ? '历史作答' : '本套成绩'}</span><strong>${correctCount} / ${resultTotal}</strong></div><p>${historical ? `${escapeHtml(state.sessionTitle)}<br>${escapeHtml(practiceDate(state.sessionRecord))} · ` : ''}正确率 ${Math.round(correctCount / resultTotal * 100)}% · ${historical ? '当次用时' : '本套用时'} ${formatDuration(getSessionMilliseconds())}<br>${historical ? '正在回看当次选择、答案与解析。' : '现在可以逐题查看答案与解析。'}</p></section>${historical && state.historySkippedQuestions ? `<p class="history-review-note">原记录中有 ${state.historySkippedQuestions} 道题暂不可用，当前显示可回看的 ${state.session.length} 道题；上方保留当次总成绩和总用时。</p>` : ''}`
+    ? `<section class="result-summary"><div><span>${historical ? '历史作答' : '本套成绩'}</span><strong>${correctCount} / ${resultTotal}</strong></div><p>${historical ? `${escapeHtml(state.sessionTitle)}<br>` : ''}正确率 ${Math.round(correctCount / resultTotal * 100)}% · ${historical ? '当次用时' : '本套用时'} ${formatDuration(getSessionMilliseconds())}<br><button type="button" class="pitfall-open" data-action="open-pitfalls">查看挖坑手册</button></p></section>${historical && state.historySkippedQuestions ? `<p class="history-review-note">原记录中有 ${state.historySkippedQuestions} 道题暂不可用，当前显示可回看的 ${state.session.length} 道题；上方保留当次总成绩和总用时。</p>` : ''}`
     : ''
   const answerSheet = state.session.map((item, index) => {
     const hasAnswer = Number.isInteger(state.sessionAnswers[item.id])
@@ -629,6 +637,75 @@ function renderQuiz() {
     <p class="swipe-hint">${reveal ? '左滑下一题，右滑上一题' : '选中后停留 1 秒自动下一题 · 可改选或左右滑动 · 返回自动保存'}</p>
     <details class="answer-sheet" ${reveal ? 'open' : ''}><summary>答题卡 · ${reveal ? `答对 ${correctCount} 题` : `已答 ${answeredCount}/${state.session.length} 题`}</summary><div>${answerSheet}</div></details>
   </section>`
+}
+
+function pitfallScope() {
+  if (!state.sessionSubmitted || !state.session.length) return {questions:[],title:''}
+  const first = state.session[0]
+  const customPractice = ['随机十题', '错题练习', '收藏练习', '综合练习'].includes(state.sessionTitle)
+  const singlePaper = !customPractice && state.session.every(question =>
+    question.source === first.source && question.album === first.album && question.paper === first.paper)
+  const questions = singlePaper
+    ? state.data.questions.filter(question => question.source === first.source && question.album === first.album && question.paper === first.paper)
+      .sort((a,b) => a.number - b.number)
+    : [...new Map(state.session.map(question => [question.id,question])).values()]
+  return {questions,singlePaper,title:singlePaper ? `${first.album} · ${first.paper}` : state.sessionTitle || '本次练习'}
+}
+
+function collectPitfalls(questions) {
+  const entries = []
+  questions.forEach((question,index) => {
+    const formatted = window.QuizExplanationFormatter?.format(question) || window.QuizExplanationFormatter?.formatOptions(question)
+    for (const item of formatted?.items || []) {
+      if (item.verdict === 'incorrect') entries.push({question,questionNumber:index+1,item,number:entries.length+1})
+    }
+  })
+  return entries
+}
+
+function openPitfallManual() {
+  if (state.route !== 'quiz' || !state.sessionSubmitted || !state.session.length) return false
+  cancelAutoAdvance()
+  swipeGesture = null
+  state.pitfallOpen = true
+  render()
+  main.querySelector('#pitfallTitle')?.focus?.()
+  window.scrollTo({top:0,behavior:'instant'})
+  return true
+}
+
+function closePitfallManual() {
+  if (state.route !== 'quiz' || !state.pitfallOpen) return false
+  state.pitfallOpen = false
+  render()
+  window.scrollTo({top:0,behavior:'instant'})
+  main.querySelector('[data-action="open-pitfalls"]')?.focus?.()
+  return true
+}
+
+function jumpFromPitfall(id) {
+  if (state.route !== 'quiz' || !state.sessionSubmitted || !state.pitfallOpen) return false
+  const index = state.session.findIndex(question => question.id === id)
+  if (index < 0) return false
+  if (index === state.sessionIndex) return closePitfallManual()
+  state.pitfallOpen = false
+  return changeQuestion(index)
+}
+
+function renderPitfallManual() {
+  if (state.route !== 'quiz' || !state.sessionSubmitted || !state.pitfallOpen) return ''
+  const scope = pitfallScope()
+  const entries = collectPitfalls(scope.questions)
+  const available = new Set(state.session.map(question => question.id))
+  const rows = entries.map(({question,questionNumber,item,number}) => {
+    const hasCorrection = item.correctedRule || item.segments.some(segment => segment.type === 'correction')
+    const rule = item.correctedRule ? `<div class="reference-rule"><b>正确表述</b><p>${escapeQuizText(item.correctedRule)}</p></div>` : ''
+    const reason = !hasCorrection && item.reason ? `<p class="reference-reason"><span>说明：</span>${escapeQuizText(conciseReferenceReason(item.reason,item.text))}</p>` : ''
+    const originalOptions = question.options.map((text,index) => `<li><b>${'ABCD'[index]}</b><span>${escapeQuizText(text)}</span></li>`).join('')
+    const source = scope.singlePaper ? '' : `<small class="pitfall-source-detail">${escapeHtml(question.source)} · ${escapeHtml(question.album)} · ${escapeHtml(question.paper)} · 原第 ${escapeHtml(String(question.number))} 题</small>`
+    return `<li class="pitfall-entry" data-pitfall-entry="${number}" data-pitfall-id="${escapeHtml(question.id)}" data-pitfall-label="${escapeHtml(item.label)}"><span class="pitfall-number">${number}</span><div class="pitfall-content"><div class="pitfall-source"><span>第 ${questionNumber} 题 · ${escapeHtml(item.label)}${source}</span>${available.has(question.id) ? `<button type="button" class="mini-btn ghost" data-pitfall-jump="${escapeHtml(question.id)}">回看作答</button>` : ''}</div><p class="pitfall-statement">${renderReferenceSegments(item.segments)}</p>${rule}${reason}<details class="pitfall-original"><summary>查看原题</summary><p>${escapeQuizText(displayQuestionStem(question))}</p><ul>${originalOptions}</ul></details></div></li>`
+  }).join('')
+  return `<section class="quiz-shell pitfall-manual" aria-labelledby="pitfallTitle"><header class="pitfall-heading"><span class="eyebrow">整套易错梳理</span><h1 id="pitfallTitle" tabindex="-1">挖坑手册</h1><p>${escapeHtml(scope.title)} · ${scope.questions.length} 题 · ${entries.length} 条错误表述</p><p>按题目顺序排列，错误词标红，正确表达标绿。</p></header><ol class="pitfall-list">${rows}</ol>${entries.length ? '' : '<div class="empty-state"><b>这套题没有需要收集的错误表述</b>可返回查看各题答案与解析。</div>'}<button type="button" class="btn secondary pitfall-return" data-action="close-pitfalls">返回答案解析</button></section>`
 }
 
 function selectedHistoryRecords() {
@@ -831,7 +908,7 @@ let suppressAutoAnswerUntil = 0
 function onTouchStart(event) {
   swipeGesture = null
   const target = event.target instanceof Element ? event.target : event.target?.parentElement
-  if (state.route !== 'quiz' || event.touches.length !== 1 || !target?.closest('.quiz-shell') || target.closest('.source-explanation, .answer-sheet, .font-controls, a, input, textarea, select, [contenteditable="true"]') || document.querySelector('#modalRoot').children.length || window.getSelection?.()?.isCollapsed === false) return
+  if (state.route !== 'quiz' || state.pitfallOpen || event.touches.length !== 1 || !target?.closest('.quiz-shell') || target.closest('.source-explanation, .answer-sheet, .font-controls, a, input, textarea, select, [contenteditable="true"]') || document.querySelector('#modalRoot').children.length || window.getSelection?.()?.isCollapsed === false) return
   const touch = event.touches[0]
   swipeGesture = { id: touch.identifier, x: touch.clientX, y: touch.clientY, startedAt: performance.now() }
 }
@@ -850,7 +927,7 @@ function onTouchMove(event) {
 function onTouchEnd(event) {
   const gesture = swipeGesture
   swipeGesture = null
-  if (!gesture || state.route !== 'quiz' || event.touches.length || performance.now() - gesture.startedAt > 1500 || document.querySelector('#modalRoot').children.length || window.getSelection?.()?.isCollapsed === false) return
+  if (!gesture || state.route !== 'quiz' || state.pitfallOpen || event.touches.length || performance.now() - gesture.startedAt > 1500 || document.querySelector('#modalRoot').children.length || window.getSelection?.()?.isCollapsed === false) return
   const touch = [...event.changedTouches].find(item => item.identifier === gesture.id)
   if (!touch) return
   const dx = touch.clientX - gesture.x
@@ -901,6 +978,8 @@ document.addEventListener('click', event => {
   }
   const jump = event.target.closest('[data-jump]')
   if (jump) return changeQuestion(Number(jump.dataset.jump))
+  const pitfallJump = target.closest('[data-pitfall-jump]')
+  if (pitfallJump) return jumpFromPitfall(pitfallJump.dataset.pitfallJump)
   const single = event.target.closest('[data-single]')
   if (single) return startQuiz(state.data.questions.filter(item => item.id === single.dataset.single))
   const remove = event.target.closest('[data-remove]')
@@ -916,6 +995,8 @@ document.addEventListener('click', event => {
   }
   const action = event.target.closest('[data-action]')?.dataset.action
   if (!action) return
+  if (action === 'open-pitfalls') return openPitfallManual()
+  if (action === 'close-pitfalls') return closePitfallManual()
   if (action === 'note-toggle') return toggleQuestionNote()
   if (action === 'note-retry') {
     const id = target.closest('[data-note-retry]')?.dataset.noteRetry

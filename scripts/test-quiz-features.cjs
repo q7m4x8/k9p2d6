@@ -119,7 +119,7 @@ function harness(saved, savedDraft, storageFails = false, savedNotes) {
   for (const file of ['text-format.js', 'reference-reviews.js', 'option-reviews.js', 'explanation-format.js']) {
     vm.runInContext(fs.readFileSync(path.join(repo, file), 'utf8'), context)
   }
-  vm.runInContext(source + `\nglobalThis.testApi = {state, startQuiz, navigate, goBack, changeQuestion, pauseQuizTiming, resumeQuizTiming, getQuestionMilliseconds, getSessionMilliseconds, formatDuration, submitSession, render, renderQuiz, renderProgress, renderTimingHistory, openHistoryRecord, renderReferenceAnswer, conciseReferenceReason, saveUserState, setQuizFont, continueDraft, toggleHistoryManagement, selectHistoryRecord, selectAllHistoryRecords, selectedHistoryRecords, requestHistoryDeletion, cancelHistoryDeletion, confirmHistoryDeletion, toggleQuestionNote, saveQuestionNote, renderQuestionNotes};`, context)
+  vm.runInContext(source + `\nglobalThis.testApi = {state, startQuiz, navigate, goBack, changeQuestion, pauseQuizTiming, resumeQuizTiming, getQuestionMilliseconds, getSessionMilliseconds, formatDuration, submitSession, render, renderQuiz, renderProgress, renderTimingHistory, openHistoryRecord, renderReferenceAnswer, conciseReferenceReason, saveUserState, setQuizFont, continueDraft, toggleHistoryManagement, selectHistoryRecord, selectAllHistoryRecords, selectedHistoryRecords, requestHistoryDeletion, cancelHistoryDeletion, confirmHistoryDeletion, toggleQuestionNote, saveQuestionNote, renderQuestionNotes, pitfallScope, collectPitfalls, openPitfallManual, closePitfallManual, jumpFromPitfall, renderPitfallManual, referenceFormatter:window.QuizExplanationFormatter};`, context)
   const api = context.testApi
   api.state.data = JSON.parse(JSON.stringify(bank))
   const fire = (type, event = {}, target = document) => {
@@ -919,6 +919,133 @@ test('opening an album from progress preserves the unfinished draft, progress, n
   assert.equal(reloaded.state.sessionIndex, 1)
   assert.equal(reloaded.state.sessionAnswers['test-1'], 1)
   assert.equal(reloaded.getSessionMilliseconds(), 4000)
+})
+
+function finishPaper(h) {
+  for (const question of h.state.session) h.state.sessionAnswers[question.id] = question.answer
+  h.submitSession()
+}
+
+test('pitfall manual is inaccessible until submission, including forged actions and direct rendering', () => {
+  const h=harness();h.startQuiz(h.state.data.questions)
+  assert(!h.renderQuiz().includes('查看挖坑手册'))
+  assert.equal(h.openPitfallManual(),false)
+  assert.equal(h.renderPitfallManual(),'')
+  const action=h.element('.pitfall-action');action.dataset.action='open-pitfalls';h.fire('click',{target:action})
+  assert.equal(h.state.pitfallOpen,false)
+  assert.equal(h.pitfallScope().questions.length,0)
+  h.state.pitfallOpen=true
+  assert.equal(h.renderPitfallManual(),'')
+  assert(!h.renderQuiz().includes('pitfall-list'))
+  h.state.pitfallOpen=false;finishPaper(h)
+  assert(h.renderQuiz().includes('查看挖坑手册'))
+  h.fire('click',{target:action});assert.equal(h.state.pitfallOpen,true)
+})
+
+test('a fully correct submitted paper still collects every false statement in source order', () => {
+  const h=harness();h.state.data=JSON.parse(fs.readFileSync(path.join(repo,'data/questions.json'),'utf8'))
+  const paper=h.state.data.questions.filter(q=>q.id.startsWith('xh-special-')&&q.paper==='第02套')
+  h.startQuiz(paper);for(const q of paper)h.state.sessionAnswers[q.id]=q.answer
+  h.submitSession();assert(h.openPitfallManual())
+  const scope=h.pitfallScope();assert.equal(scope.questions.length,20)
+  const entries=h.collectPitfalls(scope.questions)
+  assert(entries.length>0,'Include false source statements even when the user answered every question correctly')
+  assert.equal(entries[0].question.id,'xh-special-021');assert.equal(entries[0].item.label,'③')
+  assert.equal(entries[1].question.id,'xh-special-021');assert.equal(entries[1].item.label,'④')
+  const html=h.renderPitfallManual()
+  assert(html.includes('一致性中寻求多样性')&&html.includes('<strong>多样性中寻求一致性</strong>'))
+  assert(html.includes('以人民为中心')&&html.includes('<strong>党的领导</strong>'))
+  assert(html.includes('aria-label="错误词句：'))
+  assert.deepEqual(Array.from(html.matchAll(/data-pitfall-entry="(\d+)"/g),m=>Number(m[1])),Array.from({length:entries.length},(_,i)=>i+1))
+  assert.equal((html.match(/data-pitfall-entry=/g)||[]).length,entries.length)
+  assert(entries.every(entry=>entry.item.verdict==='incorrect'))
+})
+
+test('one-question historical records expand to the entire paper without fabricating historical answers', () => {
+  const full=JSON.parse(fs.readFileSync(path.join(repo,'data/questions.json'),'utf8'))
+  const q=full.questions.find(q=>q.id==='xh-special-029')
+  const record={id:'partial',submittedAt:1800000000000,title:`${q.album} · ${q.paper}`,totalSeconds:12,correctCount:1,questions:[{id:q.id,selected:q.answer,correct:true,seconds:12}]}
+  const h=harness({history:[record]},null,false,{[q.id]:'原有笔记'});h.state.data=full
+  h.openHistoryRecord(0);const stored=JSON.stringify(h.saved());const notes=JSON.stringify(h.notesSaved())
+  const beforeSession=h.state.session
+  assert.equal(h.state.session.length,1)
+  const summary=h.renderQuiz()
+  assert(summary.includes('查看挖坑手册')&&!summary.includes('正在回看当次选择、答案与解析'))
+  assert(!/\d{4}\/\d{1,2}\/\d{1,2}\s+\d{2}:\d{2}/.test(summary),'Do not show the submission timestamp in the result banner')
+  h.openPitfallManual();assert.equal(h.pitfallScope().questions.length,20)
+  const entries=h.collectPitfalls(h.pitfallScope().questions)
+  assert(entries.some(entry=>entry.question.id==='xh-special-040'),'Unvisited questions in the same paper must be included')
+  const html=h.renderPitfallManual()
+  assert(html.includes('查看原题'))
+  assert(!html.includes('data-pitfall-jump="xh-special-040"'),'Do not pretend an unrecorded question has historical answers')
+  assert.equal(h.jumpFromPitfall('xh-special-040'),false)
+  assert.equal(h.state.session,beforeSession);assert.equal(h.state.session.length,1)
+  assert(h.jumpFromPitfall(q.id),'The current question must close the manual even when its index does not change')
+  assert.equal(h.state.pitfallOpen,false);assert(!h.element('#mainContent').innerHTML.includes('class="pitfall-list"'))
+  assert.equal(JSON.stringify(h.saved()),stored);assert.equal(JSON.stringify(h.notesSaved()),notes)
+  assert.equal(h.state.sessionRecord.totalSeconds,12);assert.equal(h.state.sessionRecord.correctCount,1)
+  assert.equal(h.state.sessionAnswers[q.id],q.answer)
+})
+
+test('custom and mixed-paper manuals keep exactly the practiced question set and its order', () => {
+  const h=harness();h.state.data=JSON.parse(fs.readFileSync(path.join(repo,'data/questions.json'),'utf8'))
+  const byId=id=>h.state.data.questions.find(q=>q.id===id)
+  h.startQuiz([byId('xh-special-029'),byId('cg-003')],0,{title:'随机十题'});finishPaper(h);h.openPitfallManual()
+  assert.deepEqual(Array.from(h.pitfallScope().questions,q=>q.id),['xh-special-029','cg-003'])
+  const html=h.renderPitfallManual();assert(html.includes('小黑 · 政治理论专项十套卷 · 第02套 · 原第 29 题'))
+  assert(html.includes('超格 · 政治理论考前200题 · 第01套 · 原第 3 题'))
+  h.navigate('home');assert.equal(h.state.pitfallOpen,false)
+  h.startQuiz([byId('xh-special-029'),byId('xh-special-021')],0,{title:'错题练习'});finishPaper(h);h.openPitfallManual()
+  assert.deepEqual(Array.from(h.pitfallScope().questions,q=>q.id),['xh-special-029','xh-special-021'])
+})
+
+test('manual navigation, swipes and font changes preserve the original review, storage and frozen times', () => {
+  const h=harness({history:[practiceRecord('manual-review')],wrong:['test-2'],favorites:['test-1']},null,false,{'test-1':'笔记'})
+  h.startQuiz(h.state.data.questions);h.state.sessionAnswers['test-1']=2;h.advance(1700);h.changeQuestion(1);h.advance(2300)
+  h.openHistoryRecord(0)
+  const before={user:JSON.stringify(h.state.user),saved:JSON.stringify(h.saved()),draft:JSON.stringify(h.draftSaved()),notes:JSON.stringify(h.notesSaved()),session:h.state.session,index:h.state.sessionIndex,answers:JSON.stringify(h.state.sessionAnswers),times:JSON.stringify(h.state.sessionTimes),record:JSON.stringify(h.state.sessionRecord)}
+  h.openPitfallManual();h.advance(60000);h.swipe({dx:-120});assert.equal(h.state.sessionIndex,before.index)
+  h.goBack();assert.equal(h.state.route,'quiz');assert.equal(h.state.pitfallOpen,false)
+  h.openPitfallManual();assert(h.jumpFromPitfall('test-2'));assert.equal(h.state.sessionIndex,1)
+  h.openPitfallManual();assert.equal(h.jumpFromPitfall('unknown'),false);h.closePitfallManual()
+  assert.equal(h.state.session,before.session);assert.equal(JSON.stringify(h.state.sessionAnswers),before.answers)
+  assert.equal(JSON.stringify(h.state.sessionTimes),before.times);assert.equal(JSON.stringify(h.state.sessionRecord),before.record)
+  assert.equal(JSON.stringify(h.state.user),before.user);assert.equal(JSON.stringify(h.saved()),before.saved)
+  assert.equal(JSON.stringify(h.draftSaved()),before.draft);assert.equal(JSON.stringify(h.notesSaved()),before.notes)
+  assert.equal(h.getSessionMilliseconds(),12000)
+  h.openPitfallManual();h.setQuizFont('large');assert(h.state.pitfallOpen);assert(h.element('#mainContent').innerHTML.includes('pitfall-list'))
+})
+
+test('all 55 paper manuals retain every reviewed error, including source-only errors, and exclude contextual statements', () => {
+  const h=harness();h.state.data=JSON.parse(fs.readFileSync(path.join(repo,'data/questions.json'),'utf8'))
+  let papers=0,total=0
+  for(const album of h.state.data.albums)for(const paper of album.papers){
+    papers++
+    const questions=h.state.data.questions.filter(q=>q.album===album.title&&q.paper===paper.name)
+    const expected=questions.flatMap(q=>{const f=h.referenceFormatter.format(q)||h.referenceFormatter.formatOptions(q);return(f?.items||[]).filter(i=>i.verdict==='incorrect').map(i=>`${q.id}:${i.label}`)})
+    const entries=h.collectPitfalls(questions)
+    assert.deepEqual(Array.from(entries,e=>`${e.question.id}:${e.item.label}`),Array.from(expected))
+    assert(entries.every(e=>e.item.verdict==='incorrect'&&!e.item.contextual))
+    total+=entries.length
+  }
+  assert.equal(papers,55);assert.equal(total,1447)
+  for(const [id,label]of [['xh-500-158','②'],['xh-500-174','④'],['xh-special-159','B']]){
+    const q=h.state.data.questions.find(q=>q.id===id)
+    h.startQuiz([q]);finishPaper(h);h.openPitfallManual()
+    const entry=h.collectPitfalls([q]).find(e=>e.item.label===label)
+    assert(entry&&entry.item.reason,`${id}:${label}: retain errors even without an approved inline replacement`)
+    assert(h.renderPitfallManual().replace(/<[^>]+>/g,'').includes(entry.item.text))
+    assert(h.renderPitfallManual().includes('说明：'))
+  }
+})
+
+test('empty manuals and unsafe source text render safely without partial entries or executable markup', () => {
+  const h=harness();h.startQuiz(h.state.data.questions);finishPaper(h);h.openPitfallManual()
+  assert(h.renderPitfallManual().includes('没有需要收集的错误表述'))
+  const evil={...h.state.data.questions[0],stem:'①<script>alert(1)</script>②第二项的原始内容',explanation:'①错误：来源仅指出错误。',options:['1项','2项','3项','4项'],answer:0,answerLetter:'A'}
+  h.state.data.questions=[evil];h.startQuiz([evil]);finishPaper(h);h.openPitfallManual()
+  const html=h.renderPitfallManual();assert(html.includes('&lt;script&gt;'));assert(!html.includes('<script>'))
+  assert(html.includes('data-pitfall-entry="1"'))
 })
 
 console.log(`PASS: ${passed} quiz navigation, gesture, timing, persistence and reference scenarios`)
