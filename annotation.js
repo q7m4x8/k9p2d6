@@ -107,6 +107,7 @@
     if (editing && document.activeElement === current.svg && !drawing) current.svg.appendChild(node('circle', { cx: cursor[0] * 1000, cy: cursor[1] * 1000, r: 5, fill: color, opacity: '.5', 'vector-effect': 'non-scaling-stroke' }))
     current.surface.classList.toggle('ink-editing', editing)
     current.surface.classList.toggle('ink-moving', editing && tool === 'move')
+    current.surface.classList.toggle('ink-erasing', editing && tool === 'eraser')
     current.svg.setAttribute('tabindex', editing ? '0' : '-1')
     current.toolbar.hidden = !editing
     current.button?.classList.toggle('active', editing)

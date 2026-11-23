@@ -365,7 +365,8 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .question-pen-button.active { color: var(--accent-ink); background: var(--accent-soft); border-color: var(--accent); }
 .question-ink-surface { position: relative; isolation: isolate; min-width: 0; }
 .question-ink-layer { position: absolute; inset: 0; display: block; width: 100%; height: 100%; overflow: hidden; z-index: 3; pointer-events: none; }
-.ink-editing > .question-ink-layer { pointer-events: auto; touch-action: none; cursor: crosshair; background: rgba(255,255,255,.015); }
+.ink-editing > .question-ink-layer { pointer-events: auto; touch-action: none; cursor: url('./assets/cursors/pen.svg?v=20261123-12') 3 3, url('./assets/cursors/pen.png?v=20261123-12') 3 3, default; background: rgba(255,255,255,.015); }
+.ink-editing.ink-erasing > .question-ink-layer { cursor: url('./assets/cursors/eraser.svg?v=20261123-12') 11 25, url('./assets/cursors/eraser.png?v=20261123-12') 11 25, default; }
 .ink-editing.ink-moving > .question-ink-layer { pointer-events: none; }
 .ink-editing { outline: 2px solid var(--accent-soft); outline-offset: 5px; border-radius: 8px; }
 .question-ink-layer:focus-visible { outline: 2px dashed var(--accent); outline-offset: 3px; }
