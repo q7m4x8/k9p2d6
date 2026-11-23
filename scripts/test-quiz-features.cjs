@@ -6,6 +6,7 @@ const assert = require('node:assert/strict')
 const repo = path.resolve(__dirname, '..')
 const storageKey = 'xiaotian_quiz_state_v1'
 const draftKey = 'xiaotian_quiz_draft_v1'
+const notesKey = 'xiaotian_quiz_notes_v1'
 const source = fs.readFileSync(path.join(repo, 'app.js'), 'utf8').replace(/\ninit\(\)\s*$/, '')
 const fixtures = [
   { id: 'test-1', source: '测试', album: '测试专辑', paper: '第01套', number: 1, stem: '测试题一', options: ['甲', '乙', '丙', '丁'], answer: 0, answerLetter: 'A', explanation: '甲正确。' },
@@ -18,12 +19,13 @@ const bank = {
   stats: { questionCount: 3, paperCount: 1, albumCount: 1 }
 }
 
-function harness(saved, savedDraft, storageFails = false) {
+function harness(saved, savedDraft, storageFails = false, savedNotes) {
   let failStorage = storageFails
   let now = 0
   const epoch = 1800000000000
   const storage = new Map(saved ? [[storageKey, JSON.stringify(saved)]] : [])
   if (savedDraft) storage.set(draftKey, JSON.stringify(savedDraft))
+  if (savedNotes !== undefined) storage.set(notesKey, JSON.stringify(savedNotes))
   const listeners = new Map()
   const windowListeners = new Map()
   const intervals = new Map()
@@ -117,7 +119,7 @@ function harness(saved, savedDraft, storageFails = false) {
   for (const file of ['text-format.js', 'reference-reviews.js', 'option-reviews.js', 'explanation-format.js']) {
     vm.runInContext(fs.readFileSync(path.join(repo, file), 'utf8'), context)
   }
-  vm.runInContext(source + `\nglobalThis.testApi = {state, startQuiz, navigate, goBack, changeQuestion, pauseQuizTiming, resumeQuizTiming, getQuestionMilliseconds, getSessionMilliseconds, formatDuration, submitSession, render, renderQuiz, renderProgress, renderTimingHistory, openHistoryRecord, renderReferenceAnswer, conciseReferenceReason, saveUserState, setQuizFont, continueDraft, toggleHistoryManagement, selectHistoryRecord, selectAllHistoryRecords, selectedHistoryRecords, requestHistoryDeletion, cancelHistoryDeletion, confirmHistoryDeletion};`, context)
+  vm.runInContext(source + `\nglobalThis.testApi = {state, startQuiz, navigate, goBack, changeQuestion, pauseQuizTiming, resumeQuizTiming, getQuestionMilliseconds, getSessionMilliseconds, formatDuration, submitSession, render, renderQuiz, renderProgress, renderTimingHistory, openHistoryRecord, renderReferenceAnswer, conciseReferenceReason, saveUserState, setQuizFont, continueDraft, toggleHistoryManagement, selectHistoryRecord, selectAllHistoryRecords, selectedHistoryRecords, requestHistoryDeletion, cancelHistoryDeletion, confirmHistoryDeletion, toggleQuestionNote, saveQuestionNote, renderQuestionNotes};`, context)
   const api = context.testApi
   api.state.data = JSON.parse(JSON.stringify(bank))
   const fire = (type, event = {}, target = document) => {
@@ -140,6 +142,7 @@ function harness(saved, savedDraft, storageFails = false) {
     },
     saved() { return JSON.parse(storage.get(storageKey) || '{}') },
     draftSaved() { return JSON.parse(storage.get(draftKey) || 'null') },
+    notesSaved() { return JSON.parse(storage.get(notesKey) || 'null') },
     setHidden(hidden) { document.hidden = hidden; document.visibilityState = hidden ? 'hidden' : 'visible'; fire('visibilitychange') },
     setSelection(value) { selection = value },
     setStorageFails(value) { failStorage = value },
@@ -785,6 +788,80 @@ test('all histories including unavailable old records can be removed, leaving a 
   assert(/data-action="history-manage"[^>]*disabled/.test(html))
   h.toggleHistoryManagement();assert.equal(h.state.historyManaging,false)
   assert.equal(h.requestHistoryDeletion(),false)
+})
+
+test('question notes appear after submission, persist per question and reopen from historical review', () => {
+  const h=harness();h.startQuiz(h.state.data.questions.slice(0,2))
+  assert(!h.renderQuiz().includes('data-action="note-toggle"'))
+  h.state.sessionAnswers={'test-1':0,'test-2':1};h.submitSession();h.toggleQuestionNote()
+  assert(h.renderQuiz().includes('我的笔记'))
+  h.saveQuestionNote('test-1','第一题：记忆方法')
+  h.changeQuestion(1);h.toggleQuestionNote();h.saveQuestionNote('test-2','第二题：易错点')
+  h.changeQuestion(0)
+  assert(h.renderQuestionNotes(fixtures[0]).includes('第一题：记忆方法'))
+  assert(!h.renderQuestionNotes(fixtures[0]).includes('第二题：易错点'))
+  const reloaded=harness(h.saved(),h.draftSaved(),false,h.notesSaved())
+  reloaded.openHistoryRecord(0);reloaded.toggleQuestionNote()
+  assert(reloaded.renderQuiz().includes('第一题：记忆方法'))
+  reloaded.changeQuestion(1);assert(reloaded.renderQuiz().includes('第二题：易错点'))
+})
+
+test('note input preserves whitespace and markup literally without re-rendering the focused editor', () => {
+  const h=harness({history:[practiceRecord('notes')]});h.openHistoryRecord(0);h.toggleQuestionNote()
+  const text='中文  空格\n  English words  <b>bold</b>\n</textarea><script>alert("x")</script> & 原样'
+  const editor=h.element('.note-editor');editor.dataset.questionNote='test-1';editor.value=text
+  const before=h.element('#mainContent').innerHTML
+  h.fire('input',{target:editor})
+  assert.equal(h.notesSaved()['test-1'],text)
+  assert.equal(h.element('#mainContent').innerHTML,before,'Typing must not replace the textarea or reset its caret')
+  const html=h.renderQuestionNotes(fixtures[0])
+  assert(html.includes('中文  空格\n  English words'))
+  assert(html.includes('&lt;/textarea&gt;&lt;script&gt;'))
+  assert(!html.includes('<script>'));assert(!html.includes('<b>bold</b>'))
+})
+
+test('unsaved notes remain in memory on storage failure and retry persists the full note map', () => {
+  const h=harness({history:[practiceRecord('note-quota')]},null,true)
+  h.openHistoryRecord(0);h.toggleQuestionNote()
+  assert.equal(h.saveQuestionNote('test-1','尚未写入磁盘的笔记'),false)
+  assert.equal(h.state.notes['test-1'],'尚未写入磁盘的笔记')
+  assert.equal(h.notesSaved(),null)
+  assert(h.renderQuestionNotes(fixtures[0]).includes('尚未保存，请重试'))
+  h.setStorageFails(false);assert(h.saveQuestionNote('test-2','第二条笔记'))
+  assert.equal(h.notesSaved()['test-1'],'尚未写入磁盘的笔记')
+  assert.equal(h.state.noteSaveErrors.size,0)
+  assert(h.renderQuestionNotes(fixtures[0]).includes('已自动保存'))
+})
+
+test('batch deletion of practice records never removes notes or other saved data', () => {
+  const h=harness({history:[practiceRecord('a'),practiceRecord('b')]},null,false,{'test-1':'独立保存的笔记'})
+  h.navigate('progress');h.toggleHistoryManagement();h.selectAllHistoryRecords(true);h.requestHistoryDeletion()
+  assert(h.confirmHistoryDeletion());assert.equal(h.saved().history.length,0)
+  assert.equal(h.notesSaved()['test-1'],'独立保存的笔记')
+  const reloaded=harness(h.saved(),null,false,h.notesSaved())
+  assert.equal(reloaded.state.notes['test-1'],'独立保存的笔记')
+})
+
+test('a late input from a previous question is saved under its captured question ID', () => {
+  const h=harness({history:[practiceRecord('late-input')]});h.openHistoryRecord(0);h.toggleQuestionNote()
+  const oldEditor=h.element('.old-note-editor');oldEditor.dataset.questionNote='test-1';oldEditor.value='切题时完成的输入'
+  h.changeQuestion(1);h.saveQuestionNote('test-2','第二题原有内容')
+  h.fire('input',{target:oldEditor})
+  assert.equal(h.notesSaved()['test-1'],'切题时完成的输入')
+  assert.equal(h.notesSaved()['test-2'],'第二题原有内容')
+  assert.equal(h.saveQuestionNote('unknown-question','不能保存'),false)
+  assert.equal(h.notesSaved()['unknown-question'],undefined)
+})
+
+test('note loading accepts only string entries and clearing a note leaves histories intact', () => {
+  const invalid=harness(null,null,false,['invalid-array'])
+  assert.equal(Object.keys(invalid.state.notes).length,0)
+  const h=harness({history:[practiceRecord('keep')]},null,false,{'test-1':'有效',bad:{text:'旧结构'},other:123})
+  assert.equal(Object.getPrototypeOf(h.state.notes),null)
+  assert.equal(h.state.notes['test-1'],'有效');assert.equal(h.state.notes.bad,undefined)
+  assert(h.saveQuestionNote('test-1',''))
+  assert.deepEqual(h.notesSaved(),{})
+  assert.equal(h.saved().history.length,1)
 })
 
 console.log(`PASS: ${passed} quiz navigation, gesture, timing, persistence and reference scenarios`)

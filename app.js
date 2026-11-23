@@ -1,5 +1,6 @@
 const STORAGE_KEY = 'xiaotian_quiz_state_v1'
 const DRAFT_KEY = 'xiaotian_quiz_draft_v1'
+const NOTES_KEY = 'xiaotian_quiz_notes_v1'
 const USER_DEFAULTS = { attempts: {}, wrong: [], favorites: [], theme: 0, quizFont: 'small', history: [] }
 const themes = [
   { accent: '#ff7a1a', soft: '#fff0df', ink: '#c84f00', glow: '#fff0e2' },
@@ -24,6 +25,10 @@ const state = {
   historyManaging: false,
   historySelection: new Set(),
   pendingHistoryDeletion: null,
+  notes: loadQuestionNotes(),
+  openNotes: new Set(),
+  touchedNotes: new Set(),
+  noteSaveErrors: new Set(),
   sessionTimes: {},
   timerStartedAt: null,
   sessionRecord: null,
@@ -68,6 +73,60 @@ function loadUserState() {
   } catch {
     return { ...USER_DEFAULTS, draft: null }
   }
+}
+
+function loadQuestionNotes() {
+  const notes = Object.create(null)
+  try {
+    const saved = JSON.parse(localStorage.getItem(NOTES_KEY))
+    if (saved && typeof saved === 'object' && !Array.isArray(saved)) {
+      for (const [id, text] of Object.entries(saved)) if (typeof text === 'string') notes[id] = text
+    }
+  } catch {}
+  return notes
+}
+
+function questionNoteStatus(id) {
+  return state.noteSaveErrors.has(id) ? '尚未保存，请重试；当前输入仍保留在本页。'
+    : state.touchedNotes.has(id) || state.notes[id] ? '已自动保存' : '输入后自动保存到当前浏览器'
+}
+
+function saveQuestionNote(id, text) {
+  if (typeof text !== 'string' || !state.data?.questions.some(question => question.id === id)) return false
+  if (text) state.notes[id] = text
+  else delete state.notes[id]
+  state.touchedNotes.add(id)
+  const saved = writeStorage(NOTES_KEY, state.notes)
+  if (saved) state.noteSaveErrors.clear()
+  else state.noteSaveErrors.add(id)
+  // Do not re-render the editor on input: keep focus, selection and IME composition intact.
+  document.querySelectorAll('[data-note-status]').forEach(element => {
+    if (element.dataset.noteStatus === id) element.textContent = questionNoteStatus(id)
+  })
+  document.querySelectorAll('[data-note-retry]').forEach(element => {
+    if (element.dataset.noteRetry === id) element.hidden = saved
+  })
+  return saved
+}
+
+function toggleQuestionNote() {
+  const question = currentQuestion()
+  if (state.route !== 'quiz' || !state.sessionSubmitted || !question) return
+  const opening = !state.openNotes.has(question.id)
+  if (opening) state.openNotes.add(question.id)
+  else state.openNotes.delete(question.id)
+  render()
+  if (opening) document.querySelector('[data-question-note]')?.focus?.()
+}
+
+function renderQuestionNoteButton(question) {
+  const open = state.openNotes.has(question.id)
+  return `<button class="mini-btn ghost question-note-toggle" data-action="note-toggle" aria-expanded="${open}" aria-controls="notes-${escapeHtml(question.id)}">${open ? '收起笔记' : state.notes[question.id] ? '查看笔记' : '写笔记'}</button>`
+}
+
+function renderQuestionNotes(question) {
+  const id = escapeHtml(question.id)
+  return `<section class="question-notes" id="notes-${id}" ${state.openNotes.has(question.id) ? '' : 'hidden'}><label for="note-input-${id}">我的笔记</label><textarea id="note-input-${id}" data-question-note="${id}" rows="4" placeholder="记下解题思路、易错点或记忆方法…" aria-describedby="note-status-${id}">${escapeHtml(state.notes[question.id] || '')}</textarea><div class="note-save-row"><span id="note-status-${id}" data-note-status="${id}" role="status" aria-live="polite">${escapeHtml(questionNoteStatus(question.id))}</span><button class="mini-btn ghost" data-action="note-retry" data-note-retry="${id}" ${state.noteSaveErrors.has(question.id) ? '' : 'hidden'}>重试保存</button></div></section>`
 }
 
 function writeStorage(key, value) {
@@ -264,13 +323,15 @@ function renderReferenceSources(question, supplement) {
 }
 
 function renderReferenceAnswer(question) {
+  const heading = `<div class="reference-heading-title"><h3>参考答案</h3>${renderQuestionNoteButton(question)}</div>`
+  const notes = renderQuestionNotes(question)
   const supplement = referenceSupplement(question)
   const original = supplement?.explanation || question.explanation || `正确答案：${question.answerLetter}`
   const sources = renderReferenceSources(question, supplement)
   const formatted = window.QuizExplanationFormatter?.format(question) || window.QuizExplanationFormatter?.formatOptions(question)
   if (!formatted) {
     const concise = conciseReferenceReason(original, [question.stem, ...(question.options || [])].join('\n'))
-    return `<section class="reference-answer"><header class="reference-heading"><h3>参考答案</h3><span>正确答案 <b>${escapeHtml(question.answerLetter)}</b></span></header><div class="reference-prose"><h4>答案解释</h4><p class="explanation-text">${escapeQuizText(concise)}</p></div>${sources}</section>`
+    return `<section class="reference-answer"><header class="reference-heading">${heading}<span>正确答案 <b>${escapeHtml(question.answerLetter)}</b></span></header><div class="reference-prose"><h4>答案解释</h4><p class="explanation-text">${escapeQuizText(concise)}</p></div>${sources}${notes}</section>`
   }
   const rows = formatted.items.map(item => {
     const hasCorrection = !!item.correctedRule || item.segments.some(segment => segment.type === 'correction')
@@ -292,7 +353,7 @@ function renderReferenceAnswer(question) {
   const countText = /^\d+\s*项$/.test(question.options?.[question.answer] || '')
     ? `（${question.options[question.answer].replace(/\s/g, '')}）` : ''
   const emptyNote = formatted.mode === 'options' && !formatted.items.length ? `<p class="reference-reason">各选项的判断需结合题意，正确答案为 ${escapeHtml(question.answerLetter)}。</p>` : ''
-  return `<section class="reference-answer" aria-label="参考答案"><header class="reference-heading"><h3>参考答案</h3><span>正确答案 <b>${escapeHtml(question.answerLetter)}</b>${escapeHtml(countText)}</span></header><ol class="reference-items">${rows}</ol>${emptyNote}${sources}</section>`
+  return `<section class="reference-answer" aria-label="参考答案"><header class="reference-heading">${heading}<span>正确答案 <b>${escapeHtml(question.answerLetter)}</b>${escapeHtml(countText)}</span></header><ol class="reference-items">${rows}</ol>${emptyNote}${sources}${notes}</section>`
 }
 
 function renderSourceExplanation(question) {
@@ -854,6 +915,11 @@ document.addEventListener('click', event => {
   }
   const action = event.target.closest('[data-action]')?.dataset.action
   if (!action) return
+  if (action === 'note-toggle') return toggleQuestionNote()
+  if (action === 'note-retry') {
+    const id = target.closest('[data-note-retry]')?.dataset.noteRetry
+    if (id) return saveQuestionNote(id, state.notes[id] || '')
+  }
   if (action === 'history-manage') return toggleHistoryManagement()
   if (action === 'history-delete-request') return requestHistoryDeletion()
   if (action === 'history-delete-cancel') return cancelHistoryDeletion()
@@ -879,6 +945,11 @@ document.addEventListener('change', event => {
   if (!(checkbox instanceof Element)) return
   if (checkbox.matches('[data-history-select]')) return selectHistoryRecord(Number(checkbox.dataset.historySelect), checkbox.checked)
   if (checkbox.matches('[data-history-all]')) selectAllHistoryRecords(checkbox.checked)
+})
+
+document.addEventListener('input', event => {
+  const editor = event.target
+  if (editor instanceof Element && editor.matches('[data-question-note]')) saveQuestionNote(editor.dataset.questionNote, editor.value)
 })
 
 document.addEventListener('keydown', event => {
