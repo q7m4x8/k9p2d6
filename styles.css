@@ -438,6 +438,7 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .reference-item.incorrect { border-color: #ecc0c5; }
 .reference-item-head { display: flex; align-items: center; gap: 9px; margin-bottom: 6px; }
 .reference-item-head > b { font-size: 1.142857rem; }
+.reference-item-head > .pitfall-favorite { min-height: 36px; padding: 6px 9px; font-size: .928571rem; }
 .reference-verdict { padding: 1px 7px; border-radius: 5px; font-size: .857143rem; font-weight: 700; }
 .reference-verdict.correct { color: #11633b; background: #e7f6ec; }
 .reference-verdict.incorrect { color: #ae2434; background: #ffedf0; }

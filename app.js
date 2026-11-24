@@ -394,6 +394,20 @@ function renderReferenceSegments(segments) {
       : segment.type === 'wrong-focus' ? `<del class="reference-wrong">${escapeHtml(segment.text)}</del>` : escapeHtml(segment.text)).join('')
 }
 
+function formatReference(question) {
+  if (isOriginalAnnotated(question)) return null
+  const formatter = window.QuizExplanationFormatter
+  return formatter?.format(question) || formatter?.formatOptions(question)
+}
+
+function referenceStatus(item) {
+  if (item.reviewStatus === 'source_unclear') return '待核对'
+  if (item.verdict === 'correct') return '✓ 正确'
+  if (item.verdict === 'incorrect') return '× 错误'
+  if (item.contextual) return '题意不符'
+  return item.manuallyReviewed ? '题意说明' : '原句'
+}
+
 function renderReferenceAnswer(question) {
   const heading = `<div class="reference-heading-title"><h3>参考答案</h3>${renderQuestionNoteButton(question)}</div>`
   const notes = renderQuestionNotes(question)
@@ -401,7 +415,7 @@ function renderReferenceAnswer(question) {
   const supplement = referenceSupplement(question)
   const original = supplement?.explanation || question.explanation || `正确答案：${question.answerLetter}`
   const sources = renderReferenceSources(question, supplement)
-  const formatted = window.QuizExplanationFormatter?.format(question) || window.QuizExplanationFormatter?.formatOptions(question)
+  const formatted = formatReference(question)
   if (!formatted) {
     const concise = conciseReferenceReason(original, [question.stem, ...(question.options || [])].join('\n'))
     return `<section class="reference-answer"><header class="reference-heading">${heading}<span>正确答案 <b>${escapeHtml(question.answerLetter)}</b></span></header><div class="reference-prose"><h4>答案解释</h4><p class="explanation-text">${escapeQuizText(concise)}</p></div>${sources}${notes}</section>`
@@ -409,7 +423,6 @@ function renderReferenceAnswer(question) {
   const rows = formatted.items.map(item => {
     const hasCorrection = !!item.correctedRule || item.segments.some(segment => segment.type === 'correction')
     const verdict = ['correct', 'incorrect'].includes(item.verdict) ? item.verdict : 'unknown'
-    const status = item.reviewStatus === 'source_unclear' ? '待核对' : verdict === 'correct' ? '✓ 正确' : verdict === 'incorrect' ? '× 错误' : item.contextual ? '题意不符' : item.manuallyReviewed ? '题意说明' : '原句'
     const text = renderReferenceSegments(item.segments)
     const reasonText = item.reason ? escapeQuizText(conciseReferenceReason(item.reason, item.text)) : ''
     const reason = (!hasCorrection || item.needsExplanation) && verdict !== 'correct' && reasonText
@@ -418,7 +431,8 @@ function renderReferenceAnswer(question) {
         : `<p class="reference-reason"><span>说明：</span>${reasonText}</p>`) : ''
     const reviewNote = item.reviewStatus === 'source_unclear' && item.reviewNote ? `<p class="reference-review-note">${escapeQuizText(item.reviewNote)}</p>` : ''
     const rule = item.correctedRule ? `<div class="reference-rule"><b>${verdict === 'unknown' ? '知识点说明' : '正确表述'}</b><p>${escapeQuizText(item.correctedRule)}</p></div>` : ''
-    return `<li class="reference-item ${verdict}"><div class="reference-item-head"><b>${escapeHtml(item.label)}</b><span class="reference-verdict ${verdict}">${status}</span></div><p class="reference-statement">${text}</p>${rule}${reviewNote}${reason}</li>`
+    const favorite = state.sessionSubmitted ? renderPitfallFavorite(`${question.id}:${item.label}`, `参考答案 ${item.label}`) : ''
+    return `<li class="reference-item ${verdict}"><div class="reference-item-head"><b>${escapeHtml(item.label)}</b><span class="reference-verdict ${verdict}">${referenceStatus(item)}</span>${favorite}</div><p class="reference-statement">${text}</p>${rule}${reviewNote}${reason}</li>`
   }).join('')
   const countText = /^\d+\s*项$/.test(question.options?.[question.answer] || '')
     ? `（${question.options[question.answer].replace(/\s/g, '')}）` : ''
@@ -732,8 +746,7 @@ function pitfallScope() {
 function collectPitfalls(questions) {
   const entries = []
   questions.forEach((question,index) => {
-    if (isOriginalAnnotated(question)) return
-    const formatted = window.QuizExplanationFormatter?.format(question) || window.QuizExplanationFormatter?.formatOptions(question)
+    const formatted = formatReference(question)
     for (const item of formatted?.items || []) {
       if (item.verdict === 'incorrect') entries.push({question,questionNumber:index+1,item,number:entries.length+1})
     }
@@ -766,32 +779,52 @@ function resolvePitfall(key) {
   const split = key.lastIndexOf(':')
   const question = state.data.questions.find(question => question.id === key.slice(0,split))
   if (!question) return null
-  const entry = collectPitfalls([question]).find(entry => entry.item.label === key.slice(split+1))
-  if (!entry) return null
+  const item = formatReference(question)?.items.find(item => item.label === key.slice(split+1))
+  if (!item) return null
   const paper = state.data.questions.filter(q => q.source === question.source && q.album === question.album && q.paper === question.paper).sort((a,b)=>a.number-b.number)
-  return {...entry,questionNumber:paper.findIndex(q=>q.id===question.id)+1}
+  return {question, item, questionNumber:paper.findIndex(q=>q.id===question.id)+1}
 }
 
 function savedPitfallEntries() {
   return state.pitfallFavorites.map(resolvePitfall).filter(Boolean).map((entry,index)=>({...entry,number:index+1}))
 }
 
-function togglePitfallFavorite(key) {
-  const manual = state.route === 'quiz' && state.pitfallOpen && state.sessionSubmitted
+function renderPitfallFavorite(key, subject) {
+  const saved = state.pitfallFavorites.includes(key)
+  return `<button type="button" class="mini-btn pitfall-favorite ${saved ? 'active' : 'ghost'}" data-pitfall-favorite="${escapeHtml(key)}" aria-pressed="${saved}" aria-label="${saved ? '取消收藏' : '收藏'}${escapeHtml(subject)}">${saved ? '★ 已收藏' : '☆ 收藏'}</button>`
+}
+
+function togglePitfallFavorite(key, button) {
+  const review = state.route === 'quiz' && state.sessionSubmitted
   const collection = state.route === 'favorites' && state.favoriteTab === 'pitfalls' && state.pitfallFavorites.includes(key)
-  if (!manual && !collection) return false
+  if (!review && !collection) return false
   const entry = resolvePitfall(key)
-  if (!entry || (manual && !pitfallScope().questions.some(question=>question.id===entry.question.id))) return false
+  if (!entry) return false
+  if (review && state.pitfallOpen) {
+    if (entry.item.verdict !== 'incorrect' || !pitfallScope().questions.some(question => question.id === entry.question.id)) return false
+  } else if (review && currentQuestion()?.id !== entry.question.id) return false
+
   const wasSaved = state.pitfallFavorites.includes(key)
   const next = wasSaved ? state.pitfallFavorites.filter(item=>item!==key) : [...state.pitfallFavorites,key]
   if (!writeStorage(PITFALL_FAVORITES_KEY,next)) { showToast('收藏未保存，请重试'); return false }
   state.pitfallFavorites = next
-  const scroll = window.scrollY || 0
-  render()
-  window.scrollTo({top:scroll,behavior:'instant'})
-  const buttons = main.querySelectorAll('[data-pitfall-favorite]')
-  const focus = [...buttons].find(button=>button.dataset.pitfallFavorite===key)
-  focus?.focus?.({preventScroll:true})
+  if (collection) {
+    const index = [...main.querySelectorAll('[data-pitfall-favorite]')].indexOf(button)
+    const scroll = window.scrollY || 0
+    render()
+    window.scrollTo({top:scroll,behavior:'instant'})
+    const remaining = main.querySelectorAll('[data-pitfall-favorite]')
+    const focus = remaining[Math.max(0, Math.min(index, remaining.length - 1))] || main.querySelector('[data-favorite-tab="pitfalls"]')
+    focus?.focus?.({preventScroll:true})
+  } else if (button) {
+    const saved = !wasSaved
+    const label = button.getAttribute('aria-label') || '收藏此条表述'
+    button.setAttribute('aria-pressed', String(saved))
+    button.setAttribute('aria-label', label.replace(/^(?:取消)?收藏/, saved ? '取消收藏' : '收藏'))
+    button.classList.toggle('active', saved)
+    button.classList.toggle('ghost', !saved)
+    button.textContent = saved ? '★ 已收藏' : '☆ 收藏'
+  }
   showToast(wasSaved ? '已取消手册收藏' : '已收藏到挖坑手册')
   return true
 }
@@ -807,14 +840,15 @@ function setFavoriteTab(tab) {
 function renderPitfallRows(entries,singlePaper=false) {
   return entries.map(({question,questionNumber,item,number}) => {
     const hasCorrection = item.correctedRule || item.segments.some(segment => segment.type === 'correction')
-    const rule = item.correctedRule ? `<div class="reference-rule"><b>正确表述</b><p>${escapeQuizText(item.correctedRule)}</p></div>` : ''
+    const rule = item.correctedRule ? `<div class="reference-rule"><b>${item.verdict === 'unknown' ? '知识点说明' : '正确表述'}</b><p>${escapeQuizText(item.correctedRule)}</p></div>` : ''
     const reason = !hasCorrection && item.reason ? `<p class="reference-reason"><span>说明：</span>${escapeQuizText(conciseReferenceReason(item.reason,item.text))}</p>` : ''
     const originalOptions = question.options.map((text,index) => `<li><b>${'ABCD'[index]}</b><span>${escapeQuizText(text)}</span></li>`).join('')
     const source = singlePaper ? '' : `<small class="pitfall-source-detail">${escapeHtml(question.source)} · ${escapeHtml(question.album)} · ${escapeHtml(question.paper)} · 原第 ${escapeHtml(String(question.number))} 题</small>`
-    const key = `${question.id}:${item.label}`
-    const saved = state.pitfallFavorites.includes(key)
-    const favorite = `<button type="button" class="mini-btn pitfall-favorite ${saved ? 'active' : 'ghost'}" data-pitfall-favorite="${escapeHtml(key)}" aria-pressed="${saved}" aria-label="${saved ? '取消收藏' : '收藏'}第 ${questionNumber} 题 ${escapeHtml(item.label)} 的错误表述">${saved ? '★ 已收藏' : '☆ 收藏'}</button>`
-    return `<li class="pitfall-entry" data-pitfall-entry="${number}" data-pitfall-id="${escapeHtml(question.id)}" data-pitfall-label="${escapeHtml(item.label)}"><span class="pitfall-number">${number}</span><div class="pitfall-content"><div class="pitfall-source"><span>第 ${questionNumber} 题 · ${escapeHtml(item.label)}${source}</span>${favorite}</div><p class="pitfall-statement">${renderReferenceSegments(item.segments)}</p>${rule}${reason}<details class="pitfall-original"><summary>查看原题</summary><p>${escapeQuizText(displayQuestionStem(question))}</p><ul>${originalOptions}</ul></details></div></li>`
+    const verdict = item.verdict === 'correct' ? 'correct' : 'unknown'
+    const status = item.verdict === 'incorrect' ? '' : ` <span class="reference-verdict ${verdict}">${referenceStatus(item)}</span>`
+    const subject = item.verdict === 'incorrect' ? '错误表述' : '参考答案'
+    const favorite = renderPitfallFavorite(`${question.id}:${item.label}`, `第 ${questionNumber} 题 ${item.label} 的${subject}`)
+    return `<li class="pitfall-entry" data-pitfall-entry="${number}" data-pitfall-id="${escapeHtml(question.id)}" data-pitfall-label="${escapeHtml(item.label)}"><span class="pitfall-number">${number}</span><div class="pitfall-content"><div class="pitfall-source"><span>第 ${questionNumber} 题 · ${escapeHtml(item.label)}${status}${source}</span>${favorite}</div><p class="pitfall-statement">${renderReferenceSegments(item.segments)}</p>${rule}${reason}<details class="pitfall-original"><summary>查看原题</summary><p>${escapeQuizText(displayQuestionStem(question))}</p><ul>${originalOptions}</ul></details></div></li>`
   }).join('')
 }
 
@@ -950,8 +984,8 @@ function renderFavorites() {
   const entries = savedPitfallEntries()
   const pitfalls = state.favoriteTab === 'pitfalls'
   const tabs = `<div class="favorites-tabs" role="group" aria-label="收藏分类"><button type="button" class="filter-chip ${pitfalls ? '' : 'active'}" data-favorite-tab="questions" aria-pressed="${!pitfalls}">题目收藏（${questions.length}）</button><button type="button" class="filter-chip ${pitfalls ? 'active' : ''}" data-favorite-tab="pitfalls" aria-pressed="${pitfalls}">挖坑手册收藏（${entries.length}）</button></div>`
-  const heading = `<section class="list-hero"><span class="eyebrow">收藏夹</span><h1>收藏</h1><p>${pitfalls ? `收藏的错误表述与正确说法，方便集中复习。 · 共 ${entries.length} 条` : `手动标记的题目，方便随时回来复习。 · 共 ${questions.length} 题`}</p>${tabs}</section>`
-  if (pitfalls) return `${heading}<section aria-label="挖坑手册收藏">${entries.length ? `<ol class="pitfall-list">${renderPitfallRows(entries)}</ol>` : '<div class="empty-state"><b>还没有收藏易错表述</b>交卷后打开挖坑手册，点击每条右侧的“收藏”即可保存到这里。</div>'}</section>`
+  const heading = `<section class="list-hero"><span class="eyebrow">收藏夹</span><h1>收藏</h1><p>${pitfalls ? `从参考答案和挖坑手册收藏的表述 · 共 ${entries.length} 条` : `手动标记的题目，方便随时回来复习。 · 共 ${questions.length} 题`}</p>${tabs}</section>`
+  if (pitfalls) return `${heading}<section aria-label="挖坑手册收藏">${entries.length ? `<ol class="pitfall-list">${renderPitfallRows(entries)}</ol>` : '<div class="empty-state"><b>还没有收藏的表述</b>交卷后，在参考答案或挖坑手册里点每条右上角的“收藏”。</div>'}</section>`
   if (!questions.length) return `${heading}<section aria-label="题目收藏"><div class="empty-state"><b>这里还是空的</b>在答题页点击收藏，就能把题目保存到这里。</div></section>`
   const cards = questions.map(question=>`<article class="list-card"><small>${escapeHtml(question.album)} · ${escapeHtml(question.paper)}</small><p>${escapeQuizText(displayQuestionStem(question))}</p><p class="question-duration">上次用时 ${Number.isFinite(state.user.attempts[question.id]?.durationSeconds) ? formatDuration(state.user.attempts[question.id].durationSeconds*1000) : '未计时'}</p><div class="list-actions"><button class="mini-btn" data-single="${escapeHtml(question.id)}">再做一次</button><button class="mini-btn ghost" data-remove="${escapeHtml(question.id)}" data-list="favorites">取消收藏</button></div></article>`).join('')
   return `${heading}<section aria-label="题目收藏"><div class="filter-row favorite-practice"><button class="filter-chip active" data-list-practice="favorites">练习全部 ${questions.length} 题</button></div><div class="question-list">${cards}</div></section>`
@@ -1112,7 +1146,7 @@ document.addEventListener('click', event => {
   const jump = event.target.closest('[data-jump]')
   if (jump) return changeQuestion(Number(jump.dataset.jump))
   const pitfallFavorite = target.closest('[data-pitfall-favorite]')
-  if (pitfallFavorite) return togglePitfallFavorite(pitfallFavorite.dataset.pitfallFavorite)
+  if (pitfallFavorite) return togglePitfallFavorite(pitfallFavorite.dataset.pitfallFavorite, pitfallFavorite)
   const favoriteTab = target.closest('[data-favorite-tab]')
   if (favoriteTab) return setFavoriteTab(favoriteTab.dataset.favoriteTab)
   const single = event.target.closest('[data-single]')

@@ -1070,6 +1070,66 @@ test('every manual entry can be individually favorited, including questions outs
   assert.equal(h.state.session.length,1);assert.equal(h.state.session[0].id,'xh-special-029')
 })
 
+test('reference answer entries and the pitfall manual share saved favorites across review, reload and removal', () => {
+  const h = pitfallFavoriteHarness()
+  const question = h.state.data.questions.find(question => question.id === 'xh-special-021')
+  const correctKey = `${question.id}:①`
+  const wrongKey = `${question.id}:③`
+  const buttonMarkup = (html, key) => [...html.matchAll(/<button\b[^>]*>/g)]
+    .map(match => match[0]).find(button => button.includes(`data-pitfall-favorite="${key}"`)) || ''
+  const clickEntry = (page, key, section) => {
+    const container = new page.Element(section, page.element('#mainContent'))
+    const button = new page.Element('button', container)
+    button.dataset.pitfallFavorite = key
+    page.fire('click', { target: new page.Element('span', button), detail: 0 })
+  }
+
+  h.startQuiz([question])
+  assert(!h.renderQuiz().includes('data-pitfall-favorite'))
+  h.state.sessionAnswers[question.id] = question.answer
+  h.submitSession()
+  const answer = h.renderReferenceAnswer(question)
+  assert.equal((answer.match(/data-pitfall-favorite=/g) || []).length, 4)
+  assert.match(buttonMarkup(answer, correctKey), /aria-pressed="false"/)
+  assert.match(buttonMarkup(answer, correctKey), /aria-label="收藏参考答案 ①"/)
+  clickEntry(h, 'xh-special-029:①', '.reference-answer')
+  assert.equal(h.pitfallFavoritesSaved(), null, 'Another question in the same paper cannot be saved from this answer')
+  clickEntry(h, correctKey, '.reference-answer')
+  clickEntry(h, wrongKey, '.reference-answer')
+  assert.deepEqual(h.pitfallFavoritesSaved(), [correctKey, wrongKey])
+  assert.match(buttonMarkup(h.renderReferenceAnswer(question), correctKey), /aria-pressed="true"/)
+  assert.match(buttonMarkup(h.renderReferenceAnswer(question), wrongKey), /aria-pressed="true"/)
+
+  assert(h.openPitfallManual())
+  const manual = h.renderPitfallManual()
+  assert.equal(buttonMarkup(manual, correctKey), '', 'Manual still compiles only incorrect items')
+  assert.match(buttonMarkup(manual, wrongKey), /aria-pressed="true"/)
+  clickEntry(h, wrongKey, '.pitfall-entry')
+  assert.deepEqual(h.pitfallFavoritesSaved(), [correctKey])
+  assert(h.closePitfallManual())
+  assert.match(buttonMarkup(h.renderReferenceAnswer(question), wrongKey), /aria-pressed="false"/)
+  assert(h.openPitfallManual())
+  clickEntry(h, wrongKey, '.pitfall-entry')
+  assert(h.closePitfallManual())
+  assert.match(buttonMarkup(h.renderReferenceAnswer(question), wrongKey), /aria-pressed="true"/)
+
+  const reloaded = harness(h.saved(), h.draftSaved(), false, h.notesSaved(), h.pitfallFavoritesSaved())
+  reloaded.state.data = h.state.data
+  assert(reloaded.openHistoryRecord(0))
+  assert.match(buttonMarkup(reloaded.renderQuiz(), correctKey), /aria-pressed="true"/)
+  assert.match(buttonMarkup(reloaded.renderQuiz(), wrongKey), /aria-pressed="true"/)
+  reloaded.navigate('favorites')
+  assert(reloaded.setFavoriteTab('pitfalls'))
+  const collection = reloaded.renderFavorites()
+  assert(collection.includes('挖坑手册收藏（2）'))
+  assert(collection.includes('统一战线是中国共产党夺取革命、建设、改革事业胜利的重要法宝'))
+  assert(collection.includes('<strong>多样性中寻求一致性</strong>'))
+  clickEntry(reloaded, correctKey, '.pitfall-entry')
+  assert.deepEqual(reloaded.pitfallFavoritesSaved(), [wrongKey])
+  assert.equal(buttonMarkup(reloaded.renderFavorites(), correctKey), '')
+  assert.deepEqual(Array.from(reloaded.state.user.favorites), ['xh-special-021'])
+})
+
 test('different false statements in one question remain separate from each other and from question favorites', () => {
   const h=pitfallFavoriteHarness();const user=JSON.stringify(h.saved());const notes=JSON.stringify(h.notesSaved())
   assert(h.togglePitfallFavorite('xh-special-021:③'));assert(h.togglePitfallFavorite('xh-special-021:④'))
@@ -1104,7 +1164,7 @@ test('both favorites categories are available when empty and never turn pitfall 
   h.navigate('favorites');let html=h.renderFavorites()
   assert(html.includes('题目收藏（0）')&&html.includes('挖坑手册收藏（0）'))
   assert(h.setFavoriteTab('pitfalls'));html=h.renderFavorites()
-  assert(html.includes('还没有收藏易错表述')&&!html.includes('data-list-practice'))
+  assert(html.includes('还没有收藏的表述')&&!html.includes('data-list-practice'))
   const before=html;assert.equal(h.setFavoriteTab('invalid'),false);assert.equal(h.renderFavorites(),before)
   assert.equal(h.state.session.length,0)
 })
