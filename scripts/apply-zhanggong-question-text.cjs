@@ -69,6 +69,6 @@ for (const question of bank.questions) {
   assert(options.every(text => text.length >= 2), `Incomplete options: ${question.id}`)
   Object.assign(question, { stem, options, questionRenderMode: 'text' })
 }
-bank.version = '20261125-1'
+bank.version = '20261125-2'
 fs.writeFileSync(bankPath, JSON.stringify(bank) + '\n')
 console.log(`Updated ${bank.questions.length} text questions from the original source candidates and ${corrections.size} reviewed question corrections.`)

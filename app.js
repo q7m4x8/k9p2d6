@@ -1294,7 +1294,7 @@ async function init() {
   setTheme(state.user.theme || 0)
   setQuizFont(state.user.quizFont || 'small')
   try {
-    const banks = await Promise.all(['./data/questions.json?v=20261121-5', './data/zhanggong/questions.json?v=20261125-1'].map(async url => {
+    const banks = await Promise.all(['./data/questions.json?v=20261121-5', './data/zhanggong/questions.json?v=20261125-2'].map(async url => {
       const response = await fetch(url, { cache: 'no-cache' })
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
       return response.json()
