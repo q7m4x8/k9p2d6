@@ -2,7 +2,7 @@ const STORAGE_KEY = 'xiaotian_quiz_state_v1'
 const DRAFT_KEY = 'xiaotian_quiz_draft_v1'
 const NOTES_KEY = 'xiaotian_quiz_notes_v1'
 const PITFALL_FAVORITES_KEY = 'xiaotian_quiz_pitfall_favorites_v1'
-const USER_DEFAULTS = { attempts: {}, wrong: [], favorites: [], theme: 0, quizFont: 'small', history: [] }
+const USER_DEFAULTS = { attempts: {}, wrong: [], favorites: [], theme: 0, quizFont: 'small', history: [], autoRemoveCorrectFromWrong: false }
 const themes = [
   { accent: '#ff7a1a', soft: '#fff0df', ink: '#c84f00', glow: '#fff0e2' },
   { accent: '#2878e8', soft: '#e9f2ff', ink: '#1559aa', glow: '#eaf2ff' },
@@ -1105,7 +1105,9 @@ function renderReviewGroups(items, list) {
 
 function renderWrongQuestions() {
   const questions = savedReviewQuestions('wrong')
-  const heading = `<section class="list-hero"><h1>错题</h1><p>共 ${questions.length} 题 · 答对后自动移出错题本</p>${questions.length ? `<div class="filter-row"><button class="filter-chip active" data-list-practice="wrong">练习全部 ${questions.length} 题</button></div>` : ''}</section>`
+  const practice = questions.length ? `<button class="filter-chip active" data-list-practice="wrong">练习全部 ${questions.length} 题</button>` : ''
+  const checked = state.user.autoRemoveCorrectFromWrong === true ? ' checked' : ''
+  const heading = `<section class="list-hero"><h1>错题</h1><p>共 ${questions.length} 题</p><div class="wrong-list-controls">${practice}<label class="wrong-list-setting"><input type="checkbox" data-auto-remove-correct${checked}>答对后自动移出错题本</label></div></section>`
   const groups = questions.length ? renderReviewGroups(questions, 'wrong') : '<div class="empty-state"><b>还没有错题</b>答错的题会在交卷后显示在这里。</div>'
   return heading + groups
 }
@@ -1151,12 +1153,13 @@ function submitSession() {
   const remainder = totalSeconds - seconds.reduce((sum, time) => sum + time, 0)
   for (let index = 0; index < remainder; index++) seconds[ranked[index].index]++
   const submittedAt = Date.now()
+  const autoRemove = state.user.autoRemoveCorrectFromWrong === true
   const entries = state.session.map((question, index) => {
     const selected = state.sessionAnswers[question.id]
     const correct = selected === question.answer
     state.user.attempts[question.id] = { selected, correct, at: submittedAt, durationSeconds: seconds[index] }
-    if (correct) state.user.wrong = state.user.wrong.filter(id => id !== question.id)
-    else if (!state.user.wrong.includes(question.id)) state.user.wrong.push(question.id)
+    if (correct && autoRemove) state.user.wrong = state.user.wrong.filter(id => id !== question.id)
+    if (!correct && !state.user.wrong.includes(question.id)) state.user.wrong.push(question.id)
     return { id: question.id, seconds: seconds[index], durationMs: times[index], selected, correct }
   })
   state.sessionRecord = { id: `quiz-${submittedAt}-${Math.random().toString(36).slice(2, 8)}`, submittedAt, title: state.sessionTitle, totalSeconds, correctCount: entries.filter(entry => entry.correct).length, questions: entries }
@@ -1354,6 +1357,15 @@ document.addEventListener('click', event => {
 document.addEventListener('change', event => {
   const checkbox = event.target
   if (!(checkbox instanceof Element)) return
+  if (state.route === 'wrong' && checkbox.matches('[data-auto-remove-correct]')) {
+    const previous = state.user.autoRemoveCorrectFromWrong
+    state.user.autoRemoveCorrectFromWrong = checkbox.checked
+    if (!saveUserState()) {
+      state.user.autoRemoveCorrectFromWrong = previous
+      checkbox.checked = previous === true
+    }
+    return
+  }
   if (checkbox.matches('[data-history-select]')) return selectHistoryRecord(Number(checkbox.dataset.historySelect), checkbox.checked)
   if (checkbox.matches('[data-history-all]')) selectAllHistoryRecords(checkbox.checked)
 })

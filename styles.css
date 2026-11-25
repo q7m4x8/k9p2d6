@@ -542,6 +542,9 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .filter-row { display: flex; gap: 8px; margin-top: 18px; overflow-x: auto; }
 .filter-chip { flex: 0 0 auto; padding: 8px 13px; color: #716962; background: #fff; border: 1px solid var(--line); border-radius: 999px; cursor: pointer; }
 .filter-chip.active { color: #fff; background: var(--accent); border-color: var(--accent); }
+.wrong-list-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 18px; margin-top: 15px; }
+.wrong-list-setting { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; font-size: .928571rem; cursor: pointer; }
+.wrong-list-setting input { width: 1.125rem; height: 1.125rem; margin: 0; accent-color: var(--accent); }
 .review-books, .review-papers { display: grid; gap: 12px; }
 .review-group { min-width: 0; background: var(--card); border: 1px solid var(--line); border-radius: 18px; }
 .review-group > summary { display: flex; align-items: center; gap: 10px; min-height: 57px; padding: 12px 18px; border-radius: inherit; cursor: pointer; list-style: none; }

@@ -1244,8 +1244,78 @@ function reviewTestCatalog(h) {
   h.state.data.questions.push({ ...first, id: 'test-4', number: 3 }, { ...first, id: 'other-1', album: other.title })
 }
 
+function wrongAutoRemoveCheckbox(h) {
+  const main = h.element('#mainContent')
+  const markup = main.innerHTML.match(/<input\b[^>]*\sdata-auto-remove-correct(?=[=\s>])[^>]*>/)?.[0]
+  assert.match(markup || '', /\stype="checkbox"(?=[\s>])/)
+  const checkbox = new h.Element('input', main)
+  checkbox.dataset.autoRemoveCorrect = ''
+  checkbox.checked = /\schecked(?=[=\s>])/.test(markup)
+  return checkbox
+}
+
+function changeWrongAutoRemove(h, checked) {
+  const checkbox = wrongAutoRemoveCheckbox(h)
+  checkbox.checked = checked
+  h.fire('change', { target: checkbox })
+  return checkbox
+}
+
+test('wrong questions stay after a correct answer by default and new wrong answers are recorded', () => {
+  for (const settings of [{}, { autoRemoveCorrectFromWrong: 'true' }]) {
+    const h = harness({ wrong: ['test-1'], ...settings })
+    h.navigate('wrong')
+    assert.equal(wrongAutoRemoveCheckbox(h).checked, false)
+    h.startQuiz(h.state.data.questions.slice(0, 2))
+    h.state.sessionAnswers = { 'test-1': 0, 'test-2': 0 }
+    h.submitSession()
+    assert.deepEqual(h.saved().wrong, ['test-1', 'test-2'])
+    assert.equal(h.saved().attempts['test-1'].correct, true)
+  }
+  const empty = harness()
+  empty.navigate('wrong')
+  assert.equal(wrongAutoRemoveCheckbox(empty).checked, false)
+})
+
+test('wrong question auto-removal is opt-in, survives reloads, and can be turned off again', () => {
+  let h = harness({ wrong: ['test-1', 'test-2'], favorites: ['test-1'] })
+  h.navigate('wrong')
+  changeWrongAutoRemove(h, true)
+  assert.equal(h.saved().autoRemoveCorrectFromWrong, true)
+  assert.deepEqual(h.saved().wrong, ['test-1', 'test-2'], 'Enabling the preference does not prune existing wrong questions')
+
+  h = harness(h.saved())
+  h.navigate('wrong')
+  assert.equal(wrongAutoRemoveCheckbox(h).checked, true)
+  h.startQuiz([h.state.data.questions[0]])
+  finishPaper(h)
+  assert.deepEqual(h.saved().wrong, ['test-2'])
+  assert.deepEqual(h.saved().favorites, ['test-1'])
+  h.goBack()
+  changeWrongAutoRemove(h, false)
+  assert.equal(h.saved().autoRemoveCorrectFromWrong, false)
+
+  h = harness(h.saved())
+  h.navigate('wrong')
+  assert.equal(wrongAutoRemoveCheckbox(h).checked, false)
+  h.startQuiz([h.state.data.questions[1]])
+  finishPaper(h)
+  assert.deepEqual(h.saved().wrong, ['test-2'])
+})
+
+test('a failed preference write restores the wrong-question checkbox to its saved value', () => {
+  const h = harness({ wrong: ['test-1'] }, null, true)
+  h.navigate('wrong')
+  assert.equal(changeWrongAutoRemove(h, true).checked, false)
+  assert.notEqual(h.state.user.autoRemoveCorrectFromWrong, true)
+  assert.equal(h.saved().autoRemoveCorrectFromWrong, undefined)
+  h.setStorageFails(false)
+  assert.equal(changeWrongAutoRemove(h, true).checked, true)
+  assert.equal(h.saved().autoRemoveCorrectFromWrong, true)
+})
+
 test('wrong questions group by book and original paper, and a scoped retry updates only that paper', () => {
-  const h = harness({ wrong: ['old-missing', 'test-3', 'other-1', 'test-2', 'test-1'], favorites: ['test-2'] }, null, false, { 'test-1': '保留笔记' })
+  const h = harness({ wrong: ['old-missing', 'test-3', 'other-1', 'test-2', 'test-1'], favorites: ['test-2'], autoRemoveCorrectFromWrong: true }, null, false, { 'test-1': '保留笔记' })
   reviewTestCatalog(h)
   const saved = h.saved()
   h.navigate('wrong')
