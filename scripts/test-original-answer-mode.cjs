@@ -123,7 +123,7 @@ test('original answer pages keep input order and escape captions without invokin
   assert(html.includes('target="_blank" rel="noopener noreferrer"'))
   assert(html.includes('width="900" height="450"'))
   assert.match(html, /href="\.\/data\/zhanggong\/answers\/zg-2026-001-02\.webp/)
-  assert.match(html, /src="\.\/data\/zhanggong\/answer-previews\/zg-2026-001-02\.webp[^"]*"[^>]+loading="eager" fetchpriority="high"/)
+  assert.match(html, /data-answer-attempt="preview"[^>]+src="\.\/data\/zhanggong\/answer-previews\/zg-2026-001-02\.webp[^"]*"[^>]+loading="eager" fetchpriority="high"/)
   assert.match(html, /src="\.\/data\/zhanggong\/answer-previews\/zg-2026-001-01\.webp[^"]*"[^>]+loading="lazy"/)
   assert(html.includes('笔记第 4 页'))
   assert(!html.includes('讲义第 4 页'))
@@ -206,26 +206,45 @@ test('clean image question mode shows its primary image and four accessible lett
   assert(html.includes('咄咄逼人  锋芒毕露'))
 })
 
-test('image failures offer a retry in the same figure and never fall back to a political explanation', () => {
+test('answer images retry preview and full-size URLs once before offering manual reload', () => {
   const h = harness()
   startOriginal(h)
   finishSession(h)
-  const { image, error, retry } = imageNodes(h)
-  image.dataset.answerPreview = 'true'
-  h.fire('error', { target: image })
+  const { figure, image, error, retry } = imageNodes(h)
+  const fail = () => h.fire('error', { target: image })
+  const previewRetry = /^\.\/data\/zhanggong\/answer-previews\/zg-2026-001-02\.webp\?v=\d+-\d+&retry=\d+$/
+  const originalRetry = /^\.\/data\/zhanggong\/answers\/zg-2026-001-02\.webp\?v=20261123-10&retry=\d+$/
+  image.dataset.answerAttempt = 'preview'
+  fail()
   assert.match(image.src, /^\.\/data\/zhanggong\/answers\/zg-2026-001-02\.webp\?v=20261123-10$/)
   assert.equal(error.hidden, true, 'Use the original once if its preview failed')
-  assert.equal(image.dataset.answerPreview, undefined)
-  h.fire('error', { target: image })
+  fail()
+  assert.match(image.src, previewRetry)
+  const firstFreshPreview = image.src
+  assert.equal(error.hidden, true)
+  fail()
+  assert.match(image.src, originalRetry)
+  const firstFreshOriginal = image.src
+  assert.equal(error.hidden, true)
+  fail()
   assert.equal(image.hidden, true)
   assert.equal(image.getAttribute('src'), null)
   assert.equal(error.hidden, false)
   h.fire('click', { target: retry })
   assert.equal(image.hidden, false)
   assert.equal(error.hidden, true)
-  assert.match(image.src, /^\.\/data\/zhanggong\/answers\/zg-2026-001-02\.webp\?v=20261123-10&retry=\d+$/)
-  h.fire('error', { target: image })
+  assert.match(image.src, previewRetry)
+  assert.notEqual(image.src, firstFreshPreview)
+  fail()
+  assert.match(image.src, originalRetry)
+  assert.notEqual(image.src, firstFreshOriginal)
+  assert.equal(error.hidden, true)
+  fail()
   assert.equal(error.hidden, false)
+  figure.parentElement = null
+  image.dataset.answerAttempt = 'preview'
+  fail()
+  assert.equal(image.dataset.answerAttempt, 'preview', 'Detached images cannot start a fallback request')
   assert(!h.renderQuiz().includes('此处不应显示自动政治解析'))
   const unsafe = imageNodes(h, 'answer', '../escape.webp')
   h.fire('click', { target: unsafe.retry })

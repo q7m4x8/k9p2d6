@@ -26,7 +26,7 @@
       if (!validId(id)) return null
       if (!records.has(id)) {
         let strokes = []; let error = ''
-        try { const saved = JSON.parse(storage.getItem(PREFIX + id)); if (saved?.version === 1) strokes = cleanStrokes(saved.strokes) } catch { error = '画笔记录暂时无法读取' }
+        try { const saved = storage && JSON.parse(storage.getItem(PREFIX + id)); if (saved?.version === 1) strokes = cleanStrokes(saved.strokes) } catch { error = '画笔记录暂时无法读取' }
         records.set(id, { strokes, undo: [], redo: [], saved: !error, error })
       }
       return records.get(id)
@@ -35,7 +35,7 @@
     function save(id) {
       const item = record(id)
       if (!item) return snapshot(null)
-      try { storage.setItem(PREFIX + id, JSON.stringify({ version: 1, strokes: item.strokes })); item.saved = true; item.error = '' } catch { item.saved = false; item.error = '保存失败，笔迹仍在本页，请点保存重试' }
+      try { storage?.setItem(PREFIX + id, JSON.stringify({ version: 1, strokes: item.strokes })); item.saved = true; item.error = '' } catch { item.saved = false; item.error = '保存失败，笔迹仍在本页，请点保存重试' }
       return snapshot(item)
     }
     function change(id, next) {
@@ -55,6 +55,7 @@
       },
       erase(id, index) { const item = record(id); return item && Number.isInteger(index) && index >= 0 && index < item.strokes.length ? change(id, item.strokes.filter((_, i) => i !== index)) : snapshot(item) },
       clear(id) { const item = record(id); return item?.strokes.length ? change(id, []) : snapshot(item) },
+      forget(id) { records.delete(id) },
       undo(id) {
         const item = record(id); if (!item?.undo.length) return snapshot(item)
         item.redo.push(clone(item.strokes)); item.strokes = item.undo.pop(); return save(id)
@@ -72,9 +73,7 @@
   if (!root?.document) return
   const document = root.document
   const NS = 'http://www.w3.org/2000/svg'
-  let storage
-  try { storage = root.localStorage } catch { storage = { getItem() { throw Error() }, setItem() { throw Error() } } }
-  const store = createStore(storage)
+  const store = createStore()
   let current = null
   let editing = false
   let tool = 'pen'
@@ -89,7 +88,6 @@
     eraser: '<path d="m4 12 9-9 8 8-10 10H7l-5-5 2-4Zm2-2 8 8m-3 3h11"/>',
     clear: '<path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7m4-7v7"/>',
     move: '<path d="M12 2v20M2 12h20M8 6l4-4 4 4M8 18l4 4 4-4M6 8l-4 4 4 4m12-8 4 4-4 4"/>',
-    save: '<path d="M4 3h14l3 3v15H3V3h1Zm3 0v7h10V3M7 21v-7h10v7"/>',
     exit: '<path d="m5 5 14 14M19 5 5 19"/>'
   }
   const icon = name => `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${icons[name]}</svg>`
@@ -101,8 +99,8 @@
   }
   function paint() {
     if (!current) return
-    const saved = store.get(current.id)
-    current.svg.replaceChildren(...saved.strokes.map(path))
+    const ink = editing ? store.get(current.id) : null
+    current.svg.replaceChildren(...(ink ? ink.strokes.map(path) : []))
     if (drawing && drawing.kind === 'pen') current.svg.appendChild(path(drawing.stroke))
     if (editing && document.activeElement === current.svg && !drawing) current.svg.appendChild(node('circle', { cx: cursor[0] * 1000, cy: cursor[1] * 1000, r: 5, fill: color, opacity: '.5', 'vector-effect': 'non-scaling-stroke' }))
     current.surface.classList.toggle('ink-editing', editing)
@@ -112,15 +110,15 @@
     current.toolbar.hidden = !editing
     current.button?.classList.toggle('active', editing)
     current.button?.setAttribute('aria-pressed', String(editing))
+    current.button?.setAttribute('aria-label', editing ? '收起画笔并清空笔迹' : '打开题目画笔')
+    current.button?.setAttribute('title', editing ? '收起画笔并清空笔迹' : '在题目上圈画')
     for (const button of current.toolbar.querySelectorAll('[data-ink-tool]')) {
       const action = button.dataset.inkTool
-      button.disabled = action === 'undo' ? !saved.canUndo : action === 'redo' ? !saved.canRedo : false
+      button.disabled = action === 'undo' ? !ink?.canUndo : action === 'redo' ? !ink?.canRedo : false
       button.classList.toggle('active', action === tool)
       if (['pen', 'eraser', 'move'].includes(action)) button.setAttribute('aria-pressed', String(action === tool))
     }
     for (const button of current.toolbar.querySelectorAll('[data-ink-color]')) button.setAttribute('aria-pressed', String(button.dataset.inkColor === color))
-    current.status.textContent = saved.error || (saved.saved ? '已自动保存' : '尚未保存')
-    current.status.classList.toggle('ink-save-error', !!saved.error)
   }
   function finish() {
     if (!drawing || !current) return
@@ -147,35 +145,46 @@
     }
   }
   function detach() { observer?.disconnect(); observer = null; if (current) { current.svg.remove(); current.toolbar.remove() } }
+  function closeEditor(restoreFocus = false) {
+    drawing = null
+    store.forget(current.id)
+    editing = false; tool = 'pen'; cursor = [0.5, 0.5]
+    paint()
+    if (restoreFocus) current.button?.focus({ preventScroll: true })
+  }
+  function closeOnEscape(event) {
+    if (editing && event.key === 'Escape') { stop(event); closeEditor(true); return true }
+    return false
+  }
   api.active = () => editing && !!current
   api.beforeRender = () => { finish(); detach() }
   api.toggle = () => {
     if (!current) return false
-    finish()
-    if (editing && !store.save(current.id).saved) { paint(); return true }
-    editing = !editing; tool = 'pen'; paint()
-    if (editing) current.svg.focus({ preventScroll: true })
-    return editing
+    if (editing) { closeEditor(true); return false }
+    editing = true; paint()
+    current.svg.focus({ preventScroll: true })
+    return true
   }
   api.mount = (surface, id, button, notify) => {
-    const previous = current?.id
-    if (!surface || !validId(id)) { current = null; editing = false; return }
-    if (previous !== id) { editing = false; tool = 'pen'; cursor = [0.5, 0.5] }
+    if (editing && (!surface || current.id !== id)) closeEditor()
+    if (!surface || !validId(id)) { current = null; return }
     const svg = node('svg', { class: 'question-ink-layer', viewBox: '0 0 1000 1000', preserveAspectRatio: 'none', role: 'img', 'aria-label': '题目画布：空格开始画线，方向键移动，回车结束，Esc退出', tabindex: '-1' })
     const toolbar = document.createElement('aside'); toolbar.className = 'ink-toolbar'; toolbar.setAttribute('aria-label', '题目画笔工具'); toolbar.hidden = true
-    toolbar.innerHTML = `<div class="ink-colors">${COLORS.map((c, i) => `<button type="button" data-ink-color="${c}" aria-label="${['红色', '蓝色', '黑色'][i]}画笔" aria-pressed="${c === color}" style="--ink-color:${c}"><i></i></button>`).join('')}</div>${[['pen', '画笔'], ['undo', '撤销'], ['redo', '反撤销'], ['eraser', '橡皮'], ['clear', '清空'], ['move', '滚动'], ['save', '保存'], ['exit', '退出']].map(([name, label]) => `<button type="button" data-ink-tool="${name}" aria-label="${name === 'eraser' ? '橡皮：整笔擦除' : label}">${icon(name)}<span>${label}</span></button>`).join('')}<p class="ink-save-status" role="status"></p>`
+    toolbar.innerHTML = `<div class="ink-colors">${COLORS.map((c, i) => `<button type="button" data-ink-color="${c}" aria-label="${['红色', '蓝色', '黑色'][i]}画笔" aria-pressed="${c === color}" style="--ink-color:${c}"><i></i></button>`).join('')}</div>${[['pen', '画笔'], ['undo', '撤销'], ['redo', '反撤销'], ['eraser', '橡皮'], ['clear', '清空'], ['move', '滚动'], ['exit', '退出']].map(([name, label]) => `<button type="button" data-ink-tool="${name}" aria-label="${name === 'eraser' ? '橡皮：整笔擦除' : label}">${icon(name)}<span>${label}</span></button>`).join('')}<p class="ink-close-hint">收笔后清空</p>`
     surface.appendChild(svg); document.body.appendChild(toolbar)
-    current = { id, surface, svg, toolbar, button, notify, status: toolbar.querySelector('.ink-save-status') }
+    current = { id, surface, svg, toolbar, button, notify }
     toolbar.addEventListener('click', event => {
       const button = event.target.closest('button'); if (!button) return
-      stop(event); finish()
-      if (button.dataset.inkColor) { color = button.dataset.inkColor; tool = 'pen' }
+      stop(event)
       const action = button.dataset.inkTool
+      if (action === 'exit') { closeEditor(true); return }
+      finish()
+      if (button.dataset.inkColor) { color = button.dataset.inkColor; tool = 'pen' }
       if (['pen', 'eraser', 'move'].includes(action)) tool = action
-      else if (['undo', 'redo', 'clear', 'save'].includes(action)) store[action](id)
-      else if (action === 'exit') { if (store.save(id).saved) editing = false }
+      else if (['undo', 'redo', 'clear'].includes(action)) store[action](id)
       paint()
     })
+    toolbar.addEventListener('keydown', closeOnEscape)
     svg.addEventListener('pointerdown', event => {
       if (!editing || tool === 'move' || event.isPrimary === false || event.button !== 0) return
       stop(event); finish()
@@ -199,7 +208,7 @@
     for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) svg.addEventListener(type, event => { if (drawing?.pointerId === event.pointerId) { stop(event); finish() } })
     svg.addEventListener('keydown', event => {
       if (!editing) return
-      if (event.key === 'Escape') { stop(event); api.toggle(); return }
+      if (closeOnEscape(event)) return
       if (event.key === ' ' || event.key === 'Enter') {
         stop(event)
         if (drawing) finish()

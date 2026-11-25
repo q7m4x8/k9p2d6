@@ -294,4 +294,132 @@ test('storage read errors do not prevent the data API from operating in memory',
   assert.equal(store.add('q-a', stroke()).strokes.length, 1)
 })
 
+function controllerFixture(storage) {
+  const document = { activeElement: null, addEventListener() {} }
+  class Element {
+    constructor(tagName) {
+      this.tagName = tagName
+      this.children = []
+      this.dataset = {}
+      this.attributes = new Map()
+      this.classList = { toggle() {} }
+      this.listeners = new Map()
+    }
+    setAttribute(name, value) { this.attributes.set(name, String(value)) }
+    appendChild(child) { this.children.push(child); child.parent = this; return child }
+    replaceChildren(...children) { this.children = children }
+    remove() { this.parent.children = this.parent.children.filter(child => child !== this) }
+    focus() { document.activeElement = this }
+    addEventListener(type, listener) { this.listeners.set(type, listener) }
+    emit(type, event = {}) { this.listeners.get(type)?.({ target: this, preventDefault() {}, stopPropagation() {}, ...event }) }
+    closest(selector) { return this.tagName === selector ? this : null }
+    querySelector() { return new Element('p') }
+    querySelectorAll(selector) {
+      const kind = selector === '[data-ink-tool]' ? 'tool' : 'color'
+      const dataKey = kind === 'tool' ? 'inkTool' : 'inkColor'
+      this.controls ??= new Map()
+      return Array.from(this.innerHTML.matchAll(new RegExp(`data-ink-${kind}="([^"]+)"`, 'g')), ([, value]) => {
+        if (!this.controls.has(value)) {
+          const button = new Element('button')
+          button.dataset[dataKey] = value
+          this.controls.set(value, button)
+        }
+        return this.controls.get(value)
+      })
+    }
+    setPointerCapture() {}
+    getBoundingClientRect() { return { width: 400, height: 200, left: 0, top: 0 } }
+  }
+  document.createElement = tag => new Element(tag)
+  document.createElementNS = (_, tag) => new Element(tag)
+  document.body = new Element('body')
+  const window = { document, localStorage: storage, addEventListener() {} }
+  vm.runInNewContext(source, { window }, { filename: 'annotation.js' })
+  const controller = window.QuizAnnotations
+  return {
+    controller,
+    mount(id) {
+      controller.beforeRender()
+      if (!id) { controller.mount(null, null); return }
+      const surface = new Element('div')
+      const button = new Element('button')
+      controller.mount(surface, id, button)
+      const svg = surface.children[0], toolbar = document.body.children[0]
+      return {
+        svg, toolbar, button,
+        paths: () => svg.children.filter(child => child.tagName === 'path'),
+        tool: name => toolbar.querySelectorAll('[data-ink-tool]').find(tool => tool.dataset.inkTool === name),
+        draw() {
+          const pointer = { pointerId: 1, button: 0, clientX: 20, clientY: 30 }
+          svg.emit('pointerdown', pointer)
+          svg.emit('pointermove', { ...pointer, clientX: 40, clientY: 60 })
+          svg.emit('pointerup', pointer)
+        }
+      }
+    }
+  }
+}
+
+test('closing the real editor clears temporary strokes and undo history by toggle, toolbar or Escape', () => {
+  const storage = storageFixture([
+    [prefix + 'politics-01', storedPayload([stroke()])],
+    ['xiaotian_quiz_notes_v1', '{"politics-01":"我的笔记"}']
+  ])
+  const saved = [...storage.values]
+  const h = controllerFixture(storage)
+  for (const id of ['politics-01', 'zhanggong-2026-20-text']) {
+    const page = h.mount(id)
+    const closeActions = [
+      () => h.controller.toggle(),
+      () => page.toolbar.emit('click', { target: page.tool('exit') }),
+      () => page.svg.emit('keydown', { key: 'Escape' }),
+      () => page.toolbar.emit('keydown', { key: 'Escape', target: page.tool('pen') })
+    ]
+    assert.equal(page.paths().length, 0, 'Closed pen leaves the question clean, including previously saved ink')
+    for (const close of closeActions) {
+      assert.equal(h.controller.toggle(), true)
+      assert.equal(page.paths().length, 0, 'Opening the pen starts with a clean sheet')
+      assert.equal(page.tool('undo').disabled, true)
+      assert.equal(page.tool('redo').disabled, true)
+      page.draw()
+      assert.equal(page.paths().length, 1, 'A completed stroke is visible while the pen is open')
+      assert.equal(page.tool('undo').disabled, false)
+      page.draw()
+      page.toolbar.emit('click', { target: page.tool('undo') })
+      assert.equal(page.paths().length, 1)
+      assert.equal(page.tool('redo').disabled, false)
+      close()
+      assert.equal(h.controller.active(), false)
+      assert.equal(page.toolbar.hidden, true)
+      assert.equal(page.paths().length, 0, 'Closing immediately removes hand-drawn strokes')
+      assert.equal(page.button.attributes.get('aria-pressed'), 'false')
+    }
+  }
+  assert.deepEqual([...storage.values], saved, 'Temporary ink leaves written notes and existing storage untouched')
+  assert.deepEqual(storage.writes, [])
+})
+
+test('rerendering the same question keeps strokes until a question or route change', () => {
+  const h = controllerFixture(storageFixture())
+  const id = 'zhanggong-2026-20-text'
+  let page = h.mount(id)
+  h.controller.toggle()
+  page.draw()
+  page = h.mount(id)
+  assert.equal(h.controller.active(), true)
+  assert.equal(page.paths().length, 1)
+  page = h.mount('zhanggong-2026-20')
+  assert.equal(h.controller.active(), false)
+  assert.equal(page.paths().length, 0)
+  page = h.mount(id)
+  h.controller.toggle()
+  assert.equal(page.paths().length, 0, 'Returning from another question starts with no marks')
+  page.draw()
+  h.mount(null)
+  assert.equal(h.controller.active(), false)
+  page = h.mount(id)
+  h.controller.toggle()
+  assert.equal(page.paths().length, 0, 'Returning from another page starts with no marks')
+})
+
 console.log(`${passed} annotation tests passed`)

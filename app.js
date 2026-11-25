@@ -364,7 +364,7 @@ function renderOriginalImage(question, image, index, total, role) {
   const preview = isQuestion ? null : answerPreviewAsset(image)
   const firstAnswer = !isQuestion && index === 0
   const priority = isQuestion || firstAnswer ? ' loading="eager" fetchpriority="high"' : ' loading="lazy"'
-  const previewAttributes = preview ? ' data-answer-preview="true"' : ''
+  const previewAttributes = preview ? ' data-answer-attempt="preview"' : ''
   const lead = firstAnswer ? ' data-answer-lead="true"' : ''
   const page = Number.isInteger(image.page) && image.page > 0 ? `${isQuestion ? '讲义' : '笔记'}第 ${image.page} 页` : isQuestion ? '原题' : '原版笔记'
   const position = total > 1 ? ` · ${index + 1}/${total}` : ''
@@ -383,6 +383,22 @@ function renderOriginalReferenceAnswer(question, heading, notes) {
   return `<section class="reference-answer original-reference-answer" aria-label="原版笔记解析"><header class="reference-heading">${heading}<span>正确答案 <b>${escapeHtml(question.answerLetter)}</b></span></header>${notice}<p class="original-reference-hint">原版笔记解析 · 点击图片可在新标签查看原尺寸</p><div class="original-reference-pages">${content}</div>${notes}</section>`
 }
 
+let lastImageRetry = 0
+
+function freshImageAsset(asset) {
+  lastImageRetry = Math.max(Date.now(), lastImageRetry + 1)
+  return `${asset}&retry=${lastImageRetry}`
+}
+
+function loadAnswerImage(image, attempt) {
+  const metadata = { file: image.dataset.originalFile }
+  const asset = attempt.endsWith('preview') ? answerPreviewAsset(metadata) : originalImageAsset(metadata, 'answer')
+  if (!asset) return false
+  image.dataset.answerAttempt = attempt
+  image.src = attempt.startsWith('fresh-') ? freshImageAsset(asset) : asset
+  return true
+}
+
 function retryOriginalImage(button) {
   const figure = button?.closest('.original-image-page')
   const question = currentQuestion()
@@ -395,7 +411,7 @@ function retryOriginalImage(button) {
   const error = figure.querySelector('.original-image-error')
   if (error) error.hidden = true
   image.hidden = false
-  image.src = `${asset}&retry=${Date.now()}`
+  if (role !== 'answer' || !loadAnswerImage(image, 'fresh-preview')) image.src = freshImageAsset(asset)
   return true
 }
 
@@ -1298,14 +1314,9 @@ document.addEventListener('load', event => {
 document.addEventListener('error', event => {
   const image = event.target
   if (image instanceof Element && image.matches('img.original-notes-image')) {
-    if (image.dataset.answerPreview === 'true') {
-      delete image.dataset.answerPreview
-      const original = originalImageAsset({ file: image.dataset.originalFile }, 'answer')
-      if (original && state.route === 'quiz' && state.sessionSubmitted && main.contains(image)) {
-        image.src = original
-        return
-      }
-    }
+    if (!main.contains(image)) return
+    const nextAttempt = { preview: 'original', original: 'fresh-preview', 'fresh-preview': 'fresh-original' }[image.dataset.answerAttempt]
+    if (nextAttempt && state.route === 'quiz' && state.sessionSubmitted && loadAnswerImage(image, nextAttempt)) return
     image.hidden = true
     image.removeAttribute('src')
     const error = image.closest('.original-image-page')?.querySelector('.original-image-error')
