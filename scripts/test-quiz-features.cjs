@@ -1210,4 +1210,108 @@ test('browsing and removing pitfall favorites preserves draft, notes, history an
   h.navigate('favorites');h.setFavoriteTab('pitfalls');assert(h.renderFavorites().includes('<strong>党的领导</strong>'))
 })
 
+function reviewGroupMarkup(html) {
+  return new Map([...html.matchAll(/<details\b[^>]*\bdata-review-group="([^"]+)"[^>]*>/g)].map(([tag, key]) => [key, tag]))
+}
+
+function showReviewGroups(h, keys) {
+  const main = h.element('#mainContent')
+  const before = main.innerHTML
+  const nativeQuery = main.querySelectorAll.bind(main)
+  main.querySelectorAll = selector => {
+    if (!selector.includes('[data-review-group]')) return nativeQuery(selector)
+    return [...reviewGroupMarkup(main.innerHTML)].map(([key, markup]) => Object.assign(new h.Element('details', main), {
+      dataset: { reviewGroup: key },
+      open: before === main.innerHTML ? keys.includes(key) : /\bopen(?:\s|>)/.test(markup)
+    })).filter(group => !selector.includes('[open]') || group.open)
+  }
+}
+
+function clickReviewPaper(h, reviewPractice, reviewAlbum, reviewPaper) {
+  const button = new h.Element('button', h.element('#mainContent'))
+  Object.assign(button.dataset, { reviewPractice, reviewAlbum, reviewPaper })
+  h.fire('click', { target: new h.Element('span', button), detail: 0 })
+}
+
+function reviewTestCatalog(h) {
+  const [album] = h.state.data.albums
+  album.count = 4
+  album.papers.push({ name: '第02套', count: 1 })
+  const other = { ...album, id: 'other', title: '另一题本', count: 1, papers: [{ name: '第01套', count: 1 }] }
+  h.state.data.albums.push(other)
+  const [first, , third] = h.state.data.questions
+  Object.assign(third, { paper: '第02套', number: 4 })
+  h.state.data.questions.push({ ...first, id: 'test-4', number: 3 }, { ...first, id: 'other-1', album: other.title })
+}
+
+test('wrong questions group by book and original paper, and a scoped retry updates only that paper', () => {
+  const h = harness({ wrong: ['old-missing', 'test-3', 'other-1', 'test-2', 'test-1'], favorites: ['test-2'] }, null, false, { 'test-1': '保留笔记' })
+  reviewTestCatalog(h)
+  const saved = h.saved()
+  h.navigate('wrong')
+  const main = h.element('#mainContent')
+  const groups = reviewGroupMarkup(main.innerHTML)
+  assert.deepEqual([...groups.keys()], ['wrong/test', 'wrong/test/第01套', 'wrong/test/第02套', 'wrong/other', 'wrong/other/第01套'])
+  assert([...groups.values()].every(tag => !/\bopen(?:\s|>)/.test(tag)))
+  assert(!main.innerHTML.includes('data-single="old-missing"'))
+  assert.match(main.innerHTML, /第\s*1\s*题/)
+  assert.match(main.innerHTML, /练习全部 4 题/)
+  assert.deepEqual(h.saved(), saved)
+  showReviewGroups(h, ['wrong/test', 'wrong/test/第01套'])
+  clickReviewPaper(h, 'wrong', 'test', '第01套')
+  assert.deepEqual(Array.from(h.state.session, question => question.id), ['test-1', 'test-2'])
+  assert.equal(h.state.sessionTitle, '错题练习 · 测试专辑 · 第01套')
+  h.state.sessionAnswers = { 'test-1': 0, 'test-2': 0 }
+  h.submitSession()
+  assert.deepEqual(h.saved().wrong, ['old-missing', 'test-3', 'other-1', 'test-2'])
+  assert.deepEqual(h.saved().favorites, ['test-2'])
+  assert.deepEqual(h.notesSaved(), { 'test-1': '保留笔记' })
+  assert.deepEqual(Array.from(h.pitfallScope().questions, question => question.id), ['test-1', 'test-2'])
+  h.goBack()
+  assert.equal(h.state.route, 'wrong')
+  const returned = reviewGroupMarkup(main.innerHTML)
+  assert.match(returned.get('wrong/test'), /\bopen(?:\s|>)/)
+  assert.match(returned.get('wrong/test/第01套'), /\bopen(?:\s|>)/)
+  assert(!main.innerHTML.includes('data-single="test-1"'))
+  assert.match(main.innerHTML, /练习全部 3 题/)
+})
+
+test('question favorites keep the original paper scopes and saved favorites on completion', () => {
+  const h = harness({ favorites: ['test-3', 'other-1', 'test-2'] })
+  reviewTestCatalog(h)
+  h.navigate('favorites')
+  const main = h.element('#mainContent')
+  assert.deepEqual([...reviewGroupMarkup(main.innerHTML).keys()], ['favorites/test', 'favorites/test/第01套', 'favorites/test/第02套', 'favorites/other', 'favorites/other/第01套'])
+  showReviewGroups(h, ['favorites/other', 'favorites/other/第01套'])
+  clickReviewPaper(h, 'favorites', 'other', '第01套')
+  assert.deepEqual(Array.from(h.state.session, question => question.id), ['other-1'])
+  assert.equal(h.state.sessionTitle, '收藏练习 · 另一题本 · 第01套')
+  finishPaper(h)
+  assert.deepEqual(h.saved().favorites, ['test-3', 'other-1', 'test-2'])
+  h.goBack()
+  assert.equal(h.state.route, 'favorites')
+  assert.match(main.innerHTML, /题目收藏（3）/)
+})
+
+test('handbook favorites retain every statement while paper practice deduplicates linked original questions', () => {
+  const entries = ['xh-special-021:③', 'cg-003:①', 'xh-special-021:④']
+  const h = harness({ favorites: ['xh-special-021'] }, null, false, null, entries)
+  h.state.data = require('../data/questions.json')
+  h.navigate('favorites')
+  assert(h.setFavoriteTab('pitfalls'))
+  const html = h.element('#mainContent').innerHTML
+  const groups = reviewGroupMarkup(html)
+  assert(groups.has('pitfalls/xh-special/第02套') && groups.has('pitfalls/chaoge-200/第01套'))
+  assert(html.includes('挖坑手册收藏（3）'))
+  assert(html.includes('data-pitfall-favorite="xh-special-021:③"') && html.includes('data-pitfall-favorite="xh-special-021:④"'))
+  showReviewGroups(h, ['pitfalls/xh-special', 'pitfalls/xh-special/第02套'])
+  clickReviewPaper(h, 'pitfalls', 'xh-special', '第02套')
+  assert.deepEqual(Array.from(h.state.session, question => question.id), ['xh-special-021'])
+  finishPaper(h)
+  assert.deepEqual(h.pitfallFavoritesSaved(), entries)
+  assert.deepEqual(h.saved().favorites, ['xh-special-021'])
+  h.goBack()
+  assert.equal(h.state.favoriteTab, 'pitfalls')
+})
+
 console.log(`PASS: ${passed} quiz navigation, gesture, timing, persistence and reference scenarios`)

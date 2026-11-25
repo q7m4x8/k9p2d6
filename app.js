@@ -25,6 +25,7 @@ const state = {
   pitfallOpen: false,
   pitfallFavorites: loadPitfallFavorites(),
   favoriteTab: 'questions',
+  openReviewGroups: new Set(),
   reviewingHistory: false,
   historySkippedQuestions: 0,
   historyManaging: false,
@@ -604,14 +605,19 @@ function goBack() {
 
 function render() {
   if (!state.data) return
+  for (const group of main.querySelectorAll('details[data-review-group]')) {
+    const key = group.dataset.reviewGroup
+    if (group.open) state.openReviewGroups.add(key)
+    else state.openReviewGroups.delete(key)
+  }
   window.QuizAnnotations?.beforeRender()
   const renderers = {
     home: renderHome,
     album: renderAlbum,
     quiz: renderQuiz,
     progress: renderProgress,
-    wrong: () => renderQuestionList('wrong'),
-    favorites: () => renderQuestionList('favorites')
+    wrong: renderWrongQuestions,
+    favorites: renderFavorites
   }
   document.querySelector('#app').classList.toggle('quiz-mode', state.route === 'quiz')
   document.querySelector('#backButton').hidden = state.route === 'home'
@@ -807,7 +813,7 @@ function renderQuiz() {
 function pitfallScope() {
   if (!state.sessionSubmitted || !state.session.length) return {questions:[],title:''}
   const first = state.session[0]
-  const customPractice = ['随机十题', '错题练习', '收藏练习', '综合练习'].includes(state.sessionTitle)
+  const customPractice = ['随机十题', '错题练习', '收藏练习', '综合练习'].includes(state.sessionTitle.split(' · ', 1)[0])
   const singlePaper = !customPractice && state.session.every(question =>
     question.source === first.source && question.album === first.album && question.paper === first.paper)
   const questions = singlePaper
@@ -883,11 +889,12 @@ function togglePitfallFavorite(key, button) {
   if (!writeStorage(PITFALL_FAVORITES_KEY,next)) { showToast('收藏未保存，请重试'); return false }
   state.pitfallFavorites = next
   if (collection) {
-    const index = [...main.querySelectorAll('[data-pitfall-favorite]')].indexOf(button)
+    const visibleButtons = () => [...main.querySelectorAll('[data-pitfall-favorite]')].filter(item => !item.closest('details:not([open])'))
+    const index = visibleButtons().indexOf(button)
     const scroll = window.scrollY || 0
     render()
     window.scrollTo({top:scroll,behavior:'instant'})
-    const remaining = main.querySelectorAll('[data-pitfall-favorite]')
+    const remaining = visibleButtons()
     const focus = remaining[Math.max(0, Math.min(index, remaining.length - 1))] || main.querySelector('[data-favorite-tab="pitfalls"]')
     focus?.focus?.({preventScroll:true})
   } else if (button) {
@@ -1042,27 +1049,87 @@ function renderProgress() {
   return `<section class="progress-hero"><div><span class="eyebrow">学习进度</span><h1>每一次作答，都算数</h1><p>累计作答 ${totalAnswered} 题，当前正确率 ${accuracy()}%。</p></div><div class="big-progress" style="--angle:${percent * 3.6}deg" data-value="${percent}%"></div></section><section class="progress-grid">${cards}</section>${renderTimingHistory()}`
 }
 
-function renderQuestionList(type) {
-  if (type === 'favorites') return renderFavorites()
-  const ids = type === 'wrong' ? state.user.wrong : state.user.favorites
-  const title = type === 'wrong' ? '错题' : '收藏'
-  const desc = type === 'wrong' ? '针对薄弱点再练一次，答对后自动移出错题本。' : '手动标记的题目，方便随时回来复习。'
-  const questions = ids.map(id => state.data.questions.find(item => item.id === id)).filter(Boolean)
-  if (!questions.length) return `<section class="list-hero"><span class="eyebrow">${title}夹</span><h1>${title}</h1><p>${desc}</p></section><div class="empty-state"><b>这里还是空的</b>${type === 'wrong' ? '开始答题后，答错的题会自动出现在这里。' : '在答题页点击收藏，就能把题目保存到这里。'}</div>`
-  const cards = questions.map(question => `<article class="list-card"><small>${escapeHtml(question.album)} · ${escapeHtml(question.paper)}</small><p>${escapeQuizText(displayQuestionStem(question))}</p><p class="question-duration">上次用时 ${Number.isFinite(state.user.attempts[question.id]?.durationSeconds) ? formatDuration(state.user.attempts[question.id].durationSeconds * 1000) : '未计时'}</p><div class="list-actions"><button class="mini-btn" data-single="${question.id}">再做一次</button><button class="mini-btn ghost" data-remove="${question.id}" data-list="${type}">${type === 'wrong' ? '移出错题' : '取消收藏'}</button></div></article>`).join('')
-  return `<section class="list-hero"><span class="eyebrow">${title}夹</span><h1>${title}</h1><p>${desc} · 共 ${questions.length} 题</p><div class="filter-row"><button class="filter-chip active" data-list-practice="${type}">练习全部 ${questions.length} 题</button></div></section><div class="question-list">${cards}</div>`
+function savedReviewQuestions(list) {
+  const questionsById = new Map(state.data.questions.map(question => [question.id, question]))
+  return [...new Set(state.user[list])].map(id => questionsById.get(id)).filter(Boolean)
+}
+
+function groupReviewItems(items) {
+  const byQuestion = new Map()
+  for (const entry of items) {
+    const id = (entry.question ?? entry).id
+    if (!byQuestion.has(id)) byQuestion.set(id, [])
+    byQuestion.get(id).push(entry)
+  }
+  return state.data.albums.flatMap(album => {
+    const questions = state.data.questions.filter(question => question.album === album.title)
+    const names = new Set([...album.papers.map(paper => paper.name), ...questions.map(question => question.paper)])
+    const papers = [...names].map(name => ({
+      name,
+      entries: questions.filter(question => question.paper === name).flatMap((question, index) =>
+        (byQuestion.get(question.id) || []).map(entry => ({ entry, questionNumber: index + 1 }))
+      )
+    })).filter(paper => paper.entries.length)
+    return papers.length ? [{ album, papers }] : []
+  })
+}
+
+function renderReviewQuestion(question, number, list) {
+  const id = escapeHtml(question.id)
+  const stem = escapeQuizText(displayQuestionStem(question)).replace(/\s+/g, ' ')
+  const seconds = state.user.attempts[question.id]?.durationSeconds
+  const timing = Number.isFinite(seconds) ? `上次 ${formatDuration(seconds * 1000)}` : ''
+  return `<li class="review-question"><div class="review-question-copy"><div class="review-question-meta"><strong>第 ${number} 题</strong>${timing ? `<span>${timing}</span>` : ''}</div><p class="review-question-preview" title="${stem}">${stem}</p></div><div class="review-question-actions"><button type="button" class="mini-btn" data-single="${id}">再做一次</button><button type="button" class="mini-btn ghost" data-remove="${id}" data-list="${list}">${list === 'wrong' ? '移出错题' : '取消收藏'}</button></div></li>`
+}
+
+function renderReviewGroups(items, list) {
+  const isPitfall = list === 'pitfalls'
+  const unit = isPitfall ? '条' : '题'
+  const books = groupReviewItems(items).map(({ album, papers }) => {
+    const bookKey = `${list}/${album.id}`
+    const contents = papers.map(({ name, entries }) => {
+      const paperKey = `${bookKey}/${name}`
+      const label = list === 'wrong' ? `重做本套错题（${entries.length} 题）` : `练习本套收藏题（${entries.length} 题）`
+      const questionCount = isPitfall ? new Set(entries.map(({ entry }) => entry.question.id)).size : entries.length
+      const practiceLabel = isPitfall ? `练习相关题目（${questionCount} 题）` : label
+      const rows = isPitfall
+        ? `<ol class="pitfall-list">${renderPitfallRows(entries.map(({ entry }, index) => ({ ...entry, number: index + 1 })), true)}</ol>`
+        : `<ol class="review-question-list">${entries.map(({ entry, questionNumber }) => renderReviewQuestion(entry, questionNumber, list)).join('')}</ol>`
+      return `<details class="review-group review-paper" data-review-group="${escapeHtml(paperKey)}" ${state.openReviewGroups.has(paperKey) ? 'open' : ''}><summary><strong>${escapeHtml(name)}</strong><span>${entries.length} ${unit}</span></summary><div class="review-paper-body"><button type="button" class="mini-btn review-practice-button" data-review-practice="${list}" data-review-album="${escapeHtml(album.id)}" data-review-paper="${escapeHtml(name)}">${practiceLabel}</button>${rows}</div></details>`
+    }).join('')
+    const total = papers.reduce((sum, paper) => sum + paper.entries.length, 0)
+    return `<details class="review-group review-book" data-review-group="${escapeHtml(bookKey)}" ${state.openReviewGroups.has(bookKey) ? 'open' : ''}><summary><strong>${escapeHtml(album.title)}</strong><span>${total} ${unit}</span></summary><div class="review-papers">${contents}</div></details>`
+  }).join('')
+  return `<div class="review-books">${books}</div>`
+}
+
+function renderWrongQuestions() {
+  const questions = savedReviewQuestions('wrong')
+  const heading = `<section class="list-hero"><h1>错题</h1><p>共 ${questions.length} 题 · 答对后自动移出错题本</p>${questions.length ? `<div class="filter-row"><button class="filter-chip active" data-list-practice="wrong">练习全部 ${questions.length} 题</button></div>` : ''}</section>`
+  const groups = questions.length ? renderReviewGroups(questions, 'wrong') : '<div class="empty-state"><b>还没有错题</b>答错的题会在交卷后显示在这里。</div>'
+  return heading + groups
 }
 
 function renderFavorites() {
-  const questions = state.user.favorites.map(id=>state.data.questions.find(question=>question.id===id)).filter(Boolean)
+  const questions = savedReviewQuestions('favorites')
   const entries = savedPitfallEntries()
   const pitfalls = state.favoriteTab === 'pitfalls'
   const tabs = `<div class="favorites-tabs" role="group" aria-label="收藏分类"><button type="button" class="filter-chip ${pitfalls ? '' : 'active'}" data-favorite-tab="questions" aria-pressed="${!pitfalls}">题目收藏（${questions.length}）</button><button type="button" class="filter-chip ${pitfalls ? 'active' : ''}" data-favorite-tab="pitfalls" aria-pressed="${pitfalls}">挖坑手册收藏（${entries.length}）</button></div>`
-  const heading = `<section class="list-hero"><span class="eyebrow">收藏夹</span><h1>收藏</h1><p>${pitfalls ? `从参考答案和挖坑手册收藏的表述 · 共 ${entries.length} 条` : `手动标记的题目，方便随时回来复习。 · 共 ${questions.length} 题`}</p>${tabs}</section>`
-  if (pitfalls) return `${heading}<section aria-label="挖坑手册收藏">${entries.length ? `<ol class="pitfall-list">${renderPitfallRows(entries)}</ol>` : '<div class="empty-state"><b>还没有收藏的表述</b>交卷后，在参考答案或挖坑手册里点每条右上角的“收藏”。</div>'}</section>`
+  const heading = `<section class="list-hero"><h1>收藏</h1>${tabs}</section>`
+  if (pitfalls) return `${heading}<section aria-label="挖坑手册收藏">${entries.length ? renderReviewGroups(entries, 'pitfalls') : '<div class="empty-state"><b>还没有收藏的表述</b>交卷后，可从参考答案或挖坑手册收藏。</div>'}</section>`
   if (!questions.length) return `${heading}<section aria-label="题目收藏"><div class="empty-state"><b>这里还是空的</b>在答题页点击收藏，就能把题目保存到这里。</div></section>`
-  const cards = questions.map(question=>`<article class="list-card"><small>${escapeHtml(question.album)} · ${escapeHtml(question.paper)}</small><p>${escapeQuizText(displayQuestionStem(question))}</p><p class="question-duration">上次用时 ${Number.isFinite(state.user.attempts[question.id]?.durationSeconds) ? formatDuration(state.user.attempts[question.id].durationSeconds*1000) : '未计时'}</p><div class="list-actions"><button class="mini-btn" data-single="${escapeHtml(question.id)}">再做一次</button><button class="mini-btn ghost" data-remove="${escapeHtml(question.id)}" data-list="favorites">取消收藏</button></div></article>`).join('')
-  return `${heading}<section aria-label="题目收藏"><div class="filter-row favorite-practice"><button class="filter-chip active" data-list-practice="favorites">练习全部 ${questions.length} 题</button></div><div class="question-list">${cards}</div></section>`
+  return `${heading}<section aria-label="题目收藏"><div class="filter-row favorite-practice"><button class="filter-chip active" data-list-practice="favorites">练习全部 ${questions.length} 题</button></div>${renderReviewGroups(questions, 'favorites')}</section>`
+}
+
+function practiceReviewPaper(list, albumId, paperName) {
+  const activeList = state.route === 'favorites' && state.favoriteTab === 'pitfalls' ? 'pitfalls' : state.route
+  if (list !== activeList || !['wrong', 'favorites', 'pitfalls'].includes(list) || !paperName) return
+  const album = state.data.albums.find(item => item.id === albumId)
+  if (!album) return
+  const saved = list === 'pitfalls' ? savedPitfallEntries().map(entry => entry.question.id) : state.user[list]
+  const ids = new Set(saved)
+  const questions = questionsFor(album.id, paperName).filter(question => ids.has(question.id))
+  if (questions.length) startQuiz(questions, 0, { title: `${list === 'wrong' ? '错题练习' : '收藏练习'} · ${album.title} · ${paperName}` })
 }
 
 function submitSession() {
@@ -1233,13 +1300,20 @@ document.addEventListener('click', event => {
   const remove = event.target.closest('[data-remove]')
   if (remove) {
     const list = remove.dataset.list
-    state.user[list] = state.user[list].filter(id => id !== remove.dataset.remove)
-    saveUserState(); return render()
+    if (state.route !== list || !['wrong', 'favorites'].includes(list)) return
+    const saved = state.user[list]
+    state.user[list] = saved.filter(id => id !== remove.dataset.remove)
+    if (saveUserState()) return render()
+    state.user[list] = saved
+    return
   }
+  const reviewPractice = target.closest('[data-review-practice]')
+  if (reviewPractice) return practiceReviewPaper(reviewPractice.dataset.reviewPractice, reviewPractice.dataset.reviewAlbum, reviewPractice.dataset.reviewPaper)
   const listPractice = event.target.closest('[data-list-practice]')
   if (listPractice) {
-    const ids = state.user[listPractice.dataset.listPractice]
-    return startQuiz(ids.map(id => state.data.questions.find(item => item.id === id)).filter(Boolean), 0, { title: listPractice.dataset.listPractice === 'wrong' ? '错题练习' : '收藏练习' })
+    const list = listPractice.dataset.listPractice
+    if (state.route !== list || !['wrong', 'favorites'].includes(list)) return
+    return startQuiz(savedReviewQuestions(list), 0, { title: list === 'wrong' ? '错题练习' : '收藏练习' })
   }
   const action = event.target.closest('[data-action]')?.dataset.action
   if (!action) return
