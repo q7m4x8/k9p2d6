@@ -21,6 +21,7 @@ const state = {
   sessionIndex: 0,
   sessionAnswers: {},
   sessionSubmitted: false,
+  originalQuestionId: null,
   pitfallOpen: false,
   pitfallFavorites: loadPitfallFavorites(),
   favoriteTab: 'questions',
@@ -312,6 +313,23 @@ function originalImageAsset(image, role) {
   return `./data/zhanggong/${role === 'question' ? 'questions' : 'answers'}/${image.file}?v=20261123-10`
 }
 
+function showsOriginalQuestionImage(question) {
+  return isOriginalAnnotated(question) &&
+    (question.questionRenderMode === 'image' || state.originalQuestionId === question.id) &&
+    !!originalImageAsset(question.questionImage, 'question')
+}
+
+function toggleOriginalQuestion() {
+  const question = currentQuestion()
+  if (state.route !== 'quiz' || state.pitfallOpen || !isOriginalAnnotated(question) ||
+      question.questionRenderMode === 'image' || !originalImageAsset(question.questionImage, 'question')) return
+  if (window.QuizAnnotations?.active()) return showToast('请先退出画笔')
+  cancelAutoAdvance()
+  state.originalQuestionId = state.originalQuestionId === question.id ? null : question.id
+  render()
+  main.querySelector('[data-action="toggle-original-question"]')?.focus({ preventScroll: true })
+}
+
 function renderOriginalImage(question, image, index, total, role) {
   const asset = originalImageAsset(image, role)
   if (!asset) return ''
@@ -513,6 +531,7 @@ function paperProgress(album, paper) {
 
 function navigate(route, options = {}) {
   state.pitfallOpen = false
+  state.originalQuestionId = null
   if (route !== 'progress') endHistoryManagement()
   cancelAutoAdvance()
   if (state.route === 'quiz' && route !== 'quiz') pauseQuizTiming()
@@ -545,7 +564,10 @@ function render() {
   document.querySelector('#app').classList.toggle('quiz-mode', state.route === 'quiz')
   document.querySelector('#backButton').hidden = state.route === 'home'
   main.innerHTML = (renderers[state.route] || renderHome)()
-  window.QuizAnnotations?.mount(main.querySelector('[data-ink-surface]'), state.route === 'quiz' && !state.pitfallOpen ? currentQuestion()?.id : null, main.querySelector('[data-action="ink-toggle"]'), showToast)
+  const question = state.route === 'quiz' && !state.pitfallOpen ? currentQuestion() : null
+  // Original crops and reflowable text use different stroke coordinates.
+  const inkId = isOriginalAnnotated(question) && !showsOriginalQuestionImage(question) ? `${question.id}-text` : question?.id
+  window.QuizAnnotations?.mount(main.querySelector('[data-ink-surface]'), inkId, main.querySelector('[data-action="ink-toggle"]'), showToast)
   const selectAll = main.querySelector('[data-history-all]')
   if (selectAll) selectAll.indeterminate = selectedHistoryRecords().length > 0 && selectedHistoryRecords().length < state.user.history.length
   updateTimerDisplay()
@@ -673,12 +695,12 @@ function renderQuiz() {
   const correct = wasAnswerCorrect(question)
   const missingHistoricalAnswer = historical && !Number.isInteger(selectedOption)
   const originalQuestion = isOriginalAnnotated(question)
-  const imageQuestion = originalQuestion && question.questionRenderMode === 'image' && !!originalImageAsset(question.questionImage, 'question')
+  const imageQuestion = showsOriginalQuestionImage(question)
   const questionContent = imageQuestion
     ? `<div class="original-question">${renderOriginalImage(question, question.questionImage, 0, 1, 'question')}</div>`
     : `${originalQuestion && question.questionRenderMode === 'image' ? '<p class="original-image-unavailable">原题图片暂不可用，下方显示题目文字。</p>' : ''}<p class="question-stem">${originalQuestion ? escapeHtml(displayQuestionStem(question)) : escapeQuizText(displayQuestionStem(question))}</p>`
-  const questionCheck = originalQuestion && !imageQuestion && originalImageAsset(question.questionImage, 'question')
-    ? `<details class="original-question-check"><summary>查看原题</summary>${renderOriginalImage(question, question.questionImage, 0, 1, 'question')}</details>` : ''
+  const questionViewToggle = originalQuestion && question.questionRenderMode !== 'image' && originalImageAsset(question.questionImage, 'question')
+    ? `<button type="button" class="mini-btn ghost original-question-toggle" data-action="toggle-original-question" aria-controls="quiz-question-content">${imageQuestion ? '返回文字' : '查看原题'}</button>` : ''
   const optionsClass = imageQuestion ? 'options original-choice-only' : originalQuestion ? 'options original-word-options' : 'options'
   const options = question.options.map((option, index) => {
     let className = 'option'
@@ -719,9 +741,9 @@ function renderQuiz() {
     <div class="quiz-topline"><div class="quiz-progress-copy"><b>${state.sessionIndex + 1}</b> / ${state.session.length}</div><div class="quiz-tools"><div class="quiz-meta"><span>${escapeHtml(question.paper)}</span><b>${reveal ? `答对 ${correctCount} 题` : `已答 ${answeredCount} 题`}</b></div>${fontControls}</div></div>
     <div class="progress-track"><i style="--progress:${progress}%"></i></div>
     <article class="question-card">
-      <div class="question-head"><span class="tag question-type">单选题 · ${escapeHtml(question.source)}</span><div class="question-head-actions"><button type="button" class="question-pen-button" data-action="ink-toggle" aria-label="打开题目画笔" aria-pressed="false" title="在题目上圈画"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 15 10-10 4 4-10 10-5 1 1-5Zm8-8 4 4M4 21h16"/></svg></button><button class="favorite-button ${isFavorite ? 'active' : ''}" data-action="favorite">★ ${isFavorite ? '已收藏' : '收藏'}</button></div></div>
+      <div class="question-head"><span class="tag question-type">单选题 · ${escapeHtml(question.source)}</span><div class="question-head-actions">${questionViewToggle}<button type="button" class="question-pen-button" data-action="ink-toggle" aria-label="打开题目画笔" aria-pressed="false" title="在题目上圈画"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 15 10-10 4 4-10 10-5 1 1-5Zm8-8 4 4M4 21h16"/></svg></button><button class="favorite-button ${isFavorite ? 'active' : ''}" data-action="favorite">★ ${isFavorite ? '已收藏' : '收藏'}</button></div></div>
       ${reveal ? `<p class="question-duration">本题用时 ${formatDuration(recordedQuestionMilliseconds(question.id))}</p>` : ''}
-      <div class="question-ink-surface" data-ink-surface>${questionContent}${questionCheck}
+      <div id="quiz-question-content" class="question-ink-surface" data-ink-surface>${questionContent}
       <div class="${optionsClass}">${options}</div></div>${feedback}${explanation}
     </article>
     <div class="quiz-actions"><button class="btn secondary" data-action="previous" ${state.sessionIndex === 0 ? 'disabled' : ''}>上一题</button><button class="btn primary" data-action="${primaryAction}">${primaryLabel}</button></div>
@@ -1027,6 +1049,7 @@ function submitSession() {
   })
   state.sessionSubmitted = true
   state.sessionIndex = 0
+  state.originalQuestionId = null
   if (saveUserState()) { state.user.draft = null; writeStorage(DRAFT_KEY, null) }
   render()
   window.scrollTo({ top: 0, behavior: 'instant' })
@@ -1038,6 +1061,7 @@ function changeQuestion(index) {
   if (!Number.isInteger(index) || index < 0 || index >= state.session.length || index === state.sessionIndex) return false
   pauseQuizTiming()
   state.sessionIndex = index
+  state.originalQuestionId = null
   render()
   resumeQuizTiming()
   persistDraft()
@@ -1170,6 +1194,7 @@ document.addEventListener('click', event => {
     return window.QuizAnnotations.toggle()
   }
   if (action === 'retry-original-image') return retryOriginalImage(target.closest('[data-action]'))
+  if (action === 'toggle-original-question') return toggleOriginalQuestion()
   if (action === 'open-pitfalls') return openPitfallManual()
   if (action === 'close-pitfalls') return closePitfallManual()
   if (action === 'note-toggle') return toggleQuestionNote()
@@ -1269,7 +1294,7 @@ async function init() {
   setTheme(state.user.theme || 0)
   setQuizFont(state.user.quizFont || 'small')
   try {
-    const banks = await Promise.all(['./data/questions.json?v=20261121-5', './data/zhanggong/questions.json?v=20261123-10'].map(async url => {
+    const banks = await Promise.all(['./data/questions.json?v=20261121-5', './data/zhanggong/questions.json?v=20261125-1'].map(async url => {
       const response = await fetch(url, { cache: 'no-cache' })
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
       return response.json()

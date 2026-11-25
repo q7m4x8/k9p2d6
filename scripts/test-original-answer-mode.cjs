@@ -63,16 +63,40 @@ function test(name, run) {
   catch (error) { console.error(`FAIL ${name}`); throw error }
 }
 
-test('original answers remain hidden until submission while clean question images are available', () => {
+test('text questions request no images by default and can switch to the original layout without losing selections or ink', () => {
   const h = harness()
-  const question = startOriginal(h)
+  let inkId
+  h.contextWindow.QuizAnnotations = {
+    beforeRender() {},
+    mount(_surface, id) { inkId = id },
+    active: () => false
+  }
+  const question = startOriginal(h, originalQuestion({ questionRenderMode: 'text' }))
   const html = h.renderQuiz()
+  assert.equal(inkId, question.id + '-text')
+  assert(!html.includes('./data/zhanggong/questions/'))
   assert(!html.includes('./data/zhanggong/answers/'))
   assert(!html.includes('data-action="note-toggle"'))
   assert.equal(h.renderReferenceAnswer(question), '')
-  assert(html.includes('<details class="original-question-check"><summary>查看原题</summary>'))
-  assert(html.includes('./data/zhanggong/questions/zg-2026-001-00.webp'))
-  assert(html.includes('讲义第 3 页'))
+  assert.match(html, /data-action="toggle-original-question"[^>]*>查看原题/)
+  assert(html.includes('咄咄逼人  锋芒毕露'))
+  const option = new h.Element('.option')
+  option.dataset.option = '0'
+  h.fire('click', { target: option })
+  const toggle = new h.Element('.original-question-toggle')
+  toggle.dataset.action = 'toggle-original-question'
+  h.fire('click', { target: toggle })
+  const original = h.renderQuiz()
+  assert.equal(inkId, question.id)
+  assert(original.includes('./data/zhanggong/questions/zg-2026-001-00.webp'))
+  assert(original.includes('讲义第 3 页'))
+  assert(original.includes('data-option="0" aria-pressed="true"'))
+  assert(!original.includes('./data/zhanggong/answers/'))
+  h.fire('click', { target: toggle })
+  assert.equal(inkId, question.id + '-text')
+  const returned = h.renderQuiz()
+  assert(!returned.includes('./data/zhanggong/questions/'))
+  assert(returned.includes('data-option="0" aria-pressed="true"'))
   finishSession(h)
   const revealed = h.renderQuiz()
   assert(revealed.includes('./data/zhanggong/answers/zg-2026-001-02.webp'))
@@ -128,7 +152,7 @@ test('unsafe paths and dimensions cannot escape the controlled original image di
     assert(!html.includes('<img '), file)
     assert(html.includes('本题原版解析图片暂不可用'), file)
     question.questionImage = { file }
-    assert(!h.renderQuiz().includes('original-question-check'), file)
+    assert(!h.renderQuiz().includes('data-action="toggle-original-question"'), file)
   }
   for (const referenceImages of [null, {}, 'not an image list', [null], []]) {
     assert(!h.renderReferenceAnswer({ ...question, referenceImages }).includes('<img '))
@@ -169,7 +193,7 @@ test('clean image question mode shows its primary image and four accessible lett
   for (const letter of 'ABCD') assert(html.includes(`aria-label="选项 ${letter}"`))
   assert(!html.includes(question.stem))
   assert(!html.includes('咄咄逼人'))
-  assert(!html.includes('original-question-check'))
+  assert(!html.includes('data-action="toggle-original-question"'))
   assert(!html.includes('data-action="note-toggle"'))
   assert(!html.includes('./data/zhanggong/answers/'))
   question.questionImage = { file: '../not-allowed.webp' }
@@ -278,7 +302,7 @@ test('original-only sessions have no manual and mixed sessions collect only poli
   assert(!h.renderPitfallManual().includes('data-pitfall-id="zg-'))
 })
 
-test('all 304 production questions keep clean images before submission and original notes in paper and historical reviews', () => {
+test('all 304 production questions honor their question layout and keep original notes in paper and historical reviews', () => {
   const bank = JSON.parse(fs.readFileSync(path.join(repo, 'data/zhanggong/questions.json'), 'utf8'))
   const h = harness()
   h.state.data = bank
@@ -293,7 +317,14 @@ test('all 304 production questions keep clean images before submission and origi
     for (let i = 0; i < questions.length; i++) {
       h.changeQuestion(i)
       const html = h.renderQuiz()
-      assert(html.includes(`./data/zhanggong/questions/${questions[i].questionImage.file}`))
+      const question = questions[i]
+      if (question.questionRenderMode === 'image') {
+        assert(html.includes(`src="./data/zhanggong/questions/${question.questionImage.file}`), question.id)
+      } else {
+        assert(!html.includes('./data/zhanggong/questions/'), question.id)
+        assert(html.includes('options original-word-options'), question.id)
+        assert(html.includes('data-action="toggle-original-question"'), question.id)
+      }
       assert(!html.includes('./data/zhanggong/answers/'))
       assert(!html.includes('original-source-notice'))
       h.state.sessionAnswers[questions[i].id] = questions[i].answer

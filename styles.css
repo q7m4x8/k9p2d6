@@ -502,9 +502,8 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .original-image-error p { margin: 0 0 10px; }
 .original-image-unavailable { margin: 10px 0; color: var(--muted); line-height: 1.75; }
 .original-question { min-width: 0; margin: 0 0 18px; }
-.original-question-check { min-width: 0; margin: 0 0 18px; }
-.original-question-check > summary { width: fit-content; min-height: 36px; color: var(--accent-ink); font-size: .928571rem; line-height: 1.8; cursor: pointer; }
-.original-word-options .option-text { white-space: pre-wrap; }
+.question-head-actions .original-question-toggle { min-height: 39px; padding: 6px 8px; font-size: .857143rem; white-space: nowrap; }
+.original-word-options .option-text { white-space: pre-wrap; overflow-wrap: anywhere; }
 .options.original-choice-only { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
 .original-choice-only .option { display: flex; justify-content: center; align-items: center; min-height: 56px; padding: 10px; }
 .original-choice-only .option-letter { width: 32px; height: 32px; }
@@ -704,4 +703,6 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
   .quiz-mode .brand-group { gap: 6px; flex-shrink: 0; }
   .quiz-mode .brand-mark { width: 30px; height: 30px; border-radius: 10px; }
   .quiz-mode .quiz-timer > span { gap: 5px; }
+  .question-head { flex-wrap: wrap; gap: 8px; }
+  .question-head-actions { margin-left: auto; gap: 6px; }
 }
