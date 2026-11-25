@@ -15,6 +15,10 @@ const harnessSource = featureSource.slice(0, harnessBoundary).replace(
 const harnessContext = { require, console, __dirname, process }
 vm.runInNewContext(harnessSource + '\nglobalThis.originalModeHarness = harness', harnessContext)
 const harness = (...args) => harnessContext.originalModeHarness(...args)
+const originalBooks = [
+  { folder: 'zhanggong', album: '张弓选词大典', count: 304, papers: 16, originalVersion: '20261123-10', previewVersion: '20261125-3' },
+  { folder: 'zhanggong-yanyu', album: '张弓言语200题', count: 200, papers: 10, originalVersion: '20261125-6', previewVersion: '20261125-6' }
+]
 
 function originalQuestion(overrides = {}) {
   return {
@@ -165,6 +169,7 @@ test('unsafe paths and dimensions cannot escape the controlled original image di
   assert(!html.includes('onload='))
   assert(!html.includes(' height="-1"'))
   assert(!html.includes('<script>'))
+  assert(!h.renderReferenceAnswer({ ...question, assetBook: '../zhanggong' }).includes('<img '))
 })
 
 test('word group spacing is literal only for original mode and normal political formatting stays intact', () => {
@@ -206,50 +211,53 @@ test('clean image question mode shows its primary image and four accessible lett
   assert(html.includes('咄咄逼人  锋芒毕露'))
 })
 
-test('answer images retry preview and full-size URLs once before offering manual reload', () => {
-  const h = harness()
-  startOriginal(h)
-  finishSession(h)
-  const { figure, image, error, retry } = imageNodes(h)
-  const fail = () => h.fire('error', { target: image })
-  const previewRetry = /^\.\/data\/zhanggong\/answer-previews\/zg-2026-001-02\.webp\?v=\d+-\d+&retry=\d+$/
-  const originalRetry = /^\.\/data\/zhanggong\/answers\/zg-2026-001-02\.webp\?v=20261123-10&retry=\d+$/
-  image.dataset.answerAttempt = 'preview'
-  fail()
-  assert.match(image.src, /^\.\/data\/zhanggong\/answers\/zg-2026-001-02\.webp\?v=20261123-10$/)
-  assert.equal(error.hidden, true, 'Use the original once if its preview failed')
-  fail()
-  assert.match(image.src, previewRetry)
-  const firstFreshPreview = image.src
-  assert.equal(error.hidden, true)
-  fail()
-  assert.match(image.src, originalRetry)
-  const firstFreshOriginal = image.src
-  assert.equal(error.hidden, true)
-  fail()
-  assert.equal(image.hidden, true)
-  assert.equal(image.getAttribute('src'), null)
-  assert.equal(error.hidden, false)
-  h.fire('click', { target: retry })
-  assert.equal(image.hidden, false)
-  assert.equal(error.hidden, true)
-  assert.match(image.src, previewRetry)
-  assert.notEqual(image.src, firstFreshPreview)
-  fail()
-  assert.match(image.src, originalRetry)
-  assert.notEqual(image.src, firstFreshOriginal)
-  assert.equal(error.hidden, true)
-  fail()
-  assert.equal(error.hidden, false)
-  figure.parentElement = null
-  image.dataset.answerAttempt = 'preview'
-  fail()
-  assert.equal(image.dataset.answerAttempt, 'preview', 'Detached images cannot start a fallback request')
-  assert(!h.renderQuiz().includes('此处不应显示自动政治解析'))
-  const unsafe = imageNodes(h, 'answer', '../escape.webp')
-  h.fire('click', { target: unsafe.retry })
-  assert.equal(unsafe.image.src, undefined)
-})
+for (const book of originalBooks) {
+  test(`${book.album} previews fall back to that book's full-size URLs and support manual reload`, () => {
+    const h = harness()
+    startOriginal(h, originalQuestion({ assetBook: book.folder, album: book.album }))
+    finishSession(h)
+    const { figure, image, error, retry } = imageNodes(h)
+    const fail = () => h.fire('error', { target: image })
+    const preview = `./data/${book.folder}/answer-previews/zg-2026-001-02.webp?v=${book.previewVersion}`
+    const original = `./data/${book.folder}/answers/zg-2026-001-02.webp?v=${book.originalVersion}`
+    const assertRetry = (url) => {
+      assert(image.src.startsWith(`${url}&retry=`), image.src)
+      assert.match(image.src.slice(url.length), /^&retry=\d+$/)
+      assert.equal(error.hidden, true)
+    }
+    image.dataset.answerAttempt = 'preview'
+    fail()
+    assert.equal(image.src, original)
+    assert.equal(error.hidden, true, 'Use the original once if its preview failed')
+    fail()
+    assertRetry(preview)
+    const firstFreshPreview = image.src
+    fail()
+    assertRetry(original)
+    const firstFreshOriginal = image.src
+    fail()
+    assert.equal(image.hidden, true)
+    assert.equal(image.getAttribute('src'), null)
+    assert.equal(error.hidden, false)
+    h.fire('click', { target: retry })
+    assert.equal(image.hidden, false)
+    assertRetry(preview)
+    assert.notEqual(image.src, firstFreshPreview)
+    fail()
+    assertRetry(original)
+    assert.notEqual(image.src, firstFreshOriginal)
+    fail()
+    assert.equal(error.hidden, false)
+    figure.parentElement = null
+    image.dataset.answerAttempt = 'preview'
+    fail()
+    assert.equal(image.dataset.answerAttempt, 'preview', 'Detached images cannot start a fallback request')
+    assert(!h.renderQuiz().includes('此处不应显示自动政治解析'))
+    const unsafe = imageNodes(h, 'answer', '../escape.webp')
+    h.fire('click', { target: unsafe.retry })
+    assert.equal(unsafe.image.src, undefined)
+  })
+}
 
 test('only after the current first answer loads, prefetch one next preview at low priority', () => {
   const h = harness()
@@ -258,7 +266,7 @@ test('only after the current first answer loads, prefetch one next preview at lo
     constructor() { loaded.push(this) }
   }
   const questions = [1, 2, 3].map(number => originalQuestion({
-    id: `zg-test-${number}`, number,
+    id: `zg-test-${number}`, number, assetBook: number === 2 ? 'zhanggong-yanyu' : 'zhanggong',
     referenceImages: [{ file: `zg-test-${number}-01.webp` }]
   }))
   h.state.data.questions.push(...questions)
@@ -273,14 +281,14 @@ test('only after the current first answer loads, prefetch one next preview at lo
   h.fire('load', { target: image })
   assert.equal(loaded.length, 1)
   assert.equal(loaded[0].fetchPriority, 'low')
-  assert.match(loaded[0].src, /answer-previews\/zg-test-2-01\.webp/)
+  assert.match(loaded[0].src, /zhanggong-yanyu\/answer-previews\/zg-test-2-01\.webp/)
   loaded[0].onload()
   h.fire('load', { target: image })
   assert.equal(loaded.length, 1, 'Re-rendering does not re-fetch the same preview')
   h.changeQuestion(1)
   h.fire('load', { target: image })
   assert.equal(loaded.length, 2)
-  assert.match(loaded[1].src, /answer-previews\/zg-test-3-01\.webp/)
+  assert.match(loaded[1].src, /zhanggong\/answer-previews\/zg-test-3-01\.webp/)
 })
 
 test('retry actions cannot reveal answer images before submission but can retry clean question images', () => {
@@ -361,56 +369,71 @@ test('original-only sessions have no manual and mixed sessions collect only poli
   assert(!h.renderPitfallManual().includes('data-pitfall-id="zg-'))
 })
 
-test('all 304 production questions honor their question layout and keep original notes in paper and historical reviews', () => {
-  const bank = JSON.parse(fs.readFileSync(path.join(repo, 'data/zhanggong/questions.json'), 'utf8'))
-  const h = harness()
-  h.state.data = bank
-  h.contextWindow.QuizExplanationFormatter = {
-    format() { throw new Error('Original book called the political formatter') },
-    formatOptions() { throw new Error('Original book called the political option formatter') }
-  }
-  let reviewed = 0
-  for (const paper of bank.albums[0].papers) {
-    const questions = bank.questions.filter(q => q.paper === paper.name)
-    h.startQuiz(questions)
-    for (let i = 0; i < questions.length; i++) {
-      h.changeQuestion(i)
-      const html = h.renderQuiz()
-      const question = questions[i]
-      if (question.questionRenderMode === 'image') {
-        assert(html.includes(`src="./data/zhanggong/questions/${question.questionImage.file}`), question.id)
-      } else {
-        assert(!html.includes('./data/zhanggong/questions/'), question.id)
-        assert(html.includes('options original-word-options'), question.id)
-        assert(html.includes('data-action="toggle-original-question"'), question.id)
-      }
-      assert(!html.includes('./data/zhanggong/answers/'))
-      assert(!html.includes('./data/zhanggong/answer-previews/'))
-      assert(!html.includes('original-source-notice'))
-      h.state.sessionAnswers[questions[i].id] = questions[i].answer
+for (const book of originalBooks) {
+  test(`all ${book.count} ${book.album} questions honor their layout and use the original notes in current and historical reviews`, () => {
+    const directory = path.join(repo, 'data', book.folder)
+    const prefix = `./data/${book.folder}`
+    const bank = JSON.parse(fs.readFileSync(path.join(directory, 'questions.json'), 'utf8'))
+    const h = harness()
+    h.state.data = bank
+    h.contextWindow.QuizExplanationFormatter = {
+      format() { throw new Error('Original book called the political formatter') },
+      formatOptions() { throw new Error('Original book called the political option formatter') }
     }
-    h.submitSession()
-    assert(h.state.sessionSubmitted)
-    for (let i = 0; i < questions.length; i++) {
-      h.changeQuestion(i)
-      const html = h.renderQuiz()
-      for (const image of questions[i].referenceImages) {
-        assert(html.includes(`href="./data/zhanggong/answers/${image.file}`))
-        assert(html.includes(`src="./data/zhanggong/answer-previews/${image.file}`))
-        assert(fs.existsSync(path.join(repo, 'data/zhanggong/answer-previews', image.file)), image.file)
+    assert.equal(bank.albums[0].title, book.album)
+    assert.equal(bank.albums[0].papers.length, book.papers)
+    let reviewed = 0
+    for (const paper of bank.albums[0].papers) {
+      const questions = bank.questions.filter(q => q.paper === paper.name)
+      assert.equal(questions.length, paper.count)
+      if (book.folder === 'zhanggong-yanyu') assert.equal(questions.length, 20)
+      h.startQuiz(questions)
+      for (const [index, question] of questions.entries()) {
+        h.changeQuestion(index)
+        const html = h.renderQuiz()
+        if (book.folder === 'zhanggong-yanyu') assert.equal(question.questionRenderMode, 'text', question.id)
+        if (question.questionRenderMode === 'image') {
+          assert(html.includes(`src="${prefix}/questions/${question.questionImage.file}`), question.id)
+        } else {
+          assert(!html.includes(`${prefix}/questions/`), question.id)
+          assert(html.includes('options original-word-options'), question.id)
+          assert(html.includes('data-action="toggle-original-question"'), question.id)
+          assert.equal((html.match(/class="option-text"/g) || []).length, 4, question.id)
+        }
+        assert(!html.includes('/answers/'), question.id)
+        assert(!html.includes('/answer-previews/'), question.id)
+        assert(!html.includes('original-source-notice'), question.id)
+        assert(!html.includes('class="original-notes-image"'), question.id)
+        h.state.sessionAnswers[question.id] = question.answer
       }
-      assert(!html.includes('data-action="open-pitfalls"'))
-      assert(html.includes(`data-question-note="${questions[i].id}"`))
-      if (questions[i].sourceNotice) assert(html.includes(questions[i].sourceNotice))
-      reviewed++
+      h.submitSession()
+      assert(h.state.sessionSubmitted)
+      for (const [index, question] of questions.entries()) {
+        h.changeQuestion(index)
+        const html = h.renderQuiz()
+        assert(question.referenceImages.length > 0, question.id)
+        for (const image of question.referenceImages) {
+          assert(html.includes(`href="${prefix}/answers/${image.file}`), question.id)
+          assert(html.includes(`src="${prefix}/answer-previews/${image.file}`), question.id)
+          assert(fs.existsSync(path.join(directory, 'answers', image.file)), image.file)
+          assert(fs.existsSync(path.join(directory, 'answer-previews', image.file)), image.file)
+        }
+        assert(!html.includes('data-action="open-pitfalls"'), question.id)
+        assert(html.includes(`data-question-note="${question.id}"`), question.id)
+        if (question.sourceNotice) assert(html.includes(question.sourceNotice), question.id)
+        reviewed++
+      }
+      assert(h.openHistoryRecord(0, questions.length - 1))
+      assert(h.state.reviewingHistory)
+      const last = questions.at(-1)
+      const historicalHtml = h.renderQuiz()
+      assert(historicalHtml.includes(`src="${prefix}/answer-previews/${last.referenceImages[0].file}`), last.id)
+      assert(historicalHtml.includes(`data-question-note="${last.id}"`), last.id)
     }
-    assert(h.openHistoryRecord(0))
-    assert(h.state.reviewingHistory)
-    assert(h.renderQuiz().includes('./data/zhanggong/answers/'))
-  }
-  assert.equal(reviewed, 304)
-  assert.equal(h.saved().history.length, 16)
-  assert.equal(Object.keys(h.saved().attempts).length, 304)
-})
+    assert.equal(reviewed, book.count)
+    assert.equal(h.saved().history.length, book.papers)
+    assert.equal(Object.keys(h.saved().attempts).length, book.count)
+  })
+}
 
 console.log(`PASS: ${passed} original answer visibility, safety, retry, notes and mixed-session scenarios`)

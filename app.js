@@ -309,15 +309,19 @@ function isOriginalAnnotated(question) {
   return question?.referenceMode === 'original-annotated'
 }
 
-function originalImageAsset(image, role) {
-  if (!image || typeof image.file !== 'string' || !/^[a-zA-Z0-9][a-zA-Z0-9_-]*\.(?:webp|png|jpe?g)$/i.test(image.file)) return null
-  if (!['answer', 'question'].includes(role)) return null
-  return `./data/zhanggong/${role === 'question' ? 'questions' : 'answers'}/${image.file}?v=20261123-10`
-}
+const originalAssetBooks = new Map([
+  ['zhanggong', { original: '20261123-10', preview: '20261125-3' }],
+  ['zhanggong-yanyu', { original: '20261125-6', preview: '20261125-6' }]
+])
 
-function answerPreviewAsset(image) {
-  if (!originalImageAsset(image, 'answer') || !/\.webp$/i.test(image.file)) return null
-  return `./data/zhanggong/answer-previews/${image.file}?v=20261125-3`
+function originalImageAsset(question, image, role) {
+  if (!image || typeof image.file !== 'string' || !/^[a-zA-Z0-9][a-zA-Z0-9_-]*\.(?:webp|png|jpe?g)$/i.test(image.file)) return null
+  const book = question?.assetBook ?? 'zhanggong'
+  const versions = originalAssetBooks.get(book)
+  if (!versions) return null
+  if (role === 'preview') return /\.webp$/i.test(image.file) ? `./data/${book}/answer-previews/${image.file}?v=${versions.preview}` : null
+  if (role !== 'answer' && role !== 'question') return null
+  return `./data/${book}/${role === 'question' ? 'questions' : 'answers'}/${image.file}?v=${versions.original}`
 }
 
 const warmedAnswerPreviews = new Set()
@@ -330,7 +334,7 @@ function warmNextAnswerPreview() {
   if (connection?.saveData || /2g$/.test(connection?.effectiveType || '')) return
   const next = state.session[state.sessionIndex + 1]
   if (!isOriginalAnnotated(next)) return
-  const asset = answerPreviewAsset(next.referenceImages?.[0])
+  const asset = originalImageAsset(next, next.referenceImages?.[0], 'preview')
   if (!asset || warmedAnswerPreviews.has(asset)) return
   const preload = new window.Image()
   preload.fetchPriority = 'low'
@@ -343,13 +347,13 @@ function warmNextAnswerPreview() {
 function showsOriginalQuestionImage(question) {
   return isOriginalAnnotated(question) &&
     (question.questionRenderMode === 'image' || state.originalQuestionId === question.id) &&
-    !!originalImageAsset(question.questionImage, 'question')
+    !!originalImageAsset(question, question.questionImage, 'question')
 }
 
 function toggleOriginalQuestion() {
   const question = currentQuestion()
   if (state.route !== 'quiz' || state.pitfallOpen || !isOriginalAnnotated(question) ||
-      question.questionRenderMode === 'image' || !originalImageAsset(question.questionImage, 'question')) return
+      question.questionRenderMode === 'image' || !originalImageAsset(question, question.questionImage, 'question')) return
   if (window.QuizAnnotations?.active()) return showToast('请先退出画笔')
   cancelAutoAdvance()
   state.originalQuestionId = state.originalQuestionId === question.id ? null : question.id
@@ -358,10 +362,10 @@ function toggleOriginalQuestion() {
 }
 
 function renderOriginalImage(question, image, index, total, role) {
-  const asset = originalImageAsset(image, role)
+  const asset = originalImageAsset(question, image, role)
   if (!asset) return ''
   const isQuestion = role === 'question'
-  const preview = isQuestion ? null : answerPreviewAsset(image)
+  const preview = isQuestion ? null : originalImageAsset(question, image, 'preview')
   const firstAnswer = !isQuestion && index === 0
   const priority = isQuestion || firstAnswer ? ' loading="eager" fetchpriority="high"' : ' loading="lazy"'
   const previewAttributes = preview ? ' data-answer-attempt="preview"' : ''
@@ -370,7 +374,7 @@ function renderOriginalImage(question, image, index, total, role) {
   const position = total > 1 ? ` · ${index + 1}/${total}` : ''
   const caption = image.caption ? `<span class="original-image-caption">${escapeHtml(image.caption)}</span>` : ''
   const dimensions = ['width', 'height'].map(name => Number.isInteger(image[name]) && image[name] > 0 && image[name] <= 100000 ? ` ${name}="${image[name]}"` : '').join('')
-  const label = `${question.album || '张弓选词大典'}第 ${question.number} 题${isQuestion ? '原题' : '原版解析'}，${page}${position}`
+  const label = `${question.album || '题本'}第 ${question.number} 题${isQuestion ? '原题' : '原版解析'}，${page}${position}`
   return `<figure class="original-image-page ${isQuestion ? 'original-question-page' : 'original-answer-page'}" data-original-role="${role}"><figcaption><span>${escapeHtml(page + position)}${caption}</span><a href="${escapeHtml(asset)}" target="_blank" rel="noopener noreferrer">查看原尺寸 ↗</a></figcaption><a class="original-image-link" href="${escapeHtml(asset)}" target="_blank" rel="noopener noreferrer" aria-label="新标签查看${isQuestion ? '原题' : '原版解析'}原尺寸"><img class="original-notes-image" data-original-file="${escapeHtml(image.file)}"${previewAttributes}${lead} src="${escapeHtml(preview || asset)}"${dimensions}${priority} decoding="async" alt="${escapeHtml(label)}"></a><div class="original-image-error" role="status" hidden><p>${isQuestion ? '原题' : '原版解析'}图片加载失败，可重新加载或打开原尺寸查看。</p><button type="button" class="mini-btn ghost" data-action="retry-original-image">重新加载</button></div></figure>`
 }
 
@@ -390,9 +394,9 @@ function freshImageAsset(asset) {
   return `${asset}&retry=${lastImageRetry}`
 }
 
-function loadAnswerImage(image, attempt) {
+function loadAnswerImage(question, image, attempt) {
   const metadata = { file: image.dataset.originalFile }
-  const asset = attempt.endsWith('preview') ? answerPreviewAsset(metadata) : originalImageAsset(metadata, 'answer')
+  const asset = originalImageAsset(question, metadata, attempt.endsWith('preview') ? 'preview' : 'answer')
   if (!asset) return false
   image.dataset.answerAttempt = attempt
   image.src = attempt.startsWith('fresh-') ? freshImageAsset(asset) : asset
@@ -406,12 +410,12 @@ function retryOriginalImage(button) {
   const role = figure.dataset.originalRole
   if (role === 'answer' && !state.sessionSubmitted) return false
   const image = figure.querySelector('img.original-notes-image')
-  const asset = originalImageAsset({ file: image?.dataset.originalFile }, role)
+  const asset = originalImageAsset(question, { file: image?.dataset.originalFile }, role)
   if (!asset) return false
   const error = figure.querySelector('.original-image-error')
   if (error) error.hidden = true
   image.hidden = false
-  if (role !== 'answer' || !loadAnswerImage(image, 'fresh-preview')) image.src = freshImageAsset(asset)
+  if (role !== 'answer' || !loadAnswerImage(question, image, 'fresh-preview')) image.src = freshImageAsset(asset)
   return true
 }
 
@@ -625,14 +629,14 @@ function renderHome() {
   const stats = state.data.stats
   const cards = state.data.albums.map((album, index) => `
     <article class="album-card" data-album="${album.id}">
-      <div class="album-icon">${album.referenceMode === 'original-annotated' ? '词' : ['⚡','法','卷','专'][index] || '题'}</div>
+      <div class="album-icon">${escapeHtml(album.icon || (album.referenceMode === 'original-annotated' ? '词' : ['⚡','法','卷','专'][index] || '题'))}</div>
       <h3>${escapeHtml(album.title)}</h3>
       <p>${escapeHtml(album.subtitle)}</p>
       <div class="tag-row"><span class="tag">${album.count} 题</span><span class="tag neutral">${album.papers.length} 个子卷</span><span class="tag neutral">${album.source}</span></div>
     </article>`).join('')
   return `
     <section class="hero">
-      <div><span class="eyebrow">小天爱刷题</span><h1>把题刷透，<strong>把分拿到</strong></h1><p class="hero-copy">政治理论与言语选词，按题本与套卷练习，自动记录进度。</p></div>
+      <div><span class="eyebrow">小天爱刷题</span><h1>把题刷透，<strong>把分拿到</strong></h1><p class="hero-copy">政治理论与言语理解，按题本与套卷练习，自动记录进度。</p></div>
       <div class="hero-stats">
         <div class="stat-chip"><b>${stats.questionCount}</b><span>题目</span></div>
         <div class="stat-chip"><b>${stats.paperCount}</b><span>子卷</span></div>
@@ -747,7 +751,7 @@ function renderQuiz() {
   const questionContent = imageQuestion
     ? `<div class="original-question">${renderOriginalImage(question, question.questionImage, 0, 1, 'question')}</div>`
     : `${originalQuestion && question.questionRenderMode === 'image' ? '<p class="original-image-unavailable">原题图片暂不可用，下方显示题目文字。</p>' : ''}<p class="question-stem">${originalQuestion ? escapeHtml(displayQuestionStem(question)) : escapeQuizText(displayQuestionStem(question))}</p>`
-  const questionViewToggle = originalQuestion && question.questionRenderMode !== 'image' && originalImageAsset(question.questionImage, 'question')
+  const questionViewToggle = originalQuestion && question.questionRenderMode !== 'image' && originalImageAsset(question, question.questionImage, 'question')
     ? `<button type="button" class="mini-btn ghost original-question-toggle" data-action="toggle-original-question" aria-controls="quiz-question-content">${imageQuestion ? '返回文字' : '查看原题'}</button>` : ''
   const optionsClass = imageQuestion ? 'options original-choice-only' : originalQuestion ? 'options original-word-options' : 'options'
   const options = question.options.map((option, index) => {
@@ -1316,7 +1320,7 @@ document.addEventListener('error', event => {
   if (image instanceof Element && image.matches('img.original-notes-image')) {
     if (!main.contains(image)) return
     const nextAttempt = { preview: 'original', original: 'fresh-preview', 'fresh-preview': 'fresh-original' }[image.dataset.answerAttempt]
-    if (nextAttempt && state.route === 'quiz' && state.sessionSubmitted && loadAnswerImage(image, nextAttempt)) return
+    if (nextAttempt && state.route === 'quiz' && state.sessionSubmitted && loadAnswerImage(currentQuestion(), image, nextAttempt)) return
     image.hidden = true
     image.removeAttribute('src')
     const error = image.closest('.original-image-page')?.querySelector('.original-image-error')
@@ -1354,7 +1358,12 @@ async function init() {
   setTheme(state.user.theme || 0)
   setQuizFont(state.user.quizFont || 'small')
   try {
-    const banks = await Promise.all(['./data/questions.json?v=20261121-5', './data/zhanggong/questions.json?v=20261125-2'].map(async url => {
+    const bankUrls = [
+      './data/questions.json?v=20261121-5',
+      './data/zhanggong/questions.json?v=20261125-2',
+      './data/zhanggong-yanyu/questions.json?v=20261125-6'
+    ]
+    const banks = await Promise.all(bankUrls.map(async url => {
       const response = await fetch(url, { cache: 'no-cache' })
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
       return response.json()

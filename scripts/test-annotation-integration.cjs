@@ -41,7 +41,11 @@ assert.equal(h.state.sessionIndex, 0, 'Answering stays on the question until 300
 h.advance(1)
 assert.equal(h.state.sessionIndex, 1, 'Answering and auto-next resume after pen exits')
 assert(h.mounts.includes('test-1') && h.mounts.includes('test-2'))
-const bank = require('../bank-loader').merge([require('../data/questions.json'), require('../data/zhanggong/questions.json')])
+const bank = require('../bank-loader').merge([
+  require('../data/questions.json'),
+  require('../data/zhanggong/questions.json'),
+  require('../data/zhanggong-yanyu/questions.json')
+])
 const all = harness(); all.state.data = bank
 for (const q of bank.questions) {
   all.startQuiz([q])
@@ -55,5 +59,5 @@ for (const q of bank.questions) {
   assert(review.indexOf('data-ink-surface') < review.indexOf('class="feedback'), q.id)
   assert(review.includes('</div></div><div class="feedback'), 'Answer expansion stays outside the drawing surface')
 }
-assert.equal(bank.questions.length, 1404)
-console.log('PASS pen on all 1404 questions and reviews; pending auto-next cancellation, option/swipe/font guards, remount and resumed answering')
+assert.equal(bank.questions.length, 1604)
+console.log('PASS pen on all 1604 questions and reviews; pending auto-next cancellation, option/swipe/font guards, remount and resumed answering')
