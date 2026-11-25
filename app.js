@@ -313,6 +313,31 @@ function originalImageAsset(image, role) {
   return `./data/zhanggong/${role === 'question' ? 'questions' : 'answers'}/${image.file}?v=20261123-10`
 }
 
+function answerPreviewAsset(image) {
+  if (!originalImageAsset(image, 'answer') || !/\.webp$/i.test(image.file)) return null
+  return `./data/zhanggong/answer-previews/${image.file}?v=20261125-3`
+}
+
+const warmedAnswerPreviews = new Set()
+let answerPreviewRequest = null
+
+function warmNextAnswerPreview() {
+  if (state.route !== 'quiz' || !state.sessionSubmitted || state.pitfallOpen || document.hidden ||
+      answerPreviewRequest || typeof window.Image !== 'function') return
+  const connection = navigator.connection
+  if (connection?.saveData || /2g$/.test(connection?.effectiveType || '')) return
+  const next = state.session[state.sessionIndex + 1]
+  if (!isOriginalAnnotated(next)) return
+  const asset = answerPreviewAsset(next.referenceImages?.[0])
+  if (!asset || warmedAnswerPreviews.has(asset)) return
+  const preload = new window.Image()
+  preload.fetchPriority = 'low'
+  preload.onload = preload.onerror = () => { answerPreviewRequest = null }
+  answerPreviewRequest = preload
+  warmedAnswerPreviews.add(asset)
+  preload.src = asset
+}
+
 function showsOriginalQuestionImage(question) {
   return isOriginalAnnotated(question) &&
     (question.questionRenderMode === 'image' || state.originalQuestionId === question.id) &&
@@ -334,12 +359,17 @@ function renderOriginalImage(question, image, index, total, role) {
   const asset = originalImageAsset(image, role)
   if (!asset) return ''
   const isQuestion = role === 'question'
+  const preview = isQuestion ? null : answerPreviewAsset(image)
+  const firstAnswer = !isQuestion && index === 0
+  const priority = isQuestion || firstAnswer ? ' loading="eager" fetchpriority="high"' : ' loading="lazy"'
+  const previewAttributes = preview ? ' data-answer-preview="true"' : ''
+  const lead = firstAnswer ? ' data-answer-lead="true"' : ''
   const page = Number.isInteger(image.page) && image.page > 0 ? `${isQuestion ? '讲义' : '笔记'}第 ${image.page} 页` : isQuestion ? '原题' : '原版笔记'
   const position = total > 1 ? ` · ${index + 1}/${total}` : ''
   const caption = image.caption ? `<span class="original-image-caption">${escapeHtml(image.caption)}</span>` : ''
   const dimensions = ['width', 'height'].map(name => Number.isInteger(image[name]) && image[name] > 0 && image[name] <= 100000 ? ` ${name}="${image[name]}"` : '').join('')
   const label = `${question.album || '张弓选词大典'}第 ${question.number} 题${isQuestion ? '原题' : '原版解析'}，${page}${position}`
-  return `<figure class="original-image-page ${isQuestion ? 'original-question-page' : 'original-answer-page'}" data-original-role="${role}"><figcaption><span>${escapeHtml(page + position)}${caption}</span><a href="${escapeHtml(asset)}" target="_blank" rel="noopener noreferrer">查看原尺寸 ↗</a></figcaption><a class="original-image-link" href="${escapeHtml(asset)}" target="_blank" rel="noopener noreferrer" aria-label="新标签查看${isQuestion ? '原题' : '原版解析'}原尺寸"><img class="original-notes-image" data-original-file="${escapeHtml(image.file)}" src="${escapeHtml(asset)}"${dimensions} loading="${isQuestion ? 'eager' : 'lazy'}" decoding="async" alt="${escapeHtml(label)}"></a><div class="original-image-error" role="status" hidden><p>${isQuestion ? '原题' : '原版解析'}图片加载失败，可重新加载或打开原尺寸查看。</p><button type="button" class="mini-btn ghost" data-action="retry-original-image">重新加载</button></div></figure>`
+  return `<figure class="original-image-page ${isQuestion ? 'original-question-page' : 'original-answer-page'}" data-original-role="${role}"><figcaption><span>${escapeHtml(page + position)}${caption}</span><a href="${escapeHtml(asset)}" target="_blank" rel="noopener noreferrer">查看原尺寸 ↗</a></figcaption><a class="original-image-link" href="${escapeHtml(asset)}" target="_blank" rel="noopener noreferrer" aria-label="新标签查看${isQuestion ? '原题' : '原版解析'}原尺寸"><img class="original-notes-image" data-original-file="${escapeHtml(image.file)}"${previewAttributes}${lead} src="${escapeHtml(preview || asset)}"${dimensions}${priority} decoding="async" alt="${escapeHtml(label)}"></a><div class="original-image-error" role="status" hidden><p>${isQuestion ? '原题' : '原版解析'}图片加载失败，可重新加载或打开原尺寸查看。</p><button type="button" class="mini-btn ghost" data-action="retry-original-image">重新加载</button></div></figure>`
 }
 
 function renderOriginalReferenceAnswer(question, heading, notes) {
@@ -1254,9 +1284,23 @@ document.addEventListener('toggle', event => {
   })
 }, true)
 
+document.addEventListener('load', event => {
+  const image = event.target
+  if (image instanceof Element && image.matches('img.original-notes-image') &&
+      image.dataset.answerLead === 'true' && main.contains(image)) warmNextAnswerPreview()
+}, true)
+
 document.addEventListener('error', event => {
   const image = event.target
   if (image instanceof Element && image.matches('img.original-notes-image')) {
+    if (image.dataset.answerPreview === 'true') {
+      delete image.dataset.answerPreview
+      const original = originalImageAsset({ file: image.dataset.originalFile }, 'answer')
+      if (original && state.route === 'quiz' && state.sessionSubmitted && main.contains(image)) {
+        image.src = original
+        return
+      }
+    }
     image.hidden = true
     image.removeAttribute('src')
     const error = image.closest('.original-image-page')?.querySelector('.original-image-error')

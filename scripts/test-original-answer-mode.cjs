@@ -44,7 +44,7 @@ function finishSession(h) {
 }
 
 function imageNodes(h, role = 'answer', file = 'zg-2026-001-02.webp') {
-  const figure = new h.Element('.original-image-page')
+  const figure = new h.Element('.original-image-page', h.element('#mainContent'))
   figure.dataset.originalRole = role
   const image = new h.Element('img.original-notes-image', figure)
   image.dataset.originalFile = file
@@ -122,6 +122,9 @@ test('original answer pages keep input order and escape captions without invokin
   assert(!html.includes('reference-rule'))
   assert(html.includes('target="_blank" rel="noopener noreferrer"'))
   assert(html.includes('width="900" height="450"'))
+  assert.match(html, /href="\.\/data\/zhanggong\/answers\/zg-2026-001-02\.webp/)
+  assert.match(html, /src="\.\/data\/zhanggong\/answer-previews\/zg-2026-001-02\.webp[^"]*"[^>]+loading="eager" fetchpriority="high"/)
+  assert.match(html, /src="\.\/data\/zhanggong\/answer-previews\/zg-2026-001-01\.webp[^"]*"[^>]+loading="lazy"/)
   assert(html.includes('笔记第 4 页'))
   assert(!html.includes('讲义第 4 页'))
 })
@@ -208,6 +211,11 @@ test('image failures offer a retry in the same figure and never fall back to a p
   startOriginal(h)
   finishSession(h)
   const { image, error, retry } = imageNodes(h)
+  image.dataset.answerPreview = 'true'
+  h.fire('error', { target: image })
+  assert.match(image.src, /^\.\/data\/zhanggong\/answers\/zg-2026-001-02\.webp\?v=20261123-10$/)
+  assert.equal(error.hidden, true, 'Use the original once if its preview failed')
+  assert.equal(image.dataset.answerPreview, undefined)
   h.fire('error', { target: image })
   assert.equal(image.hidden, true)
   assert.equal(image.getAttribute('src'), null)
@@ -222,6 +230,38 @@ test('image failures offer a retry in the same figure and never fall back to a p
   const unsafe = imageNodes(h, 'answer', '../escape.webp')
   h.fire('click', { target: unsafe.retry })
   assert.equal(unsafe.image.src, undefined)
+})
+
+test('only after the current first answer loads, prefetch one next preview at low priority', () => {
+  const h = harness()
+  const loaded = []
+  h.contextWindow.Image = class {
+    constructor() { loaded.push(this) }
+  }
+  const questions = [1, 2, 3].map(number => originalQuestion({
+    id: `zg-test-${number}`, number,
+    referenceImages: [{ file: `zg-test-${number}-01.webp` }]
+  }))
+  h.state.data.questions.push(...questions)
+  h.startQuiz(questions)
+  const { image } = imageNodes(h)
+  image.dataset.answerLead = 'true'
+  h.fire('load', { target: image })
+  assert.equal(loaded.length, 0, 'No answer request before submission')
+  finishSession(h)
+  assert.equal(loaded.length, 0, 'Let the current answer finish first')
+  h.fire('load', { target: image })
+  h.fire('load', { target: image })
+  assert.equal(loaded.length, 1)
+  assert.equal(loaded[0].fetchPriority, 'low')
+  assert.match(loaded[0].src, /answer-previews\/zg-test-2-01\.webp/)
+  loaded[0].onload()
+  h.fire('load', { target: image })
+  assert.equal(loaded.length, 1, 'Re-rendering does not re-fetch the same preview')
+  h.changeQuestion(1)
+  h.fire('load', { target: image })
+  assert.equal(loaded.length, 2)
+  assert.match(loaded[1].src, /answer-previews\/zg-test-3-01\.webp/)
 })
 
 test('retry actions cannot reveal answer images before submission but can retry clean question images', () => {
@@ -326,6 +366,7 @@ test('all 304 production questions honor their question layout and keep original
         assert(html.includes('data-action="toggle-original-question"'), question.id)
       }
       assert(!html.includes('./data/zhanggong/answers/'))
+      assert(!html.includes('./data/zhanggong/answer-previews/'))
       assert(!html.includes('original-source-notice'))
       h.state.sessionAnswers[questions[i].id] = questions[i].answer
     }
@@ -334,7 +375,11 @@ test('all 304 production questions honor their question layout and keep original
     for (let i = 0; i < questions.length; i++) {
       h.changeQuestion(i)
       const html = h.renderQuiz()
-      for (const image of questions[i].referenceImages) assert(html.includes(`./data/zhanggong/answers/${image.file}`))
+      for (const image of questions[i].referenceImages) {
+        assert(html.includes(`href="./data/zhanggong/answers/${image.file}`))
+        assert(html.includes(`src="./data/zhanggong/answer-previews/${image.file}`))
+        assert(fs.existsSync(path.join(repo, 'data/zhanggong/answer-previews', image.file)), image.file)
+      }
       assert(!html.includes('data-action="open-pitfalls"'))
       assert(html.includes(`data-question-note="${questions[i].id}"`))
       if (questions[i].sourceNotice) assert(html.includes(questions[i].sourceNotice))
