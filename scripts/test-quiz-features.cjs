@@ -339,7 +339,7 @@ test('a completed swipe suppresses its ghost tap without blocking keyboard answe
   h.fire('click', { target: option, detail: 0 })
   assert.equal(h.state.sessionAnswers['test-2'], 2)
   assert.equal(h.state.sessionIndex, 1)
-  h.advance(500)
+  h.advance(300)
   assert.equal(h.state.sessionIndex, 2)
   h.advance(500)
   option.dataset.option = '0'
@@ -468,7 +468,7 @@ test('the reported screenshot highlights all three exact wrong phrases without r
   assert.equal(ordinary.explanation, '体现的是客观规律性和主观能动性的有机结合，而非矛盾的普遍性和客观性。', 'Only the displayed explanation is shortened; canonical content stays unchanged')
 })
 
-test('selected frame stays visible for exactly 500 milliseconds before advancing; final submission remains manual', () => {
+test('selected frame stays visible for exactly 300 milliseconds before advancing; final submission remains manual', () => {
   const h = harness()
   h.startQuiz(h.state.data.questions)
   const option = h.element('.option')
@@ -483,23 +483,27 @@ test('selected frame stays visible for exactly 500 milliseconds before advancing
   assert.equal(h.draftSaved().answers['test-1'], 1)
   assert(!h.renderQuiz().includes('reference-answer'))
   assert(!h.renderQuiz().includes('feedback incorrect'))
+  h.advance(100)
   const duplicate = h.fire('click', { target: option })
   assert(duplicate.defaultPrevented)
   assert.equal(h.state.sessionAnswers['test-2'], undefined)
   assert.equal(h.state.sessionIndex, 0)
-  h.advance(499)
+  h.advance(199)
   assert.equal(h.state.sessionIndex, 0)
   h.advance(1)
   assert.equal(h.state.sessionIndex, 1)
-  assert.equal(h.getQuestionMilliseconds('test-1'), 1750)
+  assert.equal(h.getQuestionMilliseconds('test-1'), 1550)
   assert.equal(h.draftSaved().index, 1)
+  const strayTap = h.fire('click', { target: option })
+  assert(strayTap.defaultPrevented)
+  assert.equal(h.state.sessionAnswers['test-2'], undefined)
   h.advance(1000)
   option.dataset.option = '2'
   h.fire('click', { target: option })
   assert.equal(h.state.sessionIndex, 1)
-  h.advance(500)
+  h.advance(300)
   assert.equal(h.state.sessionIndex, 2)
-  assert.equal(h.getQuestionMilliseconds('test-2'), 1500)
+  assert.equal(h.getQuestionMilliseconds('test-2'), 1300)
   h.advance(750)
   option.dataset.option = '0'
   h.fire('click', { target: option })
@@ -525,13 +529,13 @@ test('selected frame stays visible for exactly 500 milliseconds before advancing
   assert.equal(JSON.stringify(h.state.sessionAnswers), submittedAnswers, 'Review cannot change a submitted answer')
 })
 
-test('changing a selection restarts the full 500 milliseconds and manual navigation cancels pending movement', () => {
+test('a quick change of selection starts a fresh 300 milliseconds and manual navigation cancels pending movement', () => {
   const h=harness(); h.startQuiz(h.state.data.questions)
   const option=h.element('.option'); option.parentElement=h.element('.question-card'); option.dataset.option='0'
-  h.fire('click',{target:option}); h.advance(300)
+  h.fire('click',{target:option}); h.advance(125)
   option.dataset.option='2'; h.fire('click',{target:option})
-  h.advance(499); assert.equal(h.state.sessionIndex,0)
   assert.equal(h.state.sessionAnswers['test-1'],2)
+  h.advance(299); assert.equal(h.state.sessionIndex,0)
   h.advance(1); assert.equal(h.state.sessionIndex,1)
   h.advance(300); h.fire('click',{target:option})
   h.changeQuestion(2); h.advance(2000); assert.equal(h.state.sessionIndex,2)
@@ -644,10 +648,10 @@ test('history card and per-question controls open read-only review, support navi
 test('opening history preserves an active draft and cancels its pending auto-advance across reloads', () => {
   const h=harness({history:[practiceRecord('past',2)]})
   h.startQuiz(h.state.data.questions)
-  const option=h.element('.option');option.dataset.option='0';h.fire('click',{target:option});h.advance(300)
+  const option=h.element('.option');option.dataset.option='0';h.fire('click',{target:option});h.advance(175)
   h.openHistoryRecord(0)
   const draft=h.draftSaved()
-  assert.equal(draft.index,0);assert.equal(draft.answers['test-1'],0);assert.equal(draft.times['test-1'],300)
+  assert.equal(draft.index,0);assert.equal(draft.answers['test-1'],0);assert.equal(draft.times['test-1'],175)
   h.advance(5000)
   assert.equal(h.state.sessionIndex,0,'Old auto-advance must not change the historical session')
   h.changeQuestion(1);h.goBack();assert.equal(h.state.route,'progress')
@@ -655,8 +659,8 @@ test('opening history preserves an active draft and cancels its pending auto-adv
   const reloaded=harness(h.saved(),h.draftSaved());reloaded.continueDraft()
   assert.equal(reloaded.state.reviewingHistory,false);assert.equal(reloaded.state.sessionSubmitted,false)
   assert.equal(reloaded.state.sessionIndex,0);assert.equal(reloaded.state.sessionAnswers['test-1'],0)
-  assert.equal(reloaded.getSessionMilliseconds(),300)
-  reloaded.advance(1000);assert.equal(reloaded.getSessionMilliseconds(),1300)
+  assert.equal(reloaded.getSessionMilliseconds(),175)
+  reloaded.advance(1000);assert.equal(reloaded.getSessionMilliseconds(),1175)
 })
 
 test('missing historical questions retain original totals and original row links without overwriting records', () => {
