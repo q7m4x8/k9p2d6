@@ -38,6 +38,13 @@ function mockService(t) {
       return Response.json({ requests })
     }
     if (path === '/requests') {
+      const previous = records.get(body.id)
+      if (previous) {
+        assert.equal(previous.token, token)
+        assert.equal(previous.nameKey, body.nameKey)
+        assert.equal(previous.publicKey, body.publicKey)
+        return Response.json({ expiresAt: previous.expiresAt })
+      }
       const expiresAt = Date.now() + 300000
       records.set(body.id, { ...body, token, expiresAt, grant: null })
       return Response.json({ expiresAt })
@@ -143,4 +150,54 @@ test('same-name ownership, stale approvals and expired requests return distingui
   service.records.get(phone.id).expired = true
   await assert.rejects(phone.poll(), { code: 'expired' })
   await assert.rejects(desktop.approve(request), { code: 'request-stale' })
+})
+
+test('a lost pairing receipt retries the same request without raising another approval', async t => {
+  const service = mockService(t)
+  const serviceFetch = globalThis.fetch
+  t.mock.method(globalThis, 'fetch', async (url, options) => {
+    const response = await serviceFetch(url, options)
+    if (service.calls.length === 1) throw new TypeError('Lost pairing response')
+    return response
+  })
+  let retries = 0
+  const phone = await pairing.startRequest('test pairing retry', ENDPOINT, { onRetry: () => retries++ })
+  const [initial, repeated] = service.calls
+  assert.equal(service.calls.length, 2)
+  assert.equal(retries, 1)
+  assert.equal(initial.options.body, repeated.options.body)
+  assert.equal(initial.options.headers.Authorization, repeated.options.headers.Authorization)
+  assert.equal(initial.options.signal.aborted, true)
+  assert.notEqual(initial.options.signal, repeated.options.signal)
+  assert.equal(service.records.size, 1)
+  assert.equal(service.records.get(phone.id).expiresAt, phone.expiresAt)
+  assert.equal(await phone.poll(), null)
+})
+
+test('a pairing request times out with a distinct error after a bounded retry', async t => {
+  const originalTimeout = globalThis.setTimeout
+  t.mock.method(globalThis, 'setTimeout', (callback, delay, ...args) =>
+    originalTimeout(callback, delay === 8000 ? 0 : delay, ...args))
+  const fetch = t.mock.method(globalThis, 'fetch', (_url, options) => new Promise((_, reject) => {
+    options.signal.addEventListener('abort', () => reject(new DOMException('Aborted', 'AbortError')), { once: true })
+  }))
+  await assert.rejects(pairing.startRequest('test pairing timeout', ENDPOINT), { code: 'timeout' })
+  assert.equal(fetch.mock.callCount(), 2)
+})
+
+test('a lost approval response does not resend the one-time grant', async t => {
+  const service = mockService(t)
+  const secret = sync.createSecret()
+  const phone = await pairing.startRequest('test approval retry', ENDPOINT)
+  const desktop = await pairing.connectApprover(secret, 'test approval retry', ENDPOINT)
+  const [candidate] = await desktop.list()
+  const serviceFetch = globalThis.fetch
+  t.mock.method(globalThis, 'fetch', async (url, options) => {
+    const response = await serviceFetch(url, options)
+    if (url.endsWith('/grant')) throw new TypeError('Lost approval response')
+    return response
+  })
+  await assert.rejects(desktop.approve(candidate), { code: 'network' })
+  assert.equal(service.calls.filter(call => call.url.endsWith('/grant')).length, 1)
+  assert.equal(await phone.poll(), secret)
 })

@@ -96,31 +96,19 @@
     }
   }
 
-  async function apiRequest(target, token, method, path, body, conflictCode) {
-    const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), 12000)
-    try {
-      const headers = { Authorization: `Bearer ${token}` }
-      if (body !== undefined) headers['Content-Type'] = 'application/json'
-      let response
-      try {
-        response = await root.fetch(target + path, {
-          method, headers, body: JSON.stringify(body), signal: controller.signal,
-          cache: 'no-store', credentials: 'omit', redirect: 'error'
-        })
-      } catch {
-        throw error('unavailable')
-      }
+  function apiRequest(target, token, method, path, body, conflictCode, onRetry) {
+    const headers = { Authorization: `Bearer ${token}` }
+    if (body !== undefined) headers['Content-Type'] = 'application/json'
+    // The server recognizes a repeated request by the same ID, polling token and public key.
+    const retry = method === 'GET' || path === '/name' || path === '/requests'
+    return sync.transportRequest(target + path, { method, headers, body: JSON.stringify(body) }, async response => {
       if (response.status === 409 && conflictCode) throw error(conflictCode)
       if (response.status === 404) throw error(path.startsWith('/requests/') ? 'expired' : 'unavailable')
       if (response.status === 401 || response.status === 403) throw error('denied')
       if (response.status === 429) throw error('too-many')
       if (!response.ok) throw error('unavailable')
       return path === '/name' ? null : await responseJson(response)
-    } finally {
-      clearTimeout(timeout)
-      controller.abort()
-    }
+    }, { timeoutMs: 8000, retry, onRetry })
   }
 
   async function keyPair() {
@@ -161,13 +149,13 @@
     return validRequest(request) && await requestId(nameKey, request.publicKey) === request.id
   }
 
-  async function startRequest(name, endpoint) {
+  async function startRequest(name, endpoint, { onRetry } = {}) {
     const target = targetFor(endpoint)
     const nameKey = await connectionNameKey(name)
     const token = sync.createSecret()
     const { privateKey, publicKey } = await keyPair()
     const id = await requestId(nameKey, publicKey)
-    const { expiresAt } = await apiRequest(target, token, 'POST', '/requests', { nameKey, id, publicKey }, 'request-stale')
+    const { expiresAt } = await apiRequest(target, token, 'POST', '/requests', { nameKey, id, publicKey }, 'request-stale', onRetry)
     if (!isExpiry(expiresAt)) throw error('invalid-response')
     return {
       id, expiresAt,

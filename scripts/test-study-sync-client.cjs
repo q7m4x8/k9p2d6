@@ -101,3 +101,38 @@ test('tampering, missing response fields and oversized uploads surface typed err
   await assert.rejects(device.write(1, { toJSON: () => undefined }), { code: 'invalid-data' })
   assert.equal(requestCount, before)
 })
+
+test('offline sync fails immediately while a temporary service outage receives one retry', async t => {
+  const fetch = t.mock.method(globalThis, 'fetch', async () => new Response(null, { status: 503 }))
+  const previous = Object.getOwnPropertyDescriptor(globalThis.navigator, 'onLine')
+  Object.defineProperty(globalThis.navigator, 'onLine', { configurable: true, value: false })
+  const device = await connect(createSecret(), ENDPOINT)
+  try {
+    await assert.rejects(device.read(), { code: 'offline' })
+    assert.equal(fetch.mock.callCount(), 0)
+  } finally {
+    if (previous) Object.defineProperty(globalThis.navigator, 'onLine', previous)
+    else delete globalThis.navigator.onLine
+  }
+  await assert.rejects(device.read(), { code: 'service-unavailable', status: 503 })
+  assert.equal(fetch.mock.callCount(), 2)
+})
+
+test('retrying a sync write after a lost receipt keeps the revision and encrypted body', async t => {
+  let saved
+  const bodies = []
+  t.mock.method(globalThis, 'fetch', async (_url, request) => {
+    if (request.method === 'GET') return Response.json(saved)
+    bodies.push(request.body)
+    const { revision, envelope } = JSON.parse(request.body)
+    if (saved) return new Response(null, { status: 409 })
+    saved = { revision: revision + 1, envelope }
+    throw new TypeError('Lost write response')
+  })
+  const device = await connect(createSecret(), ENDPOINT)
+  const sample = { favorites: ['q1'] }
+  assert.equal(await device.write(0, sample), null)
+  assert.equal(bodies.length, 2)
+  assert.equal(bodies[0], bodies[1])
+  assert.deepEqual(await device.read(), { revision: 1, value: sample })
+})

@@ -4,11 +4,18 @@
   const MAX_BODY_BYTES = 1500000
   const PROTOCOL = 'xiaotian-study-sync:v1'
   const BASE64URL = /^[A-Za-z0-9_-]+$/
+  const RETRY_DELAY_MS = 350
+  const TRANSIENT_STATUSES = new Set([408, 500, 502, 503, 504])
+  const TRANSIENT_ERRORS = new Set(['network', 'timeout', 'service-unavailable'])
   const MESSAGES = {
     unsupported: '当前浏览器无法使用加密同步。',
     'invalid-secret': '专属链接不完整，请重新复制。',
     'invalid-endpoint': '同步服务配置有误。',
     unavailable: '暂时连不上同步服务，请稍后重试。',
+    offline: '设备当前离线，请联网后重试。',
+    network: '暂时无法连接同步服务，请检查网络或切换网络后重试。',
+    timeout: '连接同步服务超时，请稍后重试。',
+    'service-unavailable': '同步服务暂时不可用，请稍后重试。',
     unauthorized: '暂时无法连接这个账号，请检查专属链接。',
     'too-large': '记录超过同步容量，请保留本机记录。',
     'invalid-data': '暂时无法处理这份同步记录。',
@@ -74,6 +81,37 @@
     }
   }
 
+  async function transportRequest(url, options, read, { timeoutMs, retry, onRetry }) {
+    const maxAttempts = retry ? 2 : 1
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      if (root.navigator?.onLine === false) throw error('offline')
+      const controller = new AbortController()
+      const timer = setTimeout(() => controller.abort(), timeoutMs)
+      try {
+        let response
+        try {
+          response = await root.fetch(url, {
+            ...options, signal: controller.signal, cache: 'no-store', credentials: 'omit', redirect: 'error'
+          })
+        } catch {
+          throw error(root.navigator?.onLine === false ? 'offline' : 'network')
+        }
+        if (TRANSIENT_STATUSES.has(response.status)) {
+          throw Object.assign(error('service-unavailable'), { status: response.status })
+        }
+        return await read(response)
+      } catch (failure) {
+        const problem = controller.signal.aborted ? error('timeout') : failure
+        if (attempt === maxAttempts || !TRANSIENT_ERRORS.has(problem?.code)) throw problem
+      } finally {
+        clearTimeout(timer)
+        controller.abort()
+      }
+      onRetry?.()
+      await new Promise(resolve => setTimeout(resolve, RETRY_DELAY_MS))
+    }
+  }
+
   async function deriveCredentials(secret, includeEncryption) {
     if (!isSecret(secret)) throw error('invalid-secret')
     if (!root.crypto?.subtle) throw error('unsupported')
@@ -108,30 +146,17 @@
     const utf8 = new TextEncoder()
     const algorithm = (iv, revision) => ({ name: 'AES-GCM', iv, additionalData: utf8.encode(`${PROTOCOL}:${revision}`) })
 
-    async function request(method, body) {
-      const controller = new AbortController()
-      const timeout = setTimeout(() => controller.abort(), 15000)
-      try {
-        let response
-        try {
-          const headers = { Authorization: `Bearer ${token}` }
-          if (body !== undefined) headers['Content-Type'] = 'application/json'
-          response = await root.fetch(url, {
-            method, headers, body, signal: controller.signal, cache: 'no-store', credentials: 'omit', redirect: 'error'
-          })
-        } catch {
-          throw error('unavailable')
-        }
-
+    function request(method, body) {
+      const headers = { Authorization: `Bearer ${token}` }
+      if (body !== undefined) headers['Content-Type'] = 'application/json'
+      // A write guarded by the server revision cannot apply twice. A lost receipt is reconciled via 409.
+      return transportRequest(url, { method, headers, body }, async response => {
         if ((method === 'GET' && response.status === 404) || (method === 'PUT' && response.status === 409)) return null
         if (response.status === 401 || response.status === 403) throw error('unauthorized')
         if (response.status === 413) throw error('too-large')
         if (!response.ok) throw error('unavailable')
         try { return await readResponse(response) } catch { throw error('invalid-response') }
-      } finally {
-        clearTimeout(timeout)
-        controller.abort()
-      }
+      }, { timeoutMs: 15000, retry: true })
     }
 
     async function openSnapshot(record, expectedRevision) {
@@ -178,7 +203,7 @@
     }
   }
 
-  const api = { createSecret, isSecret, connect, deriveAuth }
+  const api = { createSecret, isSecret, connect, deriveAuth, transportRequest }
   if (typeof module === 'object' && module.exports) module.exports = api
   else root.StudySyncClient = api
 })(typeof window === 'object' ? window : globalThis)

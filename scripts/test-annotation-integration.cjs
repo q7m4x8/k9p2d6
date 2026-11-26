@@ -44,7 +44,8 @@ assert(h.mounts.includes('test-1') && h.mounts.includes('test-2'))
 const bank = require('../bank-loader').merge([
   require('../data/questions.json'),
   require('../data/zhanggong/questions.json'),
-  require('../data/zhanggong-yanyu/questions.json')
+  require('../data/zhanggong-yanyu/questions.json'),
+  require('../data/liu-diagram-700/questions.json')
 ])
 const all = harness(); all.state.data = bank
 for (const q of bank.questions) {
@@ -59,5 +60,5 @@ for (const q of bank.questions) {
   assert(review.indexOf('data-ink-surface') < review.indexOf('class="feedback'), q.id)
   assert(review.includes('</div></div><div class="feedback'), 'Answer expansion stays outside the drawing surface')
 }
-assert.equal(bank.questions.length, 1604)
-console.log('PASS pen on all 1604 questions and reviews; pending auto-next cancellation, option/swipe/font guards, remount and resumed answering')
+assert.equal(bank.questions.length, 2304)
+console.log('PASS pen on all 2304 questions and reviews; pending auto-next cancellation, option/swipe/font guards, remount and resumed answering')

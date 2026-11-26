@@ -79,6 +79,13 @@
       if (label) { label.textContent = text; label.classList.toggle('sync-error', error) }
     }
 
+    function updatePairForm() {
+      const form = dialog.querySelector('[data-sync-create]')
+      if (!form) return
+      form.setAttribute('aria-busy', String(startingPair))
+      for (const submit of form.querySelectorAll('button[type="submit"]')) submit.disabled = startingPair
+    }
+
     function renderDialog() {
       let content
       if (account) {
@@ -104,6 +111,7 @@
         if (phoneRequest.secret) showPairApproval()
       }
       status(message, failed)
+      updatePairForm()
     }
 
     function open() {
@@ -190,16 +198,22 @@
     async function startPair(name) {
       if (!pairing || account || incoming || startingPair || attaching || !database) return
       startingPair = true
+      updatePairForm()
       status('正在发起连接申请…')
       try {
-        const handle = await pairing.startRequest(name, endpoint)
+        const handle = await pairing.startRequest(name, endpoint, {
+          onRetry: () => status('正在重试连接申请…')
+        })
         phoneRequest = { name, handle }
         status('')
         if (dialog.open) renderDialog()
         schedulePair(0)
       } catch (error) {
         status(error.message || '暂时无法发起连接申请，请稍后重试。', true)
-      } finally { startingPair = false }
+      } finally {
+        startingPair = false
+        updatePairForm()
+      }
     }
 
     async function approvePair(request, button) {

@@ -48,6 +48,8 @@ const main = document.querySelector('#mainContent')
 const toast = document.querySelector('#toast')
 let storageWarningShown = false
 let studySync = null
+let bankLoader = null
+let bankLoad = null
 let pendingAutoAdvance = null
 const AUTO_ADVANCE_DELAY_MS = 300
 const AUTO_ADVANCE_DELAY_SECONDS = AUTO_ADVANCE_DELAY_MS / 1000
@@ -196,6 +198,7 @@ function applyStudySnapshot(snapshot) {
   applyTheme()
   document.documentElement.dataset.quizFont = state.user.quizFont
   render()
+  loadSavedReview()
 }
 
 function formatDuration(milliseconds) {
@@ -349,9 +352,18 @@ function isOriginalAnnotated(question) {
   return question?.referenceMode === 'original-annotated'
 }
 
+function isAnswerOnly(question) {
+  return question?.referenceMode === 'answer-only'
+}
+
+function supportsPitfall(question) {
+  return !isOriginalAnnotated(question) && !isAnswerOnly(question)
+}
+
 const originalAssetBooks = new Map([
   ['zhanggong', { original: '20261123-10', preview: '20261125-3' }],
-  ['zhanggong-yanyu', { original: '20261125-6', preview: '20261125-6' }]
+  ['zhanggong-yanyu', { original: '20261125-6', preview: '20261125-6' }],
+  ['liu-diagram-700', { original: '20261127-1' }]
 ])
 
 function originalImageAsset(question, image, role) {
@@ -359,7 +371,7 @@ function originalImageAsset(question, image, role) {
   const book = question?.assetBook ?? 'zhanggong'
   const versions = originalAssetBooks.get(book)
   if (!versions) return null
-  if (role === 'preview') return /\.webp$/i.test(image.file) ? `./data/${book}/answer-previews/${image.file}?v=${versions.preview}` : null
+  if (role === 'preview') return versions.preview && /\.webp$/i.test(image.file) ? `./data/${book}/answer-previews/${image.file}?v=${versions.preview}` : null
   if (role !== 'answer' && role !== 'question') return null
   return `./data/${book}/${role === 'question' ? 'questions' : 'answers'}/${image.file}?v=${versions.original}`
 }
@@ -385,8 +397,7 @@ function warmNextAnswerPreview() {
 }
 
 function showsOriginalQuestionImage(question) {
-  return isOriginalAnnotated(question) &&
-    (question.questionRenderMode === 'image' || state.originalQuestionId === question.id) &&
+  return (question?.questionRenderMode === 'image' || (isOriginalAnnotated(question) && state.originalQuestionId === question.id)) &&
     !!originalImageAsset(question, question.questionImage, 'question')
 }
 
@@ -446,8 +457,9 @@ function loadAnswerImage(question, image, attempt) {
 function retryOriginalImage(button) {
   const figure = button?.closest('.original-image-page')
   const question = currentQuestion()
-  if (state.route !== 'quiz' || !isOriginalAnnotated(question) || !figure) return false
+  if (state.route !== 'quiz' || !figure) return false
   const role = figure.dataset.originalRole
+  if (!isOriginalAnnotated(question) && !(isAnswerOnly(question) && role === 'question')) return false
   if (role === 'answer' && !state.sessionSubmitted) return false
   const image = figure.querySelector('img.original-notes-image')
   const asset = originalImageAsset(question, { file: image?.dataset.originalFile }, role)
@@ -505,7 +517,7 @@ function renderReferenceSegments(segments) {
 }
 
 function formatReference(question) {
-  if (isOriginalAnnotated(question)) return null
+  if (!supportsPitfall(question)) return null
   const formatter = window.QuizExplanationFormatter
   return formatter?.format(question) || formatter?.formatOptions(question)
 }
@@ -522,6 +534,7 @@ function renderReferenceAnswer(question) {
   const heading = `<div class="reference-heading-title"><h3>参考答案</h3>${renderQuestionNoteButton(question)}</div>`
   const notes = renderQuestionNotes(question)
   if (isOriginalAnnotated(question)) return renderOriginalReferenceAnswer(question, heading, notes)
+  if (isAnswerOnly(question)) return `<section class="reference-answer"><header class="reference-heading">${heading}<span>正确答案 <b>${escapeHtml(question.answerLetter)}</b></span></header>${notes}</section>`
   const supplement = referenceSupplement(question)
   const original = supplement?.explanation || question.explanation || `正确答案：${question.answerLetter}`
   const sources = renderReferenceSources(question, supplement)
@@ -603,12 +616,17 @@ function questionsFor(albumId, paperName) {
 }
 
 function draftMatchesQuestions(questions) {
+  return draftMatchesIds(questions.map(question => question.id))
+}
+
+function draftMatchesIds(questionIds) {
   const ids = state.user.draft?.ids
-  return Array.isArray(ids) && ids.length === questions.length && ids.every((id, index) => id === questions[index].id)
+  return Array.isArray(ids) && ids.length === questionIds.length && ids.every((id, index) => id === questionIds[index])
 }
 
 function albumProgress(album) {
   const ids = answeredIds()
+  if (bankLoader) return progressForIds(album.papers.flatMap(paper => paper.questionIds), ids)
   const questions = questionsFor(album.id)
   const done = questions.filter(item => ids.has(item.id)).length
   return { done, total: questions.length, percent: questions.length ? Math.round(done / questions.length * 100) : 0 }
@@ -616,12 +634,53 @@ function albumProgress(album) {
 
 function paperProgress(album, paper) {
   const ids = answeredIds()
+  if (bankLoader) return progressForIds(paper.questionIds, ids)
   const questions = questionsFor(album.id, paper.name)
   const done = questions.filter(item => ids.has(item.id)).length
   return { done, total: questions.length, percent: questions.length ? Math.round(done / questions.length * 100) : 0 }
 }
 
+function progressForIds(questions, answered) {
+  const total = questions.length
+  const done = questions.filter(id => answered.has(id)).length
+  return { done, total, percent: total ? Math.round(done / total * 100) : 0 }
+}
+
+function withQuestionData(ids, action, { all = false, review = false } = {}) {
+  if (!bankLoader?.needs(ids)) {
+    if (bankLoad) { bankLoad = null; render() }
+    return action()
+  }
+  const load = { review, retry: () => withQuestionData(ids, action, { all, review }) }
+  bankLoad = load
+  render()
+  const request = all ? bankLoader.loadAll() : bankLoader.loadIds(ids)
+  return request.then(() => {
+    if (bankLoad !== load) return
+    bankLoad = null
+    render()
+    studySync?.schedule()
+    return action()
+  }, () => {
+    if (bankLoad !== load) return
+    load.failed = true
+    render()
+    studySync?.schedule()
+  })
+}
+
+function loadSavedReview() {
+  if (!bankLoader || !['wrong', 'favorites'].includes(state.route)) return
+  const ids = state.route === 'wrong' ? state.user.wrong : [
+    ...state.user.favorites,
+    ...state.pitfallFavorites.map(key => key.slice(0, key.lastIndexOf(':')))
+  ]
+  if (bankLoader.needs(ids) || bankLoad?.review) return withQuestionData(ids, () => {}, { review: true })
+}
+
 function navigate(route, options = {}) {
+  if (!state.data) return
+  bankLoad = null
   state.pitfallOpen = false
   state.originalQuestionId = null
   if (route !== 'progress') endHistoryManagement()
@@ -633,6 +692,7 @@ function navigate(route, options = {}) {
   document.querySelectorAll('.nav-item').forEach(item => item.classList.toggle('active', item.dataset.route === route))
   window.scrollTo({ top: 0, behavior: 'instant' })
   render()
+  loadSavedReview()
   if (route === 'quiz') resumeQuizTiming()
   else studySync?.schedule()
 }
@@ -661,7 +721,10 @@ function render() {
   }
   document.querySelector('#app').classList.toggle('quiz-mode', state.route === 'quiz')
   document.querySelector('#backButton').hidden = state.route === 'home'
-  main.innerHTML = (renderers[state.route] || renderHome)()
+  const notice = bankLoad?.failed
+    ? '<div class="loading-card" role="status">这部分题目载入失败。 <button type="button" class="mini-btn" data-action="retry-questions">重新加载</button></div>'
+    : bankLoad ? '<div class="loading-card" role="status">正在载入所选题目…</div>' : ''
+  main.innerHTML = notice + (bankLoad?.review ? '' : (renderers[state.route] || renderHome)())
   const question = state.route === 'quiz' && !state.pitfallOpen ? currentQuestion() : null
   // Original crops and reflowable text use different stroke coordinates.
   const inkId = isOriginalAnnotated(question) && !showsOriginalQuestionImage(question) ? `${question.id}-text` : question?.id
@@ -682,7 +745,7 @@ function renderHome() {
     </article>`).join('')
   return `
     <section class="hero">
-      <div><span class="eyebrow">小天爱刷题</span><h1>把题刷透，<strong>把分拿到</strong></h1><p class="hero-copy">政治理论与言语理解，按题本与套卷练习，自动记录进度。</p></div>
+      <div><span class="eyebrow">小天爱刷题</span><h1>把题刷透，<strong>把分拿到</strong></h1><p class="hero-copy">政治理论、言语理解与图形推理，按题本与套卷练习，自动记录进度。</p></div>
       <div class="hero-stats">
         <div class="stat-chip"><b>${stats.questionCount}</b><span>题目</span></div>
         <div class="stat-chip"><b>${stats.paperCount}</b><span>子卷</span></div>
@@ -699,7 +762,9 @@ function renderHome() {
 
 function renderAlbum() {
   const album = state.selectedAlbum || state.data.albums[0]
-  const resumeAlbum = draftMatchesQuestions(questionsFor(album.id))
+  const resumeAlbum = bankLoader
+    ? draftMatchesIds(album.papers.flatMap(paper => paper.questionIds))
+    : draftMatchesQuestions(questionsFor(album.id))
   const rows = album.papers.map((paper, index) => {
     const progress = paperProgress(album, paper)
     return `<div class="paper-row" data-paper="${escapeHtml(paper.name)}">
@@ -713,6 +778,13 @@ function renderAlbum() {
     <button class="start-banner" data-action="start-album"><div><strong>${resumeAlbum ? '继续上次练习' : '从头开始练'}</strong><small>${resumeAlbum ? `从第 ${state.user.draft.index + 1} 题继续，已保存答案与用时` : `按顺序完成全部 ${album.count} 题`}</small></div><span>${resumeAlbum ? '继续' : '开始'}</span></button>
     <div class="section-head"><h2>子卷</h2><p>共 ${album.papers.length} 个</p></div>
     <div class="paper-list">${rows}</div>`
+}
+
+function startPaper(paperName) {
+  const album = state.selectedAlbum
+  if (!album) return
+  const papers = album.papers.filter(paper => !paperName || paper.name === paperName)
+  return withQuestionData(papers.flatMap(paper => paper.questionIds || []), () => startQuiz(questionsFor(album.id, paperName)))
 }
 
 function startQuiz(questions, startIndex = 0, options = {}) {
@@ -777,7 +849,7 @@ function openHistoryRecord(recordIndex, questionIndex = 0) {
 }
 
 function renderQuiz() {
-  if (state.pitfallOpen && state.sessionSubmitted && state.session.some(question => !isOriginalAnnotated(question))) return renderPitfallManual()
+  if (state.pitfallOpen && state.sessionSubmitted && state.session.some(supportsPitfall)) return renderPitfallManual()
   const question = currentQuestion()
   if (!question) return '<div class="empty-state"><b>练习已完成</b>请选择其他题库继续。</div>'
   const isFavorite = state.user.favorites.includes(question.id)
@@ -793,10 +865,12 @@ function renderQuiz() {
   const correct = wasAnswerCorrect(question)
   const missingHistoricalAnswer = historical && !Number.isInteger(selectedOption)
   const originalQuestion = isOriginalAnnotated(question)
+  const onlyAnswers = state.session.every(isAnswerOnly)
   const imageQuestion = showsOriginalQuestionImage(question)
+  const imageUnavailable = isAnswerOnly(question) ? '原题图片暂不可用。' : '原题图片暂不可用，下方显示题目文字。'
   const questionContent = imageQuestion
     ? `<div class="original-question">${renderOriginalImage(question, question.questionImage, 0, 1, 'question')}</div>`
-    : `${originalQuestion && question.questionRenderMode === 'image' ? '<p class="original-image-unavailable">原题图片暂不可用，下方显示题目文字。</p>' : ''}<p class="question-stem">${originalQuestion ? escapeHtml(displayQuestionStem(question)) : escapeQuizText(displayQuestionStem(question))}</p>`
+    : `${question.questionRenderMode === 'image' ? `<p class="original-image-unavailable">${imageUnavailable}</p>` : ''}<p class="question-stem">${originalQuestion ? escapeHtml(displayQuestionStem(question)) : escapeQuizText(displayQuestionStem(question))}</p>`
   const questionViewToggle = originalQuestion && question.questionRenderMode !== 'image' && originalImageAsset(question, question.questionImage, 'question')
     ? `<button type="button" class="mini-btn ghost original-question-toggle" data-action="toggle-original-question" aria-controls="quiz-question-content">${imageQuestion ? '返回文字' : '查看原题'}</button>` : ''
   const optionsClass = imageQuestion ? 'options original-choice-only' : originalQuestion ? 'options original-word-options' : 'options'
@@ -810,11 +884,11 @@ function renderQuiz() {
   }).join('')
   const feedback = reveal
     ? missingHistoricalAnswer
-      ? '<div class="feedback history-missing-answer">这次记录没有保存所选选项，下方仍可查看正确答案与解析。</div>'
+      ? `<div class="feedback history-missing-answer">这次记录没有保存所选选项，下方仍可查看正确答案${isAnswerOnly(question) ? '' : '与解析'}。</div>`
       : `<div class="feedback ${correct ? 'correct' : 'incorrect'}">${historical ? '当次作答：' : ''}${correct ? '回答正确' : `回答错误，你选了 ${Number.isInteger(selectedOption) ? 'ABCD'[selectedOption] : '未作答'}，正确答案是 ${question.answerLetter}`}</div>`
     : ''
   const explanation = reveal ? renderReferenceAnswer(question) : ''
-  const pitfallButton = state.session.some(item => !isOriginalAnnotated(item))
+  const pitfallButton = state.session.some(supportsPitfall)
     ? '<br><button type="button" class="pitfall-open" data-action="open-pitfalls">查看挖坑手册</button>' : ''
   const resultSummary = reveal
     ? `<section class="result-summary"><div><span>${historical ? '历史作答' : '本套成绩'}</span><strong>${correctCount} / ${resultTotal}</strong></div><p>${historical ? `${escapeHtml(state.sessionTitle)}<br>` : ''}正确率 ${Math.round(correctCount / resultTotal * 100)}% · ${historical ? '当次用时' : '本套用时'} ${formatDuration(getSessionMilliseconds())}${pitfallButton}</p></section>${historical && state.historySkippedQuestions ? `<p class="history-review-note">原记录中有 ${state.historySkippedQuestions} 道题暂不可用，当前显示可回看的 ${state.session.length} 道题；上方保留当次总成绩和总用时。</p>` : ''}`
@@ -831,8 +905,8 @@ function renderQuiz() {
     ? (state.sessionIndex === state.session.length - 1 ? 'finish-review' : 'next')
     : (state.sessionIndex === state.session.length - 1 ? 'submit-session' : 'next')
   const primaryLabel = reveal
-    ? (state.sessionIndex === state.session.length - 1 ? historical ? '返回练习记录' : '查看学习进度' : '下一题解析')
-    : (state.sessionIndex === state.session.length - 1 ? '交卷并查看解析' : '下一题')
+    ? (state.sessionIndex === state.session.length - 1 ? historical ? '返回练习记录' : '查看学习进度' : onlyAnswers ? '下一题答案' : '下一题解析')
+    : (state.sessionIndex === state.session.length - 1 ? onlyAnswers ? '交卷并查看答案' : '交卷并查看解析' : '下一题')
   const fontControls = renderFontControls()
   return `<section class="quiz-shell">
     ${resultSummary}
@@ -875,7 +949,7 @@ function collectPitfalls(questions) {
 }
 
 function openPitfallManual() {
-  if (state.route !== 'quiz' || !state.sessionSubmitted || !state.session.some(question => !isOriginalAnnotated(question))) return false
+  if (state.route !== 'quiz' || !state.sessionSubmitted || !state.session.some(supportsPitfall)) return false
   cancelAutoAdvance()
   swipeGesture = null
   state.pitfallOpen = true
@@ -974,7 +1048,7 @@ function renderPitfallRows(entries,singlePaper=false) {
 }
 
 function renderPitfallManual() {
-  if (state.route !== 'quiz' || !state.sessionSubmitted || !state.pitfallOpen || !state.session.some(question => !isOriginalAnnotated(question))) return ''
+  if (state.route !== 'quiz' || !state.sessionSubmitted || !state.pitfallOpen || !state.session.some(supportsPitfall)) return ''
   const scope = pitfallScope()
   const entries = collectPitfalls(scope.questions)
   const rows = renderPitfallRows(entries,scope.singlePaper)
@@ -1060,14 +1134,15 @@ function renderTimingHistory() {
   const history = state.user.history || []
   const managing = state.historyManaging
   const selectedCount = selectedHistoryRecords().length
-  const byId = new Map(state.data.questions.map(question => [question.id, question]))
+  const loadedIds = bankLoader ? null : new Set(state.data.questions.map(question => question.id))
+  const hasQuestion = bankLoader?.has || (id => loadedIds.has(id))
   const records = history.map((record, recordIndex) => {
     const date = practiceDate(record)
-    const canReview = record.questions.some(entry => byId.has(entry?.id))
+    const canReview = record.questions.some(entry => hasQuestion(entry?.id))
     const rows = record.questions.map((entry, index) => {
       const selected = Number.isInteger(entry?.selected) && entry.selected >= 0 && entry.selected < 4 ? `选 ${'ABCD'[entry.selected]}` : '选项未记录'
       const verdict = entry?.correct === true ? '正确' : entry?.correct === false ? '错误' : '判定未记录'
-      return `<button class="timing-question-row" data-history-record="${recordIndex}" data-history-question="${index}" ${byId.has(entry?.id) ? '' : 'disabled'} aria-label="查看第 ${index + 1} 题当次作答与解析"><span>第 ${index + 1} 题 · ${selected} · ${verdict}</span><b>${formatDuration((entry?.seconds || 0) * 1000)}</b></button>`
+      return `<button class="timing-question-row" data-history-record="${recordIndex}" data-history-question="${index}" ${hasQuestion(entry?.id) ? '' : 'disabled'} aria-label="查看第 ${index + 1} 题当次作答与解析"><span>第 ${index + 1} 题 · ${selected} · ${verdict}</span><b>${formatDuration((entry?.seconds || 0) * 1000)}</b></button>`
     }).join('')
     const selected = state.historySelection.has(record)
     const selection = managing ? `<label class="history-record-check"><input type="checkbox" data-history-select="${recordIndex}" aria-label="选择第 ${recordIndex + 1} 条练习记录" ${selected ? 'checked' : ''}></label>` : ''
@@ -1080,7 +1155,7 @@ function renderTimingHistory() {
 
 function renderProgress() {
   const totalAnswered = Object.keys(state.user.attempts).length
-  const total = state.data.questions.length
+  const total = bankLoader ? state.data.stats.questionCount : state.data.questions.length
   const percent = total ? Math.round(totalAnswered / total * 100) : 0
   const cards = state.data.albums.map(album => {
     const progress = albumProgress(album)
@@ -1215,7 +1290,7 @@ function submitSession() {
   if (saveUserState()) { state.user.draft = null; writeStorage(DRAFT_KEY, null) }
   render()
   window.scrollTo({ top: 0, behavior: 'instant' })
-  showToast('交卷成功，可以统一查看答案解析')
+  showToast(state.session.every(isAnswerOnly) ? '交卷成功，可以查看答案' : '交卷成功，可以统一查看答案解析')
 }
 
 function changeQuestion(index) {
@@ -1311,9 +1386,17 @@ document.addEventListener('click', event => {
   const album = event.target.closest('[data-album]')
   if (album) return navigate('album', { albumId: album.dataset.album })
   const paper = event.target.closest('[data-paper]')
-  if (paper) return startQuiz(questionsFor(state.selectedAlbum.id, paper.dataset.paper))
+  if (paper) return startPaper(paper.dataset.paper)
   const historyRecord = target.closest('[data-history-record]')
-  if (historyRecord && !historyRecord.disabled) return state.historyManaging ? selectHistoryRecord(Number(historyRecord.dataset.historyRecord)) : openHistoryRecord(Number(historyRecord.dataset.historyRecord), Number(historyRecord.dataset.historyQuestion || 0))
+  if (historyRecord && !historyRecord.disabled) {
+    const index = Number(historyRecord.dataset.historyRecord)
+    const record = state.user.history[index]
+    if (state.historyManaging) return selectHistoryRecord(index)
+    if (!record) return
+    return withQuestionData(record.questions.map(entry => entry?.id), () => {
+      if (state.user.history[index] === record && !state.historyManaging) openHistoryRecord(index, Number(historyRecord.dataset.historyQuestion || 0))
+    })
+  }
   const option = event.target.closest('[data-option]')
   if (option && state.route === 'quiz' && !state.sessionSubmitted) {
     if (window.QuizAnnotations?.active()) return
@@ -1378,14 +1461,29 @@ document.addEventListener('click', event => {
   if (action === 'history-delete-request') return requestHistoryDeletion()
   if (action === 'history-delete-cancel') return cancelHistoryDeletion()
   if (action === 'history-delete-confirm') return confirmHistoryDeletion()
-  if (action === 'random') return startQuiz([...state.data.questions].sort(() => Math.random() - .5).slice(0, 10), 0, { title: '随机十题' })
+  if (action === 'retry-catalog') return retryCatalog()
+  if (action === 'retry-questions') return bankLoad?.retry()
+  if (action === 'random') {
+    const ids = [...(bankLoader?.questionIds || state.data.questions.map(question => question.id))]
+      .sort(() => Math.random() - .5).slice(0, 10)
+    return withQuestionData(ids, () => {
+      const byId = new Map(state.data.questions.map(question => [question.id, question]))
+      startQuiz(ids.map(id => byId.get(id)), 0, { title: '随机十题' })
+    })
+  }
   if (action === 'continue') {
-    if (continueDraft()) return
-    const firstUnanswered = state.data.questions.findIndex(item => !state.user.attempts[item.id])
-    return startQuiz(state.data.questions, Math.max(0, firstUnanswered))
+    const draftIds = state.user.draft?.ids || []
+    if (bankLoader && draftIds.length && new Set(draftIds).size === draftIds.length && draftIds.every(bankLoader.has)) {
+      return withQuestionData(draftIds, continueDraft)
+    }
+    return withQuestionData(bankLoader?.questionIds || [], () => {
+      if (continueDraft()) return
+      const firstUnanswered = state.data.questions.findIndex(item => !state.user.attempts[item.id])
+      return startQuiz(state.data.questions, Math.max(0, firstUnanswered))
+    }, { all: true })
   }
   if (action === 'back-home') return navigate('home')
-  if (action === 'start-album') return startQuiz(questionsFor(state.selectedAlbum.id))
+  if (action === 'start-album') return startPaper()
   if (action === 'favorite') return toggleFavorite()
   if (action === 'submit-session') return submitSession()
   if (action === 'next') return nextQuestion()
@@ -1483,33 +1581,55 @@ setInterval(() => {
   if (!document.hidden && !state.sessionSubmitted) persistDraft()
 }, 1000)
 
-async function init() {
+function showCatalogError() {
+  main.innerHTML = '<div class="empty-state"><b>题库目录载入失败</b><p>请检查网络后重新加载。</p><button type="button" class="mini-btn" data-action="retry-catalog">重新加载目录</button></div>'
+}
+
+function loadCatalog() {
+  const catalog = window.QuizBankCatalog
+  if (!catalog || !window.QuizBanks) return showCatalogError()
+  bankLoader = window.QuizBanks.createLoader(catalog, { fetch: window.fetch.bind(window), caches: window.caches, baseUrl: document.baseURI })
+  window.QuizReferenceReviews = bankLoader.referenceReviews
+  window.QuizOptionReviews = bankLoader.optionReviews
+  state.data = bankLoader.data
+  render()
+}
+
+function reloadScript(id) {
+  const script = document.createElement('script')
+  const url = new URL(document.getElementById(id).src)
+  url.searchParams.set('retry', String(Date.now()))
+  script.src = url.href
+  return new Promise(resolve => {
+    function finish() { clearTimeout(timer); script.remove(); resolve() }
+    const timer = setTimeout(finish, 10000)
+    script.onload = script.onerror = finish
+    document.head.append(script)
+  })
+}
+
+async function retryCatalog() {
+  if (bankLoader) return
+  main.innerHTML = '<div class="loading-card">正在载入题本目录…</div>'
+  await Promise.all([
+    window.QuizBanks || reloadScript('bankLoader'),
+    window.QuizBankCatalog || reloadScript('bankCatalog')
+  ])
+  loadCatalog()
+}
+
+function init() {
   renderThemePicker()
   setTheme(state.user.theme || 0)
   setQuizFont(state.user.quizFont || 'small')
-  try {
-    const bankUrls = [
-      './data/questions.json?v=20261121-5',
-      './data/zhanggong/questions.json?v=20261125-2',
-      './data/zhanggong-yanyu/questions.json?v=20261125-6'
-    ]
-    const banks = await Promise.all(bankUrls.map(async url => {
-      const response = await fetch(url, { cache: 'no-cache' })
-      if (!response.ok) throw new Error(`HTTP ${response.status}`)
-      return response.json()
-    }))
-    state.data = window.QuizBanks.merge(banks)
-    render()
-    studySync = window.QuizStudySync?.setup({
-      endpoint: 'https://xiaotian-love-quiz.carefreeblossom32.chatgpt.site/api/study-sync',
-      getSnapshot: studySnapshot,
-      applySnapshot: applyStudySnapshot,
-      canSync: () => (state.route !== 'quiz' || state.sessionSubmitted) && !window.QuizAnnotations?.active() &&
-        !state.historyManaging && !document.activeElement?.matches('[data-question-note]') && !document.querySelector('#modalRoot').children.length
-    })
-  } catch (error) {
-    main.innerHTML = `<div class="empty-state"><b>题库载入失败</b>请刷新页面后重试。<br><small>${escapeHtml(error.message)}</small></div>`
-  }
+  loadCatalog()
+  studySync = window.QuizStudySync?.setup({
+    endpoint: 'https://xiaotian-love-quiz.carefreeblossom32.chatgpt.site/api/study-sync',
+    getSnapshot: studySnapshot,
+    applySnapshot: applyStudySnapshot,
+    canSync: () => (state.route !== 'quiz' || state.sessionSubmitted) && !window.QuizAnnotations?.active() &&
+      (!bankLoad || bankLoad.failed) && !state.historyManaging && !document.activeElement?.matches('[data-question-note]') && !document.querySelector('#modalRoot').children.length
+  })
 }
 
 init()
