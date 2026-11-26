@@ -7,7 +7,7 @@
   <meta name="description" content="小天爱刷题 - 政治理论、言语理解、图形推理与错题复习">
   <title>小天爱刷题</title>
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./styles.css?v=20261126-2">
+  <link rel="stylesheet" href="./styles.css?v=20261127-2">
 </head>
 <body>
   <div id="app" class="app-shell">
@@ -42,16 +42,24 @@
     <div id="toast" class="toast" role="status"></div>
     <div id="modalRoot"></div>
     <dialog id="studySyncDialog" class="modal study-sync-dialog" aria-labelledby="studySyncTitle"></dialog>
+    <dialog id="diagramZoomDialog" class="diagram-zoom-dialog" aria-labelledby="diagramZoomTitle">
+      <header class="diagram-zoom-bar"><h2 id="diagramZoomTitle">查看题图</h2><button type="button" class="mini-btn ghost" data-action="diagram-zoom-close" autofocus>关闭</button></header>
+      <div class="diagram-zoom-view" tabindex="0" aria-label="拖动查看放大的题图"><div class="diagram-image-frame diagram-zoom-image"><img alt="" draggable="false"></div></div>
+      <footer class="diagram-zoom-bar diagram-zoom-controls">
+        <button type="button" class="mini-btn" data-action="diagram-zoom-out" aria-label="缩小题图">−</button><output class="diagram-zoom-level" aria-live="polite"></output><button type="button" class="mini-btn" data-action="diagram-zoom-in" aria-label="放大题图">+</button>
+        <button type="button" class="mini-btn ghost" data-action="diagram-zoom-fit">适合屏幕</button><button type="button" class="mini-btn ghost" data-action="diagram-zoom-original">完整原题</button>
+      </footer>
+    </dialog>
   </div>
   <script src="./text-format.js?v=20261122-4" defer></script>
   <script src="./explanation-format.js?v=20261123-5" defer></script>
   <script id="bankLoader" src="./bank-loader.js?v=20261127-1" defer></script>
-  <script id="bankCatalog" src="./data/bank-catalog.js?v=20261127-1" defer></script>
+  <script id="bankCatalog" src="./data/bank-catalog.js?v=20261127-2" defer></script>
   <script src="./annotation.js?v=20261125-5" defer></script>
   <script src="./study-sync-data.js?v=20261126-1" defer></script>
   <script src="./study-sync-client.js?v=20261127-1" defer></script>
   <script src="./study-pairing-client.js?v=20261127-1" defer></script>
-  <script src="./study-sync.js?v=20261127-1" defer></script>
-  <script src="./app.js?v=20261127-1" defer></script>
+  <script src="./study-sync.js?v=20261127-2" defer></script>
+  <script src="./app.js?v=20261127-2" defer></script>
 </body>
 </html>

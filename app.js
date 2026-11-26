@@ -378,6 +378,45 @@ function originalImageAsset(question, image, role) {
 
 const warmedAnswerPreviews = new Set()
 let answerPreviewRequest = null
+const diagramImagePreloads = new Map()
+
+function diagramImageAsset(question) {
+  return question?.assetBook === 'liu-diagram-700' && question.questionRenderMode === 'image'
+    ? originalImageAsset(question, question.questionImage, 'question') : null
+}
+
+function preloadDiagramImage(asset, priority) {
+  if (!asset || typeof window.Image !== 'function' || document.hidden || diagramImagePreloads.has(asset)) return
+  const connection = navigator.connection
+  if (connection?.saveData || /2g$/.test(connection?.effectiveType || '')) return
+  const image = new window.Image()
+  image.fetchPriority = priority
+  image.onerror = () => {
+    if (diagramImagePreloads.get(asset) === image) diagramImagePreloads.delete(asset)
+  }
+  diagramImagePreloads.set(asset, image)
+  image.src = asset
+  image.decode?.().catch(() => {})
+}
+
+function retainDiagramPreloads(nearby) {
+  for (const [asset, image] of diagramImagePreloads) {
+    if (nearby.includes(asset)) continue
+    diagramImagePreloads.delete(asset)
+    if (!image.complete) image.removeAttribute('src')
+  }
+}
+
+function warmNextDiagramImages() {
+  if (state.route !== 'quiz' || state.pitfallOpen) {
+    if (!bankLoad) retainDiagramPreloads([])
+    return
+  }
+  const index = state.sessionIndex
+  const next = state.session.slice(index + 1, index + 3).map(diagramImageAsset)
+  retainDiagramPreloads([diagramImageAsset(state.session[index - 1]), diagramImageAsset(currentQuestion()), ...next])
+  for (const asset of next) preloadDiagramImage(asset, 'low')
+}
 
 function warmNextAnswerPreview() {
   if (state.route !== 'quiz' || !state.sessionSubmitted || state.pitfallOpen || document.hidden ||
@@ -399,6 +438,78 @@ function warmNextAnswerPreview() {
 function showsOriginalQuestionImage(question) {
   return (question?.questionRenderMode === 'image' || (isOriginalAnnotated(question) && state.originalQuestionId === question.id)) &&
     !!originalImageAsset(question, question.questionImage, 'question')
+}
+
+function diagramRegion(question, part) {
+  const image = question.questionImage
+  if (!image || !Number.isInteger(image.width) || !Number.isInteger(image.height) || image.width <= 0 || image.height <= 0) return null
+  const box = question.diagramRegions?.[part]
+  if (!Array.isArray(box) || box.length !== 4 || !box.every(Number.isInteger)) return null
+  const [x, y, width, height] = box
+  if (x < 0 || y < 0 || width <= 0 || height <= 0 || x + width > image.width || y + height > image.height) return null
+  return box
+}
+
+function diagramFrameStyle(image, region = [0, 0, image.width, image.height]) {
+  const [x, y, width, height] = region
+  return `--diagram-ratio:${width}/${height};--diagram-source-width:${image.width / width * 100}%;--diagram-source-left:${-x / width * 100}%;--diagram-source-top:${-y / height * 100}%`
+}
+
+function renderDiagramQuestion(question) {
+  const asset = diagramImageAsset(question)
+  const image = question.questionImage
+  const figure = diagramRegion(question, 'diagram')
+  const stem = diagramRegion(question, 'stem')
+  const heading = question.diagramStemTyped
+    ? `<p class="question-stem diagram-typed-stem">${escapeHtml(question.stem)}</p>`
+    : figure && stem
+      ? `<div class="diagram-image-frame diagram-stem-frame" style="${diagramFrameStyle(image, stem)}"><img data-diagram-stem-scan src="${escapeHtml(asset)}" alt="原题文字" width="${image.width}" height="${image.height}" decoding="async"></div>` : ''
+  return `<figure class="original-image-page original-question-page diagram-question-page" data-original-role="question">
+    <figcaption><span>${image.page > 0 ? `讲义第 ${escapeHtml(image.page)} 页` : '原题'}</span><button type="button" class="mini-btn diagram-zoom-trigger" data-action="zoom-diagram">放大题图</button></figcaption>
+    ${heading}
+    <button type="button" class="diagram-image-frame diagram-image-button" style="${diagramFrameStyle(image, figure || undefined)}" data-action="zoom-diagram" aria-label="放大查看第 ${escapeHtml(question.number)} 题题图"><img class="original-notes-image" data-original-file="${escapeHtml(image.file)}" src="${escapeHtml(asset)}" width="${image.width}" height="${image.height}" loading="eager" fetchpriority="high" decoding="async" alt="第 ${escapeHtml(question.number)} 题${figure ? '图形及选项' : '原题'}"></button>
+    <div class="original-image-error" role="status" hidden><p>题图加载失败，可以重新加载。</p><button type="button" class="mini-btn ghost" data-action="retry-original-image">重新加载</button></div></figure>`
+}
+
+let diagramZoom = null
+
+function updateDiagramZoom(scale, original = diagramZoom.original) {
+  const dialog = document.querySelector('#diagramZoomDialog')
+  const view = dialog.querySelector('.diagram-zoom-view')
+  const frame = dialog.querySelector('.diagram-zoom-image')
+  const changedView = original !== diagramZoom.original
+  const horizontalAnchor = changedView || !diagramZoom.scale ? .5 : (view.scrollLeft + view.clientWidth / 2) / frame.clientWidth
+  const verticalAnchor = changedView || !diagramZoom.scale ? 0 : (view.scrollTop + view.clientHeight / 2) / frame.clientHeight
+  diagramZoom = { ...diagramZoom, scale, original }
+  const { image, figure } = diagramZoom
+  frame.style.cssText = diagramFrameStyle(image, original ? undefined : figure || undefined)
+  frame.style.width = `${scale * 100}%`
+  view.scrollLeft = horizontalAnchor * frame.clientWidth - view.clientWidth / 2
+  view.scrollTop = verticalAnchor * frame.clientHeight - view.clientHeight / 2
+  dialog.querySelector('[data-action="diagram-zoom-out"]').disabled = scale <= 1
+  dialog.querySelector('[data-action="diagram-zoom-in"]').disabled = scale >= 3
+  const toggle = dialog.querySelector('[data-action="diagram-zoom-original"]')
+  toggle.textContent = original ? '仅看图形' : '完整原题'
+  dialog.querySelector('.diagram-zoom-level').textContent = `${Math.round(scale * 100)}%`
+}
+
+function openDiagramZoom() {
+  const question = currentQuestion()
+  const asset = diagramImageAsset(question)
+  if (state.route !== 'quiz' || !asset || window.QuizAnnotations?.active()) return
+  const dialog = document.querySelector('#diagramZoomDialog')
+  if (typeof dialog.showModal !== 'function') return window.open(asset, '_blank', 'noopener,noreferrer')
+  cancelAutoAdvance()
+  swipeGesture = null
+  const crop = main.querySelector('.diagram-question-page .original-notes-image')
+  const img = dialog.querySelector('img')
+  img.src = crop?.getAttribute('src') || asset
+  img.alt = `第 ${question.number} 题原图`
+  const figure = diagramRegion(question, 'diagram')
+  dialog.querySelector('[data-action="diagram-zoom-original"]').hidden = !figure
+  diagramZoom = { image: question.questionImage, figure, scale: 0, original: false }
+  dialog.showModal()
+  updateDiagramZoom(1.5)
 }
 
 function toggleOriginalQuestion() {
@@ -467,7 +578,11 @@ function retryOriginalImage(button) {
   const error = figure.querySelector('.original-image-error')
   if (error) error.hidden = true
   image.hidden = false
-  if (role !== 'answer' || !loadAnswerImage(question, image, 'fresh-preview')) image.src = freshImageAsset(asset)
+  if (role !== 'answer' || !loadAnswerImage(question, image, 'fresh-preview')) {
+    image.src = freshImageAsset(asset)
+    const stem = figure.querySelector('[data-diagram-stem-scan]')
+    if (stem) stem.src = image.src
+  }
   return true
 }
 
@@ -658,9 +773,10 @@ function withQuestionData(ids, action, { all = false, review = false } = {}) {
   return request.then(() => {
     if (bankLoad !== load) return
     bankLoad = null
-    render()
+    const result = action()
+    if (state.route !== 'quiz') render()
     studySync?.schedule()
-    return action()
+    return result
   }, () => {
     if (bankLoad !== load) return
     load.failed = true
@@ -732,6 +848,7 @@ function render() {
   const selectAll = main.querySelector('[data-history-all]')
   if (selectAll) selectAll.indeterminate = selectedHistoryRecords().length > 0 && selectedHistoryRecords().length < state.user.history.length
   updateTimerDisplay()
+  warmNextDiagramImages()
 }
 
 function renderHome() {
@@ -784,7 +901,13 @@ function startPaper(paperName) {
   const album = state.selectedAlbum
   if (!album) return
   const papers = album.papers.filter(paper => !paperName || paper.name === paperName)
-  return withQuestionData(papers.flatMap(paper => paper.questionIds || []), () => startQuiz(questionsFor(album.id, paperName)))
+  const ids = papers.flatMap(paper => paper.questionIds || [])
+  const lead = diagramImageAsset({ assetBook: album.id, questionRenderMode: 'image', questionImage: papers[0]?.leadImage })
+  if (lead && bankLoader?.needs(ids) && !(draftMatchesIds(ids) && state.user.draft.index > 0)) {
+    retainDiagramPreloads([lead])
+    preloadDiagramImage(lead, 'high')
+  }
+  return withQuestionData(ids, () => startQuiz(questionsFor(album.id, paperName)))
 }
 
 function startQuiz(questions, startIndex = 0, options = {}) {
@@ -867,8 +990,9 @@ function renderQuiz() {
   const originalQuestion = isOriginalAnnotated(question)
   const onlyAnswers = state.session.every(isAnswerOnly)
   const imageQuestion = showsOriginalQuestionImage(question)
+  const diagramQuestion = imageQuestion && !!diagramImageAsset(question)
   const imageUnavailable = isAnswerOnly(question) ? '原题图片暂不可用。' : '原题图片暂不可用，下方显示题目文字。'
-  const questionContent = imageQuestion
+  const questionContent = diagramQuestion ? renderDiagramQuestion(question) : imageQuestion
     ? `<div class="original-question">${renderOriginalImage(question, question.questionImage, 0, 1, 'question')}</div>`
     : `${question.questionRenderMode === 'image' ? `<p class="original-image-unavailable">${imageUnavailable}</p>` : ''}<p class="question-stem">${originalQuestion ? escapeHtml(displayQuestionStem(question)) : escapeQuizText(displayQuestionStem(question))}</p>`
   const questionViewToggle = originalQuestion && question.questionRenderMode !== 'image' && originalImageAsset(question, question.questionImage, 'question')
@@ -912,7 +1036,7 @@ function renderQuiz() {
     ${resultSummary}
     <div class="quiz-topline"><div class="quiz-progress-copy"><b>${state.sessionIndex + 1}</b> / ${state.session.length}</div><div class="quiz-tools"><div class="quiz-meta"><span>${escapeHtml(question.paper)}</span><b>${reveal ? `答对 ${correctCount} 题` : `已答 ${answeredCount} 题`}</b></div>${fontControls}</div></div>
     <div class="progress-track"><i style="--progress:${progress}%"></i></div>
-    <article class="question-card">
+    <article class="question-card${diagramQuestion ? ' diagram-question-card' : ''}">
       <div class="question-head"><span class="tag question-type">单选题 · ${escapeHtml(question.source)}</span><div class="question-head-actions">${questionViewToggle}<button type="button" class="question-pen-button" data-action="ink-toggle" aria-label="打开题目画笔" aria-pressed="false" title="在题目上圈画"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 15 10-10 4 4-10 10-5 1 1-5Zm8-8 4 4M4 21h16"/></svg></button><button class="favorite-button ${isFavorite ? 'active' : ''}" data-action="favorite">★ ${isFavorite ? '已收藏' : '收藏'}</button></div></div>
       ${reveal ? `<p class="question-duration">本题用时 ${formatDuration(recordedQuestionMilliseconds(question.id))}</p>` : ''}
       <div id="quiz-question-content" class="question-ink-surface" data-ink-surface>${questionContent}
@@ -1449,6 +1573,19 @@ document.addEventListener('click', event => {
     return window.QuizAnnotations.toggle()
   }
   if (action === 'retry-original-image') return retryOriginalImage(target.closest('[data-action]'))
+  if (action === 'zoom-diagram') return openDiagramZoom()
+  if (action === 'diagram-zoom-close') return target.closest('dialog')?.close()
+  if (diagramZoom && action === 'diagram-zoom-in') return updateDiagramZoom(Math.min(3, diagramZoom.scale + .5))
+  if (diagramZoom && action === 'diagram-zoom-out') return updateDiagramZoom(Math.max(1, diagramZoom.scale - .5))
+  if (diagramZoom && action === 'diagram-zoom-fit') {
+    const view = target.closest('dialog').querySelector('.diagram-zoom-view')
+    const box = diagramZoom.original ? null : diagramZoom.figure
+    const width = box?.[2] || diagramZoom.image.width
+    const height = box?.[3] || diagramZoom.image.height
+    const scale = Math.min(1, (view.clientHeight - 2) * width / (view.clientWidth * height))
+    return updateDiagramZoom(scale)
+  }
+  if (diagramZoom && action === 'diagram-zoom-original') return updateDiagramZoom(1, !diagramZoom.original)
   if (action === 'toggle-original-question') return toggleOriginalQuestion()
   if (action === 'open-pitfalls') return openPitfallManual()
   if (action === 'close-pitfalls') return closePitfallManual()
@@ -1525,6 +1662,10 @@ document.querySelector('#brandButton').addEventListener('click', () => navigate(
 document.querySelector('#backButton').addEventListener('click', goBack)
 document.querySelector('#guideButton').addEventListener('click', openGuide)
 document.querySelector('#fontButton').addEventListener('click', openFontSettings)
+document.querySelector('#diagramZoomDialog').addEventListener('close', event => {
+  event.currentTarget.querySelector('img').removeAttribute('src')
+  diagramZoom = null
+})
 
 document.addEventListener('toggle', event => {
   const details = event.target
@@ -1570,7 +1711,10 @@ document.addEventListener('touchmove', event => {
 
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) pauseQuizTiming()
-  else resumeQuizTiming()
+  else {
+    resumeQuizTiming()
+    warmNextDiagramImages()
+  }
 })
 window.addEventListener('pagehide', pauseQuizTiming)
 window.addEventListener('pageshow', resumeQuizTiming)

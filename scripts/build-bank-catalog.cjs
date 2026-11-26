@@ -11,7 +11,7 @@ const sourceSpecs = [
   ['data/questions.json', '20261121-5'],
   ['data/zhanggong/questions.json', '20261125-2'],
   ['data/zhanggong-yanyu/questions.json', '20261125-6'],
-  ['data/liu-diagram-700/questions.json', '20261127-1']
+  ['data/liu-diagram-700/questions.json', '20261127-2']
 ]
 
 const sourceBanks = sourceSpecs.map(([file]) => JSON.parse(readFileSync(path.join(root, file), 'utf8')))
@@ -72,7 +72,8 @@ const albums = bank.albums.map(album => {
     const payload = { questions }
     if (politicsAlbums.has(album.id)) Object.assign(payload, reviewsFor(new Set(questionIds)))
     const url = addOutput(file, payload)
-    return { ...paper, firstQuestionIndex, questionIds, url }
+    const leadImage = questions[0].questionRenderMode === 'image' ? questions[0].questionImage : null
+    return { ...paper, firstQuestionIndex, questionIds, url, ...(leadImage && { leadImage: { file: leadImage.file } }) }
   })
   assert.equal(papers.reduce((total, paper) => total + paper.count, 0), album.count, `Question count for ${album.title}`)
   return { ...album, papers }

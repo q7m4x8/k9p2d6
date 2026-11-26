@@ -89,6 +89,14 @@ for (const [paperIndex, paper] of album.papers.entries()) {
     const { file, width, height } = question.questionImage
     assert.equal(file, `${question.id}.webp`)
     assert(Number.isInteger(width) && width > 0 && Number.isInteger(height) && height > 0, question.id)
+    const { stem, diagram } = question.diagramRegions
+    for (const [x, y, w, h] of [stem, diagram]) {
+      assert([x, y, w, h].every(Number.isInteger), question.id)
+      assert(x >= 0 && y >= 0 && w > 0 && h > 0 && x + w <= width && y + h <= height, question.id)
+    }
+    assert.equal(stem[1], 0, question.id)
+    assert.equal(stem[3], diagram[1], question.id)
+    assert.equal(diagram[1] + diagram[3], height, question.id)
     const image = fs.readFileSync(path.join(__dirname, '..', 'data', bookId, 'questions', file))
     assert.equal(image.toString('ascii', 0, 4), 'RIFF', question.id)
     assert.equal(image.toString('ascii', 8, 12), 'WEBP', question.id)
@@ -97,6 +105,12 @@ for (const [paperIndex, paper] of album.papers.entries()) {
     click(h, 'option', number === 0 ? (question.answer + 1) % 4 : question.answer)
     const html = h.renderQuiz()
     assert(html.includes(`src="${imagePath(question)}?`), question.id)
+    assert(html.includes('data-action="zoom-diagram"'), question.id)
+    assert.match(html, question.diagramStemTyped ? /diagram-typed-stem/ : /data-diagram-stem-scan/, question.id)
+    if (question.id === 'lyt-003') {
+      assert(html.includes('（24内蒙古事业）从所给的四个选项中，选择最合适的一个填入问号处，使之呈现一定的规律性：'))
+      assert(diagram[2] < width * .6)
+    }
     assert.match(html, /class="option selected"/, question.id)
     assert.deepEqual([...html.matchAll(/aria-label="选项 ([A-D])"/g)].map(match => match[1]), question.options)
     assert.doesNotMatch(html, /正确答案|class="feedback|option(?: selected)? (?:correct|incorrect)|\/answers\/|\/answer-previews\//, question.id)

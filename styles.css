@@ -501,6 +501,30 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .original-image-error { padding: 12px; border-radius: 8px; color: var(--danger); background: var(--danger-soft); font-size: .928571rem; line-height: 1.7; }
 .original-image-error p { margin: 0 0 10px; }
 .original-image-unavailable { margin: 10px 0; color: var(--muted); line-height: 1.75; }
+.diagram-question-page { padding: 0; border: 0; }
+.diagram-question-page figcaption { align-items: center; }
+.diagram-zoom-trigger { min-height: 38px; }
+.diagram-image-frame { display: block; position: relative; overflow: hidden; width: 100%; aspect-ratio: var(--diagram-ratio); background: #fff; }
+.diagram-image-frame > img { position: absolute; inset: var(--diagram-source-top) auto auto var(--diagram-source-left); width: var(--diagram-source-width); max-width: none; height: auto; }
+.diagram-image-button { padding: 0; border: 0; cursor: zoom-in; }
+.diagram-image-button:has(> img[hidden]) { display: none; }
+.diagram-stem-frame { margin-bottom: 8px; }
+.diagram-typed-stem { margin-bottom: 12px; font-weight: 560; }
+.diagram-zoom-dialog { width: min(960px, 100% - 16px); max-width: none; height: min(86dvh, 820px); max-height: none; margin: auto; padding: 0; border: 1px solid var(--line); border-radius: 18px; background: #fff; color: var(--ink); }
+.diagram-zoom-dialog[open] { display: flex; flex-direction: column; }
+.diagram-zoom-dialog::backdrop { background: rgba(29,25,22,.58); }
+.diagram-zoom-bar { display: flex; flex: 0 0 auto; justify-content: space-between; align-items: center; gap: 6px; padding: 8px 10px; }
+.diagram-zoom-bar h2 { margin: 0; font-size: 1.14rem; }
+.diagram-zoom-bar .mini-btn { min-height: 40px; }
+.diagram-zoom-view { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; background: var(--page); }
+.diagram-zoom-image { margin-inline: auto; }
+.diagram-zoom-controls { flex-wrap: wrap; justify-content: center; border-top: 1px solid var(--line); }
+.diagram-zoom-level { min-width: 3.3em; text-align: center; font-variant-numeric: tabular-nums; }
+@media (max-width: 760px) {
+  .diagram-question-card .diagram-question-page { margin-inline: -9px; }
+  .diagram-question-card .diagram-typed-stem { margin-inline: 9px; }
+  .diagram-question-card .diagram-question-page figcaption { padding: 0 9px; }
+}
 .original-question { min-width: 0; margin: 0 0 18px; }
 .question-head-actions .original-question-toggle { min-height: 39px; padding: 6px 8px; font-size: .857143rem; white-space: nowrap; }
 .original-word-options .option-text { white-space: pre-wrap; overflow-wrap: anywhere; }
@@ -627,6 +651,9 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .sync-field { width: 100%; padding: 10px 12px; margin-top: 8px; border: 1px solid var(--line); border-radius: 10px; font: inherit; color: var(--ink); }
 .study-sync-dialog [data-sync-status]:empty { display: none; }
 .study-sync-dialog .sync-error { color: var(--danger); }
+.sync-connection-check { margin: -6px 0 10px; line-height: 1.6; }
+.sync-connection-check a { display: inline-block; padding: 6px 0; color: var(--accent-ink); }
+.sync-connection-check small { display: block; color: var(--muted); }
 .sync-pairing { margin: 12px 0; padding: 12px 14px; background: var(--page); border: 1px solid var(--line); border-radius: 13px; }
 .sync-pairing h3 { margin: 0 0 6px; font-size: 1rem; }
 .sync-pairing p { margin: 4px 0; }

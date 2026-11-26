@@ -67,9 +67,11 @@
       return payload(value.name, data.normalizeSnapshot(snapshot))
     }
 
-    function status(text, error = false) {
+    let showReachabilityCheck = false
+    function status(text, error = false, code = '') {
       message = text
       failed = error
+      showReachabilityCheck = error && (code === 'network' || code === 'timeout')
       button.textContent = account?.name || '同步'
       button.title = text || '电脑手机同步'
       button.setAttribute('aria-label', account ? `${account.name}的同步账号` : '电脑手机同步')
@@ -77,6 +79,12 @@
       button.classList.toggle('sync-account-error', error)
       const label = dialog.querySelector('[data-sync-status]')
       if (label) { label.textContent = text; label.classList.toggle('sync-error', error) }
+      const check = dialog.querySelector('[data-sync-check]')
+      if (check) check.hidden = !showReachabilityCheck
+    }
+
+    function reportFailure(error, fallback) {
+      status(error.message || fallback, true, error.code)
     }
 
     function updatePairForm() {
@@ -99,7 +107,9 @@
         const lookup = pairing ? '<button type="submit" value="pair" class="btn primary">按名称连接</button>' : ''
         content = `<form data-sync-create><label for="syncAccountName">账号名称</label><input class="sync-field" id="syncAccountName" name="name" maxlength="24" autocomplete="nickname" required placeholder="例如 tian">${lookup}<button type="submit" value="create" class="btn ${pairing ? 'secondary' : 'primary'}">创建同步账号</button></form>`
       }
-      dialog.innerHTML = `<h2 id="studySyncTitle">电脑手机同步</h2><p data-sync-name hidden></p>${content}<p data-sync-status role="status"></p><button type="button" class="btn secondary" data-sync-action="close">关闭</button>`
+      const checkCode = showReachabilityCheck ? 'network' : ''
+      dialog.innerHTML = `<h2 id="studySyncTitle">电脑手机同步</h2><p data-sync-name hidden></p>${content}<p data-sync-status role="status"></p><div class="sync-connection-check" data-sync-check hidden><a target="_blank" rel="noopener noreferrer">检测同步服务器 ↗</a><small>出现 authorization 表示当前网络可以访问服务器。</small></div><button type="button" class="btn secondary" data-sync-action="close">关闭</button>`
+      dialog.querySelector('[data-sync-check] a').href = endpoint
       if (account || phoneRequest) {
         const name = dialog.querySelector('[data-sync-name]')
         name.textContent = account?.name || phoneRequest.name
@@ -110,7 +120,7 @@
         if (phoneRequest.expired) pairStatus('申请已过期，请重新发起。', true)
         if (phoneRequest.secret) showPairApproval()
       }
-      status(message, failed)
+      status(message, failed, checkCode)
       updatePairForm()
     }
 
@@ -209,7 +219,7 @@
         if (dialog.open) renderDialog()
         schedulePair(0)
       } catch (error) {
-        status(error.message || '暂时无法发起连接申请，请稍后重试。', true)
+        reportFailure(error, '暂时无法发起连接申请，请稍后重试。')
       } finally {
         startingPair = false
         updatePairForm()
@@ -283,7 +293,7 @@
       }
       if (manual) status('正在同步…')
       if (running) return running
-      running = performSync().catch(error => status(error.message || '同步暂时失败，请稍后重试。', true)).finally(() => { running = null })
+      running = performSync().catch(error => reportFailure(error, '同步暂时失败，请稍后重试。')).finally(() => { running = null })
       return running
     }
 
@@ -310,7 +320,7 @@
         schedulePair(0)
         if (result.needsSync) schedule()
       } catch (error) {
-        status(error.message || '连接失败，请稍后重试。', true)
+        reportFailure(error, '连接失败，请稍后重试。')
       } finally {
         attaching = false
         if (action) action.disabled = false
