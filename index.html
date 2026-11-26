@@ -7,7 +7,7 @@
   <meta name="description" content="小天爱刷题 - 政治理论、张弓选词大典、错题复习与进度管理">
   <title>小天爱刷题</title>
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./styles.css?v=20261125-8">
+  <link rel="stylesheet" href="./styles.css?v=20261126-1">
 </head>
 <body>
   <div id="app" class="app-shell">
@@ -20,7 +20,7 @@
         </button>
       </div>
       <div class="top-actions">
-        <span class="status-pill"><i></i> 本机已保存</span>
+        <button type="button" id="studySyncButton" class="guide-pill study-sync-button" aria-label="电脑手机同步" disabled>同步</button>
         <div id="quizTimer" class="quiz-timer" aria-label="答题计时" hidden><span>本题 <b id="questionTimer">00:00</b></span><span>总计 <b id="sessionTimer">00:00</b></span></div>
         <button id="fontButton" class="guide-pill" aria-label="调整全局字号">字号</button>
         <button id="guideButton" class="guide-pill">新手必看</button>
@@ -41,6 +41,7 @@
 
     <div id="toast" class="toast" role="status"></div>
     <div id="modalRoot"></div>
+    <dialog id="studySyncDialog" class="modal study-sync-dialog" aria-labelledby="studySyncTitle"></dialog>
   </div>
   <script src="./text-format.js?v=20261122-4" defer></script>
   <script src="./reference-reviews.js?v=20261123-5" defer></script>
@@ -48,6 +49,9 @@
   <script src="./explanation-format.js?v=20261123-5" defer></script>
   <script src="./bank-loader.js?v=20261123-10" defer></script>
   <script src="./annotation.js?v=20261125-5" defer></script>
-  <script src="./app.js?v=20261125-8" defer></script>
+  <script src="./study-sync-data.js?v=20261126-1" defer></script>
+  <script src="./study-sync-client.js?v=20261126-1" defer></script>
+  <script src="./study-sync.js?v=20261126-1" defer></script>
+  <script src="./app.js?v=20261126-1" defer></script>
 </body>
 </html>

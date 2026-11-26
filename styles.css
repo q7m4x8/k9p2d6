@@ -94,7 +94,7 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 
 .top-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
-.status-pill, .guide-pill {
+.guide-pill {
   display: inline-flex;
   align-items: center;
   height: 34px;
@@ -104,9 +104,10 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
   font-weight: 650;
 }
 
-.status-pill { color: #168a52; background: #eaf8f0; }
-.status-pill i { width: 7px; height: 7px; margin-right: 7px; background: #25aa65; border-radius: 50%; }
 .guide-pill { color: #775122; background: #fff0da; border: 1px solid #f5d9b2; cursor: pointer; }
+.study-sync-button { display: inline-block; max-width: 9em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.study-sync-button.sync-account-linked { color: var(--accent-ink); background: var(--accent-soft); border-color: transparent; }
+.study-sync-button.sync-account-error { color: var(--danger); background: var(--danger-soft); }
 
 .theme-picker { display: flex; gap: 7px; padding-left: 4px; }
 .theme-dot {
@@ -620,6 +621,12 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
 .modal .modal-actions .btn { flex: 1; width: auto; min-width: 0; margin: 0; padding: 11px 12px; }
 .history-delete-error { color: #b64141 !important; }
+.study-sync-dialog { max-width: calc(100% - 28px); margin: auto; border: 0; color: var(--ink); }
+.study-sync-dialog::backdrop { background: rgba(29,25,22,.38); backdrop-filter: blur(4px); }
+.study-sync-dialog [data-sync-name] { color: var(--accent-ink); font-weight: 750; }
+.sync-field { width: 100%; padding: 10px 12px; margin-top: 8px; border: 1px solid var(--line); border-radius: 10px; font: inherit; color: var(--ink); }
+.study-sync-dialog [data-sync-status]:empty { display: none; }
+.study-sync-dialog .sync-error { color: var(--danger); }
 .font-settings .font-controls { display: flex; gap: 8px; padding: 6px; }
 .font-settings .font-controls span { display: none; }
 .font-settings .font-controls button { flex: 1; min-height: 42px; font-size: 1rem; }
@@ -629,7 +636,7 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
   .topbar { min-height: 60px; padding: 8px 12px; }
   .brand { gap: 8px; font-size: 1.142857rem; }
   .brand-mark { width: 34px; height: 34px; border-radius: 11px; }
-  .status-pill, .theme-picker { display: none; }
+  .theme-picker { display: none; }
   .guide-pill { height: 31px; padding: 0 10px; font-size: .857143rem; }
   .main-content { width: min(100% - 20px, 660px); padding-top: 18px; }
   .hero { grid-template-columns: 1fr; gap: 22px; }
@@ -643,7 +650,7 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
   .album-card { min-height: 0; padding: 22px; }
   .album-card h3 { margin-top: 17px; font-size: 1.285714rem; }
   .quiz-mode .topbar { min-height: 52px; }
-  .quiz-mode #guideButton { display: none; }
+  .quiz-mode #guideButton, .quiz-mode #studySyncButton { display: none; }
   .quiz-mode .main-content { padding-top: 10px; padding-bottom: 24px; }
   .quiz-mode .bottom-nav { display: none; }
   .question-card { padding: 14px 12px; border-radius: 18px; }

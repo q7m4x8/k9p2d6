@@ -47,6 +47,7 @@ const state = {
 const main = document.querySelector('#mainContent')
 const toast = document.querySelector('#toast')
 let storageWarningShown = false
+let studySync = null
 let pendingAutoAdvance = null
 const AUTO_ADVANCE_DELAY_MS = 300
 const AUTO_ADVANCE_DELAY_SECONDS = AUTO_ADVANCE_DELAY_MS / 1000
@@ -149,7 +150,11 @@ function renderQuestionNotes(question) {
 }
 
 function writeStorage(key, value) {
-  try { localStorage.setItem(key, JSON.stringify(value)); return true } catch {
+  try {
+    localStorage.setItem(key, JSON.stringify(value))
+    studySync?.schedule()
+    return true
+  } catch {
     if (!storageWarningShown) {
       storageWarningShown = true
       showToast('浏览器暂时无法保存记录，请勿关闭当前页面')
@@ -161,6 +166,36 @@ function writeStorage(key, value) {
 function saveUserState() {
   const { draft, ...saved } = state.user
   return writeStorage(STORAGE_KEY, saved)
+}
+
+function studySnapshot() {
+  return window.StudySyncData.normalizeSnapshot({ user: state.user, draft: state.user.draft, notes: state.notes, pitfallFavorites: state.pitfallFavorites })
+}
+
+function applyStudySnapshot(snapshot) {
+  const { draft: _draft, ...previousUser } = state.user
+  const user = { ...previousUser, ...snapshot.user }
+  const values = new Map([[STORAGE_KEY, user], [DRAFT_KEY, snapshot.draft], [NOTES_KEY, snapshot.notes], [PITFALL_FAVORITES_KEY, snapshot.pitfallFavorites]])
+  const previous = [...values.keys()].map(key => [key, localStorage.getItem(key)])
+  const changed = []
+  try {
+    for (const [key, value] of values) {
+      localStorage.setItem(key, JSON.stringify(value))
+      changed.push(key)
+    }
+  } catch {
+    for (const [key, raw] of previous) {
+      if (!changed.includes(key)) continue
+      try { if (raw === null) localStorage.removeItem(key); else localStorage.setItem(key, raw) } catch {}
+    }
+    throw new Error('浏览器暂时无法保存同步记录，请稍后重试。')
+  }
+  state.user = { ...user, draft: snapshot.draft }
+  state.notes = Object.assign(Object.create(null), snapshot.notes)
+  state.pitfallFavorites = snapshot.pitfallFavorites
+  applyTheme()
+  document.documentElement.dataset.quizFont = state.user.quizFont
+  render()
 }
 
 function formatDuration(milliseconds) {
@@ -205,7 +240,7 @@ function updateTimerDisplay() {
 }
 
 function persistDraft() {
-  if (!state.session.length || state.sessionSubmitted) return
+  if (state.route !== 'quiz' || !state.session.length || state.sessionSubmitted) return
   const times = Object.fromEntries(state.session.map(question => [question.id, getQuestionMilliseconds(question.id)]))
   state.user.draft = { version: 1, ids: state.session.map(question => question.id), index: state.sessionIndex, answers: { ...state.sessionAnswers }, times, returnTo: { ...state.quizReturn }, title: state.sessionTitle, updatedAt: Date.now() }
   writeStorage(DRAFT_KEY, state.user.draft)
@@ -254,16 +289,20 @@ function continueDraft() {
   return true
 }
 
-function setTheme(index) {
-  const theme = themes[index] || themes[0]
+function applyTheme() {
+  const theme = themes[state.user.theme] || themes[0]
   const root = document.documentElement.style
   root.setProperty('--accent', theme.accent)
   root.setProperty('--accent-soft', theme.soft)
   root.setProperty('--accent-ink', theme.ink)
   root.setProperty('--page-glow', theme.glow)
-  state.user.theme = index
-  saveUserState()
   renderThemePicker()
+}
+
+function setTheme(index) {
+  state.user.theme = index
+  applyTheme()
+  saveUserState()
 }
 
 function setQuizFont(size) {
@@ -595,6 +634,7 @@ function navigate(route, options = {}) {
   window.scrollTo({ top: 0, behavior: 'instant' })
   render()
   if (route === 'quiz') resumeQuizTiming()
+  else studySync?.schedule()
 }
 
 function goBack() {
@@ -1209,7 +1249,7 @@ function toggleFavorite() {
 }
 
 function openGuide() {
-  document.querySelector('#modalRoot').innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>三步开始刷题</h2><ol><li>在首页选择专辑或子卷。</li><li>点选答案后先显示选中框，停留 ${AUTO_ADVANCE_DELAY_SECONDS} 秒自动下一题，改选后重新等待 ${AUTO_ADVANCE_DELAY_SECONDS} 秒；也可左右滑动切题。最后一题选完后手动交卷，统一查看答案与解析。</li><li>在进度页查看每次练习及逐题用时；错题和收藏可随时复习。</li></ol><p>进入答题即开始计时，返回或切到后台暂停，交卷后停止。返回后可点“继续上次练习”恢复。</p><p>所有进度只保存在当前浏览器，不会覆盖其他人的记录。</p><button class="btn primary" data-action="close-modal">知道了</button></section></div>`
+  document.querySelector('#modalRoot').innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>三步开始刷题</h2><ol><li>在首页选择专辑或子卷。</li><li>点选答案后先显示选中框，停留 ${AUTO_ADVANCE_DELAY_SECONDS} 秒自动下一题，改选后重新等待 ${AUTO_ADVANCE_DELAY_SECONDS} 秒；也可左右滑动切题。最后一题选完后手动交卷，统一查看答案与解析。</li><li>在进度页查看每次练习及逐题用时；错题和收藏可随时复习。</li></ol><p>进入答题即开始计时，返回或切到后台暂停，交卷后停止。返回后可点“继续上次练习”恢复。</p><p>进度默认保存在本机。需要跨设备使用时，可以在顶部打开「同步」。</p><button class="btn primary" data-action="close-modal">知道了</button></section></div>`
 }
 
 let swipeGesture = null
@@ -1375,6 +1415,10 @@ document.addEventListener('input', event => {
   if (editor instanceof Element && editor.matches('[data-question-note]')) saveQuestionNote(editor.dataset.questionNote, editor.value)
 })
 
+document.addEventListener('focusout', event => {
+  if (event.target.matches?.('[data-question-note]')) studySync?.schedule()
+})
+
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape' && state.pendingHistoryDeletion) cancelHistoryDeletion()
 })
@@ -1456,6 +1500,13 @@ async function init() {
     }))
     state.data = window.QuizBanks.merge(banks)
     render()
+    studySync = window.QuizStudySync?.setup({
+      endpoint: 'https://xiaotian-love-quiz.carefreeblossom32.chatgpt.site/api/study-sync',
+      getSnapshot: studySnapshot,
+      applySnapshot: applyStudySnapshot,
+      canSync: () => (state.route !== 'quiz' || state.sessionSubmitted) && !window.QuizAnnotations?.active() &&
+        !state.historyManaging && !document.activeElement?.matches('[data-question-note]') && !document.querySelector('#modalRoot').children.length
+    })
   } catch (error) {
     main.innerHTML = `<div class="empty-state"><b>题库载入失败</b>请刷新页面后重试。<br><small>${escapeHtml(error.message)}</small></div>`
   }
