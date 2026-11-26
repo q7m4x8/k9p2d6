@@ -627,6 +627,15 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .sync-field { width: 100%; padding: 10px 12px; margin-top: 8px; border: 1px solid var(--line); border-radius: 10px; font: inherit; color: var(--ink); }
 .study-sync-dialog [data-sync-status]:empty { display: none; }
 .study-sync-dialog .sync-error { color: var(--danger); }
+.sync-pairing { margin: 12px 0; padding: 12px 14px; background: var(--page); border: 1px solid var(--line); border-radius: 13px; }
+.sync-pairing h3 { margin: 0 0 6px; font-size: 1rem; }
+.sync-pairing p { margin: 4px 0; }
+.sync-request-list { display: grid; gap: 5px; margin: 0; padding: 0; list-style: none; }
+.sync-request-list li { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 12px; padding: 8px 0; border-top: 1px solid var(--line); }
+.sync-request-list li:first-child { margin-top: 7px; }
+.sync-request-list strong, .sync-pairing-code strong { color: var(--accent-ink); font-variant-numeric: tabular-nums; letter-spacing: .08em; }
+.sync-pairing-code { display: flex; align-items: center; gap: 10px; width: fit-content; padding: 6px 12px; background: var(--accent-soft); border-radius: 10px; }
+.sync-pairing-code strong { font-size: 1.285714rem; }
 .font-settings .font-controls { display: flex; gap: 8px; padding: 6px; }
 .font-settings .font-controls span { display: none; }
 .font-settings .font-controls button { flex: 1; min-height: 42px; font-size: 1rem; }

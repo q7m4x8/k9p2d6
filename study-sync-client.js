@@ -74,28 +74,38 @@
     }
   }
 
-  async function connect(secret, endpoint) {
+  async function deriveCredentials(secret, includeEncryption) {
     if (!isSecret(secret)) throw error('invalid-secret')
     if (!root.crypto?.subtle) throw error('unsupported')
-    const url = checkedEndpoint(endpoint)
     const subtle = root.crypto.subtle
     const utf8 = new TextEncoder()
     const salt = utf8.encode(PROTOCOL)
     const hkdf = label => ({ name: 'HKDF', hash: 'SHA-256', salt, info: utf8.encode(label) })
 
-    let token, key
     try {
-      const material = await subtle.importKey('raw', fromBase64url(secret), 'HKDF', false, ['deriveBits', 'deriveKey'])
-      const [authentication, encryption] = await Promise.all([
+      const usages = includeEncryption ? ['deriveBits', 'deriveKey'] : ['deriveBits']
+      const material = await subtle.importKey('raw', fromBase64url(secret), 'HKDF', false, usages)
+      const [authentication, key] = await Promise.all([
         subtle.deriveBits(hkdf('authorization'), material, 256),
-        subtle.deriveKey(hkdf('encryption'), material, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt'])
+        includeEncryption ? subtle.deriveKey(hkdf('encryption'), material, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']) : null
       ])
-      token = toBase64url(new Uint8Array(authentication))
-      key = encryption
+      return { token: toBase64url(new Uint8Array(authentication)), key }
     } catch {
       throw error('unsupported')
     }
+  }
 
+  async function deriveAuth(secret) {
+    return (await deriveCredentials(secret, false)).token
+  }
+
+  async function connect(secret, endpoint) {
+    if (!isSecret(secret)) throw error('invalid-secret')
+    if (!root.crypto?.subtle) throw error('unsupported')
+    const url = checkedEndpoint(endpoint)
+    const { token, key } = await deriveCredentials(secret, true)
+    const subtle = root.crypto.subtle
+    const utf8 = new TextEncoder()
     const algorithm = (iv, revision) => ({ name: 'AES-GCM', iv, additionalData: utf8.encode(`${PROTOCOL}:${revision}`) })
 
     async function request(method, body) {
@@ -168,7 +178,7 @@
     }
   }
 
-  const api = { createSecret, isSecret, connect }
+  const api = { createSecret, isSecret, connect, deriveAuth }
   if (typeof module === 'object' && module.exports) module.exports = api
   else root.StudySyncClient = api
 })(typeof window === 'object' ? window : globalThis)

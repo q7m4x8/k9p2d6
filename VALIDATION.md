@@ -21,7 +21,9 @@ node scripts/audit-bank.mjs
 
 个人进度、笔记和草稿默认保存在当前浏览器。创建同步账号后，浏览器内加密的个人记录存入现有 Sites Worker 的 D1。刷题界面由 GitHub Pages 承载。已有设备用专属链接连接，合并前各自保存一次本机备份。
 
-同步验证使用 `node --test scripts/test-study-sync-data.cjs scripts/test-study-sync-client.cjs`。同步保留最近的练习记录和最近保存的一份未交卷草稿，不同的同题笔记保留两份。编辑中或进行中的练习等保存或返回后同步。
+新设备也能按名称发起连接申请。用已连接的设备核对识别码并允许后，新设备再确认合并。按名称只提交短期申请，已连接的设备用申请设备的公钥加密授权。服务端校验申请归属和时效。
+
+同步验证使用 `node --test scripts/test-study-sync-data.cjs scripts/test-study-sync-client.cjs scripts/test-study-pairing-client.cjs`。同步保留最近的练习记录和最近保存的一份未交卷草稿，不同的同题笔记保留两份。编辑中或进行中的练习等保存或返回后同步。
 
 ## 挖坑手册
 
