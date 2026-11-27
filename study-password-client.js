@@ -38,11 +38,11 @@
   function normalizedPassword(password, name) {
     const value = typeof password === 'string' ? password.normalize('NFC') : ''
     const length = [...value].length
-    if (length < 15 || length > 128) throw problem('password-length', '请输入 15 到 128 个字符的密码。')
+    if (length < 6 || length > 128) throw problem('password-length', '请输入 6 到 128 个字符的密码。')
     const simple = value.toLowerCase()
     const repeated = /^(.{1,8})\1+$/u.test(simple)
     const common = /^(?:123456789012345|123456789123456|password123456789|qwertyuiopasdfghj)$/u.test(simple)
-    if (simple === pairing.normalizeName(name) || repeated || common || value.trim().length < 15) {
+    if (simple === pairing.normalizeName(name) || repeated || common || [...value.trim()].length < 6) {
       throw problem('password-weak', '这组密码太容易猜中，请换一组。')
     }
     return value
