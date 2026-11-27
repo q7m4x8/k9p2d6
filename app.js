@@ -1448,7 +1448,7 @@ function toggleFavorite() {
 }
 
 function openGuide() {
-  document.querySelector('#modalRoot').innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>三步开始刷题</h2><ol><li>在首页选择专辑或子卷。</li><li>点选答案后先显示选中框，停留 ${AUTO_ADVANCE_DELAY_SECONDS} 秒自动下一题，改选后重新等待 ${AUTO_ADVANCE_DELAY_SECONDS} 秒；也可左右滑动切题。最后一题选完后手动交卷，统一查看答案与解析。</li><li>在进度页查看每次练习及逐题用时；错题和收藏可随时复习。</li></ol><p>进入答题即开始计时，返回或切到后台暂停，交卷后停止。返回后可点“继续上次练习”恢复。</p><p>进度默认保存在本机。需要跨设备使用时，可以在顶部打开「同步」。</p><button class="btn primary" data-action="close-modal">知道了</button></section></div>`
+  document.querySelector('#modalRoot').innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>三步开始刷题</h2><ol><li>在首页选择专辑或子卷。</li><li>点选答案后先显示选中框，停留 ${AUTO_ADVANCE_DELAY_SECONDS} 秒自动下一题，改选后重新等待 ${AUTO_ADVANCE_DELAY_SECONDS} 秒；也可左右滑动切题。最后一题选完后手动交卷，统一查看答案与解析。</li><li>在进度页查看每次练习及逐题用时；错题和收藏可随时复习。</li></ol><p>进入答题即开始计时，返回或切到后台暂停，交卷后停止。返回后可点“继续上次练习”恢复。</p><p>进度默认保存在本机。在顶部登录同一个账号后，可以跨设备同步。</p><button class="btn primary" data-action="close-modal">知道了</button></section></div>`
 }
 
 let swipeGesture = null

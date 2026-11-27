@@ -77,19 +77,15 @@
       message = text
       failed = error
       showReachabilityCheck = error && (code === 'network' || code === 'timeout')
-      button.textContent = account?.name || '同步'
-      button.title = text || '电脑手机同步'
-      button.setAttribute('aria-label', account ? `${account.name}的同步账号` : '电脑手机同步')
+      button.textContent = account?.name || '登录'
+      button.title = text || '登录小天爱刷题'
+      button.setAttribute('aria-label', account ? `${account.name}的账号` : '登录')
       button.classList.toggle('sync-account-linked', !!account)
       button.classList.toggle('sync-account-error', error)
       const label = dialog.querySelector('[data-sync-status]')
       if (label) { label.textContent = text; label.classList.toggle('sync-error', error) }
       const check = dialog.querySelector('[data-sync-check]')
       if (check) check.hidden = !showReachabilityCheck
-      if (showReachabilityCheck) {
-        const backup = dialog.querySelector('[data-study-backup]')
-        if (backup) backup.open = true
-      }
     }
 
     function reportFailure(error, fallback) {
@@ -176,20 +172,20 @@
     function renderDialog() {
       let content
       if (account) {
-        const inbox = pairing ? '<section class="sync-pairing" aria-labelledby="syncInboxTitle"><h3 id="syncInboxTitle">连接申请</h3><p data-pair-status role="status">正在查看连接申请…</p><ul class="sync-request-list" data-pair-inbox></ul></section>' : ''
+        const inbox = pairing ? '<section class="sync-pairing" aria-labelledby="syncInboxTitle"><h3 id="syncInboxTitle">新设备登录</h3><p data-pair-status role="status">正在查看登录申请…</p><ul class="sync-request-list" data-pair-inbox></ul></section>' : ''
         content = `${inbox}<button type="button" class="btn secondary" data-sync-action="link">复制专属链接</button><input class="sync-field" aria-label="专属链接" data-sync-link readonly hidden><button type="button" class="btn secondary" data-sync-action="now">立即同步</button>`
       } else if (incoming) {
-        content = '<p>连接这个同步账号，并合并此设备已有的做题记录。</p><button type="button" class="btn primary" data-sync-action="join">连接并合并</button>'
+        content = '<p>登录后可继续账号里的练习。</p><button type="button" class="btn primary" data-sync-action="join">登录此账号</button>'
       } else if (phoneRequest) {
-        content = '<p>在已连接的电脑打开「同步」，核对识别码后点「允许连接」。</p><div class="sync-pairing-code"><span>识别码</span><strong data-pair-code></strong></div><p data-pair-status role="status">等待电脑允许…</p><button type="button" class="btn primary" data-sync-action="pair-confirm" hidden>连接并合并</button><button type="button" class="btn secondary" data-sync-action="pair-retry">重新输入名称</button>'
+        content = `<p>在已登录的电脑打开账号，核对识别码并允许登录。验证通过后，手机会自动登录。</p><div class="sync-pairing-code"><span>识别码</span><strong data-pair-code></strong></div><p data-pair-status role="status">等待电脑允许登录…</p><button type="button" class="btn primary" data-sync-action="pair-confirm" ${phoneRequest.retryLogin ? '' : 'hidden'}>重试登录</button><button type="button" class="btn secondary" data-sync-action="pair-retry">重新输入名称</button>`
       } else {
-        const lookup = pairing ? '<button type="submit" value="pair" class="btn primary">按名称连接</button>' : ''
-        content = `<form data-sync-create><label for="syncAccountName">账号名称</label><input class="sync-field" id="syncAccountName" name="name" maxlength="24" autocomplete="nickname" required placeholder="例如 tian">${lookup}<button type="submit" value="create" class="btn ${pairing ? 'secondary' : 'primary'}">创建同步账号</button></form>`
+        const lookup = pairing ? '<button type="submit" value="pair" class="btn primary">登录</button>' : ''
+        content = `<form data-sync-create><label for="syncAccountName">账号名称</label><input class="sync-field" id="syncAccountName" name="name" maxlength="24" autocomplete="username" required placeholder="例如 tian">${lookup}<button type="submit" value="create" class="btn ${pairing ? 'secondary' : 'primary'}">创建账号</button></form>`
       }
       const checkCode = showReachabilityCheck ? 'network' : ''
       const backupOpen = dialog.querySelector('[data-study-backup]')?.open
-      const backup = `<details class="study-backup" data-study-backup ${backupOpen ? 'open' : ''}><summary>用文件合并记录</summary><div class="study-backup-actions"><button type="button" class="btn secondary" data-sync-action="backup-export">导出记录</button><button type="button" class="btn secondary" data-sync-action="backup-choose">选择记录文件</button></div><input type="file" data-backup-file accept=".json,application/json" hidden><p data-backup-status role="status"></p><div class="study-backup-actions" data-backup-review hidden><button type="button" class="btn primary" data-sync-action="backup-confirm">合并到本机</button><button type="button" class="btn secondary" data-sync-action="backup-cancel">取消合并</button></div></details>`
-      dialog.innerHTML = `<h2 id="studySyncTitle">电脑手机同步</h2><p data-sync-name hidden></p>${content}<p data-sync-status role="status"></p><div class="sync-connection-check" data-sync-check hidden><a target="_blank" rel="noopener noreferrer">检测同步服务器 ↗</a><small>出现 authorization 表示当前网络可以访问服务器。</small></div>${backup}<button type="button" class="btn secondary" data-sync-action="close">关闭</button>`
+      const backup = `<details class="study-backup" data-study-backup ${backupOpen ? 'open' : ''}><summary>记录文件</summary><div class="study-backup-actions"><button type="button" class="btn secondary" data-sync-action="backup-export">导出记录</button><button type="button" class="btn secondary" data-sync-action="backup-choose">选择记录文件</button></div><input type="file" data-backup-file accept=".json,application/json" hidden><p data-backup-status role="status"></p><div class="study-backup-actions" data-backup-review hidden><button type="button" class="btn primary" data-sync-action="backup-confirm">合并到本机</button><button type="button" class="btn secondary" data-sync-action="backup-cancel">取消合并</button></div></details>`
+      dialog.innerHTML = `<h2 id="studySyncTitle">${account ? '我的账号' : '登录小天爱刷题'}</h2><p data-sync-name hidden></p>${content}<p data-sync-status role="status"></p><div class="sync-connection-check" data-sync-check hidden><a target="_blank" rel="noopener noreferrer">检测同步服务器 ↗</a><small>出现 authorization 表示当前网络可以访问服务器。</small></div>${backup}<button type="button" class="btn secondary" data-sync-action="close">关闭</button>`
       dialog.querySelector('[data-sync-check] a').href = endpoint
       if (account || phoneRequest) {
         const name = dialog.querySelector('[data-sync-name]')
@@ -198,8 +194,8 @@
       }
       if (phoneRequest) {
         dialog.querySelector('[data-pair-code]').textContent = pairing.requestCode(phoneRequest.handle.id)
-        if (phoneRequest.expired) pairStatus('申请已过期，请重新发起。', true)
-        if (phoneRequest.secret) showPairApproval()
+        if (phoneRequest.expired) pairStatus('登录申请已过期，请重新登录。', true)
+        if (phoneRequest.retryLogin) pairStatus('身份已验证，可以重试登录。')
       }
       status(message, failed, checkCode)
       updatePairForm()
@@ -220,10 +216,18 @@
       }
     }
 
-    function showPairApproval() {
-      pairStatus('已收到连接许可。确认自己的电脑显示「已允许」后，点「连接并合并」。')
-      const confirm = dialog.querySelector('[data-sync-action="pair-confirm"]')
-      if (confirm) confirm.hidden = false
+    async function loginApprovedDevice(request) {
+      if (phoneRequest !== request || attaching || !request.secret) return
+      const retry = dialog.querySelector('[data-sync-action="pair-confirm"]')
+      request.retryLogin = false
+      if (retry) retry.hidden = true
+      pairStatus('身份已验证，正在登录…')
+      await attach(request.secret, request.name, false)
+      if (phoneRequest !== request) return
+      request.retryLogin = true
+      pairStatus('身份已验证，可以重试登录。')
+      const retryButton = dialog.querySelector('[data-sync-action="pair-confirm"]')
+      if (retryButton) retryButton.hidden = false
     }
 
     function renderInbox(requests) {
@@ -239,15 +243,15 @@
           const button = document.createElement('button')
           button.type = 'button'
           button.className = 'mini-btn'
-          button.textContent = '允许连接'
-          button.setAttribute('aria-label', `允许识别码 ${code.textContent} 的连接`)
+          button.textContent = '允许登录'
+          button.setAttribute('aria-label', `允许识别码 ${code.textContent} 的登录`)
           button.addEventListener('click', () => approvePair(request, button))
           row.append(code, button)
           return row
         }))
       }
-      pairStatus(approvedCode ? `已允许 ${approvedCode}，请回到手机完成连接。` : requests.length
-        ? '核对手机显示的识别码，再允许对应的申请。' : '等待手机发来申请。')
+      pairStatus(approvedCode ? `已允许 ${approvedCode}，手机会自动登录。` : requests.length
+        ? '核对手机显示的识别码，再允许对应的登录申请。' : '等待新设备发来登录申请。')
     }
 
     function schedulePair(delay = 2000) {
@@ -268,17 +272,17 @@
           if (dialog.open && !approvingPair) renderInbox(requests)
         } else if (request && !request.secret && !request.expired) {
           const secret = await request.handle.poll()
-          if (phoneRequest === request) {
-            if (secret) { request.secret = secret; showPairApproval() }
-            else pairStatus('等待电脑允许…')
+          if (phoneRequest === request && dialog.open) {
+            if (secret) { request.secret = secret; await loginApprovedDevice(request) }
+            else pairStatus('等待电脑允许登录…')
           }
         }
       } catch (error) {
         if (request && phoneRequest === request && (error.code === 'expired' || Date.now() >= request.handle.expiresAt)) {
           request.expired = true
-          pairStatus('申请已过期，请重新发起。', true)
+          pairStatus('登录申请已过期，请重新登录。', true)
         } else if (!request || phoneRequest === request) {
-          pairStatus(error.message || '暂时无法检查连接申请。', true)
+          pairStatus(error.message || '暂时无法检查登录申请。', true)
         }
         delay = 6000
       } finally {
@@ -291,17 +295,17 @@
       if (!pairing || account || incoming || startingPair || attaching || !database) return
       startingPair = true
       updatePairForm()
-      status('正在发起连接申请…')
+      status('正在验证登录…')
       try {
         const handle = await pairing.startRequest(name, endpoint, {
-          onRetry: () => status('正在重试连接申请…')
+          onRetry: () => status('正在重试登录…')
         })
         phoneRequest = { name, handle }
         status('')
         if (dialog.open) renderDialog()
         schedulePair(0)
       } catch (error) {
-        reportFailure(error, '暂时无法发起连接申请，请稍后重试。')
+        reportFailure(error, '暂时无法发起登录，请稍后重试。')
       } finally {
         startingPair = false
         updatePairForm()
@@ -316,9 +320,9 @@
         await approver.approve(request)
         approvedCode = pairing.requestCode(request.id)
         button.remove()
-        pairStatus(`已允许 ${approvedCode}，请回到手机完成连接。`)
+        pairStatus(`已允许 ${approvedCode}，手机会自动登录。`)
       } catch (error) {
-        pairStatus(error.message || '暂时无法允许连接，请稍后重试。', true)
+        pairStatus(error.message || '暂时无法允许登录，请稍后重试。', true)
       } finally {
         approvingPair = false
         button.disabled = false
@@ -387,11 +391,11 @@
     async function attach(secret, name, creating) {
       if (attaching || startingPair || account || !database) return
       if (backupReading || backupCandidate) { status('请先完成或取消文件合并。'); return }
-      if (!canSync()) { status('结束答题或笔记编辑后再连接同步。', true); return }
+      if (!canSync()) { status('请先结束当前答题或笔记编辑，再登录。', true); return }
       attaching = true
       const action = dialog.querySelector(creating ? 'button[value="create"]' : name ? '[data-sync-action="pair-confirm"]' : '[data-sync-action="join"]')
       if (action) action.disabled = true
-      status(creating ? '正在创建账号…' : '正在合并记录…')
+      status(creating ? '正在创建账号…' : '正在登录…')
       try {
         await saveRecord(database, 'before-sync', getSnapshot())
         const remote = await client.connect(secret, endpoint)
@@ -403,11 +407,11 @@
         incoming = ''
         phoneRequest = null
         if (dialog.open) renderDialog()
-        status('已同步')
+        status('已登录')
         schedulePair(0)
         if (result.needsSync) schedule()
       } catch (error) {
-        reportFailure(error, '连接失败，请稍后重试。')
+        reportFailure(error, '登录失败，请稍后重试。')
       } finally {
         attaching = false
         if (action) action.disabled = false
@@ -443,7 +447,7 @@
       }
       if (action === 'close') dialog.close()
       if (action === 'join' && incoming) attach(incoming, '', false)
-      if (action === 'pair-confirm' && phoneRequest?.secret) attach(phoneRequest.secret, phoneRequest.name, false)
+      if (action === 'pair-confirm' && phoneRequest?.retryLogin) loginApprovedDevice(phoneRequest)
       if (action === 'pair-retry' && !attaching) { phoneRequest = null; status(''); renderDialog() }
       if (action === 'now') runSync(true)
       if (action === 'link' && account) {
