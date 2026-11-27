@@ -35,6 +35,7 @@
   function setup({ endpoint, getSnapshot, applySnapshot, canSync }) {
     const client = window.StudySyncClient
     const pairing = window.StudyPairingClient
+    const passwordClient = window.StudyPasswordClient
     const data = window.StudySyncData
     const button = document.querySelector('#studySyncButton')
     const dialog = document.querySelector('#studySyncDialog')
@@ -45,6 +46,7 @@
     let checkingPair = false
     let startingPair = false
     let approvingPair = false
+    let passwordBusy = false
     let backupCandidate = null
     let backupReading = false
     let backupReadId = 0
@@ -95,8 +97,9 @@
     function updatePairForm() {
       const form = dialog.querySelector('[data-sync-create]')
       if (!form) return
-      form.setAttribute('aria-busy', String(startingPair))
-      for (const submit of form.querySelectorAll('button[type="submit"]')) submit.disabled = startingPair
+      const busy = startingPair || passwordBusy
+      form.setAttribute('aria-busy', String(busy))
+      for (const submit of form.querySelectorAll('button[type="submit"]')) submit.disabled = busy
     }
 
     function backupStatus(text, error = false) {
@@ -173,14 +176,16 @@
       let content
       if (account) {
         const inbox = pairing ? '<section class="sync-pairing" aria-labelledby="syncInboxTitle"><h3 id="syncInboxTitle">新设备登录</h3><p data-pair-status role="status">正在查看登录申请…</p><ul class="sync-request-list" data-pair-inbox></ul></section>' : ''
-        content = `${inbox}<button type="button" class="btn secondary" data-sync-action="link">复制专属链接</button><input class="sync-field" aria-label="专属链接" data-sync-link readonly hidden><button type="button" class="btn secondary" data-sync-action="now">立即同步</button>`
+        const passwordSettings = passwordClient ? '<details class="study-backup" data-password-settings><summary>设置登录密码</summary><form data-password-enroll><label for="syncNewPassword">新密码</label><input class="sync-field" id="syncNewPassword" name="password" type="password" autocomplete="new-password" required><label for="syncConfirmPassword">确认密码</label><input class="sync-field" id="syncConfirmPassword" name="confirm" type="password" autocomplete="new-password" required><p class="sync-password-hint">使用 15 个以上字符，方便记忆的短语也可以。</p><button type="submit" class="btn primary">保存密码</button></form></details>' : ''
+        content = `${passwordSettings}${inbox}<button type="button" class="btn secondary" data-sync-action="link">复制专属链接</button><input class="sync-field" aria-label="专属链接" data-sync-link readonly hidden><button type="button" class="btn secondary" data-sync-action="now">立即同步</button>`
       } else if (incoming) {
         content = '<p>登录后可继续账号里的练习。</p><button type="button" class="btn primary" data-sync-action="join">登录此账号</button>'
       } else if (phoneRequest) {
         content = `<p>在已登录的电脑打开账号，核对识别码并允许登录。验证通过后，手机会自动登录。</p><div class="sync-pairing-code"><span>识别码</span><strong data-pair-code></strong></div><p data-pair-status role="status">等待电脑允许登录…</p><button type="button" class="btn primary" data-sync-action="pair-confirm" ${phoneRequest.retryLogin ? '' : 'hidden'}>重试登录</button><button type="button" class="btn secondary" data-sync-action="pair-retry">重新输入名称</button>`
       } else {
-        const lookup = pairing ? '<button type="submit" value="pair" class="btn primary">登录</button>' : ''
-        content = `<form data-sync-create><label for="syncAccountName">账号名称</label><input class="sync-field" id="syncAccountName" name="name" maxlength="24" autocomplete="username" required placeholder="例如 tian">${lookup}<button type="submit" value="create" class="btn ${pairing ? 'secondary' : 'primary'}">创建账号</button></form>`
+        const field = passwordClient ? '<label for="syncPassword">密码</label><input class="sync-field" id="syncPassword" name="password" type="password" autocomplete="current-password" required><button type="submit" value="password-login" class="btn primary">登录</button>' : ''
+        const lookup = pairing ? `<button type="submit" value="pair" class="btn ${passwordClient ? 'secondary' : 'primary'}" formnovalidate>${passwordClient ? '免密码验证' : '登录'}</button>` : ''
+        content = `<form data-sync-create><label for="syncAccountName">账号名称</label><input class="sync-field" id="syncAccountName" name="name" maxlength="24" autocomplete="username" required placeholder="例如 tian">${field}${lookup}<button type="submit" value="create" class="btn ${pairing ? 'secondary' : 'primary'}" formnovalidate>创建账号</button></form>`
       }
       const checkCode = showReachabilityCheck ? 'network' : ''
       const backupOpen = dialog.querySelector('[data-study-backup]')?.open
@@ -292,7 +297,7 @@
     }
 
     async function startPair(name) {
-      if (!pairing || account || incoming || startingPair || attaching || !database) return
+      if (!pairing || account || incoming || startingPair || passwordBusy || attaching || !database) return
       startingPair = true
       updatePairForm()
       status('正在验证登录…')
@@ -388,6 +393,38 @@
     }
 
     let attaching = false
+
+    async function usePassword(form, values, name) {
+      if (!passwordClient || passwordBusy || attaching || startingPair || !database) return
+      const setting = form.matches('[data-password-enroll]')
+      if (setting && !account) return
+      const password = values.get('password')
+      if (setting && password !== values.get('confirm')) { status('两次输入的密码需要一致。', true); return }
+      passwordBusy = true
+      const submit = form.querySelector(setting ? 'button[type="submit"]' : '[value="password-login"]')
+      if (submit) submit.disabled = true
+      updatePairForm()
+      status(setting ? '正在设置密码…' : '正在验证账号密码…')
+      try {
+        if (setting) {
+          await passwordClient.enroll(account, password, endpoint)
+          form.reset()
+          status('登录密码已设置。')
+        } else {
+          const secret = await passwordClient.signIn(name, password, endpoint)
+          const passwordInput = form.querySelector('[name="password"]')
+          if (passwordInput) passwordInput.value = ''
+          await attach(secret, name, false)
+        }
+      } catch (error) {
+        reportFailure(error, setting ? '暂时无法设置密码，请重试。' : '暂时无法登录，请重试。')
+      } finally {
+        passwordBusy = false
+        if (submit) submit.disabled = false
+        updatePairForm()
+      }
+    }
+
     async function attach(secret, name, creating) {
       if (attaching || startingPair || account || !database) return
       if (backupReading || backupCandidate) { status('请先完成或取消文件合并。'); return }
@@ -420,8 +457,13 @@
 
     dialog.addEventListener('submit', event => {
       event.preventDefault()
-      const name = new FormData(event.target).get('name')
+      const form = event.target
+      const values = new FormData(form)
+      if (form.matches('[data-password-enroll]')) { usePassword(form, values); return }
+      if (passwordBusy) return
+      const name = values.get('name')
       if (!validName(name)) { status('请输入 1 到 24 个字的名称。', true); return }
+      if (event.submitter?.value === 'password-login') { usePassword(form, values, name.trim()); return }
       if (event.submitter?.value === 'pair') { startPair(name.trim()); return }
       try { attach(client.createSecret(), name.trim(), true) }
       catch (error) { status(error.message || '此浏览器暂时无法创建同步账号。', true) }

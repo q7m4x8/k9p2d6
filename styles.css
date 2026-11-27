@@ -660,6 +660,9 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .study-backup .study-backup-actions > .btn { min-height: 42px; margin-top: 6px; padding: 6px; font-size: .94rem; }
 .study-backup [data-backup-status] { margin: 8px 0 3px; }
 .study-backup [data-backup-status]:empty, .study-backup-actions[hidden] { display: none; }
+.study-backup[data-password-settings] { margin: 0 0 12px; }
+.study-backup [data-password-enroll] label, [data-sync-create] label { display: block; }
+.study-backup .sync-password-hint { margin: 4px 0 0; font-size: .9rem; }
 .sync-pairing { margin: 12px 0; padding: 12px 14px; background: var(--page); border: 1px solid var(--line); border-radius: 13px; }
 .sync-pairing h3 { margin: 0 0 6px; font-size: 1rem; }
 .sync-pairing p { margin: 4px 0; }

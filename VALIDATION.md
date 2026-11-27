@@ -23,6 +23,8 @@ node scripts/audit-bank.mjs
 
 新设备输入账号名称后发起短期登录申请。已登录设备核对识别码并允许后，新设备自动登录和同步记录。已登录设备用申请设备的公钥加密授权，服务端校验申请归属和时效。首次验证后的网络错误可重试登录。
 
+账号密码登录由已登录的设备开通。浏览器使用 PBKDF2 和 HKDF 产生独立的验证材料及加密密钥，密码由浏览器处理。服务端保存验证材料的摘要和加密后的账户密钥，并限制失败尝试。登录后使用现有加密同步流程读写记录。
+
 同步验证使用 `node --test scripts/test-study-sync-data.cjs scripts/test-study-sync-client.cjs scripts/test-study-pairing-client.cjs`。同步保留最近的练习记录和最近保存的一份未交卷草稿，不同的同题笔记保留两份。编辑中或进行中的练习等保存或返回后同步。
 
 ## 挖坑手册
