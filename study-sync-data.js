@@ -3,6 +3,8 @@
 
   const historyLimit = 50
   const historyQuestionLimit = 10000
+  const backupFormat = 'xiaotian-study-backup'
+  const backupLimit = 12 * 1024 * 1024
   const noteSeparator = '\n\n—— 同步保留的另一份笔记 ——\n\n'
   const routes = ['home', 'album', 'wrong', 'favorites', 'progress']
   const isRecord = value => value !== null && typeof value === 'object' && !Array.isArray(value)
@@ -189,7 +191,37 @@
     }
   }
 
-  const api = { normalizeSnapshot, mergeSnapshots }
+  function serializeBackup(snapshot) {
+    const text = JSON.stringify({ format: backupFormat, version: 1, snapshot: normalizeSnapshot(snapshot) })
+    if (new TextEncoder().encode(text).length > backupLimit) throw new Error('本机记录超过 12 MB，无法导出为单个记录文件。')
+    return text
+  }
+
+  function parseBackup(text) {
+    let value
+    try { value = JSON.parse(text) } catch { throw new Error('文件无法读取，请选择小天爱刷题导出的记录文件。') }
+    const snapshot = value?.snapshot
+    const user = snapshot?.user
+    if (value?.format !== backupFormat || value.version !== 1 || !isRecord(user?.attempts) ||
+      !Array.isArray(user.wrong) || !Array.isArray(user.favorites) || !Array.isArray(user.history) ||
+      !isRecord(snapshot.notes) || !Array.isArray(snapshot.pitfallFavorites) ||
+      (snapshot.draft !== null && !isRecord(snapshot.draft))) {
+      throw new Error('文件格式不匹配，请选择小天爱刷题导出的记录文件。')
+    }
+    return normalizeSnapshot(snapshot)
+  }
+
+  function mergeBackup(local, incoming) {
+    const here = normalizeSnapshot(local)
+    const merged = mergeSnapshots(null, here, incoming)
+    merged.user.theme = here.user.theme
+    merged.user.quizFont = here.user.quizFont
+    merged.user.autoRemoveCorrectFromWrong = here.user.autoRemoveCorrectFromWrong
+    merged.draft = here.draft || merged.draft
+    return merged
+  }
+
+  const api = { normalizeSnapshot, mergeSnapshots, backupLimit, serializeBackup, parseBackup, mergeBackup }
   if (typeof module === 'object' && module.exports) module.exports = api
   if (root) root.StudySyncData = api
 })(typeof window === 'undefined' ? null : window)

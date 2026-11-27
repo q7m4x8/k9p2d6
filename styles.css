@@ -654,6 +654,12 @@ button, .clickable { -webkit-tap-highlight-color: transparent; }
 .sync-connection-check { margin: -6px 0 10px; line-height: 1.6; }
 .sync-connection-check a { display: inline-block; padding: 6px 0; color: var(--accent-ink); }
 .sync-connection-check small { display: block; color: var(--muted); }
+.study-backup { margin-top: 12px; padding: 9px 10px; border: 1px solid var(--line); border-radius: 12px; }
+.study-backup > summary { padding: 4px 0; color: var(--accent-ink); font-weight: 700; cursor: pointer; }
+.study-backup-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.study-backup .study-backup-actions > .btn { min-height: 42px; margin-top: 6px; padding: 6px; font-size: .94rem; }
+.study-backup [data-backup-status] { margin: 8px 0 3px; }
+.study-backup [data-backup-status]:empty, .study-backup-actions[hidden] { display: none; }
 .sync-pairing { margin: 12px 0; padding: 12px 14px; background: var(--page); border: 1px solid var(--line); border-radius: 13px; }
 .sync-pairing h3 { margin: 0 0 6px; font-size: 1rem; }
 .sync-pairing p { margin: 4px 0; }

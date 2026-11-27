@@ -2,7 +2,7 @@ const assert = require('node:assert/strict')
 const fs = require('node:fs')
 const test = require('node:test')
 const vm = require('node:vm')
-const { mergeSnapshots, normalizeSnapshot } = require('../study-sync-data.js')
+const { mergeSnapshots, normalizeSnapshot, serializeBackup, parseBackup, mergeBackup } = require('../study-sync-data.js')
 
 function record(id, submittedAt, question = 'q1') {
   return { id, submittedAt, title: '练习', totalSeconds: 12, correctCount: 1,
@@ -125,4 +125,43 @@ test('history respects recent record and question limits and distinguishes reuse
   assert.equal(merged.user.history.length, 5)
   assert.equal(merged.user.history[0].id, 'z-6')
   assert.equal(merged.user.history.at(-1).id, 'z-2')
+})
+
+test('transfer files round-trip practice data and do not include account credentials', () => {
+  const local = {
+    user: { favorites: ['q1'], history: [record('exported', 100)] },
+    notes: { q1: '笔记' }, draft: draft('q1', 90),
+    account: { secret: 'private-test-key' }
+  }
+  const text = serializeBackup(local)
+  assert(!text.includes('private-test-key'))
+  assert.deepEqual(parseBackup(text), normalizeSnapshot(local))
+  assert.throws(() => parseBackup('{"notes":{}}'), /文件格式不匹配/)
+  assert.throws(() => parseBackup('invalid JSON'), /文件无法读取/)
+  const wrongVersion = { ...JSON.parse(text), version: 2 }
+  assert.throws(() => parseBackup(JSON.stringify(wrongVersion)), /文件格式不匹配/)
+})
+
+test('manual merge preserves the active local draft and display choices and deduplicates repeated imports', () => {
+  const local = {
+    user: { attempts: { q1: { at: 200, correct: true } }, wrong: ['q1'], quizFont: 'large', theme: 3 },
+    notes: { q1: '手机' }, draft: draft('q1', 50)
+  }
+  const incoming = {
+    user: { attempts: { q1: { at: 150, correct: false } }, favorites: ['q2'], autoRemoveCorrectFromWrong: true, history: [record('remote', 110)] },
+    notes: { q1: '电脑' }, draft: draft('q2', 100)
+  }
+  const merged = mergeBackup(local, incoming)
+  assert.equal(merged.user.attempts.q1.at, 200)
+  assert.equal(merged.user.quizFont, 'large')
+  assert.equal(merged.user.theme, 3)
+  assert.equal(merged.user.autoRemoveCorrectFromWrong, false)
+  assert.deepEqual(merged.user.wrong, ['q1'])
+  assert.deepEqual(merged.user.favorites, ['q2'])
+  assert.deepEqual(merged.user.history.map(item => item.id), ['remote'])
+  assert.match(merged.notes.q1, /手机/)
+  assert.match(merged.notes.q1, /电脑/)
+  assert.deepEqual(merged.draft, local.draft)
+  assert.deepEqual(mergeBackup(merged, incoming), merged)
+  assert.deepEqual(mergeBackup({}, incoming).draft, incoming.draft)
 })

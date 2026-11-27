@@ -45,6 +45,11 @@
     let checkingPair = false
     let startingPair = false
     let approvingPair = false
+    let backupCandidate = null
+    let backupReading = false
+    let backupReadId = 0
+    let backupMessage = ''
+    let backupFailed = false
     let incoming = window.location.hash.startsWith(linkPrefix) ? window.location.hash.slice(linkPrefix.length) : ''
     let message = ''
     let failed = false
@@ -81,6 +86,10 @@
       if (label) { label.textContent = text; label.classList.toggle('sync-error', error) }
       const check = dialog.querySelector('[data-sync-check]')
       if (check) check.hidden = !showReachabilityCheck
+      if (showReachabilityCheck) {
+        const backup = dialog.querySelector('[data-study-backup]')
+        if (backup) backup.open = true
+      }
     }
 
     function reportFailure(error, fallback) {
@@ -92,6 +101,76 @@
       if (!form) return
       form.setAttribute('aria-busy', String(startingPair))
       for (const submit of form.querySelectorAll('button[type="submit"]')) submit.disabled = startingPair
+    }
+
+    function backupStatus(text, error = false) {
+      backupMessage = text
+      backupFailed = error
+      const label = dialog.querySelector('[data-backup-status]')
+      if (!label) return
+      label.textContent = text
+      label.classList.toggle('sync-error', error)
+      dialog.querySelector('[data-backup-review]').hidden = !backupCandidate
+      dialog.querySelector('[data-sync-action="backup-choose"]').disabled = backupReading
+    }
+
+    function exportBackup() {
+      try {
+        const contents = data.serializeBackup(getSnapshot())
+        const url = window.URL.createObjectURL(new Blob([contents], { type: 'application/json;charset=utf-8' }))
+        const link = document.createElement('a')
+        link.href = url
+        link.download = '小天爱刷题-练习记录.json'
+        dialog.append(link)
+        try { link.click() } finally {
+          link.remove()
+          window.setTimeout(() => window.URL.revokeObjectURL(url), 60000)
+        }
+        backupStatus('已开始下载记录文件。')
+      } catch (error) {
+        backupStatus(error.message || '记录导出失败，请重试。', true)
+      }
+    }
+
+    async function readBackup(file) {
+      if (!file) return
+      const readId = ++backupReadId
+      backupCandidate = null
+      backupReading = true
+      backupStatus('正在读取记录文件…')
+      try {
+        if (file.size > data.backupLimit) throw new Error('记录文件超过 12 MB，请选择较小的文件。')
+        const snapshot = data.parseBackup(await file.text())
+        if (readId !== backupReadId || !dialog.open) return
+        backupCandidate = snapshot
+        const attempts = Object.keys(snapshot.user.attempts).length
+        const history = snapshot.user.history.length
+        const notes = Object.keys(snapshot.notes).length
+        backupStatus(`文件包含 ${attempts} 道已答题、${history} 次练习和 ${notes} 条笔记。历史最多保留最近 50 次练习。`)
+      } catch (error) {
+        if (readId === backupReadId && dialog.open) backupStatus(error.message || '记录文件无法读取。', true)
+      } finally {
+        if (readId === backupReadId) {
+          backupReading = false
+          backupStatus(backupMessage, backupFailed)
+        }
+      }
+    }
+
+    function confirmBackup() {
+      if (!backupCandidate) return
+      if (running || attaching) return backupStatus('当前的云同步请求还在处理，请稍后再合并。', true)
+      if (!canSync()) return backupStatus('请先结束当前答题或保存正在编辑的笔记，再合并记录。', true)
+      try {
+        const local = getSnapshot()
+        const combined = data.mergeBackup(local, backupCandidate)
+        if (!same(local, combined)) applySnapshot(combined)
+        backupCandidate = null
+        backupStatus('已合并到本机。')
+        schedule()
+      } catch (error) {
+        backupStatus(error.message || '记录暂时无法合并，本机记录已保留。', true)
+      }
     }
 
     function renderDialog() {
@@ -108,7 +187,9 @@
         content = `<form data-sync-create><label for="syncAccountName">账号名称</label><input class="sync-field" id="syncAccountName" name="name" maxlength="24" autocomplete="nickname" required placeholder="例如 tian">${lookup}<button type="submit" value="create" class="btn ${pairing ? 'secondary' : 'primary'}">创建同步账号</button></form>`
       }
       const checkCode = showReachabilityCheck ? 'network' : ''
-      dialog.innerHTML = `<h2 id="studySyncTitle">电脑手机同步</h2><p data-sync-name hidden></p>${content}<p data-sync-status role="status"></p><div class="sync-connection-check" data-sync-check hidden><a target="_blank" rel="noopener noreferrer">检测同步服务器 ↗</a><small>出现 authorization 表示当前网络可以访问服务器。</small></div><button type="button" class="btn secondary" data-sync-action="close">关闭</button>`
+      const backupOpen = dialog.querySelector('[data-study-backup]')?.open
+      const backup = `<details class="study-backup" data-study-backup ${backupOpen ? 'open' : ''}><summary>用文件合并记录</summary><div class="study-backup-actions"><button type="button" class="btn secondary" data-sync-action="backup-export">导出记录</button><button type="button" class="btn secondary" data-sync-action="backup-choose">选择记录文件</button></div><input type="file" data-backup-file accept=".json,application/json" hidden><p data-backup-status role="status"></p><div class="study-backup-actions" data-backup-review hidden><button type="button" class="btn primary" data-sync-action="backup-confirm">合并到本机</button><button type="button" class="btn secondary" data-sync-action="backup-cancel">取消合并</button></div></details>`
+      dialog.innerHTML = `<h2 id="studySyncTitle">电脑手机同步</h2><p data-sync-name hidden></p>${content}<p data-sync-status role="status"></p><div class="sync-connection-check" data-sync-check hidden><a target="_blank" rel="noopener noreferrer">检测同步服务器 ↗</a><small>出现 authorization 表示当前网络可以访问服务器。</small></div>${backup}<button type="button" class="btn secondary" data-sync-action="close">关闭</button>`
       dialog.querySelector('[data-sync-check] a').href = endpoint
       if (account || phoneRequest) {
         const name = dialog.querySelector('[data-sync-name]')
@@ -122,6 +203,7 @@
       }
       status(message, failed, checkCode)
       updatePairForm()
+      backupStatus(backupMessage, backupFailed)
     }
 
     function open() {
@@ -287,6 +369,10 @@
 
     function runSync(manual = false) {
       if (!account) return
+      if (backupReading || backupCandidate) {
+        if (manual) status('请先完成或取消文件合并。')
+        return
+      }
       if (!canSync()) {
         if (manual) status('结束答题或笔记编辑后会继续同步。')
         return
@@ -300,6 +386,7 @@
     let attaching = false
     async function attach(secret, name, creating) {
       if (attaching || startingPair || account || !database) return
+      if (backupReading || backupCandidate) { status('请先完成或取消文件合并。'); return }
       if (!canSync()) { status('结束答题或笔记编辑后再连接同步。', true); return }
       attaching = true
       const action = dialog.querySelector(creating ? 'button[value="create"]' : name ? '[data-sync-action="pair-confirm"]' : '[data-sync-action="join"]')
@@ -335,9 +422,25 @@
       try { attach(client.createSecret(), name.trim(), true) }
       catch (error) { status(error.message || '此浏览器暂时无法创建同步账号。', true) }
     })
+    dialog.addEventListener('change', event => {
+      const input = event.target
+      if (!input.matches('[data-backup-file]')) return
+      const file = input.files?.[0]
+      input.value = ''
+      readBackup(file)
+    })
 
     dialog.addEventListener('click', async event => {
       const action = event.target.closest('button[data-sync-action]')?.dataset.syncAction
+      if (action === 'backup-export') return exportBackup()
+      if (action === 'backup-choose') return dialog.querySelector('[data-backup-file]').click()
+      if (action === 'backup-confirm') return confirmBackup()
+      if (action === 'backup-cancel') {
+        backupCandidate = null
+        backupStatus('已取消合并。')
+        schedule()
+        return
+      }
       if (action === 'close') dialog.close()
       if (action === 'join' && incoming) attach(incoming, '', false)
       if (action === 'pair-confirm' && phoneRequest?.secret) attach(phoneRequest.secret, phoneRequest.name, false)
@@ -357,6 +460,11 @@
       }
     })
     dialog.addEventListener('close', () => {
+      backupReadId++
+      backupReading = false
+      backupCandidate = null
+      backupStatus('')
+      schedule()
       window.clearTimeout(pairTimer)
       pairTimer = undefined
       approvedCode = undefined
